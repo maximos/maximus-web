@@ -10,8 +10,9 @@ Maximus::Task::Module::Fetch - Module source fetching task
 =head1 SYNOPSIS
 
 	use Maximus::Task::Module::Fetch;
+	my $mod = Maximus::Class::Module->new;
 	my $task = Maximus::Task::Module::Fetch->new;
-	$task->init(modid => 'foo.bar');
+	$task->init(module => $mod);
 	$task->run;
 
 =head1 DESCRIPTION
@@ -23,7 +24,6 @@ Fetch sources for a specified module
 =head2 init
 
 Initialize module fetch task
-
 =cut
 sub init {
 	my $self = shift;
@@ -33,7 +33,6 @@ sub init {
 =head2 run
 
 Run task
-
 =cut
 sub run {
 	my $self = shift;

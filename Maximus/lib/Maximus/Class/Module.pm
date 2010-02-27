@@ -1,43 +1,40 @@
-package Maximus::Task::Module::Build;
+package Maximus::Class::Module;
 use Moose;
-
-with 'Maximus::Role::Task';
 
 =head1 NAME
 
-Maximus::Task::Module::Build - Module building task
+Maximus::Class::Module - Represents a module
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::Module::Build;
-	my $mod = Maximus::Class::Module->new;
-	my $task = Maximus::Task::Module::Build->new;
-	$task->init(module => $mod);
-	$task->run;
+	use Maximus::Class::Module;
+	my $module = Maximus::Class::Module->new;
 
 =head1 DESCRIPTION
 
-Build a module from available sources.
+This class represents a module
+
+=head1 ATTRIBUTES
+
+=head2 modscope
+
+Modscope (namespace) of module, e.g. B<brl>.example
+=cut
+has 'modscope' => (is => 'rw', isa => 'String', required => 1);
+
+=head2 mod
+
+Name of module, e.g. brl.B<example>
+=cut
+has 'mod' => (is => 'rw', isa => 'String', required => 1);
+
+=head2 name
+
+Formal name of module
+=cut
+has 'name' => (is => 'rw', isa => 'String', required => 1);
 
 =head1 METHODS
-
-=head2 init
-
-Initialize module build task
-=cut
-sub init {
-	my $self = shift;
-	0;
-}
-
-=head2 run
-
-Run task
-=cut
-sub run {
-	my $self = shift;
-	0;
-}
 
 =head1 AUTHOR
 
