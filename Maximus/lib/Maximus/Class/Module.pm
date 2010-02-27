@@ -20,19 +20,25 @@ This class represents a module
 
 Modscope (namespace) of module, e.g. B<brl>.example
 =cut
-has 'modscope' => (is => 'rw', isa => 'String', required => 1);
+has 'modscope' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 mod
 
 Name of module, e.g. brl.B<example>
 =cut
-has 'mod' => (is => 'rw', isa => 'String', required => 1);
+has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 name
 
 Formal name of module
 =cut
-has 'name' => (is => 'rw', isa => 'String', required => 1);
+has 'name' => (is => 'rw', isa => 'Str', required => 1);
+
+=head2 source
+
+Source location
+=cut
+has 'source' => (is => 'rw', isa => 'Str', required => 1);
 
 =head1 METHODS
 
