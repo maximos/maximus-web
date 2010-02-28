@@ -13,6 +13,7 @@ requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'Archive::Extract' => '0.38';
 requires 'Archive::Builder' => '1.14';
+requires 'Archive::Zip' => '1.30';
 test_requires 'Test::More' => '0.88';
 catalyst;
 
