@@ -18,6 +18,26 @@ Maximus::Role::Module::Source - Interface for module source handlers
 
 This is the interface for all Maximus::Class::Module::Source classes
 
+=head1 ATTRIBUTES
+
+
+=cut
+
+=head2 tmpDir
+
+Retrieve path to temporary directory for file storage. This directory wil be
+automatically cleaned up.
+=cut
+has 'tmpDir' => (
+	is => 'ro',
+	'isa' => 'File::Temp::Dir',
+	builder => '_tmpDirBuilder'
+);
+
+sub _tmpDirBuilder {
+	return File::Temp->newdir();
+}
+
 =head1 METHODS
 
 =head2 prepare
@@ -26,16 +46,6 @@ Prepare contents of temporarily directory to validate against the I<validate>
 method of L<Maximus::Class::Module::Source::Base> 
 =cut
 requires 'prepare';
-
-=head2 getTmpDir
-
-Retrieve path to temporary directory for file storage. This directory wil be
-automatically cleaned up.
-=cut
-sub getTmpDir {
-	my $self = shift;
-	File::Temp->newdir();
-}
 
 =head2 validate(I<$directory>, I<$module>)
 
