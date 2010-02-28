@@ -1,5 +1,6 @@
 package Maximus::Class::Module::Source::SCM::Git;
 use Moose;
+use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
 

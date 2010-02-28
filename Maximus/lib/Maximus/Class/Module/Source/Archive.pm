@@ -1,6 +1,7 @@
 package Maximus::Class::Module::Source::Archive;
 use Moose;
-use Archive::Extract
+use Archive::Extract;
+use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
 
