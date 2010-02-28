@@ -21,12 +21,12 @@ use it to write handlers.
 
 =head1 METHODS
 
-=head2 getTmp
+=head2 getTmpDir
 
 Retrieve path to temporary directory for file storage. This directory wil be
 automatically cleaned up.
 =cut
-sub getTmp {
+sub getTmpDir {
 	my $self = shift;
 	File::Temp->newdir();
 }
