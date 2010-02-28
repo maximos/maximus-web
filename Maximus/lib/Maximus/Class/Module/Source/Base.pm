@@ -1,5 +1,6 @@
 package Maximus::Class::Module::Source::Base;
 use Moose;
+use File::Temp;
 
 =head1 NAME
 
@@ -18,6 +19,16 @@ Base module for handling source file retrievement.
 =head1 ATTRIBUTES
 
 =head1 METHODS
+
+=head2 getTmp
+
+Retrieve path to temporary directory for file storage. This directory wil be
+automatically cleaned up.
+=cut
+sub getTmp {
+	my $self = shift;
+	File::Temp->newdir();
+}
 
 =head1 AUTHOR
 
