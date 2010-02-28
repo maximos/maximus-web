@@ -1,6 +1,7 @@
 package Maximus::Class::Module::Source::Base;
 use Moose;
 use File::Temp;
+use IO::File;
 
 =head1 NAME
 
@@ -29,6 +30,41 @@ automatically cleaned up.
 sub getTmpDir {
 	my $self = shift;
 	File::Temp->newdir();
+}
+
+=head2 validate(I<$directory>, I<$module>)
+
+Validate directory structure and its contents to see if it can be archived.
+I<$module> ISA Maximus::Class::Module
+=cut
+sub validate {
+	my($self, $dir, $mod) = @_;
+
+	die('$mod isn\'t of the type Maximus::Class::Module')
+	unless $mod->isa('Maximus::Class::Module');
+	
+	my $modName = join('.', $mod->modscope, $mod->mod);
+	my $mainFile = $dir . '/' . $mod->mod . '.bmx';	
+	
+	my $fh = new IO::File;
+	die('Unable to open main file: ', $mainFile) unless($fh->open($mainFile));
+
+	my $modNameOK = 0;
+	while(<$fh>) {
+		chomp;
+		if(index($_, 'Module ' . $modName) != -1) {
+			# Make sure the line isn't commented
+			if($_ =~ m/^(\s|\t)*Module\s/) {
+				$modNameOK = 1;
+				last;
+			}
+		}
+	}
+	$fh->close;
+	
+	die('Module name doesn\'t match') unless $modNameOK;
+	
+	1;
 }
 
 =head1 AUTHOR
