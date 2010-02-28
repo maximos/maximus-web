@@ -29,6 +29,20 @@ has 'file' => (is => 'rw', isa => 'Str', required => 1);
 
 =head1 METHODS
 
+=head2 prepare
+
+Extract given archive to temporary directory and modify its contents if required
+=cut
+sub prepare {
+	my($self, $mod) = @_;
+	
+	my $tmpDir = $self->tmpDir;
+	my $ae = Archive::Extract->new( archive => $self->file );
+
+	die($ae->error) unless $ae->extract( to => $tmpDir );
+	$self->validate($mod);
+}
+
 =head1 AUTHOR
 
 Christiaan Kras
