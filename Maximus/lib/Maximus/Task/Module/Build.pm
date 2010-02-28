@@ -1,5 +1,6 @@
 package Maximus::Task::Module::Build;
 use Moose;
+use Archive::Builder;
 
 with 'Maximus::Role::Task';
 

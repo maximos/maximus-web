@@ -11,6 +11,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Moose';
 requires 'namespace::autoclean';
 requires 'Config::General';
+requires 'Archive::Builder' => '1.14';
 test_requires 'Test::More' => '0.88';
 catalyst;
 
