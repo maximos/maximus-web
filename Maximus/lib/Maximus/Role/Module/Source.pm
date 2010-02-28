@@ -20,8 +20,11 @@ This is the interface for all Maximus::Class::Module::Source classes
 
 =head1 ATTRIBUTES
 
+=head2 validated
 
+Returns true if C<validate> succeeded.
 =cut
+has 'validated' => (is => 'ro', 'isa' => 'Bool');
 
 =head2 tmpDir
 
@@ -78,8 +81,7 @@ sub validate {
 	$fh->close;
 	
 	die('Module name doesn\'t match') unless $modNameOK;
-	
-	1;
+	$self->validated = 1;
 }
 
 =head1 AUTHOR
