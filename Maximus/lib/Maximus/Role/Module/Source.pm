@@ -1,26 +1,31 @@
-package Maximus::Class::Module::Source::Base;
-use Moose;
+package Maximus::Role::Module::Source;
+use Moose::Role;
 use File::Temp;
 use IO::File;
 
 =head1 NAME
 
-Maximus::Class::Module::Source::Base - Module source hanlding base module
+Maximus::Role::Module::Source - Interface for module source handlers
 
 =head1 SYNOPSIS
 
-	package Foo::Source;
+	package Maximus::Class::Module::Source::SCM::Foo;
 	use Moose;
-	extends 'Maximus::Class::Module::Source::Base';
+
+	with 'Maximus::Role::Module::Source';
 
 =head1 DESCRIPTION
 
-Base module for handling source file retrievement. Don't call this directly but
-use it to write handlers.
-
-=head1 ATTRIBUTES
+This is the interface for all Maximus::Class::Module::Source classes
 
 =head1 METHODS
+
+=head2 prepare
+
+Prepare contents of temporarily directory to validate against the I<validate>
+method of L<Maximus::Class::Module::Source::Base> 
+=cut
+requires 'prepare';
 
 =head2 getTmpDir
 

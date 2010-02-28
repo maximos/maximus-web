@@ -40,7 +40,7 @@ Source location
 =cut
 has 'source' => (
 	is => 'rw',
-	isa => 'Maximus::Class::Module::Source::Base',
+	does => 'Maximus::Role::Module::Source',
 	required => 1
 );
 

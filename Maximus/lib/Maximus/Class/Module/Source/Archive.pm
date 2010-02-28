@@ -2,7 +2,7 @@ package Maximus::Class::Module::Source::Archive;
 use Moose;
 use Archive::Extract
 
-extends 'Maximus::Class::Module::Source::Base';
+with 'Maximus::Role::Module::Source';
 
 =head1 NAME
 

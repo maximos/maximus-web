@@ -1,7 +1,7 @@
 package Maximus::Class::Module::Source::SCM::Subversion;
 use Moose;
 
-extends 'Maximus::Class::Module::Source::Base';
+with 'Maximus::Role::Module::Source';
 
 =head1 NAME
 
