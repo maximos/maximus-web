@@ -25,7 +25,7 @@ This is the interface for all Maximus::Class::Module::Source classes
 
 Returns true if C<validate> succeeded.
 =cut
-has 'validated' => (is => 'ro', 'isa' => 'Bool');
+has 'validated' => (is => 'rw', 'isa' => 'Bool');
 
 =head2 tmpDir
 
@@ -82,7 +82,7 @@ sub validate {
 	$fh->close;
 	
 	die('Module name doesn\'t match') unless $modNameOK;
-	$self->validated = 1;
+	$self->validated(1);
 }
 
 =head2 archive
