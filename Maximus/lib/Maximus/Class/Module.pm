@@ -38,7 +38,7 @@ has 'name' => (is => 'rw', isa => 'Str', required => 1);
 
 Source location
 =cut
-has 'source' => (is => 'rw', isa => 'Str', required => 1);
+has 'source' => (is => 'rw', isa => 'Maximus::Class::Module::Source::Base', required => 1);
 
 =head1 METHODS
 
