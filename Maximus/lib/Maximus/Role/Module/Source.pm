@@ -1,5 +1,6 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
+use Archive::Builder;
 use File::Temp;
 use IO::File;
 
@@ -82,6 +83,15 @@ sub validate {
 	
 	die('Module name doesn\'t match') unless $modNameOK;
 	$self->validated = 1;
+}
+
+=head2 archive
+
+Create an archive out of the contents of the temporarily directory
+=cut
+sub archive {
+	my($self) = @_;
+	die('Sources are not validated') unless $self->validated;
 }
 
 =head1 AUTHOR
