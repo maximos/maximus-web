@@ -50,19 +50,19 @@ method of L<Maximus::Class::Module::Source::Base>
 =cut
 requires 'prepare';
 
-=head2 validate(I<$directory>, I<$module>)
+=head2 validate(I<$module>)
 
 Validate directory structure and its contents to see if it can be archived.
 I<$module> ISA Maximus::Class::Module
 =cut
 sub validate {
-	my($self, $dir, $mod) = @_;
+	my($self, $mod) = @_;
 
 	die('$mod isn\'t of the type Maximus::Class::Module')
 	unless $mod->isa('Maximus::Class::Module');
 	
 	my $modName = join('.', $mod->modscope, $mod->mod);
-	my $mainFile = $dir . '/' . $mod->mod . '.bmx';	
+	my $mainFile = $self->tmpDir . '/' . $mod->mod . '.bmx';	
 	
 	my $fh = new IO::File;
 	die('Unable to open main file: ', $mainFile) unless($fh->open($mainFile));
