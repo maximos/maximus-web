@@ -20,6 +20,12 @@ Archive support for retrieving the modules sources.
 
 =head1 ATTRIBUTES
 
+=head2 file
+
+Location to archive file
+=cut
+has 'file' => (is => 'rw', isa => 'Str', required => 1);
+
 =head1 METHODS
 
 =head1 AUTHOR
