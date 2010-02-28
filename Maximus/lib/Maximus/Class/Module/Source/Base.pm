@@ -14,7 +14,8 @@ Maximus::Class::Module::Source::Base - Module source hanlding base module
 
 =head1 DESCRIPTION
 
-Base module for handling source file retrievement.
+Base module for handling source file retrievement. Don't call this directly but
+use it to write handlers.
 
 =head1 ATTRIBUTES
 
