@@ -1,6 +1,7 @@
 package Maximus::Class::Module::Source::Archive;
 use Moose;
 use Archive::Extract;
+use File::Copy::Recursive qw/dirmove/;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
@@ -36,10 +37,20 @@ Extract given archive to temporary directory and modify its contents if required
 sub prepare {
 	my($self, $mod) = @_;
 	
-	my $tmpDir = $self->tmpDir;
 	my $ae = Archive::Extract->new( archive => $self->file );
-
-	die($ae->error) unless $ae->extract( to => $tmpDir );
+	die($ae->error) unless $ae->extract( to => $self->tmpDir );
+	
+	my $rootDir;
+	my $mainFile = $mod->mod . '.bmx';
+	foreach(@{$ae->files()}) {
+		if($_ =~ m/\/$mainFile$/) {
+			$rootDir = $_;
+			$rootDir =~ s/$mainFile$//;
+			last;
+		}
+	}
+	
+	dirmove($self->tmpDir . '/' . $rootDir, $self->tmpDir) if($rootDir);
 	$self->validate($mod);
 }
 
