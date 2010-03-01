@@ -1,6 +1,6 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
-use Archive::Zip;
+use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use File::Temp;
 use IO::File;
 
@@ -20,6 +20,12 @@ Maximus::Role::Module::Source - Interface for module source handlers
 This is the interface for all Maximus::Class::Module::Source classes
 
 =head1 ATTRIBUTES
+
+=head2 version
+
+Version of module this source represents
+=cut
+has 'version' => (is => 'rw', 'isa' => 'Str');
 
 =head2 validated
 
@@ -85,13 +91,33 @@ sub validate {
 	$self->validated(1);
 }
 
-=head2 archive
+=head2 archive(I<$module>, I<$fileLocation>)
 
 Create an archive out of the contents of the temporarily directory
 =cut
 sub archive {
-	my($self) = @_;
+	my($self, $mod, $location) = @_;
 	die('Sources are not validated') unless $self->validated;
+	die('Invalid source version') unless $self->version;
+
+	my $modName = $mod->mod . '.mod';
+	my $zip = Archive::Zip->new();
+	$zip->addTree($self->tmpDir , $modName);
+
+	# Remove generated documentation from archive
+	$zip->removeMember($modName . '/doc/commands.html');
+	
+	my @members = $zip->membersMatching('\.(bmx|bbdoc|txt)$');
+	$_->desiredCompressionMethod(COMPRESSION_DEFLATED) foreach(@members);
+	
+	my $fileName = sprintf('%s.%s-%s.zip',
+		$mod->modscope,
+		$mod->mod,
+		$self->version
+	);
+
+	die('Unable to save Zip Archive')
+	unless( $zip->writeToFileNamed($location . $fileName) == AZ_OK );
 }
 
 =head1 AUTHOR
