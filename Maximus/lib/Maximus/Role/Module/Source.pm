@@ -107,7 +107,7 @@ sub archive {
 	# Remove generated documentation from archive
 	$zip->removeMember($modName . '/doc/commands.html');
 	
-	my @members = $zip->membersMatching('\.(bmx|bbdoc|txt)$');
+	my @members = $zip->membersMatching('\.(bmx|bbdoc|txt|c|h|cpp|cxx)$');
 	$_->desiredCompressionMethod(COMPRESSION_DEFLATED) foreach(@members);
 	
 	my $fileName = sprintf('%s.%s-%s.zip',
