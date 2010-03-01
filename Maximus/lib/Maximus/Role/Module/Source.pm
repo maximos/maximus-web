@@ -102,6 +102,17 @@ sub archive {
 
 	my $modName = $mod->mod . '.mod';
 	my $zip = Archive::Zip->new();
+	$zip->zipfileComment(
+		join("\n", (
+			'This BlitzMax module has been packed by Maximus',
+			'',
+			"Modscope: " . $mod->modscope,
+			"Mod: " . $mod->mod,
+			"Version: " . $self->version,
+			'',
+			'Archive creation date on ' . localtime
+		))
+	);
 	$zip->addTree($self->tmpDir , $modName);
 
 	# Remove generated documentation from archive
