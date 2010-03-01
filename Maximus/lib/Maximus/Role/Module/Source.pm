@@ -1,6 +1,6 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
-use Archive::Builder;
+use Archive::Zip;
 use File::Temp;
 use IO::File;
 
