@@ -79,7 +79,7 @@ sub validate {
 	my $modNameOK = 0;
 	while(<$fh>) {
 		chomp;
-		if(index($_, 'Module ' . $modName) != -1) {
+		if(index(lc($_), lc('Module ' . $modName)) != -1) {
 			# Make sure the line isn't commented
 			if($_ =~ m/^(\s|\t)*Module\s/) {
 				$modNameOK = 1;
