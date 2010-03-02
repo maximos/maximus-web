@@ -36,7 +36,7 @@ has 'desc' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 source
 
-Source location
+Source location. Needs to be a class which does L<Maximus::Role::Module::Source>
 =cut
 has 'source' => (
 	is => 'rw',
