@@ -111,6 +111,7 @@ sub archive {
 			"Modscope: " . $mod->modscope,
 			"Mod: " . $mod->mod,
 			"Version: " . $self->version,
+			"Description: " . $mod->desc,
 			'',
 			'Archive creation date on ' . localtime
 		))
