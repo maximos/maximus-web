@@ -43,13 +43,68 @@ has 'tags' => (is => 'rw', 'isa' => 'Str', default => 'tags');
 =head2 tagsFilter
 
 If the repository hosts more modules then set this to filter the listing.
-e.g.: C<^my\.mod-> if this module uses tags in the style of I<my.mod-0.01> or
-I<my.mod-0.3.0>.
+e.g.: C<^my\.mod-(.+)> if this module uses tags in the style of I<my.mod-0.01>
+or I<my.mod-0.3.0>. You MUST add a capture so the version string can be fetched.
 =cut
 has 'tagsFilter' => (is => 'rw', 'isa' => 'Str', default => '');
 
 =head1 METHODS
 
+=head2 prepare
+
+Fetch files for I<version> and sort them inside the temporary directory
+=cut
+sub prepare {
+	my($self, $mod) = @_;
+	
+	my $url;
+	if($self->version eq 'dev') {
+		$url = join('/', ($self->repository, $self->trunk));
+	}
+	else {
+		my %versions = $self->getVersions;
+		confess('Specified version doesn\'t exist in repository')
+		unless exists($versions{$self->version});
+		
+		$url = join('/', (
+			$self->repository,
+			$self->tags,
+			$versions{$self->version})
+		);
+	}
+	
+	my $cmd = join(' ', (
+		'svn export --force',
+		$url,
+		$self->tmpDir)
+	);
+	`$cmd`;
+	
+	$self->validate($mod);
+}
+
+=head2 getVersions
+
+Returns all versions
+=cut
+sub getVersions {
+	my($self) = @_;
+	my $cmd = 'svn list ' . join('/', ($self->repository, $self->tags));
+	my @ls = `$cmd`;
+	my %tags;
+	
+	if(length($self->tagsFilter) > 0) {
+		my $regex = $self->tagsFilter;
+		%tags = map { 
+			chomp;
+			my $k = $_;
+			$k =~ s/$regex\/$/$1/;
+			$k => $_
+		} grep {/$regex/} @ls;
+	}
+	
+	return %tags;
+}
 =head1 AUTHOR
 
 Christiaan Kras
