@@ -28,11 +28,11 @@ Name of module, e.g. brl.B<example>
 =cut
 has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
-=head2 name
+=head2 desc
 
-Formal name of module
+Description of module
 =cut
-has 'name' => (is => 'rw', isa => 'Str', required => 1);
+has 'desc' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 source
 
