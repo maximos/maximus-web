@@ -1,6 +1,7 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
+use Carp qw/confess/;
 use File::Temp;
 use IO::File;
 
@@ -65,14 +66,15 @@ I<$module> ISA Maximus::Class::Module
 sub validate {
 	my($self, $mod) = @_;
 
-	die('$mod isn\'t of the type Maximus::Class::Module')
+	confess('$mod isn\'t of the type Maximus::Class::Module')
 	unless $mod->isa('Maximus::Class::Module');
 	
 	my $modName = join('.', $mod->modscope, $mod->mod);
 	my $mainFile = $self->tmpDir . '/' . $mod->mod . '.bmx';	
 	
 	my $fh = new IO::File;
-	die('Unable to open main file: ', $mainFile) unless($fh->open($mainFile));
+	confess('Unable to open main file: ', $mainFile)
+	unless($fh->open($mainFile));
 
 	my $modNameOK = 0;
 	while(<$fh>) {
@@ -87,7 +89,7 @@ sub validate {
 	}
 	$fh->close;
 	
-	die('Module name doesn\'t match') unless $modNameOK;
+	confess('Module name doesn\'t match') unless $modNameOK;
 	$self->validated(1);
 }
 
@@ -97,8 +99,8 @@ Create an archive out of the contents of the temporarily directory
 =cut
 sub archive {
 	my($self, $mod, $location) = @_;
-	die('Sources are not validated') unless $self->validated;
-	die('Invalid source version') unless $self->version;
+	confess('Sources are not validated') unless $self->validated;
+	confess('Invalid source version') unless $self->version;
 
 	my $modName = $mod->mod . '.mod';
 	my $zip = Archive::Zip->new();
@@ -127,7 +129,7 @@ sub archive {
 		$self->version
 	);
 
-	die('Unable to save Zip Archive')
+	confess('Unable to save Zip Archive')
 	unless( $zip->writeToFileNamed($location . $fileName) == AZ_OK );
 }
 

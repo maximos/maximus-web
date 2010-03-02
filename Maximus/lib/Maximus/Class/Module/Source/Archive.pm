@@ -1,6 +1,7 @@
 package Maximus::Class::Module::Source::Archive;
 use Moose;
 use Archive::Extract;
+use Carp qw/confess/;
 use File::Copy::Recursive qw/dirmove/;
 use namespace::autoclean;
 
@@ -38,7 +39,7 @@ sub prepare {
 	my($self, $mod) = @_;
 	
 	my $ae = Archive::Extract->new( archive => $self->file );
-	die($ae->error) unless $ae->extract( to => $self->tmpDir );
+	confess($ae->error) unless $ae->extract( to => $self->tmpDir );
 	
 	my $rootDir;
 	my $mainFile = $mod->mod . '.bmx';
