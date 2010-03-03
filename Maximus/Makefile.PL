@@ -15,6 +15,7 @@ requires 'Archive::Extract' => '0.38';
 requires 'Archive::Zip' => '1.30';
 requires 'File::Temp' => '0.22';
 requires 'File::Copy::Recursive' => '0.38';
+requires 'Gearman' => '1.11';
 test_requires 'Test::More' => '0.88';
 catalyst;
 
