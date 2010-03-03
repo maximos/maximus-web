@@ -24,21 +24,21 @@ Subversion support for retrieving the modules sources.
 
 Location of remote Git repository. Must be publicly readable
 =cut
-has 'repository' => (is => 'rw', 'isa' => 'Str', required => 1);
+has 'repository' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 trunk
 
 Path to trunk. If the repository hosts more modules then set it to the module
 path, e.g. trunk/my.mod
 =cut
-has 'trunk' => (is => 'rw', 'isa' => 'Str', default => 'trunk');
+has 'trunk' => (is => 'rw', isa => 'Str', default => 'trunk');
 
 =head2 tags
 
 Path to tags. If the repository hosts more modules then set I<tagsFilter> to
 filter the listing.
 =cut
-has 'tags' => (is => 'rw', 'isa' => 'Str', default => 'tags');
+has 'tags' => (is => 'rw', isa => 'Str', default => 'tags');
 
 =head2 tagsFilter
 
@@ -46,7 +46,7 @@ If the repository hosts more modules then set this to filter the listing.
 e.g.: C<^my\.mod-(.+)> if this module uses tags in the style of I<my.mod-0.01>
 or I<my.mod-0.3.0>. You MUST add a capture so the version string can be fetched.
 =cut
-has 'tagsFilter' => (is => 'rw', 'isa' => 'Str', default => '');
+has 'tagsFilter' => (is => 'rw', isa => 'Str', default => '');
 
 =head1 METHODS
 

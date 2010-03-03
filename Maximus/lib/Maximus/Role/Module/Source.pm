@@ -26,13 +26,13 @@ This is the interface for all Maximus::Class::Module::Source classes
 
 Version of module this source represents
 =cut
-has 'version' => (is => 'rw', 'isa' => 'Str');
+has 'version' => (is => 'rw', isa => 'Str');
 
 =head2 validated
 
 Returns true if C<validate> succeeded.
 =cut
-has 'validated' => (is => 'rw', 'isa' => 'Bool');
+has 'validated' => (is => 'rw', isa => 'Bool');
 
 =head2 tmpDir
 
@@ -41,7 +41,7 @@ automatically cleaned up.
 =cut
 has 'tmpDir' => (
 	is => 'ro',
-	'isa' => 'File::Temp::Dir',
+	isa => 'File::Temp::Dir',
 	builder => '_tmpDirBuilder'
 );
 
