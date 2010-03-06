@@ -11,7 +11,7 @@ Maximus::Script::Task - Maximus taskrunner
 
 =head1 SYNOPSIS
 
-	maximus_task.pl --task taskname
+	maximus_task.pl [options]
 
 =head1 DESCRIPTION
 
@@ -19,7 +19,7 @@ Runs a task for Maximus
 
 =head1 ATTRIBUTES
 
-=head2
+=head2 task
 
 =cut
 has task => (
