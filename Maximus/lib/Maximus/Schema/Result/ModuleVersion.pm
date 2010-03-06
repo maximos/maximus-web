@@ -24,7 +24,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a01cfc)
+  extra: HASH(0x39fefc4)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a00124)
+  extra: HASH(0x39ff3c4)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -123,8 +123,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:10:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wdV90Or7zxKDx5/sRyFibg
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:39:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8ocYh/yMRJv4zimfjQ6d3A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -24,7 +24,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0188c)
+  extra: HASH(0x3871d1c)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0193c)
+  extra: HASH(0x3871dcc)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -58,6 +58,14 @@ __PACKAGE__->table("module");
   default_value: undef
   is_nullable: 1
   size: 255
+
+=head2 source_type
+
+  data_type: ENUM
+  default_value: undef
+  extra: HASH(0x38715ec)
+  is_nullable: 0
+  size: 6
 
 =head2 source_options
 
@@ -107,6 +115,14 @@ __PACKAGE__->add_columns(
     default_value => undef,
     is_nullable => 1,
     size => 255,
+  },
+  "source_type",
+  {
+    data_type => "ENUM",
+    default_value => undef,
+    extra => { list => ["manual", "svn", "git"] },
+    is_nullable => 0,
+    size => 6,
   },
   "source_options",
   {
@@ -165,8 +181,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:10:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:06YqdeSuekCmGAxLfiTbSw
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:39:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xaJmPji66DndhW+xPm+VWQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -24,7 +24,7 @@ __PACKAGE__->table("module_dependency");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39fd71c)
+  extra: HASH(0x386fc2c)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module_dependency");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a01e2c)
+  extra: HASH(0x3870db4)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -42,7 +42,7 @@ __PACKAGE__->table("module_dependency");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39ff9cc)
+  extra: HASH(0x39fe73c)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -51,7 +51,7 @@ __PACKAGE__->table("module_dependency");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0109c)
+  extra: HASH(0x39fe91c)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -146,8 +146,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:10:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Mov/d4IrJCF3DcEvL+pXTA
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-06 23:39:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JH2HjpNyNSDREvtRLVZa1g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
