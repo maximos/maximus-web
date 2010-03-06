@@ -1,9 +1,6 @@
 package Maximus::Role::Task;
 use Moose::Role;
 
-requires 'init';
-requires 'run';
-
 =head1 NAME
 
 Maximus::Role::Task - Interface for tasks
@@ -25,11 +22,15 @@ This is the interface for all tasks
 
 This method will be called first to initalize the task. It should return true if
 successful.
+=cut
+requires 'init';
 
 =head2 run
 
 After C<init> has been called the task will be run. It should return true if
 successfull.
+=cut
+requires 'run';
 
 =head1 AUTHOR
 
