@@ -185,5 +185,10 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xaJmPji66DndhW+xPm+VWQ
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+use JSON::Any;
+__PACKAGE__->inflate_column('source_options', {
+	inflate => sub { JSON::Any->jsonToObj(shift) },
+	deflate => sub { JSON::Any->objToJson(shift) },
+});
+
 1;
