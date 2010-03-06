@@ -1,24 +1,32 @@
-package Maximus::Task::Module::Build;
+package Maximus::Task::Module::Update;
 use Moose;
-use Archive::Builder;
 
 with 'Maximus::Role::Task';
 
 =head1 NAME
 
-Maximus::Task::Module::Build - Module building task
+Maximus::Task::Module::Update - Update module database
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::Module::Build;
+	use Maximus::Class::Module;
+	use Maximus::Task::Module::Update;
 	my $mod = Maximus::Class::Module->new;
-	my $task = Maximus::Task::Module::Build->new;
-	$task->init(module => $mod);
+	my $task = Maximus::Task::Module::Update->new(mod => $mod);
+	$task->init;
 	$task->run;
 
 =head1 DESCRIPTION
 
-Build a module from available sources.
+Update a module in the database.
+
+=head1 ATTRIBUTES
+
+=head2 mod
+
+A I<Maximus::Class::Module> object
+=cut
+has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
 
 =head1 METHODS
 
@@ -27,8 +35,8 @@ Build a module from available sources.
 Initialize module build task
 =cut
 sub init {
-	my $self = shift;
-	0;
+	my ($self) = @_;
+	1;
 }
 
 =head2 run
