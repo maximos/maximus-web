@@ -121,6 +121,11 @@ sub archive {
 	# Remove generated documentation from archive
 	$zip->removeMember($modName . '/doc/commands.html');
 	
+	# Remove files that are the result of a compilation
+	foreach(('\.bmx\/', '\.(o|s|a|i)$')) {
+		$zip->removeMember($_) foreach($zip->membersMatching($_));
+	}
+	
 	my @members = $zip->membersMatching('\.(bmx|bbdoc|txt|c|h|cpp|cxx)$');
 	$_->desiredCompressionMethod(COMPRESSION_DEFLATED) foreach(@members);
 	
