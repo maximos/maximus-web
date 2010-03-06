@@ -1,5 +1,6 @@
 package Maximus::Class::Module::Source::SCM::Subversion;
 use Moose;
+use Carp qw/confess/;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
@@ -56,6 +57,8 @@ Fetch files for I<version> and sort them inside the temporary directory
 =cut
 sub prepare {
 	my($self, $mod) = @_;
+	
+	confess 'version is required' unless $self->version;
 	
 	my $url;
 	if($self->version eq 'dev') {
