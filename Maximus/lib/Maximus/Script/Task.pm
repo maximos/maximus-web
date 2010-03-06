@@ -1,23 +1,47 @@
-#!/usr/bin/env perl
+package Maximus::Script::Task;
+use Moose;
+use Maximus;
+use namespace::autoclean;
 
-use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('Maximus', 'Task');
+with 'Catalyst::ScriptRole';
 
 =head1 NAME
 
-maximus_task.pl - Execute a Maximus task
+Maximus::Script::Task - Maximus taskrunner
 
 =head1 SYNOPSIS
 
-maximus_task.pl [options]
-
-   -t --task           Task to execute
+	maximus_task.pl --task taskname
 
 =head1 DESCRIPTION
 
-Run a Maximus task from the command line.
+Runs a task for Maximus
 
-=head1 AUTHORS
+=head1 ATTRIBUTES
+
+=head2
+
+=cut
+has task => (
+    traits        => [qw(Getopt)],
+    cmd_aliases   => 't',
+    isa           => 'Str',
+    is            => 'ro',
+    documentation => 'Task to execute',
+);
+
+=head1 METHODS
+
+=head2 run
+
+=cut
+sub run {
+	my($self) = shift;
+	
+	print Maximus->config->{name};
+}
+
+=head1 AUTHOR
 
 Christiaan Kras
 
@@ -44,5 +68,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
+
+__PACKAGE__->meta->make_immutable;
 
 1;
