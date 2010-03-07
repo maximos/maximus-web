@@ -137,6 +137,8 @@ sub archive {
 
 	confess('Unable to save Zip Archive')
 	unless( $zip->writeToFileNamed($location . $fileName) == AZ_OK );
+
+	return $location . $fileName;
 }
 
 =head1 AUTHOR
