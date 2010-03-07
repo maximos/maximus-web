@@ -30,6 +30,12 @@ A I<Maximus::Class::Module> object
 =cut
 has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
 
+=head2 dbrow
+
+A I<Maximus::Model::DB::Module> object
+=cut
+has 'dbrow' => (is => 'rw', isa => 'Maximus::Model::DB::Module');
+
 =head1 METHODS
 
 =head2 init
@@ -51,7 +57,20 @@ sub run {
 	my $self = shift;
 
 	$self->mod->source->prepare($self->mod);
-	$self->mod->source->archive($self->mod,'./testrun/');
+	my $archive = $self->mod->source->archive(
+		$self->mod,
+		'./root/static/modules/'
+	);
+
+	if($self->dbrow) {
+		Maximus->model('DB::ModuleVersion')->find_or_create({
+				version => $self->mod->source->version,
+				module_id => $self->dbrow->id,
+				archive_location => $archive,
+			},
+			{ version => $self->mod->source->version }
+		);
+	}
 	1;
 }
 
