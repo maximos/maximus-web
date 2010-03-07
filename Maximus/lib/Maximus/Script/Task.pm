@@ -47,10 +47,14 @@ sub _run_application {
     my $self = shift;
     my $app = $self->application_name;
     Class::MOP::load_class($app);
-    use Maximus::Task::Modules::Update;
-	my $task = Maximus::Task::Modules::Update->new;
-	$task->init;
-	$task->run;
+	
+	if($self->task) {
+		my $module = 'Maximus::Task::' . $self->task;
+		Class::MOP::load_class($module);
+		my $task = $module->new;
+		die('Failed to initialize task') unless $task->init;
+		die('Failed to run task') unless $task->run;
+	}
 }
 
 
