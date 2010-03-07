@@ -11,7 +11,7 @@ maximus_task.pl - Execute a Maximus task
 
 maximus_task.pl [options]
 
-   -t --task           Task to execute
+   -t --task           Task to execute, e.g. Modules::Update
 
 =head1 DESCRIPTION
 
