@@ -92,20 +92,24 @@ Returns all versions
 =cut
 sub getVersions {
 	my($self) = @_;
-	my $cmd = 'svn list ' . join('/', ($self->repository, $self->tags));
-	my @ls = `$cmd`;
 	my %tags;
 	
-	if(length($self->tagsFilter) > 0) {
-		my $regex = $self->tagsFilter;
-		%tags = map { 
-			chomp;
-			my $k = $_;
-			$k =~ s/$regex\/$/$1/;
-			$k => $_
-		} grep {/$regex/} @ls;
+	if(length($self->tags) > 0) {
+		my $cmd = 'svn list ' . join('/', ($self->repository, $self->tags));
+		my @ls = `$cmd`;
+		
+		if(length($self->tagsFilter) > 0) {
+			my $regex = $self->tagsFilter;
+			%tags = map { 
+				chomp;
+				my $k = $_;
+				$k =~ s/$regex\/$/$1/;
+				$k => $_
+			} grep {/$regex/} @ls;
+		}
 	}
-	
+
+	$tags{dev} = $self->trunk;
 	return %tags;
 }
 =head1 AUTHOR
