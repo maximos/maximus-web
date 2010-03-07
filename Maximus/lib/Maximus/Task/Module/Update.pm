@@ -1,5 +1,7 @@
 package Maximus::Task::Module::Update;
 use Moose;
+use Maximus::Class::Module;
+use Maximus::Class::Module::Source::SCM::Subversion;
 
 with 'Maximus::Role::Task';
 
@@ -35,7 +37,8 @@ has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
 Initialize module build task
 =cut
 sub init {
-	my ($self) = @_;
+	my $self = shift;
+	print $self->mod->modscope, '.', $self->mod->mod, ":\t", $self->mod->source->version, "\n";
 	1;
 }
 
@@ -45,7 +48,10 @@ Run task
 =cut
 sub run {
 	my $self = shift;
-	0;
+
+	$self->mod->source->prepare($self->mod);
+	$self->mod->source->archive($self->mod,'./testrun/');
+	1;
 }
 
 =head1 AUTHOR
