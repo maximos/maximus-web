@@ -21,8 +21,9 @@ Runs a task for Maximus
 
 =head2 task
 
+Name of task to execute, e.g. C<Module::Update>
 =cut
-has task => (
+has 'task' => (
     traits        => [qw(Getopt)],
     cmd_aliases   => 't',
     isa           => 'Str',
