@@ -38,7 +38,8 @@ Initialize module build task
 =cut
 sub init {
 	my $self = shift;
-	print $self->mod->modscope, '.', $self->mod->mod, ":\t", $self->mod->source->version, "\n";
+	print $self->mod->modscope, '.', $self->mod->mod, ":\t",
+	$self->mod->source->version, "\n";
 	1;
 }
 
