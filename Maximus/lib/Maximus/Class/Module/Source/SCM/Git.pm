@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
+with 'Maximus::Role::Module::Source::SCM';
 
 =head1 NAME
 
@@ -21,6 +22,17 @@ Git support for retrieving the modules sources.
 =head1 ATTRIBUTES
 
 =head1 METHODS
+
+
+=head2 listVersions
+
+Returns all versions
+=cut
+sub listVersions {
+	my($self) = @_;
+	my %tags;
+	return %tags;
+}
 
 =head1 AUTHOR
 
