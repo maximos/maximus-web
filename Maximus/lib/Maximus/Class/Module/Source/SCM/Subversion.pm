@@ -84,6 +84,7 @@ sub prepare {
 	);
 	`$cmd`;
 	
+	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);
 }
 

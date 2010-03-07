@@ -15,6 +15,7 @@ requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'Archive::Extract' => '0.38';
 requires 'Archive::Zip' => '1.30';
+requires 'File::Find' => '';
 requires 'File::Temp' => '0.22';
 requires 'File::Copy::Recursive' => '0.38';
 requires 'Gearman' => '1.11';

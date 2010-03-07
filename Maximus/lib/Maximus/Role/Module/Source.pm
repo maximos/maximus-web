@@ -2,8 +2,9 @@ package Maximus::Role::Module::Source;
 use Moose::Role;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use Carp qw/confess/;
+use File::Copy::Recursive qw/dirmove/;
+use File::Find;
 use File::Temp;
-use IO::File;
 
 =head1 NAME
 
@@ -139,6 +140,33 @@ sub archive {
 	unless( $zip->writeToFileNamed($location . $fileName) == AZ_OK );
 
 	return $location . $fileName;
+}
+
+=head2 findAndMoveRootDir(I<$module>)
+
+Find the location of the mainfile and move the contents of this directory to the
+root of the temporary directory
+=cut
+sub findAndMoveRootDir {
+	my($self, $mod) = @_;
+	return if($mod->source->version eq 'dev');
+	my $mainFile = $mod->mod . '.bmx';
+	
+	my @files;
+	finddepth(sub {
+		return if($_ eq '.' || $_ eq '..');
+		push @files, $File::Find::name;
+	}, $self->tmpDir);
+	
+	@files = sort @files;
+	foreach(@files) {
+		if($_ =~ m/\/$mainFile$/) {
+			my $rootDir = $_;
+			$rootDir =~ s/$mainFile$//;
+			dirmove($rootDir, $self->tmpDir);
+			last;
+		}	
+	}
 }
 
 =head1 AUTHOR

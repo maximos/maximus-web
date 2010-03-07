@@ -2,7 +2,6 @@ package Maximus::Class::Module::Source::Archive;
 use Moose;
 use Archive::Extract;
 use Carp qw/confess/;
-use File::Copy::Recursive qw/dirmove/;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
@@ -41,17 +40,7 @@ sub prepare {
 	my $ae = Archive::Extract->new( archive => $self->file );
 	confess($ae->error) unless $ae->extract( to => $self->tmpDir );
 	
-	my $rootDir;
-	my $mainFile = $mod->mod . '.bmx';
-	foreach(@{$ae->files()}) {
-		if($_ =~ m/\/$mainFile$/) {
-			$rootDir = $_;
-			$rootDir =~ s/$mainFile$//;
-			last;
-		}
-	}
-	
-	dirmove($self->tmpDir . '/' . $rootDir, $self->tmpDir) if($rootDir);
+	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);
 }
 
