@@ -4,6 +4,7 @@ use Carp qw/confess/;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
+with 'Maximus::Role::Module::Source::SCM';
 
 =head1 NAME
 
