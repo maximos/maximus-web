@@ -19,6 +19,7 @@ requires 'File::Find' => '';
 requires 'File::Temp' => '0.22';
 requires 'File::Copy::Recursive' => '0.38';
 requires 'Gearman' => '1.11';
+requires 'Gearman::Server' => '1.11';
 requires 'JSON::Any' => '1.22';
 requires 'SQL::Translator' => '0.11005';
 test_requires 'Test::More' => '0.88';
