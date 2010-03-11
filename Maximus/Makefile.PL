@@ -11,6 +11,7 @@ requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'DBIx::Class' => '0.08120';
 requires 'Moose';
+requires 'MooseX::Storage' => '0.25';
 requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'Archive::Extract' => '0.38';
