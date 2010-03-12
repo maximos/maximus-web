@@ -64,12 +64,10 @@ sub run {
 
 	if($self->dbrow) {
 		Maximus->model('DB::ModuleVersion')->find_or_create({
-				version => $self->mod->source->version,
-				module_id => $self->dbrow->id,
-				archive_location => $archive,
-			},
-			{ version => $self->mod->source->version }
-		);
+			version => $self->mod->source->version,
+			module_id => $self->dbrow->id,
+			archive_location => $archive,
+		});
 	}
 	1;
 }
