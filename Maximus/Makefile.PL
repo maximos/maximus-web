@@ -10,6 +10,7 @@ requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'DBIx::Class' => '0.08120';
+requires 'DBD::mysql';
 requires 'Moose';
 requires 'MooseX::Storage' => '0.25';
 requires 'namespace::autoclean';
