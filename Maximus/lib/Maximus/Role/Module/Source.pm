@@ -135,6 +135,7 @@ sub archive {
 
 	confess('Unable to save Zip Archive')
 	unless( $zip->writeToFileHandle($fh) == AZ_OK );
+	$fh->seek(0,0);
 	
 	sprintf('%s.%s-%s.zip',
 		$mod->modscope,
