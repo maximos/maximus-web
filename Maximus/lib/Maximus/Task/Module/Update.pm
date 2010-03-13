@@ -1,4 +1,5 @@
 package Maximus::Task::Module::Update;
+use IO::File;
 use Moose;
 use Maximus::Class::Module;
 use Maximus::Class::Module::Source::SCM::Subversion;
@@ -30,12 +31,6 @@ A I<Maximus::Class::Module> object
 =cut
 has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
 
-=head2 dbrow
-
-A I<Maximus::Model::DB::Module> object
-=cut
-has 'dbrow' => (is => 'rw', isa => 'Maximus::Model::DB::Module');
-
 =head1 METHODS
 
 =head2 init
@@ -55,20 +50,46 @@ Run task
 =cut
 sub run {
 	my $self = shift;
-
+	
+	my $fh = IO::File->new_tmpfile;
+	
 	$self->mod->source->prepare($self->mod);
-	my $archive = $self->mod->source->archive(
+	my $filename = $self->mod->source->archive(
 		$self->mod,
-		'./root/static/modules/'
+		$fh,
 	);
 
-	if($self->dbrow) {
-		Maximus->model('DB::ModuleVersion')->find_or_create({
-			version => $self->mod->source->version,
-			module_id => $self->dbrow->id,
-			archive_location => $archive,
-		});
-	}
+	# Save file in GridFS
+	my $grid = Maximus->model('MongoDB')->db->get_gridfs;
+	
+	$grid->remove({'filename' => $filename});
+	$grid->insert($fh, {"filename" => $filename});
+	
+	# Update module in database
+	my $modules = Maximus->model('MongoDB')->db->get_collection('modules');
+	my $key = {
+		scope => $self->mod->modscope,
+		mod => $self->mod->mod,
+	};
+
+	my $version = {
+		$self->mod->source->version => {
+			filename => $filename,
+		}
+	};
+	
+	# Only update versions if the version doesn't exist yet
+	$modules->update({
+		scope => $self->mod->modscope,
+		mod => $self->mod->mod,
+		versions => {'$ne' => $version}
+	}, {
+		'$push' => {
+			versions => $version
+		}
+	}, {
+		upsert => 1
+	});
 	1;
 }
 

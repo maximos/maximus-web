@@ -94,14 +94,17 @@ sub validate {
 	$self->validated(1);
 }
 
-=head2 archive(I<$module>, I<$fileLocation>)
+=head2 archive(I<$module>, I<$fh>)
 
 Create an archive out of the contents of the temporarily directory
+I<$fh> should be a C<IO::Handle> or any other derived handle. Returns the name
+of the archive on success.
 =cut
 sub archive {
-	my($self, $mod, $location) = @_;
+	my($self, $mod, $fh) = @_;
 	confess('Sources are not validated') unless $self->validated;
 	confess('Invalid source version') unless $self->version;
+	confess('Handle isn\'t a IO::Handle') unless $fh->isa('IO::Handle');
 
 	my $modName = $mod->mod . '.mod';
 	my $zip = Archive::Zip->new();
@@ -129,17 +132,15 @@ sub archive {
 	
 	my @members = $zip->membersMatching('\.(bmx|bbdoc|txt|c|h|cpp|cxx)$');
 	$_->desiredCompressionMethod(COMPRESSION_DEFLATED) foreach(@members);
+
+	confess('Unable to save Zip Archive')
+	unless( $zip->writeToFileHandle($fh) == AZ_OK );
 	
-	my $fileName = sprintf('%s.%s-%s.zip',
+	sprintf('%s.%s-%s.zip',
 		$mod->modscope,
 		$mod->mod,
 		$self->version
 	);
-
-	confess('Unable to save Zip Archive')
-	unless( $zip->writeToFileNamed($location . $fileName) == AZ_OK );
-
-	return $location . $fileName;
 }
 
 =head2 findAndMoveRootDir(I<$module>)
