@@ -37,7 +37,7 @@ sub download :Local :Args(1) {
 	my $grid = $db->get_gridfs;
 
 	my $file = $grid->find_one({'filename' => $filename});
-	$c->detach() unless $file;
+	$c->detach('/default') unless $file;
 	
 	my $fh = IO::File->new_tmpfile;
 	$file->print($fh);
