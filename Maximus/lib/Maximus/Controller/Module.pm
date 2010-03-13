@@ -1,5 +1,7 @@
 package Maximus::Controller::Module;
 use IO::File;
+use JSON::Any;
+use XML::Simple;
 use Moose;
 use namespace::autoclean;
 
@@ -26,6 +28,62 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->response->body('Matched Maximus::Controller::Module in Module.');
+}
+
+=head2 sources
+
+Retrieve sources file
+=cut
+#sub sources :PathPart('sources') {
+sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
+	my($self, $c) = @_;
+	my $db = $c->model('MongoDB')->db;
+	my $sources = {};
+	
+	foreach my $module($db->get_collection('modules')->query->all) {
+		my $scope = $module->{scope};
+		my $mod = $module->{mod};
+		$sources->{$scope}->{$mod}->{desc} = $module->{desc};
+		$sources->{$scope}->{$mod}->{versions} = {};
+		my $versions = $sources->{$scope}->{$mod}->{versions};
+		
+		foreach my $version(@{$module->{versions}}) {
+			my $v = $version->{version};
+			$versions->{$v} = {
+				deps => [],
+				url => $c->uri_for('download', $version->{filename})->as_string,
+			};
+		}
+		
+	}
+
+	$c->stash->{sources} = $sources;
+}
+
+=head2 /module/sources/json
+
+Sources file in JSON
+=cut
+sub sources_json :Chained('sources') :PathPart('json') :Args(0) {
+	my($self, $c) = @_;
+	
+	$c->res->content_type('application/json');
+	$c->res->body(
+		JSON::Any->objToJson($c->stash->{sources})
+	);
+}
+
+=head2 /module/sources/xml
+
+Sources file in XML
+=cut
+sub sources_xml :Chained('sources') :PathPart('xml') :Args(0) {
+	my($self, $c) = @_;
+	
+	$c->res->content_type('text/xml');
+	$c->res->body(
+		XMLout($c->stash->{sources})
+	);
 }
 
 =head2 download

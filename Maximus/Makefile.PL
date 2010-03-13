@@ -25,6 +25,7 @@ requires 'Gearman::Server' => '1.11';
 requires 'JSON::Any' => '1.22';
 requires 'MongoDB' => '0.30';
 requires 'SQL::Translator' => '0.11005';
+requires 'XML::Simple' => '2.18';
 test_requires 'Test::More' => '0.88';
 catalyst;
 
