@@ -57,6 +57,7 @@ sub run {
 			foreach my $version(keys(%versions)) {
 				my $skipVersion = 0;
 				if($version ne 'dev') {
+					# If a version already exists then skip it
 					foreach(@{$row->{versions}}) {
 						if($_->{version} eq $version) {
 							$skipVersion = 1;
