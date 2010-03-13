@@ -53,17 +53,18 @@ sub run {
 		if($source) {
 			my $sourceClass = ref $source;
 			my %versions = $source->getVersions();
+
 			foreach my $version(keys(%versions)) {
 				my $skipVersion = 0;
 				if($version ne 'dev') {
-					foreach($row->module_versions) {
-						if($_->version eq $version) {
+					foreach(@{$row->{versions}}) {
+						if($_->{version} eq $version) {
 							$skipVersion = 1;
 							last;
 						}
 					}
 				}
-				
+
 				next if $skipVersion;
 			
 				my $s = $sourceClass->new(

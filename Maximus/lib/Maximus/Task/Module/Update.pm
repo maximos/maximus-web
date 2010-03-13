@@ -73,9 +73,8 @@ sub run {
 	};
 
 	my $version = {
-		$self->mod->source->version => {
-			filename => $filename,
-		}
+		version => $self->mod->source->version,
+		filename => $filename,
 	};
 	
 	# Only update versions if the version doesn't exist yet
