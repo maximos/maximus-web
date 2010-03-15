@@ -3,11 +3,15 @@ use Moose;
 use namespace::autoclean;
 
 use Catalyst::Runtime 5.80;
-
 use Catalyst qw/
     -Debug
     ConfigLoader
+	Authentication
+	Authorization::Roles
     Static::Simple
+	Session
+	Session::Store::DBIC
+	Session::State::Cookie
 /;
 
 extends 'Catalyst';
@@ -28,6 +32,29 @@ __PACKAGE__->config(
     name => 'Maximus',
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
+	'Plugin::Session' => {
+		dbic_class => 'DB::Session',
+		explires => 3600,
+	},
+	'Plugin::Authentication' => {
+		default_realm => 'website',
+		realms => {
+			website => {
+				credential => {
+					class => 'Password',
+					password_field => 'password',
+					password_type => 'hashed',
+					password_hash_type => 'SHA-1',
+				},
+				store => {
+					class => 'DBIx::Class',
+					user_model => 'DB::User',
+					role_relation => 'roles',
+					role_field => 'role',
+				},
+			},
+		},
+	},
 );
 
 # Start the application
