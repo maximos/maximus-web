@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Mar 15 21:22:01 2010
+-- Created on Mon Mar 15 23:18:57 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `session`;
 CREATE TABLE `session` (
   `id` CHAR(72) NOT NULL,
   `session_data` text,
-  `expires` integer(10) unsigned NOT NULL,
+  `expires` integer(10) unsigned,
   PRIMARY KEY (`id`)
 );
 

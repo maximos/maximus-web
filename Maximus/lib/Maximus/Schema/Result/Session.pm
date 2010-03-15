@@ -38,8 +38,8 @@ __PACKAGE__->table("session");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3ca437c)
-  is_nullable: 0
+  extra: HASH(0x3bf828c)
+  is_nullable: 1
   size: 10
 
 =cut
@@ -59,15 +59,15 @@ __PACKAGE__->add_columns(
     data_type => "INT",
     default_value => undef,
     extra => { unsigned => 1 },
-    is_nullable => 0,
+    is_nullable => 1,
     size => 10,
   },
 );
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-15 21:21:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L//X+l3XhcxvEwpMnnEa1A
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-15 23:18:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9IUDrvfSlwAIz6MmfqouqQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
