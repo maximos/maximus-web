@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>[% c.config.name %] - BlitzMax Module Manager</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="index,follow" /> 
+
+	<script type="text/javascript" src="/static/js/mootools-1.2.4-core.js"></script>
+	<script type="text/javascript" src="/static/js/mootools-1.2.4.4-more.js"></script>
+	<link rel="stylesheet" href="/static/css/reset-min.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/static/css/site.css" type="text/css" media="all" />
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header"><h1>[% c.config.name %]</h1></div>
+		<div id="content">[% content %]</div>
+		[% USE date %]
+		<div id="footer">Copyright [% date.format(date.now, '%Y') %]  Christiaan Kras</div>
+	</div>
+</body>
+</html>

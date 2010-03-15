@@ -1,54 +1,31 @@
-package Maximus::Controller::Root;
-use Moose;
-use namespace::autoclean;
+package Maximus::View::TT;
 
-BEGIN { extends 'Catalyst::Controller' }
+use strict;
+use warnings;
 
-#
-# Sets the actions in this controller to be registered with no prefix
-# so they function identically to actions created in MyApp.pm
-#
-__PACKAGE__->config(namespace => '');
+use base 'Catalyst::View::TT';
+
+__PACKAGE__->config(
+    TEMPLATE_EXTENSION => '.tt',
+    render_die => 1,
+	CATALYST_VAR => 'c',
+	INCLUDE_PATH => [Maximus->path_to( 'root', 'templates' )],
+	WRAPPER => 'template.tt',
+	COMPILE_EXT => '.ttc',
+	COMPILE_DIR => Maximus->path_to( 'root', 'templates_compiled' ),
+);
 
 =head1 NAME
 
-Maximus::Controller::Root - Root Controller for Maximus
+Maximus::View::TT - TT View for Maximus
 
 =head1 DESCRIPTION
 
-[enter your description here]
+TT View for Maximus.
 
-=head1 METHODS
+=head1 SEE ALSO
 
-=head2 index
-
-The root page (/)
-
-=cut
-
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-}
-
-=head2 default
-
-Standard 404 error page
-
-=cut
-
-sub default :Path {
-    my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
-}
-
-=head2 end
-
-Attempt to render a view, if needed.
-
-=cut
-
-sub end : ActionClass('RenderView') {}
+L<Maximus>
 
 =head1 AUTHOR
 
@@ -77,7 +54,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

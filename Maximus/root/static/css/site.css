@@ -1,0 +1,50 @@
+div#wrapper {
+	margin:20px auto;
+	position:relative;
+	width:640px;
+	border:8px solid #000;
+	background-color:#CCC;
+	padding:20px;
+}
+
+div#header {
+	width:100%;
+	float:left;
+	clear:both;
+	border-bottom:2px dashed #FFF;
+}
+
+div#header  h1 {
+	text-align:center;
+	font-weight:bold;
+	font-size:40pt;
+	font-family:Georgia;
+}
+
+div#content {
+	font-family:Verdana;
+}
+
+div#content p {
+	padding:5px 0px;
+}
+
+div#footer {
+	text-align:center;
+	color:#FFF;
+	border-top:2px dashed #FFF;
+	padding-top:10px;
+	font-family:Courier;
+}
+
+.center {
+	text-align:center;
+}
+
+strong, b {
+	font-weight:bold;
+}
+
+em, i {
+	font-style: italic;
+}

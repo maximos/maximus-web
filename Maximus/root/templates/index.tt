@@ -1,0 +1,5 @@
+<p>Welcome to [% c.config.name %], the <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a> Module Manager.</p>
+<p>This project is currently under development. Please discuss the project <a href="http://www.blitzmax.com/Community/posts.php?topic=89208">here</a>.
+If you'd like to collaborate you can do so by contributing code to <a href="http://github.com/komiga/maximus" target="_blank">maximus</a> and/or
+<a href="http://github.com/Htbaa/maximus-web" target="_blank">maximus-web</a> on <a href="http://www.github.com" target="_blank">GitHub</a>.</p>
+<p class="center"><strong>Sources:</strong> <a href="[% c.uri_for('/module/sources/json') %]">JSON</a>, <a href="[% c.uri_for('/module/sources/xml') %]">XML</a></p>
