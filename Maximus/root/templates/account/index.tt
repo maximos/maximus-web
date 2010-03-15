@@ -1,0 +1,2 @@
+<p>Welcome <strong>[% c.user.username %]</strong>!</p>
+<p><a href="[% c.uri_for('/account/logout') %]">Logout</a></p>
