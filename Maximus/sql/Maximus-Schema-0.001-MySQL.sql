@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Mar 15 23:18:57 2010
+-- Created on Tue Mar 16 21:23:15 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -48,6 +48,7 @@ CREATE TABLE `user` (
   `id` integer(10) unsigned NOT NULL auto_increment,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE `Index_2` (`username`)
 ) ENGINE=InnoDB;
