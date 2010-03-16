@@ -9,6 +9,7 @@ requires 'Catalyst::Model::DBIC::Schema' => '0.40';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
+requires 'Catalyst::Plugin::RequireSSL' => '0.06';
 requires 'DBIx::Class' => '0.08120';
 requires 'DBD::mysql';
 requires 'Digest::SHA' => '5.48';

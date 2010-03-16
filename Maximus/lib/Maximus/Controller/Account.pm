@@ -32,6 +32,7 @@ sub index :Path :Args(0) {
 
 sub login :Local {
     my ( $self, $c ) = @_;
+	$c->require_ssl;
 	
 	my $username = $c->request->params->{username};
 	my $password = $c->request->params->{password};
@@ -68,6 +69,7 @@ sub logout :Local {
 =cut
 sub signup :Local {
 	my ($self, $c) = @_;
+	$c->require_ssl;
 	
 	if($c->user_exists) {
 		$c->res->redirect($c->uri_for(

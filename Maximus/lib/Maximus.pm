@@ -8,6 +8,7 @@ use Catalyst qw/
     ConfigLoader
 	Authentication
 	Authorization::Roles
+	RequireSSL
     Static::Simple
 	Session
 	Session::Store::DBIC
@@ -54,6 +55,9 @@ __PACKAGE__->config(
 				},
 			},
 		},
+	},
+	'require_ssl' => {
+		remain_in_ssl => 0,
 	},
 );
 
