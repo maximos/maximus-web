@@ -1,6 +1,6 @@
 <h2>Login</h2>
 <p>Please login to manage your modscopes and modules. Don't have an account yet?
-Please <a href="[% c.uri_for('/account/sign-up') %]">sign-up</a> for one.
+Please <a href="[% c.uri_for('/account/signup') %]">sign-up</a> for one.
 You don't need an account if you only want to use [% c.config.name %] to download and install modules.</p>
 
 [% IF error_msg %]

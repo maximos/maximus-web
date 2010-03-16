@@ -1,4 +1,5 @@
 package Maximus::Controller::Account;
+use Digest::SHA qw(sha1_hex);
 use Moose;
 use namespace::autoclean;
 
@@ -59,6 +60,49 @@ sub logout :Local {
 	my ($self, $c) = @_;
 	$c->logout;
 	$c->response->redirect($c->uri_for('/'));
+}
+
+
+=head2 signup
+
+=cut
+sub signup :Local {
+	my ($self, $c) = @_;
+	
+	if($c->user_exists) {
+		$c->res->redirect($c->uri_for(
+			$c->controller('Account')->action_for('index')));
+		return;
+	}
+	
+	my $email = $c->req->params->{email};
+	my $username = $c->req->params->{username};
+	my $password = $c->req->params->{password};
+	
+	if($email && $username && $password) {
+		my $user = $c->find_user({username => $username}, 'website');
+		if($user) { 
+			$c->stash(error_msg => 'Username already taken.');
+			$c->detach;
+		}
+		
+		eval {
+			$c->model('DB::User')->create({
+				email => $email,
+				username => $username,
+				password => sha1_hex($password),
+			});
+		};
+		if($!) {
+			$c->stash(error_msg => 'An unknown error occured!' . $!);
+			$c->detach;
+		}
+
+		$c->detach('/account/login');
+	}
+	elsif($c->req->method eq 'POST') {
+		$c->stash(error_msg => 'Empty e-mail, username or password.');
+	}
 }
 
 =head1 AUTHOR

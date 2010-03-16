@@ -1,0 +1,19 @@
+<h2>Sign-Up</h2>
+<p>Please fill in the form to create an account. Creating an account allows you
+to manage your own modscopes and modules.</p>
+
+[% IF error_msg %]
+	<p><strong><em>[% error_msg %]</em></strong></p>
+[% END %]
+<form method="post" action="[% c.uri_for('/account/signup') %]">
+	<dl>
+		<dt><label for="email">E-Mail</dt>
+		<dd><input type="text" name="email" /></dd>
+		<dt><label for="username">Username</dt>
+		<dd><input type="text" name="username" /></dd>
+		<dt><label for="password">Password</dt>
+		<dd><input type="password" name="password" />
+		<input type="submit" name="submit" value="Sign-Up" />
+		</dd>
+	</dl>
+</form>
