@@ -1,4 +1,11 @@
-<p class="center"><strong><em>[% error_msg %]</em></strong></p>
+<h2>Login</h2>
+<p>Please login to manage your modscopes and modules. Don't have an account yet?
+Please <a href="[% c.uri_for('/account/sign-up') %]">sign-up</a> for one.
+You don't need an account if you only want to use [% c.config.name %] to download and install modules.</p>
+
+[% IF error_msg %]
+	<p><strong><em>[% error_msg %]</em></strong></p>
+[% END %]
 <form method="post" action="[% c.uri_for('/account/login') %]">
 	<dl>
 		<dt><label for="username">Username</dt>
@@ -8,4 +15,5 @@
 		<input type="submit" name="submit" value="Login" />
 		</dd>
 	</dl>
+	<p><a href="#">Help! I've lost my password!</a></p>
 </form>

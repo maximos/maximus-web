@@ -1,1 +1,1 @@
-<p>Welcome <strong>[% c.user.username %]</strong>!</p>
+<h2>Welcome [% c.user.username %]!</h2>
