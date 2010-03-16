@@ -45,11 +45,11 @@ sub login :Local {
 			return;
 		}
 		else {
-			$c->stash(error_msg => "Bad username or password.");
+			$c->stash(error_msg => 'Bad username or password.');
 		}
 	}
 	elsif($c->req->method eq 'POST') {
-		$c->stash(error_msg => "Empty username or password.");
+		$c->stash(error_msg => 'Empty username or password.');
 	}
 }
 
