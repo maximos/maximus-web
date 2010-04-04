@@ -17,8 +17,11 @@
 		<a href="[% c.uri_for('/') %]">Home</a>
 		<a href="#">Modules</a>
 		[% IF c.user_exists %]
+			<a href="#">My Modules</a>
+			<a href="[% c.uri_for('/account') %]">My Account</a>
 			<a href="[% c.uri_for('/account/logout') %]">Logout</a>
 		[% ELSE %]
+			<a href="[% c.uri_for('/account/signup') %]">Sign-up</a>
 			<a href="[% c.uri_for('/account/login') %]">Login</a>
 		[% END %]
 	</div>
