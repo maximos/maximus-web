@@ -34,7 +34,6 @@ sub index :Path :Args(0) {
 
 Retrieve sources file
 =cut
-#sub sources :PathPart('sources') {
 sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 	my($self, $c) = @_;
 	my $db = $c->model('MongoDB')->db;
