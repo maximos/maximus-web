@@ -8,7 +8,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<script type="text/javascript" src="/static/js/mootools-1.2.4-core.js"></script>
 	<script type="text/javascript" src="/static/js/mootools-1.2.4.4-more.js"></script>
-	<link rel="stylesheet" href="/static/css/reset-min.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="/static/css/site.css" type="text/css" media="all" />
 </head>
 <body>
