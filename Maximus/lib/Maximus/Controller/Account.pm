@@ -3,6 +3,7 @@ use Digest::SHA qw(sha1_hex);
 use Moose;
 use namespace::autoclean;
 use Maximus::Form::Account::Login;
+use Maximus::Form::Account::Signup;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -76,12 +77,13 @@ sub signup :Local {
 		return;
 	}
 	
-	my $email = $c->req->params->{email};
-	my $username = $c->req->params->{username};
-	my $password = $c->req->params->{password};
-	
-	if($email && $username && $password) {
-		my $user = $c->find_user({username => $username}, 'website');
+	my $form = Maximus::Form::Account::Signup->new;
+	$form->process( $c->req->parameters );
+	$c->stash(form => $form);
+
+	if($form->validated) {
+		my $user = $c->find_user({username => $form->field('username')->value}, 'website');
+		
 		if($user) { 
 			$c->stash(error_msg => 'Username already taken.');
 			$c->detach;
@@ -89,20 +91,18 @@ sub signup :Local {
 		
 		eval {
 			$c->model('DB::User')->create({
-				email => $email,
-				username => $username,
-				password => sha1_hex($password),
+				email => $form->field('email')->value,
+				username => $form->field('username')->value,
+				password => sha1_hex($form->field('password')->value),
 			});
 		};
 		if($!) {
-			$c->stash(error_msg => 'An unknown error occured!' . $!);
+			$c->stash(error_msg => 'An unknown error occured!');
+			$c->log->info($!);
 			$c->detach;
 		}
 
 		$c->detach('/account/login');
-	}
-	elsif($c->req->method eq 'POST') {
-		$c->stash(error_msg => 'Empty e-mail, username or password.');
 	}
 }
 

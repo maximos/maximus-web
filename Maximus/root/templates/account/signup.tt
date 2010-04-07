@@ -3,17 +3,14 @@
 to manage your own modscopes and modules.</p>
 
 [% IF error_msg %]
-	<p><strong><em>[% error_msg %]</em></strong></p>
+	<p class="error"><strong><em>[% error_msg %]</em></strong></p>
 [% END %]
 <form method="post" action="[% c.uri_for('/account/signup') %]">
 	<dl>
-		<dt><label for="email">E-Mail</dt>
-		<dd><input type="text" name="email" /></dd>
-		<dt><label for="username">Username</dt>
-		<dd><input type="text" name="username" /></dd>
-		<dt><label for="password">Password</dt>
-		<dd><input type="password" name="password" />
-		<input type="submit" name="submit" value="Sign-Up" />
+		[% INCLUDE form/input.tt field='email' %]
+		[% INCLUDE form/input.tt field='username' %]
+		[% INCLUDE form/input.tt field='password' input_type='password' %]
+		<dd><input type="submit" name="submit" value="Sign-Up" /></dd>
 		</dd>
 	</dl>
 </form>
