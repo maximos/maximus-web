@@ -2,6 +2,7 @@ package Maximus::Controller::Account;
 use Digest::SHA qw(sha1_hex);
 use Moose;
 use namespace::autoclean;
+use Maximus::Form::Account::Login;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -34,12 +35,13 @@ sub login :Local {
     my ( $self, $c ) = @_;
 	$c->require_ssl;
 	
-	my $username = $c->request->params->{username};
-	my $password = $c->request->params->{password};
+	my $form = Maximus::Form::Account::Login->new;
+	$form->process( $c->req->parameters );
+	$c->stash(form => $form);
 
-	if ($username && $password) {
-		if ($c->authenticate({ username => $username,
-							   password => $password  } )) {
+	if($form->validated) {
+		if($c->authenticate({username => $form->field('username')->value,
+							 password => $form->field('password')->value } )) {
 			# If successful, then let them use the application
 			$c->response->redirect($c->uri_for(
 				$c->controller('Account')->action_for('index')));
@@ -48,9 +50,6 @@ sub login :Local {
 		else {
 			$c->stash(error_msg => 'Bad username or password.');
 		}
-	}
-	elsif($c->req->method eq 'POST') {
-		$c->stash(error_msg => 'Empty username or password.');
 	}
 }
 

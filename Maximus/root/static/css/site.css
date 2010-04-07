@@ -64,6 +64,8 @@ a:hover { color: #000; }
 #content label { font-weight:bold; }
 #content dd { padding-left:15px; }
 
+#content .error { color: red; }
+
 #footer { 
   margin-top: 25px; 
   clear: both;

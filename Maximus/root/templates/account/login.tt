@@ -4,16 +4,13 @@ Please <a href="[% c.uri_for('/account/signup') %]">sign-up</a> for one.
 You don't need an account if you only want to use [% c.config.name %] to download and install modules.</p>
 
 [% IF error_msg %]
-	<p><strong><em>[% error_msg %]</em></strong></p>
+	<p class="error"><strong><em>[% error_msg %]</em></strong></p>
 [% END %]
 <form method="post" action="[% c.uri_for('/account/login') %]">
 	<dl>
-		<dt><label for="username">Username</dt>
-		<dd><input type="text" name="username" /></dd>
-		<dt><label for="password">Password</dt>
-		<dd><input type="password" name="password" />
-		<input type="submit" name="submit" value="Login" />
-		</dd>
+		[% INCLUDE form/input.tt field='username' %]
+		[% INCLUDE form/input.tt field='password' input_type='password' %]
+		<dd><input type="submit" name="submit" value="Login" /></dd>
 	</dl>
 	<p><a href="#">Help! I've lost my password!</a></p>
 </form>

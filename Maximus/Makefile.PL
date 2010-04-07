@@ -32,6 +32,7 @@ requires 'File::Temp' => '0.22';
 requires 'File::Copy::Recursive' => '0.38';
 requires 'Gearman::Client' => '1.11';
 requires 'Gearman::Server' => '1.11';
+requires 'HTML::FormHandler' => '0.30003';
 requires 'JSON::Any' => '1.22';
 requires 'MongoDB' => '0.30';
 requires 'SQL::Translator' => '0.11005';
