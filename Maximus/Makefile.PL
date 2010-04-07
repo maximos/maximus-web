@@ -4,7 +4,7 @@ use inc::Module::Install;
 name 'Maximus';
 all_from 'lib\Maximus.pm';
 
-requires 'Catalyst::Runtime' => '5.80021';
+requires 'Catalyst::Runtime' => '5.80022';
 requires 'Catalyst::Model::DBIC::Schema' => '0.40';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Plugin::Authentication';
