@@ -1,0 +1,8 @@
+[% f = form.field(field) %]
+<dt><label for="[% f.id %]">[% f.label %]</label></dt>
+<dd><input type="checkbox" name="[% f.html_name %]" id="[% f.id %]" value="1" /></dd>
+[% IF f.has_errors %]
+	[% FOR error IN f.errors %]
+		<dd class="error">[% error %]</dd>
+	[% END %]
+[% END %]

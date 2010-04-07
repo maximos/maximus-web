@@ -1,0 +1,17 @@
+[% f = form.field(field) %]
+<dt><label for="[% f.id %]">[% f.label %]</label></dt>
+<dd>
+   [% FOR option IN f.options %]
+     <input type="radio" value="[% option.value %]" 
+        name="[% f.name %]"
+     [% IF option.value == f.fif %]
+        checked="checked"
+     [% END %]>
+     [% option.label | html %]<br />
+   [% END %]
+</dd>
+[% IF f.has_errors %]
+	[% FOR error IN f.errors %]
+		<dd class="error">[% error %]</dd>
+	[% END %]
+[% END %]
