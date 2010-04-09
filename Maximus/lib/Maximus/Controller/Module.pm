@@ -36,24 +36,33 @@ Retrieve sources file
 =cut
 sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 	my($self, $c) = @_;
-	my $db = $c->model('MongoDB')->db;
 	my $sources = {};
 	
-	foreach my $module($db->get_collection('modules')->query->all) {
-		my $scope = $module->{scope};
-		my $mod = $module->{mod};
-		$sources->{$scope}->{$mod}->{desc} = $module->{desc};
-		$sources->{$scope}->{$mod}->{versions} = {};
-		my $versions = $sources->{$scope}->{$mod}->{versions};
+	foreach my $modscope($c->model('DB::Modscope')->all) {
+		my $scope = $modscope->name;
 		
-		foreach my $version(@{$module->{versions}}) {
-			my $v = $version->{version};
-			$versions->{$v} = {
-				deps => [],
-				url => $c->uri_for('download', $version->{filename})->as_string,
-			};
+		foreach my $module($modscope->modules) {
+			my $modname = $module->name;
+			$sources->{$scope}->{$modname}->{desc} = $module->desc;
+			my $versions = $sources->{$scope}->{$modname}->{versions} = {};
+			
+			foreach my $version($module->module_versions) {
+				my @deps;
+				foreach my $dependantVersion($version->module_dependency_module_version_ids) {
+					my $version = $dependantVersion->dependant_module_version;
+					my $module = $version->module;
+					my $modscope = $module->modscope;
+					my $dep = sprintf('%s.%s/%s', $modscope->name, $module->name, $version->version);
+					push @deps, $dep;
+				}
+				
+				my $v = $version->version;
+				$versions->{$v} = {
+					deps => \@deps,
+					url => $c->uri_for('download', $version->{filename})->as_string,
+				};
+			}
 		}
-		
 	}
 
 	$c->stash->{sources} = $sources;
