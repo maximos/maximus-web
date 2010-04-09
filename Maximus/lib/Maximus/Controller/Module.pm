@@ -27,7 +27,14 @@ Catalyst Controller for Modules;
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched Maximus::Controller::Module in Module.');
+    $c->response->redirect($c->uri_for('sources/list'));
+}
+
+=head2 list
+
+Show HTML presentation of all modules
+=cut
+sub list :Chained('sources') :PathPart :Args(0) {	
 }
 
 =head2 sources

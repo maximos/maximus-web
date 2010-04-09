@@ -1,0 +1,16 @@
+[% FOR modscope IN sources %]
+	[%- "<dl>" IF loop.first %]
+	<dt>[% modscope.key | html %]</dt>
+	[% FOR module IN modscope.value %]
+		[%- "<dd><dl>" IF loop.first %]
+		<dt>[% module.key | html %]</dt>
+		<dd>[% module.value.desc | html %]</dd>
+		[% FOR version IN module.value.versions %]
+			[%- "<dd><ul>" IF loop.first %]
+			<li><a href="[% version.value.url | html %]">[% version.key | html %]</a></li>
+			[%- "</ul></dd>" IF loop.last %]				
+		[% END %]
+		[%- "</dd></dl>" IF loop.last %]	
+	[% END %] 
+	[%- "</dl>" IF loop.last %]
+[% END %]

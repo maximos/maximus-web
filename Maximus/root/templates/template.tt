@@ -15,7 +15,7 @@
 	<div id="header"><h1><a href="[% c.uri_for('/') %]">[% c.config.name %]</a></h1><h2>the BlitzMax Module Manager</h2></div>
 	<div id="menu">
 		<a href="[% c.uri_for('/') %]">Home</a>
-		<a href="#">Modules</a>
+		<a href="[% c.uri_for('/module/sources/list') %]">Modules</a>
 		[% IF c.user_exists %]
 			<a href="#">My Modules</a>
 			<a href="[% c.uri_for('/account') %]">My Account</a>
