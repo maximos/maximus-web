@@ -24,8 +24,17 @@ __PACKAGE__->table("modscope");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x388d95c)
+  extra: HASH(0x3885e44)
   is_auto_increment: 1
+  is_nullable: 0
+  size: 10
+
+=head2 user_id
+
+  data_type: INT
+  default_value: undef
+  extra: HASH(0x38859b4)
+  is_foreign_key: 1
   is_nullable: 0
   size: 10
 
@@ -48,6 +57,15 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 10,
   },
+  "user_id",
+  {
+    data_type => "INT",
+    default_value => undef,
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 0,
+    size => 10,
+  },
   "name",
   {
     data_type => "VARCHAR",
@@ -59,6 +77,21 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id", "name");
 
 =head1 RELATIONS
+
+=head2 user
+
+Type: belongs_to
+
+Related object: L<Maximus::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "Maximus::Schema::Result::User",
+  { id => "user_id" },
+  {},
+);
 
 =head2 modules
 
@@ -74,23 +107,9 @@ __PACKAGE__->has_many(
   { "foreign.modscope_id" => "self.id" },
 );
 
-=head2 module_dependencies
 
-Type: has_many
-
-Related object: L<Maximus::Schema::Result::ModuleDependency>
-
-=cut
-
-__PACKAGE__->has_many(
-  "module_dependencies",
-  "Maximus::Schema::Result::ModuleDependency",
-  { "foreign.modscope_id" => "self.id" },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-08 23:51:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I1HZlozLCePMsoIlKGo9kg
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/E0+zda3OPuIk+I1p5cS3g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

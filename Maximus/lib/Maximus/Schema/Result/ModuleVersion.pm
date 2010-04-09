@@ -24,7 +24,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39fb3d4)
+  extra: HASH(0x3884a0c)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39fb7fc)
+  extra: HASH(0x38817e4)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -45,12 +45,19 @@ __PACKAGE__->table("module_version");
   is_nullable: 0
   size: 10
 
-=head2 archive_location
+=head2 remote_location
 
   data_type: VARCHAR
   default_value: undef
-  is_nullable: 0
+  is_nullable: 1
   size: 255
+
+=head2 archive
+
+  data_type: BLOB
+  default_value: undef
+  is_nullable: 1
+  size: 65535
 
 =cut
 
@@ -80,12 +87,19 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 10,
   },
-  "archive_location",
+  "remote_location",
   {
     data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 255,
+  },
+  "archive",
+  {
+    data_type => "BLOB",
+    default_value => undef,
+    is_nullable => 1,
+    size => 65535,
   },
 );
 __PACKAGE__->set_primary_key("id");
@@ -93,7 +107,7 @@ __PACKAGE__->add_unique_constraint("Index_3", ["module_id", "version"]);
 
 =head1 RELATIONS
 
-=head2 module_dependencies
+=head2 module_dependency_module_version_ids
 
 Type: has_many
 
@@ -102,9 +116,23 @@ Related object: L<Maximus::Schema::Result::ModuleDependency>
 =cut
 
 __PACKAGE__->has_many(
-  "module_dependencies",
+  "module_dependency_module_version_ids",
   "Maximus::Schema::Result::ModuleDependency",
   { "foreign.module_version_id" => "self.id" },
+);
+
+=head2 module_dependency_dependant_module_version_ids
+
+Type: has_many
+
+Related object: L<Maximus::Schema::Result::ModuleDependency>
+
+=cut
+
+__PACKAGE__->has_many(
+  "module_dependency_dependant_module_version_ids",
+  "Maximus::Schema::Result::ModuleDependency",
+  { "foreign.dependant_module_version_id" => "self.id" },
 );
 
 =head2 module
@@ -123,8 +151,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-08 23:51:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:snpUE92Gxmz8BLdPQBJc1Q
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:W9L6ZGs9TP4cL9691Pe1jg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

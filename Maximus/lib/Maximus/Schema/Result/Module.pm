@@ -24,7 +24,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39f9f4c)
+  extra: HASH(0x3a0a56c)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39f9ffc)
+  extra: HASH(0x3a0a61c)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -63,7 +63,7 @@ __PACKAGE__->table("module");
 
   data_type: ENUM
   default_value: undef
-  extra: HASH(0x39f981c)
+  extra: HASH(0x3a09e3c)
   is_nullable: 0
   size: 6
 
@@ -152,20 +152,6 @@ __PACKAGE__->belongs_to(
   {},
 );
 
-=head2 module_dependencies
-
-Type: has_many
-
-Related object: L<Maximus::Schema::Result::ModuleDependency>
-
-=cut
-
-__PACKAGE__->has_many(
-  "module_dependencies",
-  "Maximus::Schema::Result::ModuleDependency",
-  { "foreign.module_id" => "self.id" },
-);
-
 =head2 module_versions
 
 Type: has_many
@@ -181,8 +167,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-08 23:51:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5V5/Rz7Bg/YW8e9F5Mw8YQ
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fF1XFSPJVt1NEn7ZC4ECkg
 
 
 use JSON::Any;

@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Thu Apr  8 23:52:32 2010
+-- Created on Fri Apr  9 22:23:16 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -14,17 +14,6 @@ CREATE TABLE `dbix_class_schema_versions` (
   `installed` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`version`)
 );
-
-DROP TABLE IF EXISTS `modscope`;
-
---
--- Table: `modscope`
---
-CREATE TABLE `modscope` (
-  `id` integer(10) unsigned NOT NULL auto_increment,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`, `name`)
-) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `role`;
 
@@ -64,6 +53,20 @@ CREATE TABLE `user` (
   UNIQUE `Index_2` (`username`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `modscope`;
+
+--
+-- Table: `modscope`
+--
+CREATE TABLE `modscope` (
+  `id` integer(10) unsigned NOT NULL auto_increment,
+  `user_id` integer(10) unsigned NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  INDEX modscope_idx_user_id (`user_id`),
+  PRIMARY KEY (`id`, `name`),
+  CONSTRAINT `modscope_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS `module`;
 
 --
@@ -83,22 +86,6 @@ CREATE TABLE `module` (
   CONSTRAINT `module_fk_modscope_id` FOREIGN KEY (`modscope_id`) REFERENCES `modscope` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS `module_version`;
-
---
--- Table: `module_version`
---
-CREATE TABLE `module_version` (
-  `id` integer(10) unsigned NOT NULL auto_increment,
-  `module_id` integer(10) unsigned NOT NULL,
-  `version` VARCHAR(10) NOT NULL,
-  `archive_location` VARCHAR(255) NOT NULL,
-  INDEX module_version_idx_module_id (`module_id`),
-  PRIMARY KEY (`id`),
-  UNIQUE `Index_3` (`module_id`, `version`),
-  CONSTRAINT `module_version_fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS `user_role`;
 
 --
@@ -114,22 +101,35 @@ CREATE TABLE `user_role` (
   CONSTRAINT `user_role_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `module_version`;
+
+--
+-- Table: `module_version`
+--
+CREATE TABLE `module_version` (
+  `id` integer(10) unsigned NOT NULL auto_increment,
+  `module_id` integer(10) unsigned NOT NULL,
+  `version` VARCHAR(10) NOT NULL,
+  `remote_location` VARCHAR(255),
+  `archive` BLOB,
+  INDEX module_version_idx_module_id (`module_id`),
+  PRIMARY KEY (`id`),
+  UNIQUE `Index_3` (`module_id`, `version`),
+  CONSTRAINT `module_version_fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS `module_dependency`;
 
 --
 -- Table: `module_dependency`
 --
 CREATE TABLE `module_dependency` (
-  `id` integer(10) unsigned NOT NULL auto_increment,
-  `modscope_id` integer(10) unsigned NOT NULL,
-  `module_id` integer(10) unsigned NOT NULL,
   `module_version_id` integer(10) unsigned NOT NULL,
-  INDEX module_dependency_idx_modscope_id (`modscope_id`),
-  INDEX module_dependency_idx_module_id (`module_id`),
+  `dependant_module_version_id` integer(10) unsigned NOT NULL,
+  INDEX module_dependency_idx_dependant_module_version_id (`dependant_module_version_id`),
   INDEX module_dependency_idx_module_version_id (`module_version_id`),
-  PRIMARY KEY (`id`),
-  CONSTRAINT `module_dependency_fk_modscope_id` FOREIGN KEY (`modscope_id`) REFERENCES `modscope` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `module_dependency_fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  PRIMARY KEY (`module_version_id`, `dependant_module_version_id`),
+  CONSTRAINT `module_dependency_fk_dependant_module_version_id` FOREIGN KEY (`dependant_module_version_id`) REFERENCES `module_version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `module_dependency_fk_module_version_id` FOREIGN KEY (`module_version_id`) REFERENCES `module_version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
