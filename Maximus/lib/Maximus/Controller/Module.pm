@@ -59,7 +59,7 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 				my $v = $version->version;
 				$versions->{$v} = {
 					deps => \@deps,
-					url => $c->uri_for('download', $version->{filename})->as_string,
+					url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
 				};
 			}
 		}
@@ -97,22 +97,17 @@ sub sources_xml :Chained('sources') :PathPart('xml') :Args(0) {
 =head2 download
 
 =cut
-sub download :Local :Args(1) {
-	my($self, $c, $filename) = @_;
-	my $db = $c->model('MongoDB')->db;
-	my $grid = $db->get_gridfs;
-
-	my $file = $grid->find_one({'filename' => $filename});
-	$c->detach('/default') unless $file;
+sub download :Local :Args(3) {
+	my($self, $c, $modscope, $module, $version) = @_;
+	die('Sorry! No downloading yet!');
+	#my $fh = IO::File->new_tmpfile;
+	#$file->print($fh);
 	
-	my $fh = IO::File->new_tmpfile;
-	$file->print($fh);
-	
-	$c->res->header('Content-Disposition', qq[attachment; filename="$filename"]);
-	$c->res->header('ETag', $file->info->{md5});
-	$c->res->header('Content-Length', $file->info->{length});
-	$c->res->content_type('application/x-zip');
-	$c->res->body($fh);
+	#$c->res->header('Content-Disposition', qq[attachment; filename="$filename"]);
+	#$c->res->header('ETag', $file->info->{md5});
+	#$c->res->header('Content-Length', $file->info->{length});
+	#$c->res->content_type('application/x-zip');
+	#$c->res->body($fh);
 }
 
 =head1 AUTHOR

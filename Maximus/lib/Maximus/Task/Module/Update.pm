@@ -59,36 +59,8 @@ sub run {
 		$fh,
 	);
 
-	# Save file in GridFS
-	my $grid = Maximus->model('MongoDB')->db->get_gridfs;
-	
-	$grid->remove({'filename' => $filename});
-	$grid->insert($fh, {"filename" => $filename});
-	
-	# Update module in database
-	my $modules = Maximus->model('MongoDB')->db->get_collection('modules');
-	my $key = {
-		scope => $self->mod->modscope,
-		mod => $self->mod->mod,
-	};
+	die('Updating module not yet supported!');
 
-	my $version = {
-		version => $self->mod->source->version,
-		filename => $filename,
-	};
-	
-	# Only update versions if the version doesn't exist yet
-	$modules->update({
-		scope => $self->mod->modscope,
-		mod => $self->mod->mod,
-		versions => {'$ne' => $version}
-	}, {
-		'$push' => {
-			versions => $version
-		}
-	}, {
-		upsert => 1
-	});
 	1;
 }
 

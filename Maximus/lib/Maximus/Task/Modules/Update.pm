@@ -33,62 +33,7 @@ TODO: Dispatch tasks, optionally, to Gearman...
 =cut
 sub run {
 	my $self = shift;
-	my $db = Maximus->model('MongoDB')->db;
-	foreach my $row($db->get_collection('modules')->query->all) {
-		my($source, %options);
-
-		if($row->{scm}->{type} eq 'Subversion') {
-			%options = (
-				repository => $row->{scm}->{source},
-				trunk => $row->{scm}->{options}->{trunk},
-				tags => $row->{scm}->{options}->{tags} || '',
-				tagsFilter => $row->{scm}->{options}->{tagsFilter} || '',
-			);
-
-			$source = Maximus::Class::Module::Source::SCM::Subversion->new(
-				%options
-			);
-		}
-
-		if($source) {
-			my $sourceClass = ref $source;
-			my %versions = $source->getVersions();
-
-			foreach my $version(keys(%versions)) {
-				my $skipVersion = 0;
-				if($version ne 'dev') {
-					# If a version already exists then skip it
-					foreach(@{$row->{versions}}) {
-						if($_->{version} eq $version) {
-							$skipVersion = 1;
-							last;
-						}
-					}
-				}
-
-				next if $skipVersion;
-			
-				my $s = $sourceClass->new(
-					%options
-				);
-				$s->version($version);
-				
-				my $mod = Maximus::Class::Module->new(
-					modscope => $row->{scope},
-					mod => $row->{mod},
-					desc => $row->{desc} || '',
-					source => $s,
-				);
-				
-				eval {
-					my $task = Maximus::Task::Module::Update->new(mod => $mod);
-					die 'Failed to initialize' unless $task->init;
-					die 'Failed to execute task' unless $task->run;
-				};
-				warn $@ if($@);
-			}
-		}
-	}
+	die('Updating module not yet supported!');
 	
 	1;
 }

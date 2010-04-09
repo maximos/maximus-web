@@ -36,7 +36,6 @@ requires 'Gearman::Server' => '1.11';
 requires 'JSON::Any' => '1.22';
 requires 'HTML::FormHandler' => '0.30003';
 requires 'JSON::Any' => '1.22';
-requires 'MongoDB' => '0.30';
 requires 'SQL::Translator' => '0.11005';
 requires 'Template' => '2.22';
 requires 'XML::Simple' => '2.18';
