@@ -46,7 +46,14 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 	my($self, $c) = @_;
 	my $sources = {};
 	
-	foreach my $modscope($c->model('DB::Modscope')->all) {
+	my @modscope_rs = $c->model('DB::Modscope')->search(undef, {
+		order_by => {
+			-desc => 'me.name',
+		},
+		prefetch => 'modules',
+	});
+
+	foreach my $modscope(@modscope_rs) {
 		my $scope = $modscope->name;
 		
 		foreach my $module($modscope->modules) {
