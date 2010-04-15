@@ -1,6 +1,7 @@
 package Maximus::Controller::Module;
 use IO::File;
 use JSON::Any;
+use version;
 use XML::Simple;
 use Moose;
 use namespace::autoclean;
@@ -69,6 +70,8 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 					url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
 				};
 			}
+			
+			$versions = sort { version->parse($a) <=> version->parse($b) } $versions;
 		}
 	}
 

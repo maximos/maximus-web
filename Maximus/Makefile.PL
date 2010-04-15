@@ -38,6 +38,7 @@ requires 'HTML::FormHandler' => '0.30003';
 requires 'JSON::Any' => '1.22';
 requires 'SQL::Translator' => '0.11005';
 requires 'Template' => '2.22';
+requires 'version';
 requires 'XML::Simple' => '2.18';
 test_requires 'Test::More' => '0.88';
 catalyst;
