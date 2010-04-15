@@ -66,6 +66,31 @@ a:hover { color: #000; }
 
 #content .error { color: red; }
 
+dl#modlist {}
+
+dl#modlist dt.modscope {
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+
+dl#modlist dt.mod {
+	font-weight: bold;
+}
+
+dl#modlist dd.desc {
+	font-style: italic;
+}
+
+dl#modlist ul.versions {
+	list-style:none;
+}
+
+dl#modlist ul.versions li {
+	display: inline;
+	margin: 0px 10px;
+}
+
 #footer { 
   margin-top: 25px; 
   clear: both;
