@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Apr  9 22:23:16 2010
+-- Created on Thu Apr 15 20:12:47 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -111,7 +111,7 @@ CREATE TABLE `module_version` (
   `module_id` integer(10) unsigned NOT NULL,
   `version` VARCHAR(10) NOT NULL,
   `remote_location` VARCHAR(255),
-  `archive` BLOB,
+  `archive` LONGBLOB,
   INDEX module_version_idx_module_id (`module_id`),
   PRIMARY KEY (`id`),
   UNIQUE `Index_3` (`module_id`, `version`),

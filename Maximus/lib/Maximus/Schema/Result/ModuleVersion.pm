@@ -24,7 +24,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3884a0c)
+  extra: HASH(0x3b4dfe4)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x38817e4)
+  extra: HASH(0x39edb04)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -54,10 +54,10 @@ __PACKAGE__->table("module_version");
 
 =head2 archive
 
-  data_type: BLOB
+  data_type: LONGBLOB
   default_value: undef
   is_nullable: 1
-  size: 65535
+  size: 4294967295
 
 =cut
 
@@ -96,10 +96,10 @@ __PACKAGE__->add_columns(
   },
   "archive",
   {
-    data_type => "BLOB",
+    data_type => "LONGBLOB",
     default_value => undef,
     is_nullable => 1,
-    size => 65535,
+    size => 4294967295,
   },
 );
 __PACKAGE__->set_primary_key("id");
@@ -151,8 +151,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:W9L6ZGs9TP4cL9691Pe1jg
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-15 20:12:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5eeBDXtnk+965MYwh/8x3w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
