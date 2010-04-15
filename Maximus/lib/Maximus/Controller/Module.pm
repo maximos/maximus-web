@@ -1,4 +1,5 @@
 package Maximus::Controller::Module;
+use Digest::MD5 qw(md5_hex);
 use IO::File;
 use JSON::Any;
 use version;
@@ -113,18 +114,36 @@ sub sources_xml :Chained('sources') :PathPart('xml') :Args(0) {
 
 =head2 download
 
+Download archive based on modscope, module name and version
 =cut
 sub download :Local :Args(3) {
 	my($self, $c, $modscope, $module, $version) = @_;
-	die('Sorry! No downloading yet!');
-	#my $fh = IO::File->new_tmpfile;
-	#$file->print($fh);
 	
-	#$c->res->header('Content-Disposition', qq[attachment; filename="$filename"]);
-	#$c->res->header('ETag', $file->info->{md5});
-	#$c->res->header('Content-Length', $file->info->{length});
-	#$c->res->content_type('application/x-zip');
-	#$c->res->body($fh);
+	my $rs = $c->model('DB::Module')->search(
+		{
+			'modscope.name' => $modscope,
+			'me.name' => $module,
+			'module_versions.version' => $version,
+		},
+		{
+			join => [qw /modscope module_versions/ ],
+			'+columns' => ['module_versions.archive'],
+		}
+	);
+	
+	my $row = $rs->first;
+	$c->detach('/default') unless $row;
+
+	my $fh = IO::File->new_tmpfile;
+	$fh->print($row->get_column('archive')) or die($!);
+	$fh->seek(0,0);
+
+	my $filename = sprintf('%s-%s-%s.zip', $modscope, $module, $version);
+	$c->res->header('Content-Disposition', qq[attachment; filename="$filename"]);
+	$c->res->header('ETag', md5_hex($row->get_column('archive')));
+	$c->res->header('Content-Length', length($row->get_column('archive')));
+	$c->res->content_type('application/x-zip');
+	$c->res->body($fh);
 }
 
 =head1 AUTHOR
