@@ -1,0 +1,51 @@
+INSTALLING MAXIMUS-WEB ON UBUNTU 9.10
+
+This guide is intended to help you install maximus-web on Ubuntu 9.10.
+
+First, make sure all required software is installed
+
+	$ sudo apt-get install build-essential libmodule-install-perl mysql-server\
+		git-core
+
+This step is not required perse, but it helps you to install the required Perl
+modules in a local directory. Doing so makes sure modules aren't installed in
+the same directory as where your distribution installs its modules. Whenever
+you decide to upgrade your system or install updates you risk your modules being
+overwritten. So that's why we go for a local installation.
+If it's the first time you invoke the CPAN command you can tell it to do the
+auto-configuration. Of course, you're free to configure CPAN anyway you like.
+
+	$ sudo cpan local::lib
+
+Next, we need to make sure local::lib is being used. By calling perl from the
+command line and simply load local::lib we get a nice set of helpful export
+commands.
+
+	$ perl -Mlocal::lib
+	
+This results in something like this:
+
+  export MODULEBUILDRC=/home/username/perl/.modulebuildrc
+  export PERL_MM_OPT='INSTALL_BASE=/home/username/perl'
+  export PERL5LIB='/home/username/perl/lib/perl5:/home/username/perl/lib/perl5/i386-linux'
+  export PATH="/home/username/perl/bin:$PATH"
+ 
+Copy these export lines and execute them on your command line. You can also 
+store these exports in your ~/.bashrc so anytime you login these paths are set
+by default. This makes sure installing modules from CPAN is safe.
+
+Now we can safely build and install maximus-web. While installing it might nag
+about missing modules and asks if you want to install them. Of course, answer
+yes in that case. There are quite some dependencies to install so get yourself
+some coffee. After all dependencies have been installed any forthcoming updates
+will take less time. You can probably install most modules from your package
+manager (apt, yum), but the versions of these modules are usually far behind.
+
+	$ git clone git://github.com/Htbaa/maximus-web.git
+	$ cd maximus-web/Maximsu
+	$ perl Makefile.PL
+	$ make
+	$ make installdeps
+	$ make install
+
+TODO: MySQL, Apache, Config etc.
