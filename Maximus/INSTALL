@@ -48,4 +48,50 @@ manager (apt, yum), but the versions of these modules are usually far behind.
 	$ make installdeps
 	$ make install
 
-TODO: MySQL, Apache, Config etc.
+CONFIGURING MYSQL
+
+-- todo
+
+CONFIGURING MAXIMUS
+
+-- todo
+
+RUNNING THE FASTCGI DAEMON
+
+	$ perl script/maximus_fastcgi.pl -l /tmp/maximus.socket -n 5 -p /tmp/maximus.pid -d
+
+CONFIGURING APACHE
+
+Here's a minimal virtual host configuration for Apache. This asumes running
+maximus-web as a stand-alone FastCGI daemon. For other deployment options please
+read Catalyst::Manual::Cookbook.
+
+	<VirtualHost *:80>
+	        DocumentRoot /home/maximus/maximus-web/Maximus/root
+	        FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
+	        Alias / /tmp/maximus.fcgi/
+	        Alias /static /home/maximus/maximus-web/Maximus/root/static
+	        
+			# This is for modules that need the Authorization header like 
+			# Catalyst::Plugin::Authentication::Credential::HTTP
+			# mod_cgi and mod_fastcgi don't do this by default
+			RewriteCond %{HTTP:Authorization} ^(.+)
+			RewriteRule ^(.*)$ $1 [E=HTTP_AUTHORIZATION:%1,PT]
+			
+			RewriteRule ^$ / [R]	        
+	</VirtualHost>
+
+	# By default Maximus requires SSL for account registration and login
+	# So lets setup HTTPS
+	# Be sure to configure Apache for it: sudo a2enmod ssl
+	
+	# Next, copy the virtual host configuration from above, but change the port
+	# to 443 and add these lines.
+	# This uses the self-signed certificate but will suffice.	
+	<VirtualHost *:443>
+		...
+		SSLEngine on
+		SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+		...
+	</VirtualHost>
