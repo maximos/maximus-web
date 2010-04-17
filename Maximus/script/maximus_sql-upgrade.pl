@@ -1,5 +1,6 @@
 #!/bin/env perl
 use strict;
+use local::lib;
 use lib './lib';
 use Maximus::Schema;
 

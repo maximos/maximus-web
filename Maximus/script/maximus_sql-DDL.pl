@@ -1,5 +1,6 @@
 #!/bin/env perl
 use strict;
+use local::lib;
 use Pod::Usage;
 use Getopt::Long;
 use lib './lib';

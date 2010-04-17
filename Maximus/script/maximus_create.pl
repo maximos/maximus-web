@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use local::lib;
 use Catalyst::ScriptRunner;
 Catalyst::ScriptRunner->run('Maximus', 'Create');
 

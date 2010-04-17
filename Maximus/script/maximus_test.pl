@@ -1,5 +1,6 @@
 #!/usr/bin/env perl -w
 
+use local::lib;
 use Catalyst::ScriptRunner;
 Catalyst::ScriptRunner->run('Maximus', 'Test');
 

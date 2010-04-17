@@ -4,6 +4,7 @@ BEGIN {
     $ENV{CATALYST_SCRIPT_GEN} = 40;
 }
 
+use local::lib;
 use Catalyst::ScriptRunner;
 Catalyst::ScriptRunner->run('Maximus', 'Server');
 
