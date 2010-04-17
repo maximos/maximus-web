@@ -42,7 +42,7 @@ will take less time. You can probably install most modules from your package
 manager (apt, yum), but the versions of these modules are usually far behind.
 
 	$ git clone git://github.com/Htbaa/maximus-web.git
-	$ cd maximus-web/Maximsu
+	$ cd maximus-web/Maximus
 	$ perl Makefile.PL
 	$ make
 	$ make installdeps
