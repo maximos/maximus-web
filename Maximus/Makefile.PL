@@ -21,6 +21,8 @@ requires 'DBIx::Class' => '0.08120';
 requires 'DBI';
 requires 'DBD::mysql';
 requires 'Digest::SHA' => '5.48';
+requires 'FCGI';
+requires 'FCGI::ProcManager';
 requires 'Moose';
 requires 'MooseX::Storage' => '0.25';
 requires 'namespace::autoclean';
