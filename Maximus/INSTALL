@@ -50,7 +50,15 @@ manager (apt, yum), but the versions of these modules are usually far behind.
 
 CONFIGURING MYSQL
 
--- todo
+Create user called maximus. By default we expect the password to be 'demo'.
+
+	$ mysql -umaximus -p --database maximus < sql/Maximus-Schema-0.001-MySQL.sql
+	
+In case of an upgrade run the following command. For now, if the password is
+something other than 'demo' please alter the maximus_sql-upgrade.sql script
+before running it.
+
+	$ perl script/maximus_sql-upgrade.pl
 
 CONFIGURING MAXIMUS
 
