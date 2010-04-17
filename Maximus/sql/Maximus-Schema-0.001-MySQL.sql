@@ -13,7 +13,7 @@ CREATE TABLE `dbix_class_schema_versions` (
   `version` VARCHAR(10) NOT NULL,
   `installed` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`version`)
-);
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `role`;
 
@@ -37,7 +37,7 @@ CREATE TABLE `session` (
   `session_data` text,
   `expires` integer(10) unsigned,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `user`;
 
