@@ -62,7 +62,10 @@ before running it.
 
 CONFIGURING MAXIMUS
 
--- todo
+	$ cp maxmimus.default.conf maximus.conf
+
+Edit maximus.conf to your needs. The file uses Apache like configuration style.
+If something isn't clear, please let me know.
 
 RUNNING THE FASTCGI DAEMON
 
