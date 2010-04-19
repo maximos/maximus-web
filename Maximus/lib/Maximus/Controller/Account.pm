@@ -34,6 +34,13 @@ sub index :Path :Args(0) {
 
 sub login :Local {
     my ( $self, $c ) = @_;
+    
+	if($c->user_exists) {
+		$c->res->redirect($c->uri_for(
+			$c->controller('Account')->action_for('index')));
+		return;
+	}
+    
 	$c->require_ssl;
 	
 	my $form = Maximus::Form::Account::Login->new;
