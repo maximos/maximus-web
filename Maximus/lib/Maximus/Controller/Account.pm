@@ -76,13 +76,14 @@ sub logout :Local {
 =cut
 sub signup :Local {
 	my ($self, $c) = @_;
-	$c->require_ssl;
 	
 	if($c->user_exists) {
 		$c->res->redirect($c->uri_for(
 			$c->controller('Account')->action_for('index')));
 		return;
 	}
+	
+	$c->require_ssl;
 	
 	my $form = Maximus::Form::Account::Signup->new;
 	$form->process( $c->req->parameters );
