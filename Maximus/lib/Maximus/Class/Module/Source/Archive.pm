@@ -37,7 +37,7 @@ Extract given archive to temporary directory and modify its contents if required
 sub prepare {
 	my($self, $mod) = @_;
 	
-	my $ae = Archive::Extract->new( archive => $self->file );
+	my $ae = Archive::Extract->new( archive => $self->file, type => 'zip' );
 	confess($ae->error) unless $ae->extract( to => $self->tmpDir );
 	
 	$self->findAndMoveRootDir($mod);
