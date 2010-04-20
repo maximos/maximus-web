@@ -84,7 +84,17 @@ sub validate {
 			# Make sure the line isn't commented
 			if($_ =~ m/^(\s|\t)*Module\s/) {
 				$modNameOK = 1;
-				last;
+				next;
+			}
+		}
+		
+		# Figure out version number
+		# ModuleInfo "Version: 1.03"
+		if(index(lc($_), lc('ModuleInfo "Version:')) != -1) {
+			# Make sure the line isn't commented
+			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/) {
+				$mod->source->version($2);
+				next;
 			}
 		}
 	}

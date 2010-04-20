@@ -1,64 +1,66 @@
-package Maximus::Task::Module::Update;
-use Carp qw/confess/;
-use IO::File;
-use Moose;
-use Maximus::Class::Module;
-
-with 'Maximus::Role::Task';
+package Maximus::Form::Module::Upload;
+use HTML::FormHandler::Moose;
+extends 'HTML::FormHandler';
 
 =head1 NAME
 
-Maximus::Task::Module::Update - Update module database
-
-=head1 SYNOPSIS
-
-	use Maximus::Class::Module;
-	use Maximus::Task::Module::Update;
-	my $mod = Maximus::Class::Module->new;
-	my $task = Maximus::Task::Module::Update->new(mod => $mod);
-	$task->init;
-	$task->run;
+Maximus::Form::Account::Login - Module upload form
 
 =head1 DESCRIPTION
 
-Update a module in the database.
+Upload form
 
-=head1 ATTRIBUTES
+=head1 Attributes
 
-=head2 mod
+=head2 enctype
 
-A I<Maximus::Class::Module> object
 =cut
-has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
+has '+enctype' => ( default => 'multipart/form-data'); 
 
-=head1 METHODS
+=head2 file
 
-=head2 init
-
-Initialize module build task
+max_size is 52428800 = 50 megabytes
 =cut
-sub init {
-	my $self = shift;
-	1;
-}
+has_field 'file' => (
+	type => 'Upload',
+	label => 'Module Archive (.zip)',
+	max_size => 52428800,
+	required => 1,
+	required_message => 'You need to supply an archive (.zip)',
+);
 
-=head2 run
+=head2scope
 
-Run task
+Module namespace
 =cut
-sub run {
-	my $self = shift;
-	
-	my $fh = IO::File->new_tmpfile;
-	
-	$self->mod->source->prepare($self->mod);
-	my $filename = $self->mod->source->archive(
-		$self->mod,
-		$fh,
-	);
+has_field 'scope' => (
+	type => 'Text',
+	label => 'Modscope',
+	required => 1,
+	required_message => 'You must enter a modscope',
+);
 
-	1;
-}
+=head2 modname
+
+Module name
+=cut
+has_field 'name' => (
+	type => 'Text',
+	label => 'Name',
+	required => 1,
+	required_message => 'You must enter a module name',
+);
+
+=head2 desc
+
+Module description
+=cut
+has_field 'desc' => (
+	type => 'Text',
+	label => 'Description',
+	required => 1,
+	required_message => 'You must enter a description',
+);
 
 =head1 AUTHOR
 
@@ -88,4 +90,5 @@ THE SOFTWARE.
 
 =cut
 
+__PACKAGE__->meta->make_immutable;
 1;
