@@ -126,7 +126,7 @@ sub archive {
 	$zip->removeMember($modName . '/doc/commands.html');
 	
 	# Remove files that are the result of a compilation
-	foreach(('\.bmx\/', '\.(o|s|a|i)$')) {
+	foreach(('\.bmx\/', '\.(o|s|a|i|exe)$')) {
 		$zip->removeMember($_) foreach($zip->membersMatching($_));
 	}
 	
