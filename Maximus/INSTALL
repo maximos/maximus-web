@@ -46,7 +46,6 @@ manager (apt, yum), but the versions of these modules are usually far behind.
 	$ perl Makefile.PL
 	$ make
 	$ make installdeps
-	$ make install
 
 CONFIGURING MYSQL
 
