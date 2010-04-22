@@ -10,6 +10,8 @@ __PACKAGE__->config(
         dsn => 'dbi:mysql:maximus',
         user => 'maximus',
         password => 'demo',
+        quote_char => '`',
+        name_sep => '.',
     }
 );
 
