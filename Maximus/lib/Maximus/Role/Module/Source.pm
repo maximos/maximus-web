@@ -93,7 +93,7 @@ sub validate {
 		if(index(lc($_), lc('ModuleInfo "Version:')) != -1) {
 			# Make sure the line isn't commented
 			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/) {
-				$mod->source->version($2);
+				$mod->source->version(eval $2);
 				next;
 			}
 		}
