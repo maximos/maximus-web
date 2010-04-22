@@ -59,22 +59,28 @@ sub index :Path :Args(0) {
     		$c->detach;	
     	}
 
-		
-    	my $source = Maximus::Class::Module::Source::Archive->new(
-    		file => $file->tempname,
-    	);
-    	
-    	my $module = Maximus::Class::Module->new(
-    		modscope => $form->field('scope')->value,
-    		mod => $form->field('name')->value,
-    		desc => $form->field('desc')->value,
-    		source => $source,
-    	);
-    	
-		# TODO proper error handling
-   		my $task = Maximus::Task::Module::Update->new(mod => $module);
-   		$task->init;
-   		$task->run;
+		my $ok;
+		eval {
+	    	my $source = Maximus::Class::Module::Source::Archive->new(
+	    		file => $file->tempname,
+	    	);
+	    	
+	    	my $module = Maximus::Class::Module->new(
+	    		modscope => $form->field('scope')->value,
+	    		mod => $form->field('name')->value,
+	    		desc => $form->field('desc')->value,
+	    		source => $source,
+	    		schema => $c->model('DB')->schema,
+	    	);
+	    	$ok = $module->save($c->user->get('id'));
+		};
+		if($@ || $ok != 1) {
+			use Data::Dumper;
+    		$c->stash(
+    			error_msg => $ok || 'An unxpected error occured: ' . $@,
+    		);
+    		$c->detach;
+		}
     }
 }
 

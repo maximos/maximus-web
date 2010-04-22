@@ -1,5 +1,7 @@
 package Maximus::Class::Module;
 use Moose;
+use Carp qw/confess croak/;
+use IO::File;
 
 =head1 NAME
 
@@ -44,7 +46,65 @@ has 'source' => (
 	required => 1
 );
 
+=head2 schema
+
+L<DBIx::Class schema>
+=cut
+has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
+
 =head1 METHODS
+
+=head2 save
+
+Save module in database
+=cut
+sub save {
+	my($self, $user_id) = @_;
+	
+	confess('schema is missing') unless $self->schema;
+	confess('required parameter $user_id is missing') unless $user_id;
+	
+   	# A user can only upload a module for the given modscope if the modscope
+   	# belongs to the user or if it doesn't exist yet
+   	my $modscope = $self->schema->resultset('Modscope')->single({
+   		name => $self->modscope,
+    });   	
+    
+   	if($modscope && $user_id != $modscope->user_id) {
+   		return 'This modscope doesn\'t belong to you';
+	}
+    elsif(!$modscope) {
+		$modscope = $self->schema->resultset('Modscope')->create({
+			name => $self->modscope,
+    		user_id => $user_id,
+		});
+	}
+	
+	my $mod = $self->schema->resultset('Module')->update_or_create({
+		modscope_id => $modscope->id,
+		name => $self->mod,
+		desc => $self->desc,
+	});
+	
+	$self->source->prepare($self);
+	$self->source->validate($self);
+	
+	my $fh = IO::File->new_tmpfile;
+	my $filename = $self->source->archive($self, $fh);
+	
+	my $archive;
+	while(<$fh>) {
+		$archive .= $_;
+	}
+	
+	my $version = $self->schema->resultset('ModuleVersion')->update_or_create({
+		module_id => $mod->id,
+		version => $self->source->version,
+		archive => $archive,
+	});
+	
+	1;
+}
 
 =head1 AUTHOR
 
