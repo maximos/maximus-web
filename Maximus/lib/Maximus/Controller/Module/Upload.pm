@@ -51,7 +51,7 @@ sub index :Path :Args(0) {
 
     if($form->validated) {
     	my $file = $c->req->upload('file');
-    	if($file->type ne 'application/x-zip') {
+    	if($file->type ne 'application/x-zip' && $file->type ne 'binary/octet-stream') {
     		$c->stash(
     			error_msg => 'File type ' . $file->type . ' is not supported. '. 
     						 'Please supply a ZIP-archive.'
