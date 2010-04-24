@@ -24,7 +24,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3b4dfe4)
+  extra: HASH(0x3bc3094)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module_version");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x39edb04)
+  extra: HASH(0x3bc08ec)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -107,7 +107,7 @@ __PACKAGE__->add_unique_constraint("Index_3", ["module_id", "version"]);
 
 =head1 RELATIONS
 
-=head2 module_dependency_module_version_ids
+=head2 module_dependency_dependant_module_versions
 
 Type: has_many
 
@@ -116,23 +116,23 @@ Related object: L<Maximus::Schema::Result::ModuleDependency>
 =cut
 
 __PACKAGE__->has_many(
-  "module_dependency_module_version_ids",
-  "Maximus::Schema::Result::ModuleDependency",
-  { "foreign.module_version_id" => "self.id" },
-);
-
-=head2 module_dependency_dependant_module_version_ids
-
-Type: has_many
-
-Related object: L<Maximus::Schema::Result::ModuleDependency>
-
-=cut
-
-__PACKAGE__->has_many(
-  "module_dependency_dependant_module_version_ids",
+  "module_dependency_dependant_module_versions",
   "Maximus::Schema::Result::ModuleDependency",
   { "foreign.dependant_module_version_id" => "self.id" },
+);
+
+=head2 module_dependency_module_versions
+
+Type: has_many
+
+Related object: L<Maximus::Schema::Result::ModuleDependency>
+
+=cut
+
+__PACKAGE__->has_many(
+  "module_dependency_module_versions",
+  "Maximus::Schema::Result::ModuleDependency",
+  { "foreign.module_version_id" => "self.id" },
 );
 
 =head2 module
@@ -151,8 +151,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-15 20:12:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5eeBDXtnk+965MYwh/8x3w
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hNRJmhDy0keY0Usmu05OLw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

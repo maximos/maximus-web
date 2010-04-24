@@ -24,7 +24,7 @@ __PACKAGE__->table("user");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0aef4)
+  extra: HASH(0x3bc35c4)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -118,8 +118,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4IcyiqKbWm3WUZB3b1tRgA
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Tfv2cFF6bTfLq6311GfGtw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

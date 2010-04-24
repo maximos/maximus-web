@@ -18,6 +18,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Plugin::RequireSSL' => '0.06';
 requires 'Catalyst::View::TT';
 requires 'DBIx::Class' => '0.08120';
+requires 'DBIx::Class::Schema::Loader' => '0.05003';
 requires 'DBI';
 requires 'DBD::mysql';
 requires 'Digest::SHA' => '5.48';

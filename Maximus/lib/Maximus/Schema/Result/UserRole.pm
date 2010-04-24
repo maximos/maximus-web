@@ -24,7 +24,7 @@ __PACKAGE__->table("user_role");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3e0008c)
+  extra: HASH(0x39f6004)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("user_role");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3ca2cc4)
+  extra: HASH(0x3bc3384)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -64,21 +64,6 @@ __PACKAGE__->set_primary_key("user_id", "role_id");
 
 =head1 RELATIONS
 
-=head2 user
-
-Type: belongs_to
-
-Related object: L<Maximus::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "Maximus::Schema::Result::User",
-  { id => "user_id" },
-  {},
-);
-
 =head2 role
 
 Type: belongs_to
@@ -94,9 +79,24 @@ __PACKAGE__->belongs_to(
   {},
 );
 
+=head2 user
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-15 21:21:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gm7r5yKh+MqKnAFYzRe8Eg
+Type: belongs_to
+
+Related object: L<Maximus::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "Maximus::Schema::Result::User",
+  { id => "user_id" },
+  {},
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5W5cJ2nFOaduMs3/m1Sgkg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

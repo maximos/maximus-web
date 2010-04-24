@@ -24,7 +24,7 @@ __PACKAGE__->table("modscope");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3885e44)
+  extra: HASH(0x3bc1f14)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("modscope");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x38859b4)
+  extra: HASH(0x3bc1e74)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -108,8 +108,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/E0+zda3OPuIk+I1p5cS3g
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xFn9V3OKkouxGWXEjgVd6A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

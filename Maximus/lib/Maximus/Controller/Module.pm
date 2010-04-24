@@ -64,7 +64,7 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 			
 			foreach my $version($module->module_versions) {
 				my @deps;
-				foreach my $dependantVersion($version->module_dependency_module_version_ids) {
+				foreach my $dependantVersion($version->module_dependency_dependant_module_versions) {
 					my $version = $dependantVersion->dependant_module_version;
 					my $module = $version->module;
 					my $modscope = $module->modscope;
