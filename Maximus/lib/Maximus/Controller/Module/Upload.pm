@@ -85,18 +85,10 @@ sub index :Path :Args(0) {
 			$c->log->info($@) if($@);
 			$c->detach;
 		}
-		
-		$c->forward('done');
+
+		$c->stash(template => 'module/upload/done.tt');
 	}
 }
-
-=head2 done
-
-Page to show when a module upload has been completed
-=cut
-sub done :Path :Args(0) {
-	my ( $self, $c ) = @_;
-} 
 
 =head1 AUTHOR
 
