@@ -39,51 +39,64 @@ sub auto :Private {
 =cut
 
 sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+	my ( $self, $c ) = @_;
 
-    my $form = Maximus::Form::Module::Upload->new; 
+	my $form = Maximus::Form::Module::Upload->new; 
 
-    my $params = $c->req->parameters;
-    $params->{file} = $c->req->upload('file') if $c->req->method eq 'POST';
+	my $params = $c->req->parameters;
+	$params->{file} = $c->req->upload('file') if $c->req->method eq 'POST';
      
-    $form->process($params);
-    $c->stash(form => $form);
+	$form->process($params);
+	$c->stash(form => $form);
 
-    if($form->validated) {
-    	my $file = $c->req->upload('file');
-    	if($file->type ne 'application/x-zip' && $file->type ne 'binary/octet-stream') {
-    		$c->stash(
-    			error_msg => 'File type ' . $file->type . ' is not supported. '. 
-    						 'Please supply a ZIP-archive.'
-    		);
-    		$c->detach;	
-    	}
+	if($form->validated) {
+		my $file = $c->req->upload('file');
+		if($file->type ne 'application/x-zip' && $file->type ne 'binary/octet-stream') {
+			$c->stash(
+				error_msg => 'File type ' . $file->type . ' is not supported. '. 
+							 'Please supply a ZIP-archive.'
+			);
+			$c->detach;	
+		}
 
 		my $ok;
 		eval {
-	    	my $source = Maximus::Class::Module::Source::Archive->new(
-	    		file => $file->tempname,
-	    	);
-	    	
-	    	my $module = Maximus::Class::Module->new(
-	    		modscope => $form->field('scope')->value,
-	    		mod => $form->field('name')->value,
-	    		desc => $form->field('desc')->value,
-	    		source => $source,
-	    		schema => $c->model('DB')->schema,
-	    	);
-	    	$ok = $module->save($c->user->get('id'));
+				$c->model('DB')->txn_do(sub {
+				my $source = Maximus::Class::Module::Source::Archive->new(
+					file => $file->tempname,
+				);
+		    	
+				my $module = Maximus::Class::Module->new(
+					modscope => $form->field('scope')->value,
+					mod => $form->field('name')->value,
+					desc => $form->field('desc')->value,
+					source => $source,
+					schema => $c->model('DB')->schema,
+		    	);
+		    	$ok = $module->save($c->user->get('id'));
+			});
 		};
 		if($@ || $ok != 1) {
-			use Data::Dumper;
-    		$c->stash(
-    			error_msg => $ok || 'An unxpected error occured: ' . $@,
-    		);
-    		$c->detach;
+			$c->stash(
+				error_msg => $ok || 'An unxpected error occured. Perhaps your '.
+									'module is faulty. If this problem keeps '.
+									'showing up then please contact us.'
+			);
+			$c->log->info($@) if($@);
+			$c->detach;
 		}
-    }
+		
+		$c->forward('done');
+	}
 }
 
+=head2 done
+
+Page to show when a module upload has been completed
+=cut
+sub done :Path :Args(0) {
+	my ( $self, $c ) = @_;
+} 
 
 =head1 AUTHOR
 
