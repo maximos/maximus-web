@@ -24,7 +24,7 @@ __PACKAGE__->table("role");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3ca22bc)
+  extra: HASH(0x3bc1fa4)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -76,8 +76,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-15 21:21:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sjQ3PfiP+XMvlDm55EIevQ
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wuDwFdPvKRkkIby5swfhEA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

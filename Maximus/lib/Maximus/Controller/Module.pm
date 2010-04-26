@@ -62,9 +62,14 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 			$sources->{$scope}->{$modname}->{desc} = $module->desc;
 			my $versions = $sources->{$scope}->{$modname}->{versions} = {};
 			
-			foreach my $version($module->module_versions) {
+			# Don't fetch `archive` because it contains the raw archive data and
+			# is expected to be a big resultset
+			my @module_versions = $module->search_related('module_versions', undef, {
+				'columns' => [qw/id module_id version remote_location/]
+			});
+			foreach my $version(@module_versions) {
 				my @deps;
-				foreach my $dependantVersion($version->module_dependency_module_version_ids) {
+				foreach my $dependantVersion($version->module_dependency_dependant_module_versions) {
 					my $version = $dependantVersion->dependant_module_version;
 					my $module = $version->module;
 					my $modscope = $module->modscope;

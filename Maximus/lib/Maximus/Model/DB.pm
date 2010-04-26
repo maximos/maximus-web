@@ -12,6 +12,7 @@ __PACKAGE__->config(
         password => 'demo',
         quote_char => '`',
         name_sep => '.',
+        AutoCommit => 1,
     }
 );
 

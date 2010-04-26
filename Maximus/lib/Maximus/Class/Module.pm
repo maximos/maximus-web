@@ -1,5 +1,6 @@
 package Maximus::Class::Module;
 use Moose;
+use Moose::Util::TypeConstraints;
 use Carp qw/confess croak/;
 use IO::File;
 
@@ -22,7 +23,18 @@ This class represents a module
 
 Modscope (namespace) of module, e.g. B<brl>.example
 =cut
-has 'modscope' => (is => 'rw', isa => 'Str', required => 1);
+subtype 'ModScope'
+	=> as Str
+	=> where {
+		my $modscope = $_;
+		foreach my $reservedScope(('brl', 'pub', 'maxgui')) {
+			return 0 if(lc($modscope) eq lc($reservedScope));
+		}
+		1;
+	}
+	=> message { "This modscope ($_) is reserved!" };
+
+has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
 =head2 mod
 

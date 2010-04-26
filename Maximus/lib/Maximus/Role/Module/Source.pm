@@ -5,6 +5,7 @@ use Carp qw/confess/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Find;
 use File::Temp;
+use version;
 
 =head1 NAME
 
@@ -93,7 +94,7 @@ sub validate {
 		if(index(lc($_), lc('ModuleInfo "Version:')) != -1) {
 			# Make sure the line isn't commented
 			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/) {
-				$mod->source->version(eval $2);
+				$mod->source->version(version->parse($2)->stringify);
 				next;
 			}
 		}

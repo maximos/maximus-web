@@ -24,7 +24,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0a56c)
+  extra: HASH(0x3bc3bd4)
   is_auto_increment: 1
   is_nullable: 0
   size: 10
@@ -33,7 +33,7 @@ __PACKAGE__->table("module");
 
   data_type: INT
   default_value: undef
-  extra: HASH(0x3a0a61c)
+  extra: HASH(0x3bc50a4)
   is_foreign_key: 1
   is_nullable: 0
   size: 10
@@ -63,7 +63,7 @@ __PACKAGE__->table("module");
 
   data_type: ENUM
   default_value: undef
-  extra: HASH(0x3a09e3c)
+  extra: HASH(0x3bc3894)
   is_nullable: 0
   size: 6
 
@@ -167,8 +167,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-09 22:23:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fF1XFSPJVt1NEn7ZC4ECkg
+# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hKLyWhseIc/t3C0zIkbd7w
 
 
 use JSON::Any;

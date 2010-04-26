@@ -34,7 +34,7 @@ __PACKAGE__->config(
     disable_component_resolution_regex_fallback => 1,
 	'Plugin::Session' => {
 		dbic_class => 'DB::Session',
-		explires => 3600,
+		expires => 3600,
 	},
 	'Plugin::Authentication' => {
 		default_realm => 'website',
