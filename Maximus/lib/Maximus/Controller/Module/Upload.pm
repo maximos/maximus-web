@@ -50,17 +50,9 @@ sub index :Path :Args(0) {
 	$c->stash(form => $form);
 
 	if($form->validated) {
-		my $file = $c->req->upload('file');
-		if($file->type ne 'application/x-zip' && $file->type ne 'binary/octet-stream') {
-			$c->stash(
-				error_msg => 'File type ' . $file->type . ' is not supported. '. 
-							 'Please supply a ZIP-archive.'
-			);
-			$c->detach;	
-		}
-
 		my $ok;
 		eval {
+			my $file = $c->req->upload('file');
 				$c->model('DB')->txn_do(sub {
 				my $source = Maximus::Class::Module::Source::Archive->new(
 					file => $file->tempname,
