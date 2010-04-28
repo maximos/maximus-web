@@ -22,6 +22,7 @@ requires 'DBIx::Class::Schema::Loader' => '0.05003';
 requires 'DBI';
 requires 'DBD::mysql';
 requires 'Digest::SHA' => '5.48';
+requires 'Exception::Class' => '1.30';
 requires 'FCGI';
 requires 'FCGI::ProcManager';
 requires 'Moose';

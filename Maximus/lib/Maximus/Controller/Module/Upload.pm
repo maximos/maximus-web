@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Maximus::Class::Module;
 use Maximus::Class::Module::Source::Archive;
+use Maximus::Exceptions;
 use Maximus::Form::Module::Upload;
 use Maximus::Task::Module::Update;
 
@@ -65,16 +66,31 @@ sub index :Path :Args(0) {
 					source => $source,
 					schema => $c->model('DB')->schema,
 		    	);
-		    	$ok = $module->save($c->user->get('id'));
+		    	$module->save($c->user->get('id'));
 			});
 		};
-		if($@ || $ok != 1) {
+		
+		my $e;
+		if($e = Maximus::Exception::Module::Archive->caught()) {
 			$c->stash(
-				error_msg => $ok || 'An unxpected error occured. Perhaps your '.
-									'module is faulty. If this problem keeps '.
-									'showing up then please contact us.'
+				error_msg => 'Your archive appears to be faulty. ' .
+							 'Please check the requirements above.',
 			);
+		}
+		elsif($e = Maximus::Exception::Module->caught()) {
+			my $msg = 'An unxpected error occured. Perhaps your module is ' . 
+					  'faulty. If this problem keeps showing up then please ' .
+					  'contact us.';
+			$c->stash(error_msg => $e->user_msg || $msg);
+		}
+		elsif($@) {
+			$c->stash(error_msg => 'An unknown error occured.');
 			$c->log->info($@) if($@);
+			$c->detach;
+		}
+		
+		if($e) {
+			$c->log->info($e->error);
 			$c->detach;
 		}
 

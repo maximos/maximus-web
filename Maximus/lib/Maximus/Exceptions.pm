@@ -1,50 +1,49 @@
-package Maximus::Class::Module::Source::Archive;
-use Moose;
-use Archive::Extract;
-use Carp qw/confess/;
-use Maximus::Exceptions;
-use namespace::autoclean;
-
-with 'Maximus::Role::Module::Source';
+package Maximus::Exceptions;
 
 =head1 NAME
 
-Maximus::Class::Module::Source::Archive - Handles module sources in
-archives
+Maximus::Exceptions - All Exceptions in Maximus
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module::Source::Archive;
-	my $source = Maximus::Class::Module::Source::Archive->new;
+	use Maximus::Exceptions;
 
 =head1 DESCRIPTION
 
-Archive support for retrieving the modules sources.
+All exceptions are contained in this file.
 
-=head1 ATTRIBUTES
+=head1 EXCEPTIONS
 
-=head2 file
+=head2 Maximus::Exception
 
-Location to archive file
+General exception
+
+=head2 Maximus::Exception::Module
+
+A exception used when handling modules
+
+=head2 Maximus::Exception::Module::Archive
+
+A exception used when handling module archives
 =cut
-has 'file' => (is => 'rw', isa => 'Str', required => 1);
+use Exception::Class (
+	'Maximus::Exception' => {
+		fields => qw/ user_msg /,
+	},
+	'Maximus::Exception::Module' => {
+		isa => 'Maximus::Exception',
+	},
+	'Maximus::Exception::Module::Archive' => {
+		isa => 'Maximus::Exception::Module',
+	},
+	'Maximus::Exception::Module::Source' => {
+		isa => 'Maximus::Exception::Module',
+	},
+);
 
-=head1 METHODS
+=head1 SEE ALSO
 
-=head2 prepare
-
-Extract given archive to temporary directory and modify its contents if required
-=cut
-sub prepare {
-	my($self, $mod) = @_;
-	
-	my $ae = Archive::Extract->new( archive => $self->file, type => 'zip' );
-	Maximus::Exception::Module::Archive->throw(error => $ae->error)
-	unless $ae->extract( to => $self->tmpDir );
-	
-	$self->findAndMoveRootDir($mod);
-	$self->validate($mod);
-}
+L<Exception::Class>
 
 =head1 AUTHOR
 
@@ -73,7 +72,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

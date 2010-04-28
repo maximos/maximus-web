@@ -1,7 +1,7 @@
 package Maximus::Class::Module;
 use Moose;
 use Moose::Util::TypeConstraints;
-use Carp qw/confess croak/;
+use Maximus::Exceptions;
 use IO::File;
 
 =head1 NAME
@@ -73,8 +73,12 @@ Save module in database
 sub save {
 	my($self, $user_id) = @_;
 	
-	confess('schema is missing') unless $self->schema;
-	confess('required parameter $user_id is missing') unless $user_id;
+	Maximus::Exception::Module->throw('schema is missing')
+	unless $self->schema;
+	
+	Maximus::Exception::Module->throw(
+		'required parameter $user_id is missing'
+	) unless $user_id;
 	
    	# A user can only upload a module for the given modscope if the modscope
    	# belongs to the user or if it doesn't exist yet
@@ -83,7 +87,9 @@ sub save {
     });   	
     
    	if($modscope && $user_id != $modscope->user_id) {
-   		return 'This modscope doesn\'t belong to you';
+   		Maximus::Exception::Module->throw(
+   			user_msg => 'This modscope doesn\'t belong to you'
+   		);
 	}
     elsif(!$modscope) {
 		$modscope = $self->schema->resultset('Modscope')->create({
@@ -114,8 +120,6 @@ sub save {
 		version => $self->source->version,
 		archive => $archive,
 	});
-	
-	1;
 }
 
 =head1 AUTHOR

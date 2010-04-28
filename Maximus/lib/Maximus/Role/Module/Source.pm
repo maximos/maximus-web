@@ -1,10 +1,10 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
-use Carp qw/confess/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Find;
 use File::Temp;
+use Maximus::Exceptions;
 use version;
 
 =head1 NAME
@@ -68,15 +68,17 @@ I<$module> ISA Maximus::Class::Module
 sub validate {
 	my($self, $mod) = @_;
 
-	confess('$mod isn\'t of the type Maximus::Class::Module')
-	unless $mod->isa('Maximus::Class::Module');
+	Maximus::Exception::Module::Source->throw(
+		'$mod isn\'t of the type Maximus::Class::Module'
+	) unless $mod->isa('Maximus::Class::Module');
 	
 	my $modName = join('.', $mod->modscope, $mod->mod);
 	my $mainFile = $self->tmpDir . '/' . $mod->mod . '.bmx';	
 	
 	my $fh = new IO::File;
-	confess('Unable to open main file: ', $mainFile)
-	unless($fh->open($mainFile));
+	Maximus::Exception::Module::Source->throw(
+		'Unable to open main file: ' . $mainFile
+	) unless($fh->open($mainFile));
 
 	my $modNameOK = 0;
 	while(<$fh>) {
@@ -101,7 +103,9 @@ sub validate {
 	}
 	$fh->close;
 	
-	confess('Module name doesn\'t match') unless $modNameOK;
+	Maximus::Exception::Module::Source->throw(
+		user_msg => 'Module name doesn\'t match'
+	) unless $modNameOK;
 	$self->validated(1);
 }
 
