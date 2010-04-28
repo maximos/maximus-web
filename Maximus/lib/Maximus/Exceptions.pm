@@ -25,6 +25,10 @@ A exception used when handling modules
 =head2 Maximus::Exception::Module::Archive
 
 A exception used when handling module archives
+
+=head2 Maximus::Exception::Module::Source
+
+A exception used when processing module sources
 =cut
 use Exception::Class (
 	'Maximus::Exception' => {
