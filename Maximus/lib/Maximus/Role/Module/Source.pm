@@ -82,8 +82,8 @@ sub validate {
 	while(<$fh>) {
 		chomp;
 		if(index(lc($_), lc('Module ' . $modName)) != -1) {
-			# Make sure the line isn't commented
-			if($_ =~ m/^(\s|\t)*Module\s/) {
+			# Make sure the line isn't commented and the modname matches
+			if($_ =~ m/^(\s|\t)*Module(\s|\t)$modName$/) {
 				$modNameOK = 1;
 				next;
 			}
