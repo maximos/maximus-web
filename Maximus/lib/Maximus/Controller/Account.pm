@@ -104,9 +104,9 @@ sub signup :Local {
 				password => sha1_hex($form->field('password')->value),
 			});
 		};
-		if($!) {
+		if($@) {
 			$c->stash(error_msg => 'An unknown error occured!');
-			$c->log->info($!);
+			$c->log->info($@);
 			$c->detach;
 		}
 
