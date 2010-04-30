@@ -46,6 +46,7 @@ requires 'Template' => '2.22';
 requires 'version';
 requires 'XML::Simple' => '2.18';
 test_requires 'Test::More' => '0.88';
+test_requires 'Test::WWW::Mechanize::Catalyst' => '0.52';
 catalyst;
 
 install_script glob('script/*.pl');
