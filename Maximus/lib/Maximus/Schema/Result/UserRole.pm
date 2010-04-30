@@ -22,62 +22,39 @@ __PACKAGE__->table("user_role");
 
 =head2 user_id
 
-  data_type: INT
-  default_value: undef
-  extra: HASH(0x39f6004)
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
-  size: 10
 
 =head2 role_id
 
-  data_type: INT
-  default_value: undef
-  extra: HASH(0x3bc3384)
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
-  size: 10
 
 =cut
 
 __PACKAGE__->add_columns(
   "user_id",
   {
-    data_type => "INT",
-    default_value => undef,
+    data_type => "integer",
     extra => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable => 0,
-    size => 10,
   },
   "role_id",
   {
-    data_type => "INT",
-    default_value => undef,
+    data_type => "integer",
     extra => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable => 0,
-    size => 10,
   },
 );
 __PACKAGE__->set_primary_key("user_id", "role_id");
 
 =head1 RELATIONS
-
-=head2 role
-
-Type: belongs_to
-
-Related object: L<Maximus::Schema::Result::Role>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "role",
-  "Maximus::Schema::Result::Role",
-  { id => "role_id" },
-  {},
-);
 
 =head2 user
 
@@ -94,9 +71,24 @@ __PACKAGE__->belongs_to(
   {},
 );
 
+=head2 role
 
-# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5W5cJ2nFOaduMs3/m1Sgkg
+Type: belongs_to
+
+Related object: L<Maximus::Schema::Result::Role>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "role",
+  "Maximus::Schema::Result::Role",
+  { id => "role_id" },
+  {},
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:m9qcgy4PO+tvhvZM1khB2A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -22,15 +22,13 @@ __PACKAGE__->table("dbix_class_schema_versions");
 
 =head2 version
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 10
 
 =head2 installed
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 20
 
@@ -38,25 +36,15 @@ __PACKAGE__->table("dbix_class_schema_versions");
 
 __PACKAGE__->add_columns(
   "version",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 10,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 10 },
   "installed",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 20,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 20 },
 );
 __PACKAGE__->set_primary_key("version");
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-03-15 21:21:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:11QGYrHzNC0DFe5pUVA8Bw
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8bZLtCDUfaCclZKW2YMzoA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -22,31 +22,26 @@ __PACKAGE__->table("user");
 
 =head2 id
 
-  data_type: INT
-  default_value: undef
-  extra: HASH(0x3bc35c4)
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
-  size: 10
 
 =head2 username
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 45
 
 =head2 password
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 40
 
 =head2 email
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 45
 
@@ -55,34 +50,17 @@ __PACKAGE__->table("user");
 __PACKAGE__->add_columns(
   "id",
   {
-    data_type => "INT",
-    default_value => undef,
+    data_type => "integer",
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
-    size => 10,
   },
   "username",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 45,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 45 },
   "password",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 40,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 40 },
   "email",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 45,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 45 },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("Index_2", ["username"]);
@@ -101,6 +79,7 @@ __PACKAGE__->has_many(
   "modscopes",
   "Maximus::Schema::Result::Modscope",
   { "foreign.user_id" => "self.id" },
+  {},
 );
 
 =head2 user_roles
@@ -115,11 +94,12 @@ __PACKAGE__->has_many(
   "user_roles",
   "Maximus::Schema::Result::UserRole",
   { "foreign.user_id" => "self.id" },
+  {},
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Tfv2cFF6bTfLq6311GfGtw
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d1dcBbMi/boPcg8OrHphAQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

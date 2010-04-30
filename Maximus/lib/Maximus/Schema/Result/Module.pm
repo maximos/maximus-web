@@ -22,115 +22,78 @@ __PACKAGE__->table("module");
 
 =head2 id
 
-  data_type: INT
-  default_value: undef
-  extra: HASH(0x3bc3bd4)
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
-  size: 10
 
 =head2 modscope_id
 
-  data_type: INT
-  default_value: undef
-  extra: HASH(0x3bc50a4)
+  data_type: 'integer'
+  extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 0
-  size: 10
 
 =head2 name
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 45
 
 =head2 desc
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 0
   size: 255
 
 =head2 source
 
-  data_type: VARCHAR
-  default_value: undef
+  data_type: 'varchar'
   is_nullable: 1
   size: 255
 
 =head2 source_type
 
-  data_type: ENUM
-  default_value: undef
-  extra: HASH(0x3bc3894)
+  data_type: 'enum'
+  extra: {list => ["manual","svn","git"]}
   is_nullable: 0
-  size: 6
 
 =head2 source_options
 
-  data_type: TEXT
-  default_value: undef
+  data_type: 'text'
   is_nullable: 1
-  size: 65535
 
 =cut
 
 __PACKAGE__->add_columns(
   "id",
   {
-    data_type => "INT",
-    default_value => undef,
+    data_type => "integer",
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
-    size => 10,
   },
   "modscope_id",
   {
-    data_type => "INT",
-    default_value => undef,
+    data_type => "integer",
     extra => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable => 0,
-    size => 10,
   },
   "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 45,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 45 },
   "desc",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 255,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 255 },
   "source",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
   "source_type",
   {
-    data_type => "ENUM",
-    default_value => undef,
+    data_type => "enum",
     extra => { list => ["manual", "svn", "git"] },
     is_nullable => 0,
-    size => 6,
   },
   "source_options",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("Index_3", ["modscope_id", "name"]);
@@ -164,11 +127,12 @@ __PACKAGE__->has_many(
   "module_versions",
   "Maximus::Schema::Result::ModuleVersion",
   { "foreign.module_id" => "self.id" },
+  {},
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.05003 @ 2010-04-24 12:19:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hKLyWhseIc/t3C0zIkbd7w
+# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CbIdDjNOFJ0dAfi8vSy3uQ
 
 
 use JSON::Any;
