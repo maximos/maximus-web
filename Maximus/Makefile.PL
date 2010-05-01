@@ -41,6 +41,7 @@ requires 'File::Copy::Recursive' => '0.38';
 requires 'JSON::Any' => '1.22';
 requires 'HTML::FormHandler' => '0.30003';
 requires 'JSON::Any' => '1.22';
+requires 'local::lib';
 requires 'SQL::Translator' => '0.11005';
 requires 'Template' => '2.22';
 requires 'version';
