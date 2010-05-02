@@ -1,0 +1,10 @@
+<h2>[% c.config.name %] F.A.Q.</h2>
+<p>Below is a list of frequently asked questions concerning [% c.config.name %].</p>
+
+<dl>
+	<dt>When is [% c.config.name %] expected to be ready?</dt>
+	<dd>We don't know.</dd>
+	
+	<dt>Who is <em>we</em>?</dt>
+	<dd>Us, Plash (a.k.a. Komiga) and Htbaa.</dd>
+</dl>
