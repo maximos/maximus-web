@@ -109,6 +109,38 @@ sub validate {
 	$self->validated(1);
 }
 
+=head2 findDependencies
+
+Analyze BlitzMax source code to find dependent modules.
+Returns an array with at each index an array of which the first value is the
+modscope, and the second the modname.
+=cut
+sub findDependencies {
+	my($self) = @_;
+
+	confess('Sources are not validated') unless $self->validated;
+	
+	my @deps;
+	finddepth(sub {
+		return if($_ !~ /.+\.bmx$/);
+
+		open my $fh, $File::Find::name;
+		if($fh) {
+			while(<$fh>) {
+				chomp;
+				if(index(lc($_), lc('Import')) != -1) {
+					if($_ =~ /^(\s|\t)*Import(\s|\t)*([\w\d\._\-]+)$/i) {
+						push @deps, [split/\./, $3];
+					}
+				}
+			}
+			close $fh;
+		}
+	}, $self->tmpDir);
+	
+	return @deps;
+}
+
 =head2 archive(I<$module>, I<$fh>)
 
 Create an archive out of the contents of the temporarily directory

@@ -107,6 +107,8 @@ sub save {
 	$self->source->prepare($self);
 	$self->source->validate($self);
 	
+	my @deps = $self->source->findDependencies();
+	
 	my $fh = IO::File->new_tmpfile;
 	my $filename = $self->source->archive($self, $fh);
 	
@@ -115,11 +117,27 @@ sub save {
 		$archive .= $_;
 	}
 	
-	my $version = $self->schema->resultset('ModuleVersion')->update_or_create({
-		module_id => $mod->id,
-		version => $self->source->version,
-		archive => $archive,
+	my $version;
+	$self->schema->txn_do(sub {
+		$version = $self->schema->resultset('ModuleVersion')->update_or_create({
+			module_id => $mod->id,
+			version => $self->source->version,
+			archive => $archive,
+		});
+		
+		$version->module_dependencies->delete;
+		$self->schema->resultset('ModuleDependency')->create({
+			module_version_id => $version->id,
+			modscope => $_->[0],
+			modname => $_->[1],
+		}) foreach @deps;
 	});
+
+	Maximus::Exception::Module->throw(
+		'Unable to save module to database'
+	) unless $version;
+
+	return $version;
 }
 
 =head1 AUTHOR

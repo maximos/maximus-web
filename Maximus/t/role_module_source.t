@@ -30,6 +30,7 @@ can_ok('TestSource', qw(
 	validate
 	archive
 	findAndMoveRootDir
+	findDependencies
 ));
 
 my $source = new_ok('TestSource');
@@ -68,4 +69,16 @@ my @expectedMembers = (
 );
 is_deeply(\@gotMembers, \@expectedMembers, 'Archive contains expected content');
 
+TODO: {
+	local $TODO = 'This currently breaks as it doesn\'t ignore files that aren\'t included by the module';
+
+	my @gotDependencies = $source->findDependencies($mod);
+	my @expectedDependencies = (
+		[qw(htbaapub rest)],
+		[qw(brl retro)],
+		[qw(htbaapub xmlrpc)],
+		[qw(pub lua)],
+	);
+	is_deeply(\@gotDependencies, \@expectedDependencies, 'Dependency check');
+}
 done_testing();

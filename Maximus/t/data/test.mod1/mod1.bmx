@@ -8,5 +8,6 @@ ModuleInfo "Author: Christiaan Kras"
 
 Import htbaapub.rest
 Import brl.retro
+'Import pub.zlib
 
 Include "inc/more_imports.bmx"
