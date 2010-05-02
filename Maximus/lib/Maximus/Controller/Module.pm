@@ -60,13 +60,13 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 		foreach my $module($modscope->modules) {
 			my $modname = $module->name;
 			$sources->{$scope}->{$modname}->{desc} = $module->desc;
-			my $versions = $sources->{$scope}->{$modname}->{versions} = {};
 			
 			# Don't fetch `archive` because it contains the raw archive data and
 			# is expected to be a big resultset
 			my @module_versions = $module->search_related('module_versions', undef, {
 				'columns' => [qw/id module_id version remote_location/]
 			});
+
 			foreach my $version(@module_versions) {
 				my @deps;
 				foreach my $dependantVersion($version->module_dependencies) {
@@ -74,13 +74,15 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 				}
 				
 				my $v = $version->version;
-				$versions->{$v} = {
+				$sources->{$scope}->{$modname}->{versions}->{$v} = {
 					deps => \@deps,
 					url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
 				};
 			}
 			
-			$versions = sort { version->parse($a) <=> version->parse($b) } $versions;
+			@{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
+				version->declare($a) <=> version->declare($b)
+			} keys %{$sources->{$scope}->{$modname}->{versions}};
 		}
 	}
 

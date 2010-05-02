@@ -5,9 +5,10 @@
 		[%- "<dd><dl>" IF loop.first %]
 		<dt class="mod">[% module.key | html %]</dt>
 		<dd class="desc">[% module.value.desc | html %]</dd>
-		[% FOR version IN module.value.versions %]
+		[% FOR versionString IN sortedVersions.${modscope.key}.${module.key} %]
+			[% version = module.value.versions.$versionString %]
 			[%- "<dd><ul class=\"versions\">" IF loop.first %]
-			<li><a href="[% version.value.url | html %]">[% version.key | html %]</a></li>
+			<li><a href="[% version.url | html %]">[% versionString | html %]</a></li>
 			[%- "</ul></dd>" IF loop.last %]				
 		[% END %]
 		[%- "</dd></dl>" IF loop.last %]	
