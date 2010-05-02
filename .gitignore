@@ -5,7 +5,7 @@ Makefile*
 META.yml
 blib
 build
-inc
+/inc
 pm_to_blib
 MANIFEST*
 !MANIFEST.SKIP
