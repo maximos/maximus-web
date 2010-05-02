@@ -95,7 +95,7 @@ sub validate {
 		# ModuleInfo "Version: 1.03"
 		if(index(lc($_), lc('ModuleInfo "Version:')) != -1) {
 			# Make sure the line isn't commented
-			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/) {
+			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/i) {
 				$mod->source->version(version->parse($2)->stringify);
 				next;
 			}
