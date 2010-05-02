@@ -1,12 +1,10 @@
 use strict;
 use warnings;
-use FindBin;
 use Test::More;
 
 BEGIN { use_ok 'Archive::Zip' }
 BEGIN { use_ok 'File::Copy::Recursive', qw/dircopy/ }
 BEGIN { use_ok 'File::Temp' }
-BEGIN { use_ok 'FindBin', qw/$Bin/}
 BEGIN { use_ok 'Maximus::Role::Module::Source' }
 BEGIN { use_ok 'Maximus::Class::Module' }
 
