@@ -21,9 +21,9 @@ close($fh);
 my @foundTokens = $lexer->tokens($contents);
 my @expectedTokens = (
 	['MODULENAME', 'test.mod1'],
-	['DEPENDANCY', 'brl.basic'],
-	['DEPENDANCY', 'htbaapub.rest'],
-	['DEPENDANCY', 'brl.retro'],
+	['DEPENDENCY', 'brl.basic'],
+	['DEPENDENCY', 'htbaapub.rest'],
+	['DEPENDENCY', 'brl.retro'],
 	['INCLUDE_FILE', 'inc/more_imports.bmx'],
 	['INCLUDE_FILE', 'inc/other_imports.bmx'],
 );

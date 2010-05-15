@@ -31,7 +31,7 @@ sub tokens {
 		[ 'COMMENT', qr/'.*?\n/, sub {()} ],
 		[ 'COMMENT', qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i, sub {()} ],
 		[ 'MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
-		[ 'DEPENDANCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/, \&_text],
+		[ 'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/, \&_text],
 		[ 'INCLUDE_FILE', qr/\b(?i:Import|Include)[\s\t]+".+"/, sub {
 		  	my($label, $value) = @_;
 		  	$value =~ /"(.+)"/;
