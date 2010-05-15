@@ -5,6 +5,7 @@ use File::Copy::Recursive qw/dirmove/;
 use File::Find;
 use File::Temp;
 use Maximus::Exceptions;
+use Maximus::Class::Lexer;
 use version;
 
 =head1 NAME
@@ -80,29 +81,22 @@ sub validate {
 		'Unable to open main file: ' . $mainFile
 	) unless($fh->open($mainFile));
 
-	my $modNameOK = 0;
-	while(<$fh>) {
-		chomp;
-		if(index(lc($_), lc('Module ' . $modName)) != -1) {
-			# Make sure the line isn't commented and the modname matches
-			if($_ =~ m/^(\s|\t)*Module(\s|\t)$modName$/i) {
-				$modNameOK = 1;
-				next;
-			}
-		}
-		
-		# Figure out version number
-		# ModuleInfo "Version: 1.03"
-		if(index(lc($_), lc('ModuleInfo "Version:')) != -1) {
-			# Make sure the line isn't commented
-			if($_ =~ m/^(\s|\t)*ModuleInfo "Version:\s*(.+)"/i) {
-				$mod->source->version(version->parse($2)->stringify);
-				next;
-			}
-		}
-	}
+	my $contents;
+	$contents .= $_ for(<$fh>);
 	$fh->close;
 	
+	my $lexer = Maximus::Class::Lexer->new;
+	my @tokens = $lexer->tokens($contents);
+	my $modNameOK = 0;
+	foreach(@tokens) {
+		if($_->[0] eq 'MODULENAME' && $_->[1] eq $modName) {
+			$modNameOK = 1;
+		}
+		elsif($_->[0] eq 'MODULEVERSION') {
+			$mod->source->version(version->parse($_->[1])->stringify);
+		}
+	}	
+
 	Maximus::Exception::Module::Source->throw(
 		user_msg => 'Module name doesn\'t match'
 	) unless $modNameOK;
