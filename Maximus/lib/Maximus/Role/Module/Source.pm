@@ -117,12 +117,12 @@ sub findDependencies {
 	
 	$filename = $self->tmpDir . '/' . $mod->mod . '.bmx' unless $filename;
 	Maximus::Exception::Module::Source->throw(
-		'Sourcefile doesn\'t exist' 
+		'Sourcefile doesn\'t exist: ' . $filename
 	) unless(-e $filename);
 	
 	open(my $fh, $filename);
 	Maximus::Exception::Module::Source->throw(
-		'Couldn\'t open sourcefile' 
+		'Couldn\'t open sourcefile: ' . $filename
 	) unless($fh);
 	my $contents;
 	$contents .= $_ for(<$fh>);
