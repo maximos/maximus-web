@@ -19,3 +19,5 @@ end rem
 
 Include "inc/more_imports.bmx"
 Import "inc/other_imports.bmx"
+'This include will be ignored by Maximus::Class::Lexer
+Include "src/*.h"
