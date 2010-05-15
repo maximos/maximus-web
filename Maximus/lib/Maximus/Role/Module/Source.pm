@@ -162,10 +162,10 @@ sub archive {
 		join("\n", (
 			'This BlitzMax module has been packed by Maximus',
 			'',
-			"Modscope: " . $mod->modscope,
-			"Mod: " . $mod->mod,
-			"Version: " . $self->version,
-			"Description: " . $mod->desc,
+			pack('A20A*', 'Modscope', $mod->modscope),
+			pack('A20A*', 'Mod', $mod->mod),
+			pack('A20A*', 'Version', $self->version),
+			pack('A20A*', 'Description', $mod->desc),
 			'',
 			'Archive creation date on ' . localtime
 		))
