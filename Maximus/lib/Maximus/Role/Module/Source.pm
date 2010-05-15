@@ -103,35 +103,44 @@ sub validate {
 	$self->validated(1);
 }
 
-=head2 findDependencies
+=head2 findDependencies(I<$module>)
 
 Analyze BlitzMax source code to find dependent modules.
 Returns an array with at each index an array of which the first value is the
 modscope, and the second the modname.
+I<$module> ISA Maximus::Class::Module
 =cut
 sub findDependencies {
-	my($self) = @_;
+	my($self, $mod, $filename) = @_;
 
 	confess('Sources are not validated') unless $self->validated;
 	
-	my @deps;
-	finddepth(sub {
-		return if($_ !~ /.+\.bmx$/);
-
-		open my $fh, $File::Find::name;
-		if($fh) {
-			while(<$fh>) {
-				chomp;
-				if(index(lc($_), lc('Import')) != -1) {
-					if($_ =~ /^(\s|\t)*Import(\s|\t)*([\w\d\._\-]+)$/i) {
-						push @deps, [split/\./, $3];
-					}
-				}
-			}
-			close $fh;
-		}
-	}, $self->tmpDir);
+	$filename = $self->tmpDir . '/' . $mod->mod . '.bmx' unless $filename;
+	Maximus::Exception::Module::Source->throw(
+		'Sourcefile doesn\'t exist' 
+	) unless(-e $filename);
 	
+	open(my $fh, $filename);
+	Maximus::Exception::Module::Source->throw(
+		'Couldn\'t open sourcefile' 
+	) unless($fh);
+	my $contents;
+	$contents .= $_ for(<$fh>);
+	close($fh);
+	
+	my $lexer = Maximus::Class::Lexer->new;
+	my @tokens = $lexer->tokens($contents);
+	my @deps;
+	foreach(@tokens) {
+		if($_->[0] eq 'DEPENDENCY') {
+			push @deps, [split/\./, $_->[1]];
+		}
+		elsif($_->[0] eq 'INCLUDE_FILE') {
+			my $path = $self->tmpDir . '/' . $_->[1];
+			@deps = (@deps, $self->findDependencies($mod, $path));
+		}
+	}
+
 	return @deps;
 }
 

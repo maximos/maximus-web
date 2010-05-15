@@ -107,7 +107,7 @@ sub save {
 	$self->source->prepare($self);
 	$self->source->validate($self);
 	
-	my @deps = $self->source->findDependencies();
+	my @deps = $self->source->findDependencies($self);
 	
 	my $fh = IO::File->new_tmpfile;
 	my $filename = $self->source->archive($self, $fh);

@@ -7,6 +7,7 @@ BEGIN { use_ok 'File::Copy::Recursive', qw/dircopy/ }
 BEGIN { use_ok 'File::Temp' }
 BEGIN { use_ok 'Maximus::Role::Module::Source' }
 BEGIN { use_ok 'Maximus::Class::Module' }
+BEGIN { use_ok 'Maximus::Exceptions' }
 
 {
 	package TestSource;
@@ -64,21 +65,29 @@ my @expectedMembers = (
 	'mod1.mod/',
 	'mod1.mod/mod1.bmx',
 	'mod1.mod/doc/',
+	'mod1.mod/examples/',
+	'mod1.mod/examples/example.bmx',
 	'mod1.mod/inc/',
-	'mod1.mod/inc/more_imports.bmx'
+	'mod1.mod/inc/more_imports.bmx',
+	'mod1.mod/inc/other_imports.bmx',
 );
 is_deeply(\@gotMembers, \@expectedMembers, 'Archive contains expected content');
 
-TODO: {
-	local $TODO = 'This currently breaks as it doesn\'t ignore files that aren\'t included by the module';
-
+eval {
 	my @gotDependencies = $source->findDependencies($mod);
 	my @expectedDependencies = (
+		[qw(brl basic)],
 		[qw(htbaapub rest)],
 		[qw(brl retro)],
 		[qw(htbaapub xmlrpc)],
 		[qw(pub lua)],
+		[qw(maxgui drivers)],
 	);
 	is_deeply(\@gotDependencies, \@expectedDependencies, 'Dependency check');
+};
+
+if(my $e = Maximus::Exception::Module::Source->caught()) {
+	fail('Dependency check');
 }
+
 done_testing();
