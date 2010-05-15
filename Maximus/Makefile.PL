@@ -38,7 +38,6 @@ requires 'File::Copy::Recursive' => '0.38';
 #We won't be using these yet, so no need to require them
 #requires 'Gearman::Client' => '1.11';
 #requires 'Gearman::Server' => '1.11';
-requires 'JSON::Any' => '1.22';
 requires 'HTML::FormHandler' => '0.30003';
 requires 'JSON::Any' => '1.22';
 requires 'local::lib';
