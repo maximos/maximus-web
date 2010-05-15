@@ -18,8 +18,7 @@ my $contents;
 $contents .= $_ for(<$fh>);
 close($fh);
 
-my @tokens = $lexer->tokens($contents);
-my @foundTokens = grep{ref($_) eq 'ARRAY'} @tokens;
+my @foundTokens = $lexer->tokens($contents);
 my @expectedTokens = (
 	['MODULENAME', 'test.mod1'],
 	['DEPENDANCY', 'brl.basic'],

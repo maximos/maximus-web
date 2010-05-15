@@ -42,6 +42,7 @@ sub tokens {
 	
 	my @tokens;
 	while(my $token = $lexer->()) {
+		next unless ref($token) eq 'ARRAY';
 		push @tokens, $token;
 	}
 	return @tokens;
