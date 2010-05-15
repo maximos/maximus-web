@@ -38,7 +38,7 @@ sub tokens {
 		  }
 		],
 		[ 'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/, \&_text],
-		[ 'INCLUDE_FILE', qr/\b(?i:Import|Include)[\s\t]+".+"/, sub {
+		[ 'INCLUDE_FILE', qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/, sub {
 		  	my($label, $value) = @_;
 		  	$value =~ /"(.+)"/;
 		  	[$label, $1]
