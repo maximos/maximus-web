@@ -67,6 +67,9 @@ sub index :Path :Args(0) {
 					schema => $c->model('DB')->schema,
 		    	);
 		    	$module->save($c->user->get('id'));
+
+		    	$c->cache->remove('sources_list');
+		    	$c->cache->remove('sources_list_sv');
 			});
 		};
 		

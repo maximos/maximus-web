@@ -46,44 +46,49 @@ Retrieve sources file
 sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 	my($self, $c) = @_;
 	my $sources = {};
+
+	unless(($sources = $c->cache->get('sources_list')) && ($c->stash->{sortedVersions} = $c->cache->get('sources_list_sv'))) {
+		my @modscope_rs = $c->model('DB::Modscope')->search(undef, {
+			order_by => {
+				-desc => 'me.name',
+			},
+			prefetch => 'modules',
+		});
 	
-	my @modscope_rs = $c->model('DB::Modscope')->search(undef, {
-		order_by => {
-			-desc => 'me.name',
-		},
-		prefetch => 'modules',
-	});
-
-	foreach my $modscope(@modscope_rs) {
-		my $scope = $modscope->name;
-		
-		foreach my $module($modscope->modules) {
-			my $modname = $module->name;
-			$sources->{$scope}->{$modname}->{desc} = $module->desc;
+		foreach my $modscope(@modscope_rs) {
+			my $scope = $modscope->name;
 			
-			# Don't fetch `archive` because it contains the raw archive data and
-			# is expected to be a big resultset
-			my @module_versions = $module->search_related('module_versions', undef, {
-				'columns' => [qw/id module_id version remote_location/]
-			});
-
-			foreach my $version(@module_versions) {
-				my @deps;
-				foreach my $dependantVersion($version->module_dependencies) {
-					push @deps, sprintf('%s.%s', $dependantVersion->modscope, $dependantVersion->modname);
+			foreach my $module($modscope->modules) {
+				my $modname = $module->name;
+				$sources->{$scope}->{$modname}->{desc} = $module->desc;
+				
+				# Don't fetch `archive` because it contains the raw archive data
+				# and is expected to be a big resultset
+				my @module_versions = $module->search_related('module_versions', undef, {
+					'columns' => [qw/id module_id version remote_location/]
+				});
+	
+				foreach my $version(@module_versions) {
+					my @deps;
+					foreach my $dependantVersion($version->module_dependencies) {
+						push @deps, sprintf('%s.%s', $dependantVersion->modscope, $dependantVersion->modname);
+					}
+					
+					my $v = $version->version;
+					$sources->{$scope}->{$modname}->{versions}->{$v} = {
+						deps => \@deps,
+						url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
+					};
 				}
 				
-				my $v = $version->version;
-				$sources->{$scope}->{$modname}->{versions}->{$v} = {
-					deps => \@deps,
-					url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
-				};
+				@{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
+					version->declare($a) <=> version->declare($b)
+				} keys %{$sources->{$scope}->{$modname}->{versions}};
 			}
-			
-			@{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
-				version->declare($a) <=> version->declare($b)
-			} keys %{$sources->{$scope}->{$modname}->{versions}};
 		}
+		
+		$c->cache->set('sources_list', $sources);
+		$c->cache->set('sources_list_sv', $c->stash->{sortedVersions});
 	}
 
 	$c->stash->{sources} = $sources;
