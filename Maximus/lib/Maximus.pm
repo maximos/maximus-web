@@ -7,6 +7,8 @@ use Catalyst qw/
     ConfigLoader
 	Authentication
 	Authorization::Roles
+	Cache
+	PageCache
 	RequireSSL
     Static::Simple
 	Session
@@ -32,6 +34,12 @@ __PACKAGE__->config(
     name => 'Maximus',
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
+    'Plugin::Cache' => {
+    	backend => {
+    		class => 'Cache::FileCache',
+    		default_expires_in => 3600,
+    	},
+    },
 	'Plugin::Session' => {
 		dbic_class => 'DB::Session',
 		expires => 3600,
