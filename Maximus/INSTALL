@@ -1,6 +1,7 @@
-INSTALLING MAXIMUS-WEB ON UBUNTU 9.10
+INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 
-This guide is intended to help you install maximus-web on Ubuntu 9.10.
+This guide is intended to help you install maximus-web on Ubuntu 10.04. Although
+targeted at 10.04 the steps are probably not much different for older versions.
 
 First, make sure all required software is installed
 
@@ -12,10 +13,8 @@ modules in a local directory. Doing so makes sure modules aren't installed in
 the same directory as where your distribution installs its modules. Whenever
 you decide to upgrade your system or install updates you risk your modules being
 overwritten. So that's why we go for a local installation.
-If it's the first time you invoke the CPAN command you can tell it to do the
-auto-configuration. Of course, you're free to configure CPAN anyway you like.
 
-	$ sudo cpan local::lib
+	$ sudo apt-get install liblocal-lib-perl
 
 Next, we need to make sure local::lib is being used. By calling perl from the
 command line and simply load local::lib we get a nice set of helpful export
@@ -72,7 +71,7 @@ RUNNING THE FASTCGI DAEMON
 
 CONFIGURING APACHE
 
-Here's a minimal virtual host configuration for Apache. This asumes running
+Here's a minimal virtual host configuration for Apache. This assumes running
 maximus-web as a stand-alone FastCGI daemon. For other deployment options please
 read Catalyst::Manual::Cookbook.
 
