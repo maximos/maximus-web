@@ -9,7 +9,7 @@
 	register it by uploading a module. If the modscope exists and it doesn't belong to you then choose another one.
 	The modscopes brl, maxgui and pub are reserved.</li>
 	<li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
-	Valid versions number are 1, 1.00, 1.0.0, 1.2a, 1.2.2a etc.</li>
+	Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
 </ul>
 <p>&nbsp;</p>
 [% IF error_msg %]
