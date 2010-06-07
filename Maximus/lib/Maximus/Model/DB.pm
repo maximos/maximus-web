@@ -7,9 +7,6 @@ __PACKAGE__->config(
     schema_class => 'Maximus::Schema',
     
     connect_info => {
-        dsn => 'dbi:mysql:maximus',
-        user => 'maximus',
-        password => 'demo',
         quote_char => '`',
         name_sep => '.',
         AutoCommit => 1,

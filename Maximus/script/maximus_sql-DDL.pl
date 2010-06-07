@@ -19,4 +19,4 @@ my $schema = Maximus::Schema->connect(
 my $sql_dir = './sql';
 my $version = $schema->schema_version();
 # Change MySQL to undef to generate DDL's for SQLite, PostgreSql and MySQL
-$schema->create_ddl_dir( 'MySQL', $version, $sql_dir, $preversion );
+$schema->create_ddl_dir( ['MySQL', 'SQLite'], $version, $sql_dir, $preversion );
