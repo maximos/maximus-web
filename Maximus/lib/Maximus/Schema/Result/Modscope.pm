@@ -60,7 +60,8 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "varchar", is_nullable => 0, size => 45 },
 );
-__PACKAGE__->set_primary_key("id", "name");
+__PACKAGE__->set_primary_key("id");
+__PACKAGE__->add_unique_constraint("uniq_name", ["name"]);
 
 =head1 RELATIONS
 
@@ -95,8 +96,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EdItUCdeu4jsDnb7y5aheA
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-06-07 23:42:51
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NJaUWzyGVVIgo8Yd+FiHBA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -1,8 +1,7 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Mon Jun  7 22:06:45 2010
+-- Created on Mon Jun  7 23:42:58 2010
 -- 
-
 
 BEGIN TRANSACTION;
 
@@ -61,13 +60,14 @@ CREATE UNIQUE INDEX Index_202 ON user (username);
 DROP TABLE modscope;
 
 CREATE TABLE modscope (
-  id integer NOT NULL,
+  id INTEGER PRIMARY KEY NOT NULL,
   user_id integer NOT NULL,
-  name varchar(45) NOT NULL,
-  PRIMARY KEY (id, name)
+  name varchar(45) NOT NULL
 );
 
 CREATE INDEX modscope_idx_user_id ON modscope (user_id);
+
+CREATE UNIQUE INDEX uniq_name ON modscope (name);
 
 --
 -- Table: module

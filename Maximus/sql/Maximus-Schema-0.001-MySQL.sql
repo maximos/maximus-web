@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Jun  7 22:06:45 2010
+-- Created on Mon Jun  7 23:42:58 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -62,8 +62,9 @@ CREATE TABLE `modscope` (
   `id` integer unsigned NOT NULL auto_increment,
   `user_id` integer unsigned NOT NULL,
   `name` varchar(45) NOT NULL,
-  INDEX modscope_idx_user_id (`user_id`),
-  PRIMARY KEY (`id`, `name`),
+  INDEX `modscope_idx_user_id` (`user_id`),
+  PRIMARY KEY (`id`),
+  UNIQUE `uniq_name` (`name`),
   CONSTRAINT `modscope_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
@@ -80,7 +81,7 @@ CREATE TABLE `module` (
   `source` varchar(255),
   `source_type` enum('manual', 'svn', 'git') NOT NULL,
   `source_options` text,
-  INDEX module_idx_modscope_id (`modscope_id`),
+  INDEX `module_idx_modscope_id` (`modscope_id`),
   PRIMARY KEY (`id`),
   UNIQUE `Index_3` (`modscope_id`, `name`),
   CONSTRAINT `module_fk_modscope_id` FOREIGN KEY (`modscope_id`) REFERENCES `modscope` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -94,8 +95,8 @@ DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `user_id` integer unsigned NOT NULL,
   `role_id` integer unsigned NOT NULL,
-  INDEX user_role_idx_role_id (`role_id`),
-  INDEX user_role_idx_user_id (`user_id`),
+  INDEX `user_role_idx_role_id` (`role_id`),
+  INDEX `user_role_idx_user_id` (`user_id`),
   PRIMARY KEY (`user_id`, `role_id`),
   CONSTRAINT `user_role_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_role_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -112,7 +113,7 @@ CREATE TABLE `module_version` (
   `version` varchar(10) NOT NULL,
   `remote_location` varchar(255),
   `archive` longblob,
-  INDEX module_version_idx_module_id (`module_id`),
+  INDEX `module_version_idx_module_id` (`module_id`),
   PRIMARY KEY (`id`),
   UNIQUE `Index_3` (`module_id`, `version`),
   CONSTRAINT `module_version_fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -128,7 +129,7 @@ CREATE TABLE `module_dependency` (
   `module_version_id` integer unsigned NOT NULL,
   `modscope` varchar(45) NOT NULL,
   `modname` varchar(45) NOT NULL,
-  INDEX module_dependency_idx_module_version_id (`module_version_id`),
+  INDEX `module_dependency_idx_module_version_id` (`module_version_id`),
   PRIMARY KEY (`id`),
   UNIQUE `Index_3` (`module_version_id`, `modscope`, `modname`),
   CONSTRAINT `module_dependency_fk_module_version_id` FOREIGN KEY (`module_version_id`) REFERENCES `module_version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
