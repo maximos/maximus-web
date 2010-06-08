@@ -12,7 +12,7 @@ my $schema = Maximus::Schema->connect(
 
 if (!$schema->get_db_version()) {
 	# schema is unversioned
-	$schema->install('0.001');
+	$schema->deploy();
 } else {
 	$schema->upgrade();
 }
