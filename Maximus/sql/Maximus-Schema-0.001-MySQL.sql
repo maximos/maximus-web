@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Mon Jun  7 23:42:58 2010
+-- Created on Tue Jun  8 21:49:11 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -79,7 +79,7 @@ CREATE TABLE `module` (
   `name` varchar(45) NOT NULL,
   `desc` varchar(255) NOT NULL,
   `source` varchar(255),
-  `source_type` enum('manual', 'svn', 'git') NOT NULL,
+  `source_type` char(15),
   `source_options` text,
   INDEX `module_idx_modscope_id` (`modscope_id`),
   PRIMARY KEY (`id`),

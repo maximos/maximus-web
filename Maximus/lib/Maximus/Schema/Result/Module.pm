@@ -54,9 +54,9 @@ __PACKAGE__->table("module");
 
 =head2 source_type
 
-  data_type: 'enum'
-  extra: {list => ["manual","svn","git"]}
-  is_nullable: 0
+  data_type: 'char'
+  is_nullable: 1
+  size: 15
 
 =head2 source_options
 
@@ -87,11 +87,7 @@ __PACKAGE__->add_columns(
   "source",
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "source_type",
-  {
-    data_type => "enum",
-    extra => { list => ["manual", "svn", "git"] },
-    is_nullable => 0,
-  },
+  { data_type => "char", is_nullable => 1, size => 15 },
   "source_options",
   { data_type => "text", is_nullable => 1 },
 );
@@ -131,8 +127,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CbIdDjNOFJ0dAfi8vSy3uQ
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-06-08 21:46:46
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6TferoB5XQtYgsftwuGczw
 
 
 use JSON::Any;

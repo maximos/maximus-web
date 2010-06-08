@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Mon Jun  7 23:42:58 2010
+-- Created on Tue Jun  8 21:49:11 2010
 -- 
 
 BEGIN TRANSACTION;
@@ -80,7 +80,7 @@ CREATE TABLE module (
   name varchar(45) NOT NULL,
   desc varchar(255) NOT NULL,
   source varchar(255),
-  source_type enum NOT NULL,
+  source_type char(15),
   source_options text
 );
 
