@@ -91,7 +91,7 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 		$c->cache->set('sources_list_sv', $c->stash->{sortedVersions});
 	}
 
-	$c->stash->{sources} = $sources;
+	$c->stash->{sources} = $sources || {};
 }
 
 =head2 /module/sources/json
