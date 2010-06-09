@@ -60,8 +60,8 @@ is($filename, sprintf('%s.%s-%s.zip', $mod->modscope, $mod->mod, $source->versio
 
 my $zip = new_ok('Archive::Zip' => [$fh->filename]);
 use Data::Dumper;
-my @gotMembers = $zip->memberNames();
-my @expectedMembers = (
+my @gotMembers = sort($zip->memberNames());
+my @expectedMembers = sort(
 	'mod1.mod/',
 	'mod1.mod/mod1.bmx',
 	'mod1.mod/doc/',
