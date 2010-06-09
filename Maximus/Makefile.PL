@@ -49,6 +49,8 @@ requires 'SQL::Translator' => '0.11005';
 requires 'Template' => '2.22';
 requires 'version';
 requires 'XML::Simple' => '2.18';
+test_requires 'Cache::Null' => '2.04';
+test_requires 'DBD::SQLite' => '1.29';
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst' => '0.52';
 catalyst;
