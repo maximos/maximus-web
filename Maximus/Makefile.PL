@@ -58,6 +58,7 @@ recommends 'FCGI';
 recommends 'FCGI::ProcManager';
 catalyst;
 perl_version '5.010001';
+license 'MIT';
 
 install_script glob('script/*.pl');
 auto_install;
