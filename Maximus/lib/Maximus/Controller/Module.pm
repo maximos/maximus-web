@@ -127,7 +127,7 @@ Download archive based on modscope, module name and version
 sub download :Local :Args(3) {
 	my($self, $c, $modscope, $module, $version) = @_;
 	
-	my $rs = $c->model('DB::Module')->search(
+	my @search = (
 		{
 			'modscope.name' => $modscope,
 			'me.name' => $module,
@@ -135,12 +135,21 @@ sub download :Local :Args(3) {
 		},
 		{
 			join => [qw /modscope module_versions/ ],
-			'+columns' => ['module_versions.archive'],
+			'+columns' => ['module_versions.remote_location'],
 		}
 	);
 	
+	my $rs = $c->model('DB::Module')->search($search[0], $search[1]);
+	
 	my $row = $rs->first;
 	$c->detach('/default') unless $row;
+
+	my $location = $row->get_column('remote_location');
+	return $c->res->redirect($location) if $location;
+
+	# Refetch row to retrieve archive data if no remote_location exists
+	$search[1]->{'+columns'} = ['module_versions.archive'];
+	$row = $c->model('DB::Module')->search($search[0], $search[1])->first;
 
 	my $fh = IO::File->new_tmpfile;
 	$fh->print($row->get_column('archive')) or die($!);
