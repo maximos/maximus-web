@@ -54,7 +54,7 @@ sub index :Path :Args(0) {
 		my $ok;
 		eval {
 			my $file = $c->req->upload('file');
-				$c->model('DB')->txn_do(sub {
+			$c->model('DB')->txn_do(sub {
 				my $source = Maximus::Class::Module::Source::Archive->new(
 					file => $file->tempname,
 				);
