@@ -69,7 +69,7 @@ RUNNING THE FASTCGI DAEMON
 
 	$ perl script/maximus_fastcgi.pl -l /tmp/maximus.socket -n 5 -p /tmp/maximus.pid -d
 
-CONFIGURING APACHE
+CONFIGURING APACHE2 FOR FASTCGI
 
 Here's a minimal virtual host configuration for Apache. This assumes running
 maximus-web as a stand-alone FastCGI daemon. For other deployment options please
@@ -104,3 +104,11 @@ read Catalyst::Manual::Cookbook.
 		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
 		...
 	</VirtualHost>
+
+RUNNING THROUGH STARMAN
+
+	$ starman -I./lib script/maximus.psgi
+	
+CONFIGURING APACHE2 FOR STARMAN
+
+For this we shall use mod_proxy. TODO!
