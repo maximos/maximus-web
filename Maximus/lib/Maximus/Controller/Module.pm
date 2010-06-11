@@ -32,6 +32,80 @@ sub index :Path :Args(0) {
     $c->response->redirect($c->uri_for('sources/list'));
 }
 
+=head2 modscopes
+
+Display all modscopes
+=cut
+sub modscopes :Local {
+	my($self, $c) = @_;
+	my @modscopes = $c->model('DB::Modscope')->search(undef, {
+		order_by => 'name',
+	});
+	$c->stash->{modscopes} = \@modscopes;
+}
+
+=head2 modscope
+
+Display all modules for the given modscope
+=cut
+sub modscope :Path :Args(1) {
+	my($self, $c, $scope) = @_;
+	my $modscope = $c->model('DB::Modscope')->find({name => $scope});
+	$c->detach('/default') unless $modscope;
+	
+	$c->stash->{modscope} = $modscope;
+	my @modules = $modscope->search_related('modules', undef, {order_by => 'name'});
+	$c->stash->{modules} = \@modules;
+}
+
+=head2 module
+
+Display information about a module
+=cut
+sub module :Path :Args(2) {
+	my($self, $c, $scope, $modname) = @_;
+
+	my $rs = $c->model('DB::Module')->search(
+		{
+			'modscope.name' => $scope,
+			'me.name' => $modname,
+		},
+		{
+			join => 'modscope',
+			prefetch => 'modscope',
+		}
+	);
+	
+	$c->detach('/default') unless $rs->count == 1;
+	
+	my $module = $rs->first;
+	my %versions;
+	my @module_versions = $module->search_related('module_versions', undef, {
+		columns => [qw/id version/],
+		prefetch => 'module_dependencies',
+	});
+
+	foreach my $version(@module_versions) {
+		my @deps;
+		foreach my $dependantVersion($version->module_dependencies) {
+			push @deps, sprintf('%s.%s', $dependantVersion->modscope, $dependantVersion->modname);
+		}
+		
+		my $v = $version->version;
+		$versions{$v} = {
+			deps => \@deps,
+			url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
+		};
+	}
+	
+	@{$c->stash->{sortedVersions}} = sort {
+		version->declare($b) <=> version->declare($a)
+	} keys %versions;
+
+	$c->stash->{module} = $module;
+	$c->stash->{versions} = \%versions;
+}
+
 =head2 list
 
 Show HTML presentation of all modules

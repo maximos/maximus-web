@@ -91,6 +91,12 @@ dl#modlist ul.versions li {
 	margin: 0px 10px;
 }
 
+ol#modscopelist,
+ol#modlist,
+ol#modversionlist {
+	list-style: none;
+}
+
 #footer { 
   margin-top: 25px; 
   clear: both;

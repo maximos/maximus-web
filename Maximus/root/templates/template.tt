@@ -16,7 +16,7 @@
 	<div id="menu">
 		<a href="[% c.uri_for('/') %]">Home</a>
 		<a href="[% c.uri_for('/client') %]">Client</a>
-		<a href="[% c.uri_for('/module/sources/list') %]">Modules</a>
+		<a href="[% c.uri_for('/module/modscopes') %]">Modules</a>
 		<a href="[% c.uri_for('/faq') %]">F.A.Q.</a>
 		[% IF c.user_exists %]
 			<a href="[% c.uri_for('/module/upload') %]">Upload</a>

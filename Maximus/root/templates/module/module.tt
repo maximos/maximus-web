@@ -1,0 +1,14 @@
+<h2><a href="[% c.uri_for('/module', module.modscope.name) %]">[% module.modscope.name | html %]</a>.[% module.name | html %]</h2>
+<p>[% module.desc | html %]</p>
+[% FOR version IN sortedVersions %]
+	[% "<h3>Available versions</h3><ol id=\"modversionlist\">" IF loop.first %]
+	<li><a href="[% versions.${version}.url | html %]">[% version | html -%]</a>
+		[%- FOR dependency IN versions.${version}.deps.sort %]
+			[%- ": depends on " IF loop.first -%]
+			[% m = dependency.split('\\.') %]
+			<a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
+			[%- ", " IF NOT loop.last %]
+		[% END %]
+	</li>
+	[% "</ol>" IF loop.last %]
+[% END %]
