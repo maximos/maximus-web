@@ -65,7 +65,8 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 				# Don't fetch `archive` because it contains the raw archive data
 				# and is expected to be a big resultset
 				my @module_versions = $module->search_related('module_versions', undef, {
-					'columns' => [qw/id module_id version remote_location/]
+					columns => [qw/id module_id version remote_location/],
+					prefetch => 'module_dependencies',
 				});
 	
 				foreach my $version(@module_versions) {
