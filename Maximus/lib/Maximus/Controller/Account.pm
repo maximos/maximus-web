@@ -110,13 +110,13 @@ sub signup :Local {
 			$c->detach;
 		}
 
-		$c->stash->{username} = $form->field('username')->value;
-		$c->stash->{email} = {
+		$c->stash(username => $form->field('username')->value);
+		$c->stash(email => {
 			to => $form->field('email')->value,
 			from => $c->config->{email}->{from},
 			subject => 'Account registration',
 			template => 'account/email/signup.tt',
-		};
+		});
 
 		$c->forward( $c->view('Email::Template') );
 		if(scalar(@{$c->error})) {
