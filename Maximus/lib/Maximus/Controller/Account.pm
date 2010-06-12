@@ -120,7 +120,7 @@ sub signup :Local {
 
 		$c->forward( $c->view('Email::Template') );
 		if(scalar(@{$c->error})) {
-			$c->log->warn('Failed to send a mail: ', $@);
+			$c->log->warn('Failed to send a mail: ', @{$c->error});
 			$c->error(0);
 		}
 
