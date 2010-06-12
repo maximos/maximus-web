@@ -2,13 +2,19 @@
 <p>[% module.desc | html %]</p>
 [% FOR version IN sortedVersions %]
 	[% "<h3>Available versions</h3><ol id=\"modversionlist\">" IF loop.first %]
+	[% FILTER collapse %]
 	<li><a href="[% versions.${version}.url | html %]">[% version | html -%]</a>
 		[%- FOR dependency IN versions.${version}.deps.sort %]
 			[%- ": depends on " IF loop.first -%]
 			[% m = dependency.split('\\.') %]
-			<a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
+			[% IF m.0 == 'brl' OR m.0 == 'maxgui' OR m.0 == 'pub' %]
+				[% dependency | html %]
+			[%- ELSE -%]
+				<a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
+			[%- END -%]
 			[%- ", " IF NOT loop.last %]
 		[% END %]
 	</li>
+	[% END %]
 	[% "</ol>" IF loop.last %]
 [% END %]
