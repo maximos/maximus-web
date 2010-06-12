@@ -1,0 +1,12 @@
+<h1>Welcome to [% c.config.name | html %]!</h1>
+<p>Dear <b>[% username | html %]</b>,<br>
+<br>
+Thank you for signing up with [% c.config.name | html %] as a module author.
+You are now able to <a href="[% c.uri_for('/module/upload') %]">upload</a> your
+own modules to [% c.config.name | html %].</p>
+<p>We hope that as a module author you will keep your modules up to date so
+every BlitzMax user out there can enjoy the pleasure [% c.config.name | html %]
+gives for managing modules.</p>
+<p>Now, what are you waiting for? Start uploading already!</p>
+<p>Regards,<br>
+<b>The [% c.config.name | html %] team</b></p>
