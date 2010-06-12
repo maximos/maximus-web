@@ -21,6 +21,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Plugin::RequireSSL' => '0.06';
+requires 'Catalyst::View::Email' => '0.30';
 requires 'Catalyst::View::TT';
 requires 'Cache::Cache' => '1.06';
 requires 'Config::General';

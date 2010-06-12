@@ -1,0 +1,11 @@
+<html>
+<head>
+	<title>[% c.config.name | html %] E-mail</title>
+</head>
+<body>
+[% content %]
+<hr>
+[% USE date %]
+<p>This mail was automatically sent by <a href="[% c.uri_for('/') %]">[% c.config.name | html %]</a> on [% date.format(date.now) %]</p>
+</body>
+</html>
