@@ -72,7 +72,7 @@ __PACKAGE__->config(
 );
 
 # Setup logger
-__PACKAGE__->log(Catalyst::Log::Log4perl->new('log.conf'));
+__PACKAGE__->log(Catalyst::Log::Log4perl->new(Maximus->path_to('/').'/log.conf'));
 
 # Start the application
 __PACKAGE__->setup();
