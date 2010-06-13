@@ -11,3 +11,4 @@ MANIFEST*
 !MANIFEST.SKIP
 maximus.conf
 *.ttc
+maximus.log

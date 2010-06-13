@@ -16,6 +16,7 @@ use Catalyst qw/
 	Session::Store::DBIC
 	Session::State::Cookie
 /;
+use Catalyst::Log::Log4perl;
 
 extends 'Catalyst';
 
@@ -69,6 +70,9 @@ __PACKAGE__->config(
 		remain_in_ssl => 0,
 	},
 );
+
+# Setup logger
+__PACKAGE__->log(Catalyst::Log::Log4perl->new('log.conf'));
 
 # Start the application
 __PACKAGE__->setup();
