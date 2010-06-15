@@ -201,7 +201,7 @@ root of the temporary directory
 =cut
 sub findAndMoveRootDir {
 	my($self, $mod) = @_;
-	return if($mod->source->version eq 'dev');
+	return if(defined($mod->source->version) && $mod->source->version eq 'dev');
 	my $mainFile = $mod->mod . '.bmx';
 	
 	my @files;
