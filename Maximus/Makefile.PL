@@ -48,6 +48,7 @@ requires 'Log::Log4perl' => '1.28';
 requires 'Moose';
 requires 'MooseX::Storage' => '0.25';
 requires 'namespace::autoclean';
+requires 'Path::Class' => '0.19';
 requires 'SQL::Translator' => '0.11005';
 requires 'Template' => '2.22';
 requires 'version';
