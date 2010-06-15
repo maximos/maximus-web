@@ -43,6 +43,7 @@ requires 'HTML::FormHandler' => '0.30003';
 requires 'HOP::Lexer' => '0.032';
 requires 'JSON::Any' => '1.22';
 requires 'local::lib';
+requires 'Log::Dispatch' => '2.26';
 requires 'Log::Log4perl' => '1.28';
 requires 'Moose';
 requires 'MooseX::Storage' => '0.25';
