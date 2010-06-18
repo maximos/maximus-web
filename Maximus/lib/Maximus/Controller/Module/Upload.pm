@@ -68,8 +68,17 @@ sub index :Path :Args(0) {
 		    	);
 		    	$module->save($c->user->get('id'));
 
-		    	$c->cache->remove('sources_list');
-		    	$c->cache->remove('sources_list_sv');
+				$c->cache->remove('sources_list');
+				$c->cache->remove('sources_list_sv');
+				
+				$c->model('Announcer')->say(
+					sprintf('New module %s.%s V%s uploaded by %s',
+						$module->modscope,
+						$module->mod,
+						$source->version,
+						$c->user->get('username')
+					)
+				);
 			});
 		};
 		
