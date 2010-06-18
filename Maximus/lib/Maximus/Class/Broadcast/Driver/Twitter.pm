@@ -31,7 +31,8 @@ Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
 	$driver = Maximus::Class::Broadcast::Driver::Twitter->new( nt => $nt);
 	
 	# Finally...
-	$driver->say('Hello world');
+	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+	$driver->say($msg);
 
 =head1 DESCRIPTION
 

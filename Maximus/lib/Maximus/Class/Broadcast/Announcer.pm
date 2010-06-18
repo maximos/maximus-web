@@ -16,7 +16,10 @@ Maximus::Class::Broadcast::Announcer - Announcer for updates
 	$ann->addListener($listener);
 	my $count = $ann->countListeners;
 	my @listeners = $ann->getListeners;
-	$ann->say('Hello world');
+	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+	$ann->say($msg);
+	$ann->say('Hello world!');
+	$ann->say(text => 'Hello world!');
 
 =head1 DESCRIPTION
 

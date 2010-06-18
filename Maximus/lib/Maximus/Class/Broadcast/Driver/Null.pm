@@ -11,7 +11,8 @@ Maximus::Class::Broadcast::Driver::Null - Test driver
 
 	use Maximus::Class::Broadcast::Driver::Null;
 	my $driver = Maximus::Class::Broadcast::Driver::Null->new;
-	$driver->say('Hello world');
+	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+	$driver->say($msg);
 
 =head1 DESCRIPTION
 
