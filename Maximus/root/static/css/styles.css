@@ -51,6 +51,10 @@ li {
 	width:956px;
 }
 
+.error {
+	color: red;
+}
+
 #skinBackground {
 	min-width:956px;
 	background-image:url(/static/images/skin/background.gif);
