@@ -32,17 +32,19 @@
 						
 					</div>
 					<ul id="skinMenu"> 
-						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/') %]"><span class="skinRight">Home</span></a></li>
-						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/client') %]"><span class="skinRight">Client</span></a></li>
-						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/module/modscopes') %]"><span class="skinRight">Modules</span></a></li>
-						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/faq') %]"><span class="skinRight">F.A.Q.</span></a></li>
+						
+						[% INCLUDE template/menu_item.tt href=c.uri_for('/') title='Home' %]
+						[% INCLUDE template/menu_item.tt href=c.uri_for('/client') title='Client' %]
+						[% INCLUDE template/menu_item.tt href=c.uri_for('/module/modscopes') title='Modules' %]
+						[% INCLUDE template/menu_item.tt href=c.uri_for('/faq') title='F.A.Q.' %]
+
 						[% IF c.user_exists %]
-							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/module/upload') %]"><span class="skinRight">Upload</span></a></li>
-							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account') %]"><span class="skinRight">My Account</span></a></li>
-							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/logout') %]"><span class="skinRight">Logout</span></a></li>
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/module/upload') title='Upload Module' %]
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/account') title='My Account' %]
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/logout') title='Logout' %]
 						[% ELSE %]
-							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/signup') %]"><span class="skinRight">Sign-up</span></a></li>
-							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/login') %]"><span class="skinRight">Login</span></a></li>
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/signup') title='Sign-up' %]
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/login') title='Login' %]
 						[% END %]
 					</ul>
 				</div>

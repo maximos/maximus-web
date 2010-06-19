@@ -1,0 +1,6 @@
+[% IF c.req.uri.as_string == href %]
+	[% skintab = 'skinTabOn' %]
+[% ELSE %]
+	[% skintab = 'skinTabOff' %]
+[% END %]
+<li class="[% skintab %]"><a class="skinLeft" href="[% href %]"><span class="skinRight">[% title | html %]</span></a></li>
