@@ -184,6 +184,7 @@ li {
 			}
 			
 				#skinRow2 .skinContent {
+					min-height:320px;
 					width:902px;
 					margin:0px 11px 0px 11px;
 					background-image:url(/static/images/skin/row2-content-background.png);
