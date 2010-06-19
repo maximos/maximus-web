@@ -491,3 +491,16 @@ li {
 			background-repeat:no-repeat;
 			background-position:left top;
 		}
+		
+dl#faqlist  dt {
+	font-weight: bold;
+	background-image:url(/static/images/skin/bullet.png);
+	background-position:0px 5px;
+	background-repeat:no-repeat;
+	padding-left:15px;
+	line-height:1.4em;
+}
+
+dl#faqlist dd {
+	padding-bottom:1em;
+}

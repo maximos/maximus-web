@@ -2,7 +2,7 @@
 <div class="jsRoundedBox">
 	<p>Below is a list of frequently asked questions concerning [% c.config.name %].</p>
 
-	<dl>
+	<dl id="faqlist">
 		<dt>When is [% c.config.name %] expected to be ready?</dt>
 		<dd>We don't know.</dd>
 		
