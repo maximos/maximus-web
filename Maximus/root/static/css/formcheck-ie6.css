@@ -1,0 +1,30 @@
+.fc-tbx .tl{
+	background: url('/static/images/formcheck/ie6/tl.gif') no-repeat;
+}
+.fc-tbx .t{
+	background: url('/static/images/formcheck/ie6/t.gif') repeat-x;
+}
+.fc-tbx .tr{
+	background: url('/static/images/formcheck/ie6/tr.gif') no-repeat;
+}
+.fc-tbx .l{
+	background: url('/static/images/formcheck/ie6/l.gif') repeat-y;
+}
+.fc-tbx .r{
+	background: url('/static/images/formcheck/ie6/r.gif') repeat-y;
+}
+.fc-tbx .bl{
+	background: url('/static/images/formcheck/ie6/bl.gif') no-repeat;
+}
+.fc-tbx .b{
+	background: url('/static/images/formcheck/ie6/b.gif') no-repeat;
+}
+.fc-tbx .br{
+	background: url('/static/images/formcheck/ie6/br.gif') no-repeat;
+}
+.fc-tbx .c{
+	background: url('/static/images/formcheck/ie6/c.gif') repeat;
+}
+.fc-tbx a.close {
+	background: url('/static/images/formcheck/ie6/close.gif') no-repeat;
+}

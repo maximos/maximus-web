@@ -1,0 +1,246 @@
+li {
+	background-image:url(/static/images/skin/bullet.png);
+	background-position:0px 5px;
+}
+
+#skinRow1 {
+	background-image:url(/static/images/skin/row1.png);
+}
+
+	#skinMenu .skinTabOn {
+		background-image:url(/static/images/skin/tab.png);
+	}
+
+		#skinMenu .skinTabOn .skinLeft {
+			background-image:url(/static/images/skin/tab.png);
+		}
+	
+		#skinMenu .skinTabOn .skinRight {
+			background-image:url(/static/images/skin/tab.png);
+		}
+		
+	#skinMenu .skinTabOff {
+		background-image:url(/static/images/skin/tab.png);
+	}
+		
+		#skinMenu .skinTabOff .skinLeft {
+			background-image:url(/static/images/skin/tab.png);
+		}
+	
+		#skinMenu .skinTabOff .skinRight {
+			background-image:url(/static/images/skin/tab.png);
+		}
+
+#skinRow2 {
+	background-image:url(/static/images/skin/row2.png);
+}
+
+	/* input box */
+	.jsInputBox {
+		display:block;
+		border:1px solid #7f9db9;
+		background-color:#ffffff;
+		padding:5px;
+	}
+	
+		.skinInputRow1 {
+			height:5px;
+			position:relative;
+			left:0px;
+			top:0px;
+			font-size:0px;
+		}
+		
+			.skinInputTopLeft {
+				width:5px;
+				height:5px;
+				position:absolute;
+				left:0px;
+				top:0px;
+				background-repeat:no-repeat;
+				background-position:left top;
+				background-image:url(/static/images/skin/input-tl.png);
+			}
+			
+			.skinInputTop {
+				height:4px;
+				margin:0px 5px 0px 5px;
+				border-top:1px solid #7f9db9;
+				background-color:#ffffff;
+			}
+			
+			.skinInputTopRight {
+				width:5px;
+				height:5px;
+				position:absolute;
+				right:0px;
+				top:0px;
+				background-repeat:no-repeat;
+				background-position:left top;
+				background-image:url(/static/images/skin/input-tr.png);
+			}
+			
+		.skinInputRow2 {
+			padding:0px 5px 0px 5px;
+			border-left:1px solid #7f9db9;
+			border-right:1px solid #7f9db9;
+			background-color:#ffffff;
+		}
+		
+			.skinInputRow2 input, .skinInputRow2 textarea, .skinInputRow2 select {
+				border-width:0px;
+				background-color:transparent;
+				outline: 0;
+				margin:0px;
+				padding:0px;
+			}
+		
+		.skinInputRow3 {
+			height:5px;
+			position:relative;
+			left:0px;
+			top:0px;
+			font-size:0px;
+		}
+		
+			.skinInputBottomLeft {
+				width:5px;
+				height:5px;
+				position:absolute;
+				left:0px;
+				bottom:0px;
+				background-repeat:no-repeat;
+				background-position:left top;
+				background-image:url(/static/images/skin/input-bl.png);
+			}
+			
+			.skinInputBottom {
+				height:4px;
+				margin:0px 5px 0px 5px;
+				border-bottom:1px solid #7f9db9;
+				background-color:#ffffff;
+			}
+			
+			.skinInputBottomRight {
+				width:5px;
+				height:5px;
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				background-repeat:no-repeat;
+				background-position:left top;
+				background-image:url(/static/images/skin/input-br.png);
+			}
+			
+	/* input-focused box */
+	.skinInputFocusedBox .skinInputTopLeft {
+		background-image:url(/static/images/skin/input-focused-tl.png);
+	}
+	
+	.skinInputFocusedBox .skinInputTop {
+		border-color:#3b7cb5;
+		background-color:#f2f6f8;
+	}
+	
+	.skinInputFocusedBox .skinInputTopRight {
+		background-image:url(/static/images/skin/input-focused-tr.png);
+	}
+		
+	.skinInputFocusedBox .skinInputRow2 {
+		border-color:#3b7cb5;
+		background-color:#f2f6f8;
+	}
+	
+	.skinInputFocusedBox .skinInputBottomLeft {
+		background-image:url(/static/images/skin/input-focused-bl.png);
+	}
+	
+	.skinInputFocusedBox .skinInputBottom {
+		border-color:#3b7cb5;
+		background-color:#f2f6f8;
+	}
+	
+	.skinInputFocusedBox .skinInputBottomRight {
+		background-image:url(/static/images/skin/input-focused-br.png);
+	}
+
+	/* error box */
+	.skinCloseIconOff .skinErrorContent {
+		background-image:url(/static/images/skin/close-button-off.png);
+	}
+	
+	.skinCloseIconOn .skinErrorContent {
+		background-image:url(/static/images/skin/close-button-on.png);
+	}
+
+	.skinErrorRow2 {
+		background-image:url(/static/images/skin/error-icon.png);
+	}
+
+	.skinErrorTopLeft {
+		background-image:url(/static/images/skin/error-tl.png);
+	}
+	
+	.skinErrorTopRight {
+		background-image:url(/static/images/skin/error-tr.png);
+	}
+	
+	.skinErrorBottomLeft {
+		background-image:url(/static/images/skin/error-bl.png);
+	}
+	
+	.skinErrorBottomRight {
+		background-image:url(/static/images/skin/error-br.png);
+	}
+	
+	/* success box */
+	.skinCloseIconOff .skinSuccessContent {
+		background-image:url(/static/images/skin/close-button-off.png);
+	}
+	
+	.skinCloseIconOn .skinSuccessContent {
+		background-image:url(/static/images/skin/close-button-on.png);
+	}
+
+	.skinSuccessRow2 {
+		background-image:url(/static/images/skin/success-icon.png);
+	}
+	
+	.skinSuccessTopLeft {
+		background-image:url(/static/images/skin/success-tl.png);
+	}
+	
+	.skinSuccessTopRight {
+		background-image:url(/static/images/skin/success-tr.png);
+	}
+	
+	.skinSuccessBottomLeft {
+		background-image:url(/static/images/skin/success-bl.png);
+	}
+	
+	.skinSuccessBottomRight {
+		background-image:url(/static/images/skin/success-br.png);
+	}
+	
+	/* rounded box */
+	.skinRoundedTopLeft {
+		background-image:url(/static/images/skin/box-tl.png);
+	}
+	
+	.skinRoundedTopRight {
+		background-image:url(/static/images/skin/box-tr.png);
+	}
+	
+	.skinRoundedBottomLeft {
+		background-image:url(/static/images/skin/box-bl.png);
+	}
+	
+	.skinRoundedBottomRight {
+		background-image:url(/static/images/skin/box-br.png);
+	}
+							
+					
+
+#skinRow3 {
+	background-image:url(/static/images/skin/row3.png);
+}

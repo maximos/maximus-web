@@ -1,6 +1,6 @@
 [% f = form.field(field) %]
-<dt><label for="[% f.id %]">[% f.label %]</label></dt>
-<dd><input type="[% input_type or 'text' %]" name="[% f.html_name %]" id="[% f.id %]" value="[% f.fif | html %]" /></dd>
+<dt class="skinFieldName"><label for="[% f.id %]">[% f.label %]</label></dt>
+<dd class="skinFieldInput"><input type="[% input_type or 'text' %]" name="[% f.html_name %]" id="[% f.id %]" value="[% f.fif | html %]" class="[% class %]" /></dd>
 [% IF f.has_errors %]
 	[% FOR error IN f.errors %]
 		<dd class="error">[% error %]</dd>

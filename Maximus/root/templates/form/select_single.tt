@@ -1,7 +1,7 @@
 [% f = form.field(field) %]
 <dt><label for="[% f.id %]">[% f.label %]</label></dt>
 <dd>
-   <select name="[% f.html_name %]" id="[% f.id %]>
+   <select name="[% f.html_name %]" id="[% f.id %]" class="[% class %]">
      [% FOR option IN f.options %]
        <option value="[% option.value %]" 
        [% IF option.value == f.fif %]

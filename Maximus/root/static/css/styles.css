@@ -1,0 +1,488 @@
+html {
+	height:100%;
+	padding:0px;
+	background-color:#aeb9c1;
+	font-family:arial;
+	font-size:14px;
+	color:#5d676d;
+}
+
+body {
+	height:100%;
+}
+
+h1 {
+	display:block;
+	font-size:2em;
+	font-weight:bold;
+	padding:5px 0px 10px 0px;
+}
+
+h2 {
+	display:block;
+	font-size:1.5em;
+	font-weight:bold;
+	padding:5px 0px 10px 0px;
+}
+
+h3 {
+	display:block;
+	font-size:1.1em;
+	font-weight:bold;
+	padding:5px 0px 10px 0px;
+}
+
+p {
+	display:block;
+	padding:5px 0px 14px 0px;
+}
+
+ul {
+	padding-left:10px;
+}
+
+li {
+	background-repeat:no-repeat;
+	padding-left:15px;
+	line-height:1.4em;
+}
+
+.skinWidth {
+	width:956px;
+}
+
+#skinBackground {
+	min-width:956px;
+	background-image:url(/static/images/skin/background.gif);
+	background-repeat:no-repeat;
+	background-position:center top;
+}
+
+	#skinContainer {
+		margin:0px auto 0px auto;
+		padding:50px 0px 0px 0px;
+	}
+	
+		#skinRow1 {
+			height:135px;
+			background-repeat:no-repeat;
+			background-position:left top;
+		}
+		
+			#skinRow1 .skinContent {
+				width:932px;
+				height:105px;
+				padding:30px 11px 0px 11px;
+			}
+			
+				#skinLogo {
+					width:293px;
+					height:105px;
+					float:left;
+				}
+				
+				#skinHeader {
+					width:639px;
+					height:80px;
+					float:left;
+				}
+				
+				/* menu */
+				#skinMenu {
+
+					height:25px;
+					float:right;
+					list-style:none;
+				}
+					
+					#skinMenu li {
+						padding-left:0px;
+					}
+					
+					#skinMenu .skinTabOn {
+						display:block;
+						height:25px;
+						float:left;
+						background-repeat:repeat-x;
+						background-position:0px -25px;
+						margin:0px 5px 0px 0px;
+					}
+					
+						#skinMenu .skinTabOn .skinLeft {
+							display:block;
+							float:left;
+							height:25px;
+							line-height:28px;
+							font-size:0.8em;
+							background-repeat:no-repeat;
+							background-position:left 0px;
+							overflow:hidden;
+						}
+						
+						#skinMenu .skinTabOn .skinRight {
+							display:block;
+							background-repeat:no-repeat;
+							background-position:right -50px;
+							padding:0px 8px 0px 8px;
+						}
+						
+						#skinMenu .skinTabOn a:link, #skinMenu .skinTabOn a:visited {
+							text-decoration:none;
+							color:#8c969c;
+						}
+						
+						#skinMenu .skinTabOn a:hover, #skinMenu .skinTabOn a:active {
+							text-decoration:none;
+							color:#8c969c;
+						}
+						
+					#skinMenu .skinTabOff {
+						display:block;
+						height:25px;
+						float:left;
+						background-repeat:repeat-x;
+						background-position:0px -100px;
+						margin:0px 5px 0px 0px;
+					}
+					
+						#skinMenu .skinTabOff .skinLeft {
+							display:block;
+							float:left;
+							height:25px;
+							line-height:30px;
+							font-size:0.8em;
+							background-repeat:no-repeat;
+							background-position:left -75px;
+							overflow:hidden;
+						}
+						
+						#skinMenu .skinTabOff .skinRight {
+							display:block;
+							background-repeat:no-repeat;
+							background-position:right -125px;
+							padding:0px 12px 0px 12px;
+						}
+						
+						#skinMenu .skinTabOff a:link, #skinMenu .skinTabOff a:visited {
+							text-decoration:none;
+							color:#5d676d;
+						}
+						
+						#skinMenu .skinTabOff a:hover, #skinMenu .skinTabOff a:active {
+							text-decoration:none;
+							color:#d6e3ea;
+						}
+		
+		#skinRow2 {
+			background-repeat:repeat-y;
+			background-position:left top;
+		}
+		
+			#skinRow2fix {
+				background-repeat:no-repeat;
+				background-position:left top;
+			}
+			
+				#skinRow2 .skinContent {
+					width:902px;
+					margin:0px 11px 0px 11px;
+					background-image:url(/static/images/skin/row2-content-background.png);
+					background-repeat:no-repeat;
+					background-position:left top;
+					padding:9px 15px 0px 15px;
+				}
+					
+					.skinCloseIconOff {
+						cursor:pointer;
+					}
+					
+					.skinCloseIconOn {
+						cursor:pointer;
+					}
+
+					/* error box */
+					.jsErrorBox {
+						display:block;
+						border:1px solid #bd8c8b;
+						background-color:#e8d2d3;
+						padding:8px;
+					}
+					
+						.skinErrorRow1 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinErrorTopLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinErrorTop {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-top:1px solid #bd8c8b;
+								background-color:#e8d2d3;
+							}
+							
+							.skinErrorTopRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+						.skinErrorRow2 {
+							padding:0px 8px 0px 28px;
+							border-left:1px solid #bd8c8b;
+							border-right:1px solid #bd8c8b;
+							background-color:#e8d2d3;
+							background-position:0px center;
+							background-repeat:no-repeat;
+						}
+						
+							.skinCloseIconOff .skinErrorContent {
+								background-repeat:no-repeat;
+								background-position:right center;
+							}
+							
+							.skinCloseIconOn .skinErrorContent {
+								background-repeat:no-repeat;
+								background-position:right center;
+							}
+						
+						.skinErrorRow3 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinErrorBottomLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinErrorBottom {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-bottom:1px solid #bd8c8b;
+								background-color:#e8d2d3;
+							}
+							
+							.skinErrorBottomRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+					/* success box */
+					.jsSuccessBox {
+						display:block;
+						border:1px solid #75a978;
+						background-color:#ccf8cf;
+						padding:8px;
+					}
+					
+						.skinSuccessRow1 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinSuccessTopLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinSuccessTop {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-top:1px solid #75a978;
+								background-color:#ccf8cf;
+							}
+							
+							.skinSuccessTopRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+						.skinSuccessRow2 {
+							padding:0px 8px 0px 28px;
+							border-left:1px solid #75a978;
+							border-right:1px solid #75a978;
+							background-color:#ccf8cf;
+							background-position:0px center;
+							background-repeat:no-repeat;
+						}
+						
+							.skinCloseIconOff .skinSuccessContent {
+								background-repeat:no-repeat;
+								background-position:right center;
+								cursor:pointer;
+							}
+							
+							.skinCloseIconOn .skinSuccessContent {
+								background-repeat:no-repeat;
+								background-position:right center;
+								cursor:pointer;
+							}
+						
+						.skinSuccessRow3 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinSuccessBottomLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinSuccessBottom {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-bottom:1px solid #75a978;
+								background-color:#ccf8cf;
+							}
+							
+							.skinSuccessBottomRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+					
+					/* rounded box */
+					.jsRoundedBox {
+						display:block;
+						border:1px solid #c4cbd0;
+						background-color:#f6f6f7;
+						padding:8px;
+					}
+					
+						.skinRoundedRow1 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinRoundedTopLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinRoundedTop {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-top:1px solid #c4cbd0;
+								background-color:#f6f6f7;
+							}
+							
+							.skinRoundedTopRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								top:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+						.skinRoundedRow2 {
+							padding:0px 8px 0px 8px;
+							border-left:1px solid #c4cbd0;
+							border-right:1px solid #c4cbd0;
+							background-color:#f6f6f7;
+						}
+						
+						.skinRoundedRow3 {
+							height:8px;
+							position:relative;
+							left:0px;
+							top:0px;
+							font-size:0px;
+						}
+						
+							.skinRoundedBottomLeft {
+								width:8px;
+								height:8px;
+								position:absolute;
+								left:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+							
+							.skinRoundedBottom {
+								height:7px;
+								margin:0px 8px 0px 8px;
+								border-bottom:1px solid #c4cbd0;
+								background-color:#f6f6f7;
+							}
+							
+							.skinRoundedBottomRight {
+								width:8px;
+								height:8px;
+								position:absolute;
+								right:0px;
+								bottom:0px;
+								background-repeat:no-repeat;
+								background-position:left top;
+							}
+		
+		#skinRow3 {
+			height:31px;
+			background-repeat:no-repeat;
+			background-position:left top;
+		}

@@ -1,38 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>[% c.config.name %] - BlitzMax Module Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="robots" content="index,follow" /> 
-	<meta name="description" content="" />
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="Maximus - the blitzmax module manager" />
+	<meta name="keywords" content="" />
+	[% USE date %]
+	<meta name="Design" content="Copyright [% date.format(date.now, '%Y') %] skn3[ac]" />
+	<meta name="Website" content="Copyright [% date.format(date.now, '%Y') %] Christiaan Kras" />
+	
 	<script type="text/javascript" src="/static/js/mootools-1.2.4-core.js"></script>
 	<script type="text/javascript" src="/static/js/mootools-1.2.4.4-more.js"></script>
-	<link rel="stylesheet" href="/static/css/site.css" type="text/css" media="all" />
+	<script type="text/javascript" src="/static/js/formcheck-1.5-yc.js"></script>
+	<script type="text/javascript" src="/static/js/template.js"></script>
+
+	<link rel="styleSheet" type="text/css" href="/static/css/reset-min.css" />
+	<link rel="styleSheet" type="text/css" href="/static/css/styles.css" />
+	<link rel="styleSheet" type="text/css" href="/static/css/styles-other.css" />
+	<link rel="styleSheet" type="text/css" href="/static/css/formcheck.css" />
+	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
+	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/formcheck-ie6.css" /><![endif]-->
 </head>
 <body>
-<div id="wrap">
-	<div id="header"><h1><a href="[% c.uri_for('/') %]">[% c.config.name %]</a></h1><h2>the BlitzMax Module Manager</h2></div>
-	<div id="menu">
-		<a href="[% c.uri_for('/') %]">Home</a>
-		<a href="[% c.uri_for('/client') %]">Client</a>
-		<a href="[% c.uri_for('/module/modscopes') %]">Modules</a>
-		<a href="[% c.uri_for('/faq') %]">F.A.Q.</a>
-		[% IF c.user_exists %]
-			<a href="[% c.uri_for('/module/upload') %]">Upload</a>
-			<a href="[% c.uri_for('/account') %]">My Account</a>
-			<a href="[% c.uri_for('/account/logout') %]">Logout</a>
-		[% ELSE %]
-			<a href="[% c.uri_for('/account/signup') %]">Sign-up</a>
-			<a href="[% c.uri_for('/account/login') %]">Login</a>
-		[% END %]
+	<div id="skinBackground">
+		<div id="skinContainer" class="skinWidth">
+			<div id="skinRow1" class="skinWidth">
+				<div class="skinContent">
+
+					<img id="skinLogo" src="/static/images/blank.gif" alt="" width="1" height="1" />
+					<div id="skinHeader">
+						
+					</div>
+					<ul id="skinMenu"> 
+						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/') %]"><span class="skinRight">Home</span></a></li>
+						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/client') %]"><span class="skinRight">Client</span></a></li>
+						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/module/modscopes') %]"><span class="skinRight">Modules</span></a></li>
+						<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/faq') %]"><span class="skinRight">F.A.Q.</span></a></li>
+						[% IF c.user_exists %]
+							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/module/upload') %]"><span class="skinRight">Upload</span></a></li>
+							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account') %]"><span class="skinRight">My Account</span></a></li>
+							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/logout') %]"><span class="skinRight">Logout</span></a></li>
+						[% ELSE %]
+							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/signup') %]"><span class="skinRight">Sign-up</span></a></li>
+							<li class="skinTabOff"><a class="skinLeft" href="[% c.uri_for('/account/login') %]"><span class="skinRight">Login</span></a></li>
+						[% END %]
+					</ul>
+				</div>
+			</div>
+			<div id="skinRow2" class="skinWidth">
+				<!--[if lte IE 6]><div id="skinRow2fix"><![endif]-->
+					<div class="skinContent">[% content %]</div>
+				<!--[if lte IE 6]></div><![endif]-->
+			</div>
+			<div id="skinRow3" class="skinWidth"></div>
+		</div>
 	</div>
-	<div id="content">[% content %]</div>
-	<div id="footer">
-		[% USE date %]
-		Design by <a href="http://www.minimalistic-design.net">Minimalistic Design</a> | Copyright [% date.format(date.now, '%Y') %]  Christiaan Kras
-	</div> 
-</div>
 [% IF c.config.google_analytics_id.length == 12 %]
 	<script type="text/javascript">
 	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
