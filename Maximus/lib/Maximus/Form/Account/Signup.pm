@@ -42,6 +42,16 @@ has_field 'password' => (
 	required_message => 'You must enter a password',
 );
 
+=head2 confirm_password
+
+=cut
+has_field 'confirm_password' => (
+	type => 'PasswordConf',
+	label => 'Confirm password',
+	required => 1,
+	required_message => 'You must confirm your password',
+);
+
 =head1 AUTHOR
 
 Christiaan Kras

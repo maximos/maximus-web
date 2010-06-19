@@ -1,16 +1,21 @@
-<h2>Sign-Up</h2>
-<p>Please fill in the form to create an account. Creating an account allows you
-to manage your own modscopes and modules.</p>
+<h1>Sign-Up</h1>
 
-[% IF error_msg %]
-	<p class="error"><strong><em>[% error_msg %]</em></strong></p>
-[% END %]
-<form method="post" action="[% c.uri_for('/account/signup') %]">
-	<dl>
-		[% INCLUDE form/input.tt field='email' %]
-		[% INCLUDE form/input.tt field='username' %]
-		[% INCLUDE form/input.tt field='password' input_type='password' %]
+<div class="jsRoundedBox">
+	<p>Please fill in the form to create an account. Creating an account allows you
+	to manage your own modscopes and modules.</p>
+	[% IF error_msg %]
+		<div class="jsRoundedBox">
+			<div class="jsErrorBox">[% error_msg %]</div>
+		</div>
+	[% END %]
+</div>
+	
+<form method="post" action="[% c.uri_for('/account/signup') %]" class="jsForm">
+	<dl class="skinFieldGroup">
+		[% INCLUDE form/input.tt field='email' class="validate['required','email']" %]
+		[% INCLUDE form/input.tt field='username' class="validate['required','alphanum','length[3,25]']" %]
+		[% INCLUDE form/input.tt field='password' input_type='password' class="validate['required','length[6,50]']" %]
+		[% INCLUDE form/input.tt field='confirm_password' input_type='password' class="validate['confirm[password]']" %]
 		<dd><input type="submit" name="submit" value="Sign-Up" /></dd>
-		</dd>
 	</dl>
 </form>
