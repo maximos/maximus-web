@@ -1,16 +1,21 @@
-<h2>Login</h2>
-<p>Please login to manage your modscopes and modules. Don't have an account yet?
-Please <a href="[% c.uri_for('/account/signup') %]">sign-up</a> for one.
-You don't need an account if you only want to use [% c.config.name %] to download and install modules.</p>
+<h1>Login</h1>
 
-[% IF error_msg %]
-	<p class="error"><strong><em>[% error_msg %]</em></strong></p>
-[% END %]
-<form method="post" action="[% c.uri_for('/account/login') %]">
-	<dl>
-		[% INCLUDE form/input.tt field='username' %]
-		[% INCLUDE form/input.tt field='password' input_type='password' %]
+<div class="jsRoundedBox">
+	<p>Please login to manage your modscopes and modules. Don't have an account yet?
+	Please <a href="[% c.uri_for('/account/signup') %]">sign-up</a> for one.
+	You don't need an account if you only want to use [% c.config.name %] to download and install modules.</p>
+	[% IF error_msg %]
+		<div class="jsRoundedBox">
+			<div class="jsErrorBox">[% error_msg %]</div>
+		</div>
+	[% END %]
+</div>
+
+<form method="post" action="[% c.uri_for('/account/login') %]" class="jsForm">
+	<dl class="skinFieldGroup">
+		[% INCLUDE form/input.tt field='username' class="validate['required']" %]
+		[% INCLUDE form/input.tt field='password' input_type='password' class="validate['required']" %]
 		<dd><input type="submit" name="submit" value="Login" /></dd>
 	</dl>
-	<p><a href="#">Help! I've lost my password!</a></p>
-</form>
+	
+</form><p><a href="#">Help! I've lost my password!</a></p>
