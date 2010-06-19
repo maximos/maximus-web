@@ -1,5 +1,7 @@
-<h2>Welcome [% c.user.username %]!</h2>
-<p>Currently [% c.config.name %] is in an early state of development. This
-means not all functionality exists yet, such as configuring your account.</p>
+<h1>Welcome [% c.user.username %]!</h1>
+<div class="jsRoundedBox">
+	<p>Currently [% c.config.name %] is in an early state of development. This
+	means not all functionality exists yet, such as configuring your account.</p>
 
-<p>But not to worry, it will be possible eventually!</p>
+	<p>But not to worry, it will be possible eventually!</p>
+</div>

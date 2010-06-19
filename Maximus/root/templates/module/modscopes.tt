@@ -1,6 +1,8 @@
-<h2>Modscopes</h2>
-[% FOR modscope IN modscopes %]
-	[% "<ol id=\"modscopelist\">" IF loop.first %]
-	<li><a href="[% c.uri_for('/module', (modscope.name)) %]">[% modscope.name | html %]</a></li>
-	[% "</ol>" IF loop.last %]
-[% END %]
+<h1>Modscopes</h1>
+<div class="jsRoundedBox">
+	[% FOR modscope IN modscopes %]
+		[% "<ol id=\"modscopelist\">" IF loop.first %]
+		<li><a href="[% c.uri_for('/module', (modscope.name)) %]">[% modscope.name | html %]</a></li>
+		[% "</ol>" IF loop.last %]
+	[% END %]
+</div>

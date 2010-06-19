@@ -1,17 +1,19 @@
-[% FOR modscope IN sources %]
-	[%- "<dl id=\"modlist\">" IF loop.first %]
-	<dt class="modscope">[% modscope.key | html %]</dt>
-	[% FOR module IN modscope.value %]
-		[%- "<dd><dl>" IF loop.first %]
-		<dt class="mod">[% module.key | html %]</dt>
-		<dd class="desc">[% module.value.desc | html %]</dd>
-		[% FOR versionString IN sortedVersions.${modscope.key}.${module.key} %]
-			[% version = module.value.versions.$versionString %]
-			[%- "<dd><ul class=\"versions\">" IF loop.first %]
-			<li><a href="[% version.url | html %]">[% versionString | html %]</a></li>
-			[%- "</ul></dd>" IF loop.last %]				
-		[% END %]
-		[%- "</dd></dl>" IF loop.last %]	
-	[% END %] 
-	[%- "</dl>" IF loop.last %]
-[% END %]
+<div class="jsRoundedBox">
+	[% FOR modscope IN sources %]
+		[%- "<dl id=\"modlist\">" IF loop.first %]
+		<dt class="modscope">[% modscope.key | html %]</dt>
+		[% FOR module IN modscope.value %]
+			[%- "<dd><dl>" IF loop.first %]
+			<dt class="mod">[% module.key | html %]</dt>
+			<dd class="desc">[% module.value.desc | html %]</dd>
+			[% FOR versionString IN sortedVersions.${modscope.key}.${module.key} %]
+				[% version = module.value.versions.$versionString %]
+				[%- "<dd><ul class=\"versions\">" IF loop.first %]
+				<li><a href="[% version.url | html %]">[% versionString | html %]</a></li>
+				[%- "</ul></dd>" IF loop.last %]				
+			[% END %]
+			[%- "</dd></dl>" IF loop.last %]	
+		[% END %] 
+		[%- "</dl>" IF loop.last %]
+	[% END %]
+</div>

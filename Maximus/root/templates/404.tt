@@ -1,2 +1,2 @@
-<h2>Page not found</h2>
-<p>Oops! It looks like the page you were looking for doesn't exist!</p>
+<h1>Page not found</h1>
+<div class="jsErrorBox">Oops! It looks like the page you were looking for doesn't exist!</div>

@@ -1,17 +1,19 @@
-<h2>[% c.config.name %] F.A.Q.</h2>
-<p>Below is a list of frequently asked questions concerning [% c.config.name %].</p>
+<h1>[% c.config.name %] F.A.Q.</h1>
+<div class="jsRoundedBox">
+	<p>Below is a list of frequently asked questions concerning [% c.config.name %].</p>
 
-<dl>
-	<dt>When is [% c.config.name %] expected to be ready?</dt>
-	<dd>We don't know.</dd>
-	
-	<dt>Who is <em>we</em>?</dt>
-	<dd>Us, Plash (a.k.a. Komiga) and Htbaa.</dd>
-	
-	<dt>What's up with asking for donations? Do you guys tend to get rich of this?</dt>
-	<dd>Nope, we're not in it for the money. Every penny that comes in will be used
-	to pay the bills for running this service. You can find more information about the
-	campaign on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
-	website.</dd>
-	<dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
-</dl>
+	<dl>
+		<dt>When is [% c.config.name %] expected to be ready?</dt>
+		<dd>We don't know.</dd>
+		
+		<dt>Who is <em>we</em>?</dt>
+		<dd>Us, Plash (a.k.a. Komiga) and Htbaa.</dd>
+		
+		<dt>What's up with asking for donations? Do you guys tend to get rich of this?</dt>
+		<dd>Nope, we're not in it for the money. Every penny that comes in will be used
+		to pay the bills for running this service. You can find more information about the
+		campaign on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
+		website.</dd>
+		<dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://www.pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
+	</dl>
+</div>

@@ -1,26 +1,30 @@
-<h2>Upload Module</h2>
-<p>You can upload your zipped module with this form. Currently files can be of a maximum of [% form.field('file').max_size / 1024 / 1024 %] mega-bytes.
- Before uploading, please remove temporary compiled (binary) files. Maximus will remove most of these files (all in .bmx/, as well as .o, .s, .a and .i files).</p>
-<p>Your archive/module has to meet the following requirements:</p>
-<ul>
-	<li>Currently only single-module archives are supported</li>
-	<li>A <i>Module</i> statement is required: <i>Module htbaapub.rest</i></li>
-	<li>The modscope (htbaapub in the example) must belong to you. If the modscope doesn't exist yet you're free to
-	register it by uploading a module. If the modscope exists and it doesn't belong to you then choose another one.
-	The modscopes brl, maxgui and pub are reserved.</li>
-	<li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
-	Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
-</ul>
-<p>&nbsp;</p>
-[% IF error_msg %]
-	<p class="error"><strong><em>[% error_msg %]</em></strong></p>
-[% END %]
-<form method="post" action="[% c.uri_for('/module/upload') %]" enctype="[% form.enctype %]">
-	<dl>
-		[% INCLUDE form/input.tt field='scope' input_type='text' %]
-		[% INCLUDE form/input.tt field='name' input_type='text' %]
-		[% INCLUDE form/input.tt field='desc' input_type='text' %]
-		[% INCLUDE form/input.tt field='file' input_type='file' %]
+<h1>Upload Module</h1>
+<div class="jsRoundedBox">
+	<p>You can upload your zipped module with this form. Currently files can be of a maximum of [% form.field('file').max_size / 1024 / 1024 %] mega-bytes.
+	 Before uploading, please remove temporary compiled (binary) files. Maximus will remove most of these files (all in .bmx/, as well as .o, .s, .a and .i files).</p>
+	<p>Your archive/module has to meet the following requirements:</p>
+	<ul>
+		<li>Currently only single-module archives are supported</li>
+		<li>A <i>Module</i> statement is required: <i>Module htbaapub.rest</i></li>
+		<li>The modscope (htbaapub in the example) must belong to you. If the modscope doesn't exist yet you're free to
+		register it by uploading a module. If the modscope exists and it doesn't belong to you then choose another one.
+		The modscopes brl, maxgui and pub are reserved.</li>
+		<li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
+		Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
+	</ul>
+	[% IF error_msg %]
+		<div class="jsRoundedBox">
+			<div class="jsErrorBox">[% error_msg %]</div>
+		</div>
+	[% END %]
+</div>
+
+<form method="post" action="[% c.uri_for('/module/upload') %]" enctype="[% form.enctype %]" class="jsForm">
+	<dl class="skinFieldGroup">
+		[% INCLUDE form/input.tt field='scope' input_type='text' class="validate['required','alphanum','length[1,25]']" %]
+		[% INCLUDE form/input.tt field='name' input_type='text' class="validate['required','alphanum','length[1,25]']" %]
+		[% INCLUDE form/input.tt field='desc' input_type='text' class="validate['required','alphanum','length[5,255]']" %]
+		[% INCLUDE form/input.tt field='file' input_type='file' class="validate['required']" %]
 		<dd><input type="submit" name="submit" value="Upload" /></dd>
 	</dl>
 </form>
