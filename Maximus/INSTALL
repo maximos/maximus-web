@@ -80,17 +80,17 @@ maximus-web as a stand-alone FastCGI daemon. For other deployment options please
 read Catalyst::Manual::Cookbook.
 
 	<VirtualHost *:80>
-			DocumentRoot /home/maximus/maximus-web/Maximus/root
-			FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
-			Alias / /tmp/maximus.fcgi/
-	        
-			# This is for modules that need the Authorization header like 
-			# Catalyst::Plugin::Authentication::Credential::HTTP
-			# mod_cgi and mod_fastcgi don't do this by default
-			RewriteCond %{HTTP:Authorization} ^(.+)
-			RewriteRule ^(.*)$ $1 [E=HTTP_AUTHORIZATION:%1,PT]
-			
-			RewriteRule ^$ / [R]	        
+		DocumentRoot /home/maximus/maximus-web/Maximus/root
+		FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
+		Alias / /tmp/maximus.fcgi/
+		
+		# This is for modules that need the Authorization header like 
+		# Catalyst::Plugin::Authentication::Credential::HTTP
+		# mod_cgi and mod_fastcgi don't do this by default
+		RewriteCond %{HTTP:Authorization} ^(.+)
+		RewriteRule ^(.*)$ $1 [E=HTTP_AUTHORIZATION:%1,PT]
+		
+		RewriteRule ^$ / [R]	        
 	</VirtualHost>
 	
 	# Next, copy the virtual host configuration from above, but change the port
@@ -130,21 +130,21 @@ modules to be enabled.
 And this is a sample configuration for running through a reverse proxy.
 	
 	<VirtualHost *:80>
-			ServerName maximus.htbaa.com
-			DocumentRoot /home/maximus/maximus-web/Maximus/root
-			Alias /static /home/maximus/maximus-web/Maximus/root/static
+		ServerName maximus.htbaa.com
+		DocumentRoot /home/maximus/maximus-web/Maximus/root
+		Alias /static /home/maximus/maximus-web/Maximus/root/static
 
-			ProxyRequests Off
-			<Proxy *>
-					Order deny,allow
-					Allow from all
-			</Proxy>
+		ProxyRequests Off
+		<Proxy *>
+				Order deny,allow
+				Allow from all
+		</Proxy>
 
-			ProxyPass /static !
-			ProxyPass /favicon.ico !
+		ProxyPass /static !
+		ProxyPass /favicon.ico !
 
-			ProxyPass / http://localhost:5000/
-			ProxyPassReverse / http://localhost:5000/
+		ProxyPass / http://localhost:5000/
+		ProxyPassReverse / http://localhost:5000/
 	</VirtualHost>
 
 	<VirtualHost *:443>
