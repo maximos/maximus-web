@@ -71,15 +71,18 @@ RUNNING THE FASTCGI DAEMON
 
 CONFIGURING APACHE2 FOR FASTCGI
 
+First enable SSL support
+
+	$ sudo a2enmod ssl
+	
 Here's a minimal virtual host configuration for Apache. This assumes running
 maximus-web as a stand-alone FastCGI daemon. For other deployment options please
 read Catalyst::Manual::Cookbook.
 
 	<VirtualHost *:80>
-	        DocumentRoot /home/maximus/maximus-web/Maximus/root
-	        FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
-	        Alias / /tmp/maximus.fcgi/
-	        Alias /static /home/maximus/maximus-web/Maximus/root/static
+			DocumentRoot /home/maximus/maximus-web/Maximus/root
+			FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
+			Alias / /tmp/maximus.fcgi/
 	        
 			# This is for modules that need the Authorization header like 
 			# Catalyst::Plugin::Authentication::Credential::HTTP
@@ -89,10 +92,6 @@ read Catalyst::Manual::Cookbook.
 			
 			RewriteRule ^$ / [R]	        
 	</VirtualHost>
-
-	# By default Maximus requires SSL for account registration and login
-	# So lets setup HTTPS
-	# Be sure to configure Apache for it: sudo a2enmod ssl
 	
 	# Next, copy the virtual host configuration from above, but change the port
 	# to 443 and add these lines.
@@ -105,10 +104,77 @@ read Catalyst::Manual::Cookbook.
 		...
 	</VirtualHost>
 
-RUNNING THROUGH STARMAN
+RUNNING A PSGI SUPPORTED SERVER
 
-	$ starman -I./lib script/maximus.psgi
+Starman gives the best performance, but is *nix only
+
+	$ starman script/maximus.psgi
+
+Plack has plackup which works on Windows as well
+
+	$ plackup script/maximus.psgi
+
+Or use the build in dev server
+
+	$ perl script/maximus_server -k -p 5000
 	
-CONFIGURING APACHE2 FOR STARMAN
+CONFIGURING APACHE2 FOR REVERSE PROXY
 
-For this we shall use mod_proxy. TODO!
+Largely the same as running through FastCGI, but it needs some additional
+modules to be enabled.
+
+	$ sudo a2enmod proxy
+	$ sudo a2enmod proxy_http
+	$ sudo a2enmod ssl
+	
+And this is a sample configuration for running through a reverse proxy.
+	
+	<VirtualHost *:80>
+			ServerName maximus.htbaa.com
+			DocumentRoot /home/maximus/maximus-web/Maximus/root
+			Alias /static /home/maximus/maximus-web/Maximus/root/static
+
+			ProxyRequests Off
+			<Proxy *>
+					Order deny,allow
+					Allow from all
+			</Proxy>
+
+			ProxyPass /static !
+			ProxyPass /favicon.ico !
+
+			ProxyPass / http://localhost:5000/
+			ProxyPassReverse / http://localhost:5000/
+	</VirtualHost>
+
+	<VirtualHost *:443>
+		...
+		SSLEngine on
+		SSLProxyEngine on
+		SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+		...
+	</VirtualHost>
+	
+SELF SIGNED CERTIFICATE
+
+Create a private key
+
+	$ openssl genrsa -des3 -out server.key 1024
+	
+Remember that the common name should be the domain name!
+
+	$ openssl req -new -key server.key -out server.csr
+	
+Remove passphrase from key so Apache won't complain
+
+	$ cp server.key server.key.org
+	$ openssl rsa -in server.key.org -out server.key
+	
+Now self sign the certificate
+
+	$ openssl x509 -req -days 365 -in server.csr -signkey server.key \
+	  -out server.crt
+	  
+To use the certificate for to virtual host in Apache set SSLCertificateFile to
+server.crt and SSLCertificateKeyFile to server.key.
