@@ -83,7 +83,7 @@ read Catalyst::Manual::Cookbook.
 		DocumentRoot /home/maximus/maximus-web/Maximus/root
 		FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
 		Alias / /tmp/maximus.fcgi/
-		
+
 		# This is for modules that need the Authorization header like 
 		# Catalyst::Plugin::Authentication::Credential::HTTP
 		# mod_cgi and mod_fastcgi don't do this by default
@@ -92,16 +92,14 @@ read Catalyst::Manual::Cookbook.
 		
 		RewriteRule ^$ / [R]	        
 	</VirtualHost>
-	
-	# Next, copy the virtual host configuration from above, but change the port
-	# to 443 and add these lines.
-	# This uses the self-signed certificate but will suffice.	
+
 	<VirtualHost *:443>
-		...
+		DocumentRoot /home/maximus/maximus-web/Maximus/root
+		Alias / /tmp/maximus.fcgi/
+
 		SSLEngine on
 		SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
 		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-		...
 	</VirtualHost>
 
 RUNNING A PSGI SUPPORTED SERVER
