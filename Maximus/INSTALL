@@ -82,6 +82,7 @@ read Catalyst::Manual::Cookbook.
 	<VirtualHost *:80>
 		DocumentRoot /home/maximus/maximus-web/Maximus/root
 		FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
+		Alias /static /home/maximus/maximus-web/Maximus/root/static
 		Alias / /tmp/maximus.fcgi/
 
 		# This is for modules that need the Authorization header like 
@@ -95,6 +96,7 @@ read Catalyst::Manual::Cookbook.
 
 	<VirtualHost *:443>
 		DocumentRoot /home/maximus/maximus-web/Maximus/root
+		Alias /static /home/maximus/maximus-web/Maximus/root/static
 		Alias / /tmp/maximus.fcgi/
 
 		SSLEngine on
