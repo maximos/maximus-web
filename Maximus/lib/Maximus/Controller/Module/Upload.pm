@@ -90,7 +90,7 @@ sub index :Path :Args(0) {
 			);
 		}
 		elsif($e = Maximus::Exception::Module->caught()) {
-			my $msg = 'An unxpected error occured. Perhaps your module is ' . 
+			my $msg = 'An unexpected error occured. Perhaps your module is ' . 
 					  'faulty. If this problem keeps showing up then please ' .
 					  'contact us.';
 			$c->stash(error_msg => $e->user_msg || $msg);

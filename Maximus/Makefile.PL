@@ -62,6 +62,7 @@ test_requires 'Test::WWW::Mechanize::Catalyst' => '0.52';
 recommends 'FCGI';
 recommends 'FCGI::ProcManager';
 recommends 'Plack' => '0.9938';
+recommends 'Plack::Middleware::ReverseProxy' => '0.06';
 recommends 'Starman' => '0.2004';
 catalyst;
 perl_version '5.010001';
