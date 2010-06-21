@@ -8,6 +8,7 @@ use Catalyst qw/
     ConfigLoader
 	Authentication
 	Authorization::Roles
+	Assets
 	Cache
 	PageCache
 	RequireSSL
@@ -37,6 +38,11 @@ __PACKAGE__->config(
     default_view => 'TT',
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
+	'Plugin::Assets' => {
+		minify => 'minifier-xs',
+		path => '/static',
+		output_path => 'assets/',
+	},
     'Plugin::Cache' => {
     	backend => {
     		class => 'Cache::FileCache',

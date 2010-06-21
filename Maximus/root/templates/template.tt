@@ -8,16 +8,16 @@
 	[% USE date %]
 	<meta name="Design" content="Copyright [% date.format(date.now, '%Y') %] skn3[ac]" />
 	<meta name="Website" content="Copyright [% date.format(date.now, '%Y') %] Christiaan Kras" />
+	[%- CALL c.assets.include('js/mootools-1.2.4-core.js') -%]
+	[%- CALL c.assets.include('js/mootools-1.2.4.4-more.js') -%]
+	[%- CALL c.assets.include('js/formcheck-1.5-yc.js') -%]
+	[%- CALL c.assets.include('js/template.js') -%]
+	[%- CALL c.assets.include('css/reset-min.css') -%]
+	[%- CALL c.assets.include('css/styles.css') -%]
+	[%- CALL c.assets.include('css/styles-other.css') -%]
+	[%- CALL c.assets.include('css/formcheck.css') %]
+	[% c.assets.export %]
 	
-	<script type="text/javascript" src="/static/js/mootools-1.2.4-core.js"></script>
-	<script type="text/javascript" src="/static/js/mootools-1.2.4.4-more.js"></script>
-	<script type="text/javascript" src="/static/js/formcheck-1.5-yc.js"></script>
-	<script type="text/javascript" src="/static/js/template.js"></script>
-
-	<link rel="styleSheet" type="text/css" href="/static/css/reset-min.css" />
-	<link rel="styleSheet" type="text/css" href="/static/css/styles.css" />
-	<link rel="styleSheet" type="text/css" href="/static/css/styles-other.css" />
-	<link rel="styleSheet" type="text/css" href="/static/css/formcheck.css" />
 	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
 	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/formcheck-ie6.css" /><![endif]-->
 </head>
