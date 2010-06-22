@@ -6,6 +6,7 @@ use namespace::autoclean;
 use Catalyst::Runtime 5.80;
 use Catalyst qw/
     ConfigLoader
+	Compress::Gzip
 	Authentication
 	Authorization::Roles
 	Assets
