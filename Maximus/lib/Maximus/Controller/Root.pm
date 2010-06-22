@@ -36,7 +36,7 @@ Standard 404 error page
 
 =cut
 
-sub default :Path {
+sub default :Private {
     my ( $self, $c ) = @_;
 	$c->stash->{template} = '404.tt';
     $c->response->status(404);

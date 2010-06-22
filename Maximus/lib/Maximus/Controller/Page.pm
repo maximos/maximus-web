@@ -1,5 +1,6 @@
 package Maximus::Controller::Page;
 use Moose;
+use Path::Class;
 use namespace::autoclean;
 
 BEGIN {extends 'Catalyst::Controller'; }
@@ -14,18 +15,19 @@ This controller is responsible for serving a number of static pages.
 
 =head1 METHODS
 
-=head2 client
+=head2 index
 
-Displays client page
+Display template from I</static/templates/page/> directory. Redirects to a 404
+error page when not found.
 =cut
-sub client :Path('/client') :Args(0) {
-}
-
-=head2 faq
-
-Displays FAQ page
-=cut
-sub faq :Path('/faq') :Args(0) {
+sub index :Path('/') {
+	my( $self, $c, @args) = @_;
+	unshift @args, 'page';
+	$args[$#args] .= '.tt';
+	my @include_path = @{$c->view('TT')->config->{INCLUDE_PATH}};
+	my $path = Path::Class::File->new( @include_path, @args );
+	$c->detach('/default') unless(-f $path->stringify);
+	$c->stash( template => Path::Class::File->new( @args )->stringify );
 }
 
 =head1 AUTHOR
