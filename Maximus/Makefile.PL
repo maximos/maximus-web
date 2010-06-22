@@ -17,7 +17,7 @@ requires 'Catalyst::Plugin::Assets' => '0.036';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Plugin::Cache';
-requires 'Catalyst::Plugin::Compress::Zlib' => '0.04';
+requires 'Catalyst::Plugin::Compress::Zlib' => '0.01';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Session';
