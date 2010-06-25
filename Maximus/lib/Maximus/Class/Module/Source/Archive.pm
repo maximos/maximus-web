@@ -46,7 +46,7 @@ sub prepare {
 	
 	my $ae = Archive::Extract->new( archive => $self->file, type => 'zip' );
 	Maximus::Exception::Module::Archive->throw(error => $ae->error)
-	unless $ae->extract( to => $self->tmpDir );
+	  unless $ae->extract( to => $self->tmpDir );
 	
 	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);
