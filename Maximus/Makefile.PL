@@ -50,6 +50,7 @@ requires 'JSON::Any' => '1.22';
 requires 'local::lib';
 requires 'Log::Dispatch' => '2.26';
 requires 'Log::Log4perl' => '1.28';
+requires 'File::Type' => '0.22';
 requires 'Moose';
 requires 'MooseX::Storage' => '0.25';
 requires 'namespace::autoclean';

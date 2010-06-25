@@ -2,6 +2,7 @@ package Maximus::Class::Module::Source::Archive;
 use Moose;
 use Archive::Extract;
 use Carp qw/confess/;
+use File::Type;
 use Maximus::Exceptions;
 use namespace::autoclean;
 
@@ -37,6 +38,11 @@ Extract given archive to temporary directory and modify its contents if required
 =cut
 sub prepare {
 	my($self, $mod) = @_;
+	my $type = File::Type->new->checktype_filename($self->file);
+	
+	Maximus::Exception::Module::Archive->throw(
+		error => 'Not a zip archive: ' . $type
+	) unless $type eq 'application/zip';
 	
 	my $ae = Archive::Extract->new( archive => $self->file, type => 'zip' );
 	Maximus::Exception::Module::Archive->throw(error => $ae->error)
