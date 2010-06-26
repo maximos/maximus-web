@@ -44,9 +44,16 @@ $ua1->submit_form(
 $ua1->content_contains('Your module has been uploaded', 'Upload succesful');
 
 # Test invalid file upload
-TODO: {
-	local $TODO = 'Upload invalid module';
-	ok( 1 == 2, 'still todo');
-};
+$ua1->get_ok('/module/upload', 'Request module upload page');
+$ua1->content_contains('Upload Module', 'Title match');
+$ua1->submit_form(
+	fields => {
+		scope => 'test',
+		name => 'mod1',
+		desc => 'my test module',
+		file => Path::Class::File->new('t', 'data', 'test.mod1', 'dummy.exe'),
+	}
+);
+$ua1->content_contains('Your archive appears to be faulty', 'Upload failed');
 
 done_testing();
