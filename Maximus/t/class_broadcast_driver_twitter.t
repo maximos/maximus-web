@@ -3,10 +3,12 @@ use warnings;
 use Test::More;
 use 5.10.1;
 
-plan skip_all => 'Set TEST_TWITTER_USERNAME to run this test'
-  unless defined($ENV{TEST_TWITTER_USERNAME});
-plan skip_all => 'Set TEST_TWITTER_PASSWORD to run this test'
-  unless defined($ENV{TEST_TWITTER_PASSWORD});
+BEGIN {
+	plan skip_all => 'Set TEST_TWITTER_USERNAME to run this test'
+	  unless defined($ENV{TEST_TWITTER_USERNAME});
+	plan skip_all => 'Set TEST_TWITTER_PASSWORD to run this test'
+	  unless defined($ENV{TEST_TWITTER_PASSWORD});
+}
 
 BEGIN { use_ok 'Maximus::Class::Broadcast::Driver::Twitter' }
 BEGIN { use_ok 'Maximus::Class::Broadcast::Message' }
