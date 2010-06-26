@@ -8,7 +8,7 @@ BEGIN { use_ok 'Test::WWW::Mechanize::Catalyst' => 'Maximus' }
 
 my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 $ua1->get_ok('/account/signup', 'Request signup page');
-$ua1->content_contains('<h2>Sign-Up</h2>', 'h2 check');
+$ua1->content_contains('<h1>Sign-Up</h1>', 'h1 check');
 # Try a faulty signup
 $ua1->submit_form();
 $ua1->content_contains('You must enter a e-mail address', 'E-mail should be required');
@@ -21,6 +21,7 @@ my %data = (
 	fields => {
 		username => 'demo_user',
 		password => 'demo',
+		confirm_password => 'demo',
 		email => 'test@maximus.htbaa.com',
 	}
 );
@@ -36,7 +37,7 @@ $ua1->submit_form(%data);
 $ua1->content_contains('Username already taken', 'Failed to sign-up');
 
 $ua1->get_ok('/account/login', 'Request login page');
-$ua1->content_contains('<h2>Login</h2>', 'h2 check');
+$ua1->content_contains('<h1>Login</h1>', 'h1 check');
 # Try a faulty login
 $ua1->submit_form(
 	fields => {
