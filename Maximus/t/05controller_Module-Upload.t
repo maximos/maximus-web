@@ -51,7 +51,7 @@ $ua1->submit_form(
 		scope => 'test',
 		name => 'mod1',
 		desc => 'my test module',
-		file => Path::Class::File->new('t', 'data', 'test.mod1', 'dummy.exe'),
+		file => Path::Class::File->new('t', 'data', 'test.mod1', 'dummy.exe')->stringify,
 	}
 );
 $ua1->content_contains('Your archive appears to be faulty', 'Upload failed');
