@@ -58,6 +58,7 @@ requires 'Net::Twitter' => '3.13003';
 requires 'Path::Class' => '0.19';
 requires 'SQL::Translator' => '0.11006';
 requires 'Template' => '2.22';
+requires 'Template::Plugin::Digest::SHA1' => '0.03';
 requires 'version';
 requires 'XML::Simple' => '2.18';
 test_requires 'Cache::Null' => '2.04';

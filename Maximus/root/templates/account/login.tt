@@ -18,4 +18,4 @@
 		<dd><input type="submit" name="submit" value="Login" /></dd>
 	</dl>
 	
-</form><p><a href="#">Help! I've lost my password!</a></p>
+</form><p><a href="[% c.uri_for('/account/forgot_password') %]">Help! I've lost my password!</a></p>

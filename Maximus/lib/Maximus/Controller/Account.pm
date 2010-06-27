@@ -2,6 +2,7 @@ package Maximus::Controller::Account;
 use Digest::SHA qw(sha1_hex);
 use Moose;
 use namespace::autoclean;
+use Maximus::Form::Account::ForgotPassword;
 use Maximus::Form::Account::Login;
 use Maximus::Form::Account::Signup;
 
@@ -126,6 +127,114 @@ sub signup :Local {
 
 		$c->detach('/account/login');
 	}
+}
+
+=head2 forgot_password
+
+=cut
+sub forgot_password : Local {
+	my ($self, $c) = @_;
+	
+	my $form = Maximus::Form::Account::ForgotPassword->new;
+	$form->process( $c->req->parameters );
+	$c->stash(form => $form);
+
+	if($form->validated) {
+		my $user = $c->model('DB::User')->find({
+			username => $form->field('username')->value
+		});
+		if($user) {
+			$c->stash(
+				email => {
+					to => $user->email,
+					from => $c->config->{email}->{from},
+					subject => 'Please confirm you forgot your password',
+					template => 'account/email/forgot_password.tt',
+				},
+				user => $user,
+			);
+
+			$c->forward( $c->view('Email::Template') );
+			if(scalar(@{$c->error})) {
+				$c->log->warn('Failed to send a mail: ', @{$c->error});
+				$c->error(0);
+				$c->stash(error_msg => 'Failed to send a confirmation e-mail ' .
+									   'because an unexpected error occured. ' .
+									   'We\'ve been notified. Please try ' . 
+									   'again later.');
+				$c->detach;
+			}
+
+			$c->stash(
+				template => 'message.tt',
+				title => 'Confirmation e-mail sent',
+				message => 'A e-mail has been sent with a confirmation link. '.
+						   'Please check your e-mail for instructions.',
+			);
+		}
+		else {
+			$c->stash(error_msg => 'No such user exists.');
+		}
+	}
+}
+
+=head2 reset_password
+
+Expects a username and a hash. If the hash is faulty nothing will happen. After
+this action has been succesfully executed the link will be expired because the
+password has been changed.
+=cut
+sub reset_password : Path('reset_password') : Args(2) {
+	my ($self, $c, $username, $hash) = @_;
+	my $user = $c->model('DB::User')->find({username => $username});
+	
+	if($user) {
+		my $calc_hash = sha1_hex( $user->password . $c->config->{salt} . $user->id );
+		if($calc_hash eq $hash) {
+			my $password = substr(sha1_hex($c->config->{salt} . $user->id), 0, 8);
+			$user->update( {password => sha1_hex( $password ) } );
+			
+			$c->stash(
+				email => {
+					to => $user->email,
+					from => $c->config->{email}->{from},
+					subject => 'Your new password',
+					template => 'account/email/reset_password.tt',
+				},
+				user => $user,
+				password => $password,
+			);
+
+			$c->forward( $c->view('Email::Template') );
+			if(scalar(@{$c->error})) {
+				$c->log->warn('Failed to send a mail: ', @{$c->error});
+				$c->error(0);
+				$c->stash(error_msg => 'Failed to send you your new password ' .
+									   'because an unexpected error occured. ' .
+									   'We\'ve been notified. Please try ' . 
+									   'again later.');
+				$c->detach;
+			}
+			
+			$c->authenticate({
+				username => $user->username,
+				password => $password,
+			});
+			
+			$c->stash(
+				template => 'message.tt',
+				title => 'Your password has been reset',
+				message => 'A e-mail has been sent with your new password. '.
+						   'Please update it as soon as possible. You\'ve ' . 
+						   'been automatically logged in.',
+			);
+			$c->detach;
+		}
+	}
+	
+	$c->log->info('Attempt at faulty password reset for username ' . $username .
+				  ' with hash ' . $hash);
+	$c->detach('/default');
 }
 
 =head1 AUTHOR

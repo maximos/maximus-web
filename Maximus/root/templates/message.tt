@@ -1,0 +1,4 @@
+<h1>[% title | html %]</h1>
+<div class="jsRoundedBox">
+	<p>[% message | html %]</p>
+</div>
