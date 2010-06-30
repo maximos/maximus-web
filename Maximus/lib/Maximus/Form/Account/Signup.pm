@@ -8,7 +8,7 @@ Maximus::Form::Account::Signup - Account Sign-Up form
 
 =head1 DESCRIPTION
 
-Login form
+Sign-up form
 
 =head1 Attributes
 
