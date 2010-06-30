@@ -2,6 +2,7 @@ package Maximus::Controller::Account;
 use Digest::SHA qw(sha1_hex);
 use Moose;
 use namespace::autoclean;
+use Maximus::Form::Account::Edit;
 use Maximus::Form::Account::ForgotPassword;
 use Maximus::Form::Account::Login;
 use Maximus::Form::Account::Signup;
@@ -235,6 +236,49 @@ sub reset_password : Path('reset_password') : Args(2) {
 	$c->log->info('Attempt at faulty password reset for username ' . $username .
 				  ' with hash ' . $hash);
 	$c->detach('/default');
+}
+
+=head2 edit
+
+Edit account details
+=cut
+sub edit : Local {
+	my ($self, $c) = @_;
+	$c->response->redirect('login') unless $c->user_exists;
+	$c->require_ssl;
+	
+	my $form = Maximus::Form::Account::Edit->new({
+		init_object => {
+			email => $c->user->email,
+		}
+	});
+
+	$form->process( $c->req->parameters );
+	$c->stash(form => $form);
+
+	if($form->validated) {
+		eval {
+			my $user = $c->model('DB::User')->find({username => $c->user->username});
+			$user->update({
+				email => $form->field('email')->value,
+				password => sha1_hex($form->field('password')->value),
+			});
+		};
+		if($@) {
+			$c->stash(error_msg => 'An unknown error occured!');
+			$c->log->info($@);
+			$c->detach;
+		}
+	
+		$c->stash(
+			template => 'message.tt',
+			title => 'Your details have been updated',
+			message => 'Your account details have been updated. If you\'ve '.
+					   'changed your password remember to sign in with your ' . 
+					   'new password the next time you visit our website.',
+		);
+		$c->detach;
+	}
 }
 
 =head1 AUTHOR

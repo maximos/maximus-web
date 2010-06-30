@@ -57,6 +57,22 @@ $ua1->submit_form(
 );
 $ua1->content_contains('Welcome demo_user!', 'Login should succeed');
 
+# Try to edit account details
+$ua1->get_ok('/account/edit', 'Request edit account page');
+$ua1->content_contains('<h1>Edit Account</h1>', 'h1 check');
+$ua1->content_contains('id="email" value="'.$data{fields}{email}.'"', 'Check pre-filled form');
+$ua1->submit_form(
+	fields => {
+		email => 'test2@maximus.htbaa.com',
+		password => 'something_else',
+		confirm_password => 'something_else',
+	}
+);
+$ua1->content_contains('<h1>Your details have been updated</h1>', 'h1 check');
+my $user = Maximus->model('DB::User')->find({username => $data{fields}{username}});
+isnt($user->email, $data{fields}{email}, 'E-mail address changed');
+isnt($user->password, sha1_hex($data{fields}{password}), 'Password changed');
+
 # Logout
 $ua1->get_ok('/account/logout', 'Request logout page');
 
@@ -71,7 +87,7 @@ $ua1->submit_form(
 $ua1->content_contains('<h1>Confirmation e-mail sent</h1>', 'h1 check');
 $ua1->content_contains('check your e-mail for instructions', 'Confirmation message');
 
-my $user = Maximus->model('DB::User')->find({username => $data{fields}{username}});
+$user = Maximus->model('DB::User')->find({username => $data{fields}{username}});
 my $hash = sha1_hex( $user->password . Maximus->config->{salt} . $user->id );
 my $faulty_hash = sha1_hex('test');
 

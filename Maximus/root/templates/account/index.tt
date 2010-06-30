@@ -1,7 +1,9 @@
 <h1>Welcome [% c.user.username %]!</h1>
 <div class="jsRoundedBox">
 	<p>Currently [% c.config.name %] is in an early state of development. This
-	means not all functionality exists yet, such as configuring your account.</p>
+	means not all functionality exists yet.</p>
 
 	<p>But not to worry, it will be possible eventually!</p>
+	
+	<p>Want to  <a href="[% c.uri_for('/account/edit') %]">edit your details</a>?</p>
 </div>

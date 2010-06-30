@@ -1,0 +1,19 @@
+<h1>Edit Account</h1>
+
+<div class="jsRoundedBox">
+	<p>If you'd wish to update your account details please do so using this form.</p>
+	[% IF error_msg %]
+		<div class="jsRoundedBox">
+			<div class="jsErrorBox">[% error_msg %]</div>
+		</div>
+	[% END %]
+</div>
+	
+<form method="post" action="[% c.uri_for('/account/edit') %]" class="jsForm">
+	<dl class="skinFieldGroup">
+		[% INCLUDE form/input.tt field='email' class="validate['required','email']" %]
+		[% INCLUDE form/input.tt field='password' input_type='password' class="validate['required','length[6,50]']" %]
+		[% INCLUDE form/input.tt field='confirm_password' input_type='password' class="validate['confirm[password]']" %]
+		<dd><input type="submit" name="submit" value="Edit Account" /></dd>
+	</dl>
+</form>
