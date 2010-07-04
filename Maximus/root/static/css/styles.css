@@ -54,6 +54,14 @@ li {
 	color: red;
 }
 
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight:bold;
+}
+
 #skinBackground {
 	min-width:956px;
 	background-image:url(/static/images/skin/background.gif);
