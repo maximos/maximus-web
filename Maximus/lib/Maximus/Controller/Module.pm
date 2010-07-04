@@ -29,7 +29,7 @@ Catalyst Controller for Modules;
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->redirect($c->uri_for('sources/list'));
+    $c->response->redirect($c->uri_for('modscopes'));
 }
 
 =head2 modscopes
@@ -104,13 +104,6 @@ sub module :Path :Args(2) {
 
 	$c->stash->{module} = $module;
 	$c->stash->{versions} = \%versions;
-}
-
-=head2 list
-
-Show HTML presentation of all modules
-=cut
-sub list :Chained('sources') :PathPart :Args(0) {	
 }
 
 =head2 sources
