@@ -1,4 +1,4 @@
-<h1>Modscopes</h1>
+<h1>Modscope</h1>
 <div class="jsRoundedBox">
 	[% FOR modscope IN modscopes %]
 		[% "<ol id=\"modscopelist\">" IF loop.first %]
