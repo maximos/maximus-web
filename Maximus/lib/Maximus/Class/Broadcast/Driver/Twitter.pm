@@ -36,8 +36,7 @@ Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
 
 =head1 DESCRIPTION
 
-This driver is mainly for testing purposes. Any message passed to it will be
-ignored. It does however count the number of times C<say> has been called.
+Broadcast messages to Twitter.
 
 =head1 ATTRIBUTES
 
