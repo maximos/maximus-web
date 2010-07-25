@@ -51,6 +51,12 @@ __PACKAGE__->table("scm");
   data_type: 'text'
   is_nullable: 0
 
+=head2 revision
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 45
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -74,6 +80,8 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "settings",
   { data_type => "text", is_nullable => 0 },
+  "revision",
+  { data_type => "varchar", is_nullable => 1, size => 45 },
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -110,8 +118,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 12:04:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JZECm8zkIMXd1yGW1QvE+g
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 15:35:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zCvPwoOuTTyoXtXCqIYLLw
 
 
 use JSON::Any;

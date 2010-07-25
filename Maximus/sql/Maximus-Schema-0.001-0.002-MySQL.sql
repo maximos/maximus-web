@@ -10,6 +10,7 @@ CREATE TABLE `scm` (
   software varchar(15) NOT NULL,
   repo_url varchar(255) NOT NULL,
   settings text NOT NULL,
+  revision varchar(45),
   INDEX scm_idx_user_id (user_id),
   PRIMARY KEY (id),
   CONSTRAINT scm_fk_user_id FOREIGN KEY (user_id) REFERENCES `user` (id) ON DELETE CASCADE ON UPDATE CASCADE
