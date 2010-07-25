@@ -37,18 +37,18 @@ has 'trunk' => (is => 'rw', isa => 'Str', default => 'trunk');
 
 =head2 tags
 
-Path to tags. If the repository hosts more modules then set I<tagsFilter> to
+Path to tags. If the repository hosts more modules then set I<tags_filter> to
 filter the listing.
 =cut
 has 'tags' => (is => 'rw', isa => 'Str', default => 'tags');
 
-=head2 tagsFilter
+=head2 tags_filter
 
 If the repository hosts more modules then set this to filter the listing.
 e.g.: C<^my\.mod-(.+)> if this module uses tags in the style of I<my.mod-0.01>
 or I<my.mod-0.3.0>. You MUST add a capture so the version string can be fetched.
 =cut
-has 'tagsFilter' => (is => 'rw', isa => 'Str', default => '');
+has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
 
 =head1 METHODS
 
@@ -88,11 +88,11 @@ sub prepare {
 	$self->validate($mod);
 }
 
-=head2 getVersions
+=head2 get_versions
 
 Returns all versions
 =cut
-sub getVersions {
+sub get_versions {
 	my($self) = @_;
 	my %tags;
 	
@@ -100,8 +100,8 @@ sub getVersions {
 		my $cmd = 'svn list ' . join('/', ($self->repository, $self->tags));
 		my @ls = `$cmd`;
 		
-		if(length($self->tagsFilter) > 0) {
-			my $regex = $self->tagsFilter;
+		if(length($self->tags_filter) > 0) {
+			my $regex = $self->tags_filter;
 			%tags = map { 
 				chomp;
 				my $k = $_;

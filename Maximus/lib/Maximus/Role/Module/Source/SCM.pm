@@ -20,11 +20,17 @@ This is the interface for all Maximus::Class::Module::Source::SCM classes
 
 =head1 METHODS
 
-=head2 getVersions
+=head2 get_versions
 
 returns a hash with available versions
 =cut
-requires 'getVersions';
+requires 'get_versions';
+
+=head2 get_last_revision
+
+returns the latest revision of the repository
+=cut
+requires 'get_latest_revision';
 
 =head1 AUTHOR
 
