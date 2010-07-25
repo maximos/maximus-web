@@ -66,9 +66,9 @@ sub prepare {
 		$url = join('/', ($self->repository, $self->trunk));
 	}
 	else {
-		my %versions = $self->getVersions;
+		my %versions = $self->get_versions;
 		confess('Specified version doesn\'t exist in repository')
-		unless exists($versions{$self->version});
+		  unless exists($versions{$self->version});
 		
 		$url = join('/', (
 			$self->repository,
