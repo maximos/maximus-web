@@ -39,6 +39,7 @@
 						[% INCLUDE template/menu_item.tt href=c.uri_for('/faq') title='F.A.Q.' %]
 
 						[% IF c.user_exists %]
+							[% INCLUDE template/menu_item.tt href=c.uri_for('/scm') title='My SCM\'s' %]
 							[% INCLUDE template/menu_item.tt href=c.uri_for('/module/upload') title='Upload Module' %]
 							[% INCLUDE template/menu_item.tt href=c.uri_for('/account') title='My Account' %]
 							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/logout') title='Logout' %]

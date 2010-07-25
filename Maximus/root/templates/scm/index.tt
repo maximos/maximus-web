@@ -1,0 +1,30 @@
+<h1>SCM Configurations</h1>
+<div class="jsRoundedBox">
+	<p>If you're hosting your module(s) inside a SCM managed repository such as
+	Subversion and Git then the best way to get your modules uploaded is to
+	add your SCM configurations here.</p>
+	
+	<p>Once uploaded you can <strike>update your module</strike> to use the
+	SCM configuration. If you're hosting a full modscope inside your repository
+	you	might want to use our <strike>auto-discover</strike> feature to import
+	all modules at once.</p>
+	
+	<p>Currently we only accept repositories with public read access.</p>
+	
+	<div class="jsRoundedBox">
+		<p>Listed below are all your SCM configurations. You can also
+		add a <a href="[% c.uri_for('/scm/new') %]">new SCM configuration</a>.</p>
+
+		[% FOR scm IN scm_configs %]
+			[% "<ul>" IF loop.first %]
+			<li>[% scm.software | html %] - [% scm.settings.location | html %]:
+			    <a href="[% c.uri_for( c.controller('SCM').action_for('edit'), [scm.id]) %]">[edit]</a>
+				<a href="[% c.uri_for( c.controller('SCM').action_for('delete'), [scm.id]) %]">[delete]</a></li>
+			[% "</ul>" IF loop.last %]
+		[% END %]
+		
+		[% IF scm_configs.count == 0 %]
+			<p>You currently have no SCM configurations.</p>
+		[% END %]
+	</div>
+</div>
