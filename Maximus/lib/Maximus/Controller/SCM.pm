@@ -1,6 +1,7 @@
 package Maximus::Controller::SCM;
 use Moose;
 use namespace::autoclean;
+use Maximus::Form::SCM::Configuration;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -32,12 +33,65 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 	$c->stash( scm_configs => \@scms );
 }
 
+=head2 form
+
+Handle the configuration form
+=cut
+sub form :Private {
+	my( $self, $c ) = @_;
+	$c->stash();
+	
+	my($init_object, $scm) = {};
+	if($scm = $c->stash->{scm}) {
+		$init_object = {
+			'software' => $c->stash->{scm}->software,
+			'repo_url' => $c->stash->{scm}->repo_url,
+		};
+	}
+	
+	my $form = Maximus::Form::SCM::Configuration->new({
+		init_object => $init_object,
+	});
+	
+	$form->process( $c->req->parameters );
+	$c->stash(
+		form => $form,
+		template => 'scm/configuration.tt'
+	);
+	
+	if($form->validated) {
+		eval {
+			$c->model('DB::SCM')->update_or_create({
+				id => $scm ? $scm->id : undef,
+				user_id => $c->user->id,
+				software => $form->field('software')->value,
+				repo_url => $form->field('repo_url')->value,
+				settings => '',
+			}, {key => 'primary'});
+			
+		};
+		if($@) {
+			$c->stash(error_msg => 'An unknown error occured!');
+			$c->log->warn($@);
+			$c->detach;
+		}
+
+		$c->stash(
+			template => 'message.tt',
+			title => 'SCM Configuration',
+			success_message => 'Your SCM Configuration has been stored.',
+		);
+		$c->detach;
+	}
+}
+
 =head2 new
 
 Add a new SCM configuration
 =cut
 sub add :Chained('base') :PathPart('new') :Args(0) {
 	my( $self, $c ) = @_;
+	$c->forward('form');
 }
 
 =head2 get_scm
@@ -58,6 +112,7 @@ Edit a SCM configuration
 =cut
 sub edit :Chained('get_scm') :PathPart('edit') :Args(0) {
 	my( $self, $c ) = @_;
+	$c->forward('form');
 }
 
 =head2 delete
