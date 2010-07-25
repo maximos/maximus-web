@@ -16,5 +16,5 @@ __PACKAGE__->load_namespaces;
 
 __PACKAGE__->load_components(qw/Schema::Versioned/);
 __PACKAGE__->upgrade_directory('sql/');
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 1;

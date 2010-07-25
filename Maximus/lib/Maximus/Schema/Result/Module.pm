@@ -27,6 +27,13 @@ __PACKAGE__->table("module");
   is_auto_increment: 1
   is_nullable: 0
 
+=head2 scm_id
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_foreign_key: 1
+  is_nullable: 1
+
 =head2 modscope_id
 
   data_type: 'integer'
@@ -46,23 +53,6 @@ __PACKAGE__->table("module");
   is_nullable: 0
   size: 255
 
-=head2 source
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 255
-
-=head2 source_type
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 15
-
-=head2 source_options
-
-  data_type: 'text'
-  is_nullable: 1
-
 =cut
 
 __PACKAGE__->add_columns(
@@ -72,6 +62,13 @@ __PACKAGE__->add_columns(
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
+  },
+  "scm_id",
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 1,
   },
   "modscope_id",
   {
@@ -84,17 +81,26 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 45 },
   "desc",
   { data_type => "varchar", is_nullable => 0, size => 255 },
-  "source",
-  { data_type => "varchar", is_nullable => 1, size => 255 },
-  "source_type",
-  { data_type => "char", is_nullable => 1, size => 15 },
-  "source_options",
-  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("Index_3", ["modscope_id", "name"]);
 
 =head1 RELATIONS
+
+=head2 scm
+
+Type: belongs_to
+
+Related object: L<Maximus::Schema::Result::Scm>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "scm",
+  "Maximus::Schema::Result::Scm",
+  { id => "scm_id" },
+  { join_type => "LEFT" },
+);
 
 =head2 modscope
 
@@ -127,14 +133,7 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-06-08 21:46:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6TferoB5XQtYgsftwuGczw
-
-
-use JSON::Any;
-__PACKAGE__->inflate_column('source_options', {
-	inflate => sub { JSON::Any->jsonToObj(shift) },
-	deflate => sub { JSON::Any->objToJson(shift) },
-});
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 09:37:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oA6eai+ptG/K8n/BsLUl6A
 
 1;

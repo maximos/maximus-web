@@ -82,6 +82,21 @@ __PACKAGE__->has_many(
   {},
 );
 
+=head2 scms
+
+Type: has_many
+
+Related object: L<Maximus::Schema::Result::Scm>
+
+=cut
+
+__PACKAGE__->has_many(
+  "scms",
+  "Maximus::Schema::Result::Scm",
+  { "foreign.user_id" => "self.id" },
+  {},
+);
+
 =head2 user_roles
 
 Type: has_many
@@ -98,8 +113,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d1dcBbMi/boPcg8OrHphAQ
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 09:37:43
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dbibwJW5D74rkdOT82n9ug
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

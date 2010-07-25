@@ -33,7 +33,7 @@ requires 'CSS::Minifier::XS' => '0.05';
 requires 'DBD::mysql';
 requires 'DBI';
 requires 'DBIx::Class' => '0.08123';
-requires 'DBIx::Class::Schema::Loader' => '0.06001';
+requires 'DBIx::Class::Schema::Loader' => '0.07000';
 requires 'Digest::SHA' => '5.48';
 requires 'Email::Valid';
 requires 'Exception::Class' => '1.30';
