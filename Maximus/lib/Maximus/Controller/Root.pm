@@ -38,8 +38,27 @@ Standard 404 error page
 
 sub default :Private {
     my ( $self, $c ) = @_;
+	$c->forward('error_404');
+}
+
+=head2 error_404
+
+Standard 404 not-found page
+=cut
+sub error_404 :Private {
+    my ( $self, $c ) = @_;
 	$c->stash->{template} = '404.tt';
-    $c->response->status(404);
+    $c->response->status(404);	
+}
+
+=head2 error_403
+
+Standard 403 forbidden page
+=cut
+sub error_403 :Private {
+    my ( $self, $c ) = @_;
+	$c->stash->{template} = '403.tt';
+    $c->response->status(403);	
 }
 
 =head2 end
