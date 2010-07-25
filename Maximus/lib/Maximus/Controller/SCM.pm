@@ -20,7 +20,7 @@ This controller is responsible for managing a users' SCM configurations.
 =cut
 sub base :Chained('/') :PathPart('scm') :CaptureArgs(0) {
 	my( $self, $c ) = @_;
-	$c->response->redirect('login') unless $c->user_exists;
+	$c->response->redirect('/account/login') && $c->detach unless $c->user_exists;
 }
 
 =head2 index
