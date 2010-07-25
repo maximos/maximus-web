@@ -17,7 +17,7 @@
 
 		[% FOR scm IN scm_configs %]
 			[% "<ul>" IF loop.first %]
-			<li>[% scm.software | html %] - [% scm.settings.location | html %]:
+			<li>[% scm.software | ucfirst | html %] - [% scm.repo_url | html %]:
 			    <a href="[% c.uri_for( c.controller('SCM').action_for('edit'), [scm.id]) %]">[edit]</a>
 				<a href="[% c.uri_for( c.controller('SCM').action_for('delete'), [scm.id]) %]">[delete]</a></li>
 			[% "</ul>" IF loop.last %]
