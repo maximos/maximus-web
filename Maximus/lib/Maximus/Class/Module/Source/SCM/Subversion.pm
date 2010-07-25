@@ -114,6 +114,22 @@ sub get_versions {
 	$tags{dev} = $self->trunk;
 	return %tags;
 }
+
+=head2 get_latest_revision
+
+Retrieve latest revision of trunk
+=cut
+sub get_latest_revision {
+	my($self) = @_;
+	my $cmd = 'svn info ' . join('/', ($self->repository, $self->trunk));
+	my @info = `$cmd`;
+	my @revision = map {
+		$_ =~ s/[^\d]+//g;
+		$_ = int($_);
+	} grep { $_ =~ /^Revision: \d*/ } @info;
+	return $revision[0];
+}
+
 =head1 AUTHOR
 
 Christiaan Kras
