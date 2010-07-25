@@ -213,9 +213,9 @@ sub findAndMoveRootDir {
 	@files = sort @files;
 	foreach(@files) {
 		if($_ =~ m/\/$mainFile$/) {
-			chop;
 			my $rootDir = $_;
 			$rootDir =~ s/$mainFile$//;
+			chop($rootDir) if substr($rootDir,-1,1) eq '/';
 			last if $rootDir eq $self->tmpDir;
 			dirmove($rootDir, $self->tmpDir);
 			last;
