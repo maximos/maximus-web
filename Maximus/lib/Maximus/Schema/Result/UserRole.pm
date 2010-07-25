@@ -56,21 +56,6 @@ __PACKAGE__->set_primary_key("user_id", "role_id");
 
 =head1 RELATIONS
 
-=head2 user
-
-Type: belongs_to
-
-Related object: L<Maximus::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "Maximus::Schema::Result::User",
-  { id => "user_id" },
-  {},
-);
-
 =head2 role
 
 Type: belongs_to
@@ -86,9 +71,24 @@ __PACKAGE__->belongs_to(
   {},
 );
 
+=head2 user
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:m9qcgy4PO+tvhvZM1khB2A
+Type: belongs_to
+
+Related object: L<Maximus::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "Maximus::Schema::Result::User",
+  { id => "user_id" },
+  {},
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 12:04:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:k9swcqKTwfnBvVUPCUR2KQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -6,6 +6,7 @@ CREATE TABLE scm (
   id INTEGER PRIMARY KEY NOT NULL,
   user_id integer NOT NULL,
   software varchar(15) NOT NULL,
+  repo_url varchar(255) NOT NULL,
   settings text NOT NULL
 );
 

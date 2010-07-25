@@ -40,6 +40,12 @@ __PACKAGE__->table("scm");
   is_nullable: 0
   size: 15
 
+=head2 repo_url
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 255
+
 =head2 settings
 
   data_type: 'text'
@@ -64,6 +70,8 @@ __PACKAGE__->add_columns(
   },
   "software",
   { data_type => "varchar", is_nullable => 0, size => 15 },
+  "repo_url",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
   "settings",
   { data_type => "text", is_nullable => 0 },
 );
@@ -102,8 +110,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 09:37:43
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cj6HpSkQJUfG4yg67fMWrw
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 12:04:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JZECm8zkIMXd1yGW1QvE+g
 
 
 use JSON::Any;

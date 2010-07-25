@@ -8,6 +8,7 @@ CREATE TABLE `scm` (
   id integer unsigned NOT NULL auto_increment,
   user_id integer unsigned NOT NULL,
   software varchar(15) NOT NULL,
+  repo_url varchar(255) NOT NULL,
   settings text NOT NULL,
   INDEX scm_idx_user_id (user_id),
   PRIMARY KEY (id),

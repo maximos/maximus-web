@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Jul 25 09:41:29 2010
+-- Created on Sun Jul 25 12:05:40 2010
 -- 
 
 BEGIN TRANSACTION;
@@ -14,6 +14,7 @@ CREATE TABLE scm (
   id INTEGER PRIMARY KEY NOT NULL,
   user_id integer NOT NULL,
   software varchar(15) NOT NULL,
+  repo_url varchar(255) NOT NULL,
   settings text NOT NULL
 );
 

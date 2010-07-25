@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Sun Jul 25 09:41:27 2010
+-- Created on Sun Jul 25 12:05:39 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -77,6 +77,7 @@ CREATE TABLE `scm` (
   `id` integer unsigned NOT NULL auto_increment,
   `user_id` integer unsigned NOT NULL,
   `software` varchar(15) NOT NULL,
+  `repo_url` varchar(255) NOT NULL,
   `settings` text NOT NULL,
   INDEX `scm_idx_user_id` (`user_id`),
   PRIMARY KEY (`id`),
