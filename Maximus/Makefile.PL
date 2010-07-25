@@ -74,6 +74,14 @@ catalyst;
 perl_version '5.010001';
 license 'MIT';
 
+requires_external_bin 'svn';
+if($^O eq 'MSWin32') {
+	die('Please install msysgit') unless -f 'C:\Program Files\Git\cmd\git.cmd';
+}
+else {
+	requires_external_bin 'git'
+}
+
 install_script glob('script/*.pl');
 auto_install;
 WriteAll;
