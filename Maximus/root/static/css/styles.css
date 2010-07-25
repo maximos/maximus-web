@@ -78,6 +78,7 @@ strong {
 			height:135px;
 			background-repeat:no-repeat;
 			background-position:left top;
+			position:relative;
 		}
 		
 			#skinRow1 .skinContent {
@@ -100,10 +101,11 @@ strong {
 				
 				/* menu */
 				#skinMenu {
-
 					height:25px;
-					float:right;
 					list-style:none;
+					position:absolute;
+					right:12px;
+					bottom:0;
 				}
 					
 					#skinMenu li {
