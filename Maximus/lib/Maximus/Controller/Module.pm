@@ -213,7 +213,7 @@ sub download :Local :Args(3) {
 	$c->detach('/default') unless $row;
 
 	my $location = $row->get_column('remote_location');
-	return $c->res->redirect($location) if $location;
+	$c->res->redirect($location) and $c->detach if $location;
 
 	# Refetch row to retrieve archive data if no remote_location exists
 	$search[1]->{'+columns'} = ['module_versions.archive'];

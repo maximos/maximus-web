@@ -25,13 +25,14 @@ $req = request('/module/download/test/mod1/1.1.16');
 ok( $req->is_error, 'Non-existing module download');
 is( $req->code, 404, 'Proper 404 status code');
 
-TODO: {
-	local $TODO = 'Downloading modules';
-	
-	$req = request('/module/download/test/mod1/1.1.17');
-	ok( $req->is_success, 'Request should succeed');
-	ok( $req->is_redirect, 'Request has been redirected');
-	is( $req->base, 'http://www.google.com', 'Redirect location match');
-};
+my $rs = Maximus->model('DB::ModuleVersion')->search({version => '1.1.15'});
+my $version = $rs->first;
+$version->update({
+	remote_location => 'http://www.google.com'
+});
+
+$req = request('/module/download/test/mod1/1.1.15');
+ok( $req->is_success, 'Request should succeed');
+ok( $req->is_redirect, 'Request has been redirected');
 
 done_testing();
