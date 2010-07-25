@@ -213,8 +213,10 @@ sub findAndMoveRootDir {
 	@files = sort @files;
 	foreach(@files) {
 		if($_ =~ m/\/$mainFile$/) {
+			chop;
 			my $rootDir = $_;
 			$rootDir =~ s/$mainFile$//;
+			last if $rootDir eq $self->tmpDir;
 			dirmove($rootDir, $self->tmpDir);
 			last;
 		}	
