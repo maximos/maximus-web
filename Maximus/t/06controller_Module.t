@@ -32,7 +32,6 @@ $version->update({
 });
 
 $req = request('/module/download/test/mod1/1.1.15');
-ok( $req->is_success, 'Request should succeed');
 ok( $req->is_redirect, 'Request has been redirected');
 
 done_testing();
