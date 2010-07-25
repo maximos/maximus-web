@@ -17,7 +17,7 @@
 
 		[% FOR scm IN scm_configs %]
 			[% "<ul>" IF loop.first %]
-			<li>[% scm.software | ucfirst | html %] - [% scm.repo_url | html %]:
+			<li><strong>[% scm.software | ucfirst | html %]</strong> <em title="Last known revision [% scm.revision %]">[% scm.repo_url | html %]</em>
 			    <a href="[% c.uri_for( c.controller('SCM').action_for('edit'), [scm.id]) %]">[edit]</a>
 				<a href="[% c.uri_for( c.controller('SCM').action_for('delete'), [scm.id]) %]">[delete]</a></li>
 			[% "</ul>" IF loop.last %]
