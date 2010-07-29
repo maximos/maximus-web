@@ -86,12 +86,23 @@ sub prepare {
 		  unless exists($versions{$self->version});
 		$hash = $versions{$self->version};
 	}
-	
-	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, 'work-'.$self->version, $hash);
+
+	my $branch = 'work-'.$self->version;
+	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, $branch, $hash);
 	`$cmd`;
-	chdir $cwd;
 	
 	dircopy($self->local_repository, $self->tmpDir) or confess($!);
+	
+	my @cleanup = (
+		sprintf('%s checkout master', $GIT),
+		sprintf('%s branch -d %s', $GIT, $branch),
+		sprintf('%s gc', $GIT),
+	);
+	foreach(@cleanup) {
+		`$_`;
+	}
+
+	chdir $cwd;
 	
 	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);
