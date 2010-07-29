@@ -6,8 +6,8 @@ with 'Maximus::Role::Module::Source';
 with 'Maximus::Role::Module::Source::SCM';
 
 use Cwd;
+use File::Copy::Recursive qw(dircopy);
 use Path::Class;
-use File::Temp;
 
 our $GIT = $^O eq 'MSWin32' ? '"C:\Program Files\Git\cmd\git.cmd"' : '/usr/bin/env git';
 
@@ -33,6 +33,12 @@ Location of remote Git repository. Must be publicly readable
 =cut
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
 
+=head2 local_repository
+
+Location of the local copy of the Git repository
+=cut
+has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
+
 =head2 mod_path
 
 Specific path to a module in a modscope hosted repository
@@ -57,25 +63,35 @@ sub prepare {
 	my($self, $mod) = @_;
 	confess 'version is required' unless $self->version;
 
-	my $cmd = sprintf('%s clone %s %s', $GIT, $self->repository, $self->tmpDir->dirname);
+	my $cmd;
+	my $cwd = getcwd;
+	chdir $self->local_repository;
+	
+	my $localrepo = Path::Class::Dir->new($self->local_repository, '.git');
+	unless(-d $localrepo->absolute) {
+		$cmd = sprintf('%s clone %s %s', $GIT, $self->repository, $self->local_repository);
+	}
+	else {
+		$cmd = sprintf('%s pull origin master', $GIT);
+	}
 	`$cmd`;
-
+	
 	my $hash;
 	if($self->version eq 'dev') {
 		$hash = 'HEAD';
 	}
 	else {
 		my %versions = $self->get_versions;
-		confess('Specified version doesn\'t exist in repository')
+		confess('Specified version '.$self->version.' doesn\'t exist in repository')
 		  unless exists($versions{$self->version});
 		$hash = $versions{$self->version};
 	}
 	
-	my $cwd = getcwd;
-	chdir $self->tmpDir->dirname;
 	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, 'work-'.$self->version, $hash);
 	`$cmd`;
 	chdir $cwd;
+	
+	dircopy($self->local_repository, $self->tmpDir) or confess($!);
 	
 	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);

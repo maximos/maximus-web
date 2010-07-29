@@ -14,8 +14,10 @@ my $ae = Archive::Extract->new( archive => $zip->stringify, type => 'zip' );
 Maximus::Exception::Module::Archive->throw(error => $ae->error)
   unless $ae->extract( to => $tmp_dir );
 
+my $localrepo = Path::Class::Dir->new( File::Temp->newdir( CLEANUP => 1 ) );
 my $gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbarerepo');
 my $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
+	local_repository => $localrepo->stringify,
 	repository => $gitrepodir->stringify,
 	mod_path => '',
 	tags_filter => 'v?(.+)',
@@ -25,6 +27,7 @@ can_ok($scm, qw/
 	get_latest_revision
 	get_versions
 	repository
+	local_repository
 	mod_path
 	tags_filter
 	prepare
@@ -50,6 +53,7 @@ my $mod = Maximus::Class::Module->new(
 foreach(qw/2.0.1 2.0.2 2.0.3 dev/) {
 	# Make a new object so we get a new tmpDir everytime
 	my $scm = Maximus::Class::Module::Source::SCM::Git->new(
+		local_repository => $localrepo->stringify,
 		repository => $gitrepodir->stringify,
 		mod_path => '',
 		tags_filter => 'v?(.+)',
