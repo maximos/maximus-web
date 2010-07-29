@@ -39,12 +39,6 @@ Location of the local copy of the Git repository
 =cut
 has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
-=head2 mod_path
-
-Specific path to a module in a modscope hosted repository
-=cut
-has 'mod_path' => (is => 'ro', isa => 'Str', default => '');
-
 =head2 tags_filter
 
 If the repository hosts more modules then set this to filter the listing.
