@@ -93,6 +93,7 @@ sub validate {
 			$modNameOK = 1;
 		}
 		elsif($_->[0] eq 'MODULEVERSION') {
+			next if($mod->source->version eq 'dev');
 			$mod->source->version(version->parse($_->[1])->stringify);
 		}
 	}	
