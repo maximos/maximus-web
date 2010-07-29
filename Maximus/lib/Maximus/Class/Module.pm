@@ -73,8 +73,7 @@ Save module in database
 sub save {
 	my($self, $user_id) = @_;
 	
-	Maximus::Exception::Module->throw('schema is missing')
-	unless $self->schema;
+	Maximus::Exception::Module->throw('schema is missing') unless $self->schema;
 	
 	Maximus::Exception::Module->throw(
 		'required parameter $user_id is missing'
