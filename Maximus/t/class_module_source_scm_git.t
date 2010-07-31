@@ -4,6 +4,7 @@ use Test::More;
 
 BEGIN { use_ok 'Maximus::Class::Module::Source::SCM::Git' }
 BEGIN { use_ok 'Maximus::Class::Module' }
+BEGIN { use_ok 'Archive::Zip;' }
 BEGIN { use_ok 'Archive::Extract' }
 BEGIN { use_ok 'Path::Class' }
 BEGIN { use_ok 'File::Temp' }
@@ -62,5 +63,48 @@ foreach(qw/2.0.1 2.0.2 2.0.3 dev/) {
 	$scm->prepare($mod);
 	ok($scm->validated, sprintf('test.mod1 %s validated', $_));
 }
+
+# Multi module repo tests
+$zip = Path::Class::File->new('t', 'data', 'gitbaremultirepo.zip');
+$tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+$ae = Archive::Extract->new( archive => $zip->stringify, type => 'zip' );
+Maximus::Exception::Module::Archive->throw(error => $ae->error)
+  unless $ae->extract( to => $tmp_dir );
+
+$localrepo = Path::Class::Dir->new( File::Temp->newdir( CLEANUP => 1 ) );
+$gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbaremultirepo');
+$scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
+	local_repository => $localrepo->stringify,
+	repository => $gitrepodir->stringify,
+	mod_path => 'test2.mod',
+	version => 'dev',
+)]);
+
+is($scm->get_latest_revision(), '149a351ed45a477815529805d4b31c3fe53c497e', 'Latest revision check');
+
+$mod = Maximus::Class::Module->new(
+	modscope => 'test',
+	mod => 'test2',
+	desc => 'A test 2 module',
+	source => $scm,
+);
+
+$scm->prepare($mod);
+ok($scm->validated, 'test2.mod dev validated');
+
+my $fh = File::Temp->new;
+$scm->archive($mod, $fh);
+$zip = new_ok('Archive::Zip' => [$fh->filename]);
+my @gotMembers = sort($zip->memberNames());
+my @expectedMembers = sort(
+	'test2.mod/',
+	'test2.mod/test2.bmx',
+	'test2.mod/examples/',
+	'test2.mod/examples/example.bmx',
+	'test2.mod/inc/',
+	'test2.mod/inc/other_imports.bmx',
+	'test2.mod/inc/more_imports.bmx',
+);
+is_deeply(\@gotMembers, \@expectedMembers, 'Archive contains expected content');
 
 done_testing();
