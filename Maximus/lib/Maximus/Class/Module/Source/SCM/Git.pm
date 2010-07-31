@@ -91,7 +91,8 @@ sub prepare {
 	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, $branch, $hash);
 	`$cmd`;
 	
-	dircopy($self->local_repository, $self->tmpDir) or confess($!);
+	my $path = Path::Class::Dir->new($self->local_repository, $self->mod_path);
+	dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
 	
 	my @cleanup = (
 		sprintf('%s checkout master', $GIT),
