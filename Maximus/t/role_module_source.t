@@ -59,7 +59,6 @@ my $filename = $source->archive($mod, $fh);
 is($filename, sprintf('%s.%s-%s.zip', $mod->modscope, $mod->mod, $source->version), 'Archive filename check');
 
 my $zip = new_ok('Archive::Zip' => [$fh->filename]);
-use Data::Dumper;
 my @gotMembers = sort($zip->memberNames());
 my @expectedMembers = sort(
 	'mod1.mod/',
