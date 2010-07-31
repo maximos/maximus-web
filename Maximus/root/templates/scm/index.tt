@@ -14,7 +14,9 @@
 	<div class="jsRoundedBox">
 		<p>Listed below are all your SCM configurations. You can also
 		add a <a href="[% c.uri_for('/scm/new') %]">new SCM configuration</a>.</p>
-
+		
+		[% PROCESS 'flash-message.tt' %]
+		
 		[% FOR scm IN scm_configs %]
 			[% "<ul>" IF loop.first %]
 			<li><strong>[% scm.software | ucfirst | html %]</strong> <em title="Last known revision [% scm.revision %]">[% scm.repo_url | html %]</em>

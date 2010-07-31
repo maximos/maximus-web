@@ -76,12 +76,10 @@ sub form :Private {
 			$c->detach;
 		}
 
-		$c->stash(
-			template => 'message.tt',
-			title => 'SCM Configuration',
-			success_message => 'Your SCM Configuration has been stored.',
+		$c->flash(message => 'Your SCM Configuration has been stored.');
+		$c->response->redirect(
+			$c->uri_for_action('/scm/index')
 		);
-		$c->detach;
 	}
 }
 
@@ -121,23 +119,22 @@ Delete a SCM configuration
 =cut
 sub delete :Chained('get_scm') :PathPart('delete') :Args(0) {
 	my( $self, $c ) = @_;
-	$c->stash('title' => 'Delete SCM Configuration');
-	
+
 	eval {
 		$c->stash->{scm}->delete;
 	};
 	if($@) {
-		$c->stash(
-			template => 'message.tt',
-			error_message => 'Failed to delete your SCM Configuration.',
+		$c->flash(
+			message => 'Failed to delete your SCM Configuration.',
+			status => 'Error',
 		);
 		$c->log->warn($@);
-		$c->detach;
 	}
-
-	$c->stash(
-		template => 'message.tt',
-		success_message => 'Your SCM Configuration has been deleted.',
+	else {
+		$c->flash(message => 'Your SCM Configuration has been deleted.');
+	}
+	$c->response->redirect(
+		$c->uri_for_action('/scm/index')
 	);
 }
 =head1 AUTHOR
