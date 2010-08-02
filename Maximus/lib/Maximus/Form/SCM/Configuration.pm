@@ -36,6 +36,27 @@ has_field 'repo_url' => (
 	required_message => 'You must enter a repository URL',
 );
 
+=head2 modules
+
+=cut
+has_field 'modules' => (
+	type => 'Select',
+	select_widget => 'checkbox_group',
+);
+
+=head2 add_module
+
+Add module to the options list
+=cut
+has 'options_modules' => (
+	traits => ['Array'],
+	is => 'rw',
+	default => sub { [ ] },
+	handles => {
+		add_module => 'push',
+	}
+);
+
 =head1 AUTHOR
 
 Christiaan Kras
