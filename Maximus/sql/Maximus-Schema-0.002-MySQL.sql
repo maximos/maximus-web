@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Sun Jul 25 15:35:49 2010
+-- Created on Tue Aug  3 22:13:58 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -111,6 +111,7 @@ CREATE TABLE `module` (
   `modscope_id` integer unsigned NOT NULL,
   `name` varchar(45) NOT NULL,
   `desc` varchar(255) NOT NULL,
+  `scm_settings` text NOT NULL,
   INDEX `module_idx_modscope_id` (`modscope_id`),
   INDEX `module_idx_scm_id` (`scm_id`),
   PRIMARY KEY (`id`),

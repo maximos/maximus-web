@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Jul 25 15:35:50 2010
+-- Created on Tue Aug  3 22:13:59 2010
 -- 
 
 BEGIN TRANSACTION;
@@ -110,7 +110,8 @@ CREATE TABLE module (
   scm_id integer,
   modscope_id integer NOT NULL,
   name varchar(45) NOT NULL,
-  desc varchar(255) NOT NULL
+  desc varchar(255) NOT NULL,
+  scm_settings text NOT NULL
 );
 
 CREATE INDEX module_idx_modscope_id ON module (modscope_id);

@@ -22,6 +22,7 @@ ALTER TABLE module DROP COLUMN source,
                    DROP COLUMN source_type,
                    DROP COLUMN source_options,
                    ADD COLUMN scm_id integer unsigned,
+                   ADD COLUMN scm_settings text NOT NULL,
                    ADD INDEX module_idx_scm_id (scm_id),
                    ADD CONSTRAINT module_fk_scm_id FOREIGN KEY (scm_id) REFERENCES scm (id) ON DELETE CASCADE ON UPDATE CASCADE;
 

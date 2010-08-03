@@ -53,6 +53,11 @@ __PACKAGE__->table("module");
   is_nullable: 0
   size: 255
 
+=head2 scm_settings
+
+  data_type: 'text'
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -81,6 +86,8 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 45 },
   "desc",
   { data_type => "varchar", is_nullable => 0, size => 255 },
+  "scm_settings",
+  { data_type => "text", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("Index_3", ["modscope_id", "name"]);
@@ -133,7 +140,12 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-07-25 12:04:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6Pavqo6vVKbIXn+qQ/gRBQ
+# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-08-03 22:11:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VXUUgXe9c7xQ2s3HGaUQCg
 
+use JSON::Any;
+__PACKAGE__->inflate_column('scm_settings', {
+	inflate => sub { JSON::Any->jsonToObj(shift) },
+	deflate => sub { JSON::Any->objToJson(shift) },
+});
 1;
