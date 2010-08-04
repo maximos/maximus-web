@@ -61,6 +61,7 @@ Fetch files for I<version> and store them inside the temporary directory
 =cut
 sub prepare {
 	my($self, $mod) = @_;
+	use autodie;
 	confess 'version is required' unless $self->version;
 
 	my $cmd;
@@ -74,7 +75,7 @@ sub prepare {
 	else {
 		$cmd = sprintf('%s pull origin master', $GIT);
 	}
-	`$cmd`;
+	system $cmd;
 	
 	my $hash;
 	if($self->version eq 'dev') {
@@ -89,7 +90,7 @@ sub prepare {
 
 	my $branch = 'work-'.$self->version;
 	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, $branch, $hash);
-	`$cmd`;
+	system $cmd;
 	
 	my $path = Path::Class::Dir->new($self->local_repository, $self->mod_path);
 	dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
@@ -100,7 +101,7 @@ sub prepare {
 		sprintf('%s gc', $GIT),
 	);
 	foreach(@cleanup) {
-		`$_`;
+		system $_;
 	}
 
 	chdir $cwd;
