@@ -22,22 +22,23 @@ my $cfg = Config::Any->load_files({
 my $schema = Maximus::Schema->connect( $cfg->{'Model::DB'}->{connect_info} );
 
 foreach my $scm( $schema->resultset('Scm')->all ) {
-	my($source, $latest_rev);
-	my $local_repo = Path::Class::Dir->new(File::Spec->tmpdir(), $cfg->{name}, 'repositories', sha1_hex($scm->repo_url));
-	make_path($local_repo->absolute->stringify);
-	
+	my($source);	
 	if($scm->software eq 'git') {
+		my $local_repo = Path::Class::Dir->new(File::Spec->tmpdir(), $cfg->{name}, 'repositories', sha1_hex($scm->repo_url));
+		make_path($local_repo->absolute->stringify);
+
 		$source = Maximus::Class::Module::Source::SCM::Git->new(
 			repository => $scm->repo_url,
 			local_repository => $local_repo->absolute->stringify,
 		);
-		
-		$latest_rev = $source->get_latest_revision;
 	}
 	elsif($scm->software eq 'svn') {
-		next;
+		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
+			repository => $scm->repo_url,
+		);
 	}
 	
+	my $latest_rev = $source->get_latest_revision;
 	if(!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev) {
 		foreach my $module( $scm->modules ) {
 			my %versions = $source->get_versions;
@@ -52,6 +53,19 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 						$source->mod_path( $module->scm_settings->{mod_path} );
 					}
 				}
+				elsif($scm->software eq 'svn' && $module->scm_settings) {
+					# Shouldn't forget to reset these settings!!
+					if(exists $module->scm_settings->{trunk}) {
+						$source->trunk( $module->scm_settings->{trunk} );
+					}
+					if(exists $module->scm_settings->{tags}) {
+						$source->tags( $module->scm_settings->{tags} );
+					}
+					if(exists $module->scm_settings->{tags_filter}) {
+						$source->tags_filter( $module->scm_settings->{tags_filter} );
+					}
+				}
+				
 				$source->version($version);
 				my $mod = Maximus::Class::Module->new(
 					modscope => $module->modscope->name,
