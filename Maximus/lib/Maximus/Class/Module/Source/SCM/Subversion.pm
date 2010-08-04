@@ -111,7 +111,6 @@ sub get_versions {
 		}
 	}
 
-	$tags{dev} = $self->trunk;
 	return %tags;
 }
 

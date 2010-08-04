@@ -35,7 +35,6 @@ can_ok($scm, qw/
 my %got_versions = $scm->get_versions();
 my %expected_versions = (
 	'0.01' => 'mod2-0.01/',
-	'dev' => 'trunk/mod2.mod',
 	'0.02' => 'mod2-0.02/',
 	'0.03' => 'mod2-0.03/',
 );
