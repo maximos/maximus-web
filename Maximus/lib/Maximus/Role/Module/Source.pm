@@ -113,7 +113,21 @@ I<$module> ISA Maximus::Class::Module
 =cut
 sub findDependencies {
 	my($self, $mod, $filename) = @_;
+	my @deps = $self->_findDependencies($mod, $filename);
 
+	my(@uniq_deps, %seen);
+	foreach(@deps) {
+		my $k = join '', @$_;
+		unless(exists $seen{$k}) {
+			$seen{$k} = 1;
+			push @uniq_deps, $_;
+		}
+	}
+	return @uniq_deps;
+}
+
+sub _findDependencies {
+	my($self, $mod, $filename) = @_;
 	confess('Sources are not validated') unless $self->validated;
 	
 	$filename = $self->tmpDir . '/' . $mod->mod . '.bmx' unless $filename;
@@ -134,14 +148,14 @@ sub findDependencies {
 	my @deps;
 	foreach(@tokens) {
 		if($_->[0] eq 'DEPENDENCY') {
-			push @deps, [split/\./, $_->[1]];
+			push @deps, [split/\./, lc($_->[1])];
 		}
 		elsif($_->[0] eq 'INCLUDE_FILE') {
 			my $path = $self->tmpDir . '/' . $_->[1];
-			@deps = (@deps, $self->findDependencies($mod, $path));
+			@deps = (@deps, $self->_findDependencies($mod, $path));
 		}
 	}
-
+	
 	return @deps;
 }
 
