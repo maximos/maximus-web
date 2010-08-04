@@ -89,7 +89,7 @@ sub validate {
 	my @tokens = $lexer->tokens($contents);
 	my $modNameOK = 0;
 	foreach(@tokens) {
-		if($_->[0] eq 'MODULENAME' && $_->[1] eq $modName) {
+		if($_->[0] eq 'MODULENAME' && lc($_->[1]) eq lc($modName)) {
 			$modNameOK = 1;
 		}
 		elsif($_->[0] eq 'MODULEVERSION') {
