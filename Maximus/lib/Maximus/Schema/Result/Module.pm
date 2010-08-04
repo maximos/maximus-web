@@ -145,7 +145,7 @@ __PACKAGE__->has_many(
 
 use JSON::Any;
 __PACKAGE__->inflate_column('scm_settings', {
-	inflate => sub { JSON::Any->jsonToObj(shift) },
-	deflate => sub { JSON::Any->objToJson(shift) },
+	inflate => sub { JSON::Any->jsonToObj(shift || '{}' ) },
+	deflate => sub { JSON::Any->objToJson(shift || '{}' ) },
 });
 1;

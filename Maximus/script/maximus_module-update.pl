@@ -46,6 +46,12 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 			# But always retrieve the latest dev version
 			$versions{'dev'} = 1;
 			foreach my $version(keys %versions) {
+				$source->mod_path('');
+				if($scm->software eq 'git') {
+					if($module->scm_settings && exists $module->scm_settings->{mod_path}) {
+						$source->mod_path( $module->scm_settings->{mod_path} );
+					}
+				}
 				$source->version($version);
 				my $mod = Maximus::Class::Module->new(
 					modscope => $module->modscope->name,
