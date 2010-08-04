@@ -5,6 +5,8 @@ use local::lib;
 use lib './lib';
 use Config::Any;
 use Digest::SHA qw(sha1_hex);
+use File::Spec;
+use File::Path qw(make_path);
 use Maximus::Schema;
 use Maximus::Class::Module;
 use Maximus::Class::Module::Source::SCM::Git;
@@ -21,7 +23,9 @@ my $schema = Maximus::Schema->connect( $cfg->{'Model::DB'}->{connect_info} );
 
 foreach my $scm( $schema->resultset('Scm')->all ) {
 	my($source, $latest_rev);
-	my $local_repo = Path::Class::Dir->new('root', 'repositories', sha1_hex($scm->repo_url));
+	my $local_repo = Path::Class::Dir->new(File::Spec->tmpdir(), $cfg->{name}, 'repositories', sha1_hex($scm->repo_url));
+	make_path($local_repo->absolute->stringify);
+	
 	if($scm->software eq 'git') {
 		$source = Maximus::Class::Module::Source::SCM::Git->new(
 			repository => $scm->repo_url,
