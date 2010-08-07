@@ -1,6 +1,6 @@
 package Maximus::Role::Module::Source;
 use Moose::Role;
-use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
+use Archive::Zip qw/:ERROR_CODES :CONSTANTS/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Find;
 use File::Temp;
