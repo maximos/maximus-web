@@ -27,7 +27,7 @@ subtype 'ModScope'
 	=> as Str
 	=> where {
 		my $modscope = $_;
-		foreach my $reservedScope(('brl', 'pub', 'maxgui')) {
+		foreach my $reservedScope(('brl', 'pub')) {
 			return 0 if(lc($modscope) eq lc($reservedScope));
 		}
 		1;

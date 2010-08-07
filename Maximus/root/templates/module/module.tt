@@ -9,7 +9,7 @@
 			[%- FOR dependency IN versions.${version}.deps.sort %]
 				[%- ": depends on " IF loop.first -%]
 				[% m = dependency.split('\\.') %]
-				[% IF m.0 == 'brl' OR m.0 == 'maxgui' OR m.0 == 'pub' %]
+				[% IF m.0 == 'brl' OR m.0 == 'pub' %]
 					[% dependency | html %]
 				[%- ELSE -%]
 					<a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
