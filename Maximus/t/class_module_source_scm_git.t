@@ -21,7 +21,6 @@ my $gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbarerepo');
 my $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
 	local_repository => $localrepo->stringify,
 	repository => $gitrepodir->stringify,
-	mod_path => '',
 	tags_filter => 'v?(.+)',
 )]);
 
@@ -30,7 +29,6 @@ can_ok($scm, qw/
 	get_versions
 	repository
 	local_repository
-	mod_path
 	tags_filter
 	prepare
 /);
@@ -57,7 +55,6 @@ foreach(qw/2.0.1 2.0.2 2.0.3 dev/) {
 	my $scm = Maximus::Class::Module::Source::SCM::Git->new(
 		local_repository => $localrepo->stringify,
 		repository => $gitrepodir->stringify,
-		mod_path => '',
 		tags_filter => 'v?(.+)',
 		version => $_,
 	);
@@ -78,7 +75,6 @@ $gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbaremultirepo');
 $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
 	local_repository => $localrepo->stringify,
 	repository => $gitrepodir->stringify,
-	mod_path => 'test2.mod',
 	version => 'dev',
 )]);
 
