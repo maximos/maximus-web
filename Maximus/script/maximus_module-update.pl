@@ -47,13 +47,7 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 			# But always retrieve the latest dev version
 			$versions{'dev'} = 1;
 			foreach my $version(keys %versions) {
-				if($scm->software eq 'git') {
-					$source->mod_path('');  # Reset mod_path
-					if($module->scm_settings && exists $module->scm_settings->{mod_path}) {
-						$source->mod_path( $module->scm_settings->{mod_path} );
-					}
-				}
-				elsif($scm->software eq 'svn' && $module->scm_settings) {
+				if($scm->software eq 'svn' && $module->scm_settings) {
 					# Shouldn't forget to reset these settings!!
 					if(exists $module->scm_settings->{trunk}) {
 						$source->trunk( $module->scm_settings->{trunk} );
