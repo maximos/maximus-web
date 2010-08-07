@@ -47,14 +47,17 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 				}
 				
 				$source->version($version);
-				my $mod = Maximus::Class::Module->new(
-					modscope => $module->modscope->name,
-					mod => $module->name,
-					desc => $module->desc,
-					source => $source,
-					schema => $schema,
-				);
-				$mod->save( $module->modscope->user_id );
+				eval {
+					my $mod = Maximus::Class::Module->new(
+						modscope => $module->modscope->name,
+						mod => $module->name,
+						desc => $module->desc,
+						source => $source,
+						schema => $schema,
+					);
+					$mod->save( $module->modscope->user_id );
+				};
+				warn $@ if $@;
 			}
 		}
 
