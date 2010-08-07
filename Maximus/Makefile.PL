@@ -38,6 +38,7 @@ requires 'Digest::SHA' => '5.48';
 requires 'Email::Valid';
 requires 'Exception::Class' => '1.30';
 requires 'File::Copy::Recursive' => '0.38';
+requires 'File::Path' => '2.08';
 requires 'File::Temp' => '0.22';
 #We won't be using these yet, so no need to require them
 #requires 'Gearman::Client' => '1.11';

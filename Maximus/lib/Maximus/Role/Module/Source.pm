@@ -3,6 +3,7 @@ use Moose::Role;
 use Archive::Zip qw/:ERROR_CODES :CONSTANTS/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Find;
+use File::Path qw/remove_tree/;
 use File::Temp;
 use Maximus::Exceptions;
 use Maximus::Class::Lexer;
@@ -191,7 +192,7 @@ sub archive {
 	$zip->removeMember($modName . '/doc/commands.html');
 	
 	# Remove files that are the result of a compilation
-	foreach($zip->membersMatching('\.(o|s|a|i|exe|gitignore|bmx\/|svn\/)$')) {
+	foreach($zip->membersMatching('\.(o|s|a|i|exe|gitignore|bmx\/)$')) {
 		$zip->removeMember($_);
 	}
 	
@@ -212,7 +213,8 @@ sub archive {
 =head2 findAndMoveRootDir(I<$module>)
 
 Find the location of the mainfile and move the contents of this directory to the
-root of the temporary directory
+root of the temporary directory. After that it cleans out SCM specific
+directories.
 =cut
 sub findAndMoveRootDir {
 	my($self, $mod) = @_;
@@ -235,6 +237,13 @@ sub findAndMoveRootDir {
 			last;
 		}	
 	}
+
+	my @dirs;
+	finddepth(sub {
+		push @dirs, $File::Find::name if($_ =~ m/\.(svn|git)$/);
+	}, $self->tmpDir);
+	
+	remove_tree(@dirs) if @dirs;
 }
 
 =head1 AUTHOR
