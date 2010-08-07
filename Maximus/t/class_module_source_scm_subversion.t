@@ -30,6 +30,7 @@ can_ok($scm, qw/
 	tags
 	tags_filter
 	prepare
+	auto_discover
 /);
 
 my %got_versions = $scm->get_versions();
@@ -55,5 +56,14 @@ foreach(qw/0.01 0.02 0.03 dev/) {
 	$scm->prepare($mod);
 	ok($scm->validated, sprintf('test.mod2 %s validated', $_));
 }
+
+# Auto discover modules. Need to reset trunk path for that.
+$scm->trunk('trunk');
+my @got_auto_discover = $scm->auto_discover();
+my @expected_auto_discover = (
+	[ undef, 'mod2' ],
+	[ undef, 'mod3' ]
+);
+is_deeply(\@got_auto_discover, \@expected_auto_discover, 'Automatic discovery OK');
 
 done_testing();

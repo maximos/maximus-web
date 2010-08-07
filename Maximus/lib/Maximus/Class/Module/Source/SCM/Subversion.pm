@@ -52,13 +52,12 @@ has 'tags_filter' => (is => 'rw', isa => 'Str', default => '');
 
 =head1 METHODS
 
-=head2 prepare
+=head2 init_repo
 
-Fetch files for I<version> and sort them inside the temporary directory
+Initialize repository. Either clones or pulls to update
 =cut
-sub prepare {
-	my($self, $mod) = @_;
-	
+sub init_repo {
+	my $self = shift;
 	confess 'version is required' unless $self->version;
 	
 	my $url;
@@ -83,7 +82,15 @@ sub prepare {
 		$self->tmpDir)
 	);
 	`$cmd`;
-	
+}
+
+=head2 prepare
+
+Fetch files for I<version> and sort them inside the temporary directory
+=cut
+sub prepare {
+	my($self, $mod) = @_;
+	$self->init_repo;	
 	$self->findAndMoveRootDir($mod);
 	$self->validate($mod);
 }
@@ -128,6 +135,19 @@ sub get_latest_revision {
 	} grep { $_ =~ /^Revision: \d*/ } @info;
 	return $revision[0];
 }
+
+=head2 auto_discover
+
+Discover available modules from the repository
+=cut
+around 'auto_discover' => sub {
+	my($orig, $self) = @_;
+	my $old_version = $self->version;
+	$self->version('dev');
+	$self->init_repo;
+	$self->version( $old_version );
+	return $self->$orig(@_, $self->tmpDir);
+};
 
 =head1 AUTHOR
 

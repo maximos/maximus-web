@@ -49,14 +49,13 @@ has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
 
 =head1 METHODS
 
-=head2 prepare
+=head2 init_repo
 
-Fetch files for I<version> and store them inside the temporary directory
+Initialize repository. Either clones or pulls to update
 =cut
-sub prepare {
-	my($self, $mod) = @_;
+sub init_repo {
+	my $self = shift;
 	use autodie;
-	confess 'version is required' unless $self->version;
 
 	my $cmd;
 	my $cwd = getcwd;
@@ -70,6 +69,23 @@ sub prepare {
 		$cmd = sprintf('%s pull origin master', $GIT);
 	}
 	system $cmd;
+	chdir $cwd;
+}
+
+=head2 prepare
+
+Fetch files for I<version> and store them inside the temporary directory
+=cut
+sub prepare {
+	my($self, $mod) = @_;
+	use autodie;
+	confess 'version is required' unless $self->version;
+
+	$self->init_repo;
+
+	my $cmd;
+	my $cwd = getcwd;
+	chdir $self->local_repository;
 	
 	my $hash;
 	if($self->version eq 'dev') {
@@ -149,6 +165,16 @@ sub get_latest_revision {
 	}
 	return $heads{'refs/heads/master'};
 }
+
+=head2 auto_discover
+
+Discover available modules from the repository
+=cut
+around 'auto_discover' => sub {
+	my($orig, $self) = @_;
+	$self->init_repo;
+	return $self->$orig(@_, $self->local_repository);
+};
 
 =head1 AUTHOR
 

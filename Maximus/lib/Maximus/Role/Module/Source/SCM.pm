@@ -1,5 +1,7 @@
 package Maximus::Role::Module::Source::SCM;
 use Moose::Role;
+use File::Find;
+use Path::Class;
 
 =head1 NAME
 
@@ -31,6 +33,37 @@ requires 'get_versions';
 returns the latest revision of the repository
 =cut
 requires 'get_latest_revision';
+
+=head2 auto_discover
+
+search the repository for module names. Used for a repository hosting an entire
+modscope.
+
+It does its best to support multi modscope repositories by adding the scope
+
+Returns all found module names and if applicable also the modscope.
+=cut
+sub auto_discover {
+	my($self, undef, undef, $dir) = @_;
+
+	my @mods;
+	finddepth(sub {
+		if(-d $File::Find::name) {
+			if($_ =~ m/(.+)\.mod$/) {
+				my $mod = $1;
+				my $path = Path::Class::Dir->new($File::Find::name);
+				if($path->parent =~ m/([a-z0-9_]+)\.mod$/i) {
+					my $scope = $1;
+					push @mods, [$scope, $mod];
+				}
+				else {
+					push @mods, [undef, $mod];
+				}
+			}
+		}
+	}, $dir);
+	return @mods;
+}
 
 =head1 AUTHOR
 

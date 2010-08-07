@@ -31,6 +31,7 @@ can_ok($scm, qw/
 	local_repository
 	tags_filter
 	prepare
+	auto_discover
 /);
 
 my %got_versions = $scm->get_versions();
@@ -79,6 +80,14 @@ $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
 )]);
 
 is($scm->get_latest_revision(), '149a351ed45a477815529805d4b31c3fe53c497e', 'Latest revision check');
+
+# Auto discover on multi module repo
+my @got_auto_discover = $scm->auto_discover();
+my @expected_auto_discover = (
+	[ undef, 'test1' ],
+	[ undef, 'test2' ]
+);
+is_deeply(\@got_auto_discover, \@expected_auto_discover, 'Automatic discovery OK');
 
 $mod = Maximus::Class::Module->new(
 	modscope => 'test',
