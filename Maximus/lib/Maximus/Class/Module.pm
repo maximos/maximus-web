@@ -115,7 +115,7 @@ sub save {
 	});
 	
 	$self->source->prepare($self);
-	$self->source->validate($self);
+	$self->source->validate($self) unless $self->source->validated;
 	
 	my @deps = $self->source->findDependencies($self);
 	
