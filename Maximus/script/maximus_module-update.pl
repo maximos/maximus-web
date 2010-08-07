@@ -22,22 +22,7 @@ my $cfg = Config::Any->load_files({
 my $schema = Maximus::Schema->connect( $cfg->{'Model::DB'}->{connect_info} );
 
 foreach my $scm( $schema->resultset('Scm')->all ) {
-	my($source);	
-	if($scm->software eq 'git') {
-		my $local_repo = Path::Class::Dir->new(File::Spec->tmpdir(), $cfg->{name}, 'repositories', sha1_hex($scm->repo_url));
-		make_path($local_repo->absolute->stringify);
-
-		$source = Maximus::Class::Module::Source::SCM::Git->new(
-			repository => $scm->repo_url,
-			local_repository => $local_repo->absolute->stringify,
-		);
-	}
-	elsif($scm->software eq 'svn') {
-		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
-			repository => $scm->repo_url,
-		);
-	}
-	
+	my $source = getSourceObj($scm);
 	my $latest_rev = $source->get_latest_revision;
 	if(!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev) {
 		foreach my $module( $scm->modules ) {
@@ -47,8 +32,9 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 			# But always retrieve the latest dev version
 			$versions{'dev'} = 1;
 			foreach my $version(keys %versions) {
+				# New Source object
+				my $source = getSourceObj($scm);
 				if($scm->software eq 'svn' && $module->scm_settings) {
-					# Shouldn't forget to reset these settings!!
 					if(exists $module->scm_settings->{trunk}) {
 						$source->trunk( $module->scm_settings->{trunk} );
 					}
@@ -76,4 +62,25 @@ foreach my $scm( $schema->resultset('Scm')->all ) {
 			revision => $latest_rev
 		});
 	}
+}
+
+sub getSourceObj {
+	my $scm = shift;
+	my $source;
+	if($scm->software eq 'git') {
+		my $local_repo = Path::Class::Dir->new(File::Spec->tmpdir(), $cfg->{name}, 'repositories', sha1_hex($scm->repo_url));
+		make_path($local_repo->absolute->stringify);
+
+		$source = Maximus::Class::Module::Source::SCM::Git->new(
+			repository => $scm->repo_url,
+			local_repository => $local_repo->absolute->stringify,
+		);
+	}
+	elsif($scm->software eq 'svn') {
+		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
+			repository => $scm->repo_url,
+		);
+	}
+	
+	return $source;
 }
