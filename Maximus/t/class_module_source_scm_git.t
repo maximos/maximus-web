@@ -15,7 +15,8 @@ my $ae = Archive::Extract->new( archive => $zip->stringify, type => 'zip' );
 Maximus::Exception::Module::Archive->throw(error => $ae->error)
   unless $ae->extract( to => $tmp_dir );
 
-my $localrepo = Path::Class::Dir->new( File::Temp->newdir( CLEANUP => 1 ) );
+my $localrepo_tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+my $localrepo = Path::Class::Dir->new( $localrepo_tmp_dir );
 my $gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbarerepo');
 my $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
 	local_repository => $localrepo->stringify,
@@ -71,7 +72,8 @@ $ae = Archive::Extract->new( archive => $zip->stringify, type => 'zip' );
 Maximus::Exception::Module::Archive->throw(error => $ae->error)
   unless $ae->extract( to => $tmp_dir );
 
-$localrepo = Path::Class::Dir->new( File::Temp->newdir( CLEANUP => 1 ) );
+$localrepo_tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+$localrepo = Path::Class::Dir->new( $localrepo_tmp_dir );
 $gitrepodir = Path::Class::Dir->new($tmp_dir->dirname, 'gitbaremultirepo');
 $scm = new_ok('Maximus::Class::Module::Source::SCM::Git' => [(
 	local_repository => $localrepo->stringify,
