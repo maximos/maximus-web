@@ -58,6 +58,16 @@ has 'source' => (
 	required => 1
 );
 
+=head2 scm_settings
+
+SCM specific settings
+=cut
+has 'scm_settings' => (
+	is => 'rw',
+	isa => 'HashRef',
+	default => sub { {} },
+);
+
 =head2 schema
 
 L<DBIx::Class schema>
@@ -101,6 +111,7 @@ sub save {
 		modscope_id => $modscope->id,
 		name => $self->mod,
 		desc => $self->desc,
+		scm_settings => $self->scm_settings,
 	});
 	
 	$self->source->prepare($self);
