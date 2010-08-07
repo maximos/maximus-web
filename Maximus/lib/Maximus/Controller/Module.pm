@@ -99,7 +99,9 @@ sub module :Path :Args(2) {
 	}
 	
 	@{$c->stash->{sortedVersions}} = sort {
-		version->declare($b) <=> version->declare($a)
+		local $a = 999 if $a eq 'dev';
+		local $b = 999 if $b eq 'dev';
+		version->declare($b) <=> version->declare($a);
 	} keys %versions;
 
 	$c->stash->{module} = $module;
@@ -150,7 +152,9 @@ sub sources :Chained('/') :PathPart('module/sources') :CaptureArgs(0) {
 				}
 				
 				@{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
-					version->declare($a) <=> version->declare($b)
+					local $a = 999 if $a eq 'dev';
+					local $b = 999 if $b eq 'dev';
+					version->declare($a) <=> version->declare($b);
 				} keys %{$sources->{$scope}->{$modname}->{versions}};
 			}
 		}
