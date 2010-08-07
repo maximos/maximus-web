@@ -18,7 +18,7 @@ BEGIN { use_ok 'Maximus::Exceptions' }
 
 	sub prepare {
 		my($self,$mod) = @_;
-		dircopy("$Bin/data/test.mod1", $self->tmpDir);
+		dircopy("$Bin/data/test.mod1", $self->processDir);
 	}
 	1;
 }
@@ -46,7 +46,7 @@ my $mod = new_ok('Maximus::Class::Module' => [
 ]);
 
 $source->prepare($mod);
-ok(-f sprintf('%s/%s.bmx', $source->tmpDir, $mod->mod), 'Check if mainfile was copied');
+ok(-f sprintf('%s/%s.bmx', $source->processDir, $mod->mod), 'Check if mainfile was copied');
 
 $source->validate($mod);
 is($source->validated, 1, 'Module validated');

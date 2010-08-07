@@ -46,12 +46,26 @@ automatically cleaned up.
 has 'tmpDir' => (
 	is => 'ro',
 	isa => 'File::Temp::Dir',
-	builder => '_tmpDirBuilder'
+	builder => '_tmpDirBuilder',
+	lazy_build => 1,
 );
 
 sub _tmpDirBuilder {
 	return File::Temp->newdir();
 }
+
+=head2 processDir
+
+Another temporary directory to which the module files will be copied. This will
+allow for module uploads that contain a full modscope. Either through SCM or a
+ZIP Archive. This is done to make sure we'll only archive the intended module.
+=cut
+has 'processDir' => (
+	is => 'ro',
+	isa => 'File::Temp::Dir',
+	builder => '_tmpDirBuilder',
+	lazy_build => 1,
+);
 
 =head1 METHODS
 
@@ -75,7 +89,7 @@ sub validate {
 	) unless $mod->isa('Maximus::Class::Module');
 	
 	my $modName = join('.', $mod->modscope, $mod->mod);
-	my $mainFile = $self->tmpDir . '/' . $mod->mod . '.bmx';	
+	my $mainFile = $self->processDir . '/' . $mod->mod . '.bmx';	
 	
 	my $fh = new IO::File;
 	Maximus::Exception::Module::Source->throw(
@@ -113,8 +127,8 @@ modscope, and the second the modname.
 I<$module> ISA Maximus::Class::Module
 =cut
 sub findDependencies {
-	my($self, $mod, $filename) = @_;
-	my @deps = $self->_findDependencies($mod, $filename);
+	my($self, $mod) = @_;
+	my @deps = $self->_findDependencies($mod);
 
 	my(@uniq_deps, %seen);
 	foreach(@deps) {
@@ -131,7 +145,7 @@ sub _findDependencies {
 	my($self, $mod, $filename) = @_;
 	confess('Sources are not validated') unless $self->validated;
 	
-	$filename = $self->tmpDir . '/' . $mod->mod . '.bmx' unless $filename;
+	$filename = $self->processDir . '/' . $mod->mod . '.bmx' unless $filename;
 	Maximus::Exception::Module::Source->throw(
 		'Sourcefile doesn\'t exist: ' . $filename
 	) unless(-e $filename);
@@ -152,7 +166,7 @@ sub _findDependencies {
 			push @deps, [split/\./, lc($_->[1])];
 		}
 		elsif($_->[0] eq 'INCLUDE_FILE') {
-			my $path = $self->tmpDir . '/' . $_->[1];
+			my $path = $self->processDir . '/' . $_->[1];
 			@deps = (@deps, $self->_findDependencies($mod, $path));
 		}
 	}
@@ -186,7 +200,7 @@ sub archive {
 			'Archive creation date on ' . localtime
 		))
 	);
-	$zip->addTree($self->tmpDir , $modName);
+	$zip->addTree($self->processDir, $modName);
 
 	# Remove generated documentation from archive
 	$zip->removeMember($modName . '/doc/commands.html');
@@ -232,8 +246,7 @@ sub findAndMoveRootDir {
 			my $rootDir = $_;
 			$rootDir =~ s/$mainFile$//;
 			chop($rootDir) if substr($rootDir,-1,1) eq '/';
-			last if $rootDir eq $self->tmpDir;
-			dirmove($rootDir, $self->tmpDir);
+			dirmove($rootDir, $self->processDir);
 			last;
 		}	
 	}
@@ -241,7 +254,7 @@ sub findAndMoveRootDir {
 	my @dirs;
 	finddepth(sub {
 		push @dirs, $File::Find::name if($_ =~ m/\.(svn|git)$/);
-	}, $self->tmpDir);
+	}, $self->processDir);
 	
 	remove_tree(@dirs) if @dirs;
 }
