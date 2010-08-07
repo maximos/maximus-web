@@ -29,7 +29,7 @@ This is the interface for all Maximus::Class::Module::Source classes
 
 Version of module this source represents
 =cut
-has 'version' => (is => 'rw', isa => 'Str');
+has 'version' => (is => 'rw', isa => 'Str', default => '');
 
 =head2 validated
 
