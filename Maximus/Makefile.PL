@@ -37,7 +37,6 @@ requires 'DBIx::Class::Schema::Loader' => '0.07000';
 requires 'Digest::SHA' => '5.48';
 requires 'Email::Valid';
 requires 'Exception::Class' => '1.30';
-requires 'File::Find' => '';
 requires 'File::Temp' => '0.22';
 requires 'File::Copy::Recursive' => '0.38';
 #We won't be using these yet, so no need to require them
