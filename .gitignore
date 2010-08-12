@@ -13,3 +13,4 @@ maximus.conf
 *.ttc
 maximus.log
 /Maximus/root/static/assets
+/Maximus/root/static/archives

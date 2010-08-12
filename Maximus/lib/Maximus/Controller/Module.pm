@@ -2,6 +2,7 @@ package Maximus::Controller::Module;
 use Digest::MD5 qw(md5_hex);
 use IO::File;
 use JSON::Any;
+use Maximus::Task::Module::Upload;
 use version;
 use XML::Simple;
 use Moose;
@@ -219,18 +220,21 @@ sub download :Local :Args(3) {
 	my $location = $row->get_column('remote_location');
 	$c->res->redirect($location) and $c->detach if $location;
 
-	# Refetch row to retrieve archive data if no remote_location exists
-	$search[1]->{'+columns'} = ['module_versions.archive'];
-	$row = $c->model('DB::Module')->search($search[0], $search[1])->first;
+	# Fetch module_version row to fetch archive data
+	my $version_row = $row->module_versions->find({version => $version});
+	
+	# Persistently store module. Which will be processed later by the job server
+	$c->log->warn('Unable to queue Maximus::Task::Module::Upload')
+	  unless Maximus::Task::Module::Upload->new(queue => 1)->run( $version_row->id );
 
 	my $fh = IO::File->new_tmpfile;
-	$fh->print($row->get_column('archive')) or die($!);
+	$fh->print($version_row->archive) or die($!);
 	$fh->seek(0,0);
 
 	my $filename = sprintf('%s-%s-%s.zip', $modscope, $module, $version);
 	$c->res->header('Content-Disposition', qq[attachment; filename="$filename"]);
-	$c->res->header('ETag', md5_hex($row->get_column('archive')));
-	$c->res->header('Content-Length', length($row->get_column('archive')));
+	$c->res->header('ETag', md5_hex($version_row->archive));
+	$c->res->header('Content-Length', length($version_row->archive));
 	$c->res->content_type('application/x-zip');
 	$c->res->body($fh);
 }
