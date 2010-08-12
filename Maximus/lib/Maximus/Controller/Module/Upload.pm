@@ -5,7 +5,6 @@ use Maximus::Class::Module;
 use Maximus::Class::Module::Source::Archive;
 use Maximus::Exceptions;
 use Maximus::Form::Module::Upload;
-use Maximus::Task::Module::Update;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
