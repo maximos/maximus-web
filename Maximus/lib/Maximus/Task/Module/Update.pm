@@ -33,15 +33,6 @@ has 'mod' => (is => 'rw', isa => 'Maximus::Class::Module', required => 1);
 
 =head1 METHODS
 
-=head2 init
-
-Initialize module build task
-=cut
-sub init {
-	my $self = shift;
-	1;
-}
-
 =head2 run
 
 Run task

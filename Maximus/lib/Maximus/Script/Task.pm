@@ -29,6 +29,20 @@ has 'task' => (
     isa           => 'Str',
     is            => 'ro',
     documentation => 'Task to execute',
+    required      => 1,
+);
+
+=head2 queue
+
+Sent task (and sub-tasks) to the queue server
+=cut
+has 'queue' => (
+    traits        => [qw(Getopt)],
+    cmd_aliases   => 'q',
+    isa           => 'Bool',
+    is            => 'ro',
+    documentation => 'Send to queue server',
+    default       => sub { 0 },
 );
 
 =head1 METHODS
@@ -46,18 +60,11 @@ sub run {
 =cut
 sub _run_application {
     my $self = shift;
-    my $app = $self->application_name;
-    Class::MOP::load_class($app);
-	
-	if($self->task) {
-		my $module = 'Maximus::Task::' . $self->task;
-		Class::MOP::load_class($module);
-		my $task = $module->new;
-		die('Failed to initialize task') unless $task->init;
-		die('Failed to run task') unless $task->run;
-	}
+	my $module = sprintf('Maximus::Task::%s', $self->task);
+	Class::MOP::load_class($module);
+	my $task = $module->new(queue => $self->queue);
+	die('Failed to run task') unless $task->run(@{$self->extra_argv});
 }
-
 
 =head1 AUTHOR
 

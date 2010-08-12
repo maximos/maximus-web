@@ -13,6 +13,7 @@ maximus_task.pl - Execute a Maximus task
 maximus_task.pl [options]
 
    -t --task           Task to execute, e.g. Modules::Update
+   -q --queue          Send task (and sub-tasks) to the queue server
 
 =head1 DESCRIPTION
 

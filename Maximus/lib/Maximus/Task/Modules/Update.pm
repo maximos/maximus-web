@@ -11,7 +11,6 @@ Maximus::Task::Modules::Update - Update module database
 =head1 SYNOPSIS
 
 	use Maximus::Task::Modules::Update;
-	$task->init;
 	$task->run;
 
 =head1 DESCRIPTION
@@ -20,11 +19,6 @@ Update module database.
 
 =head1 METHODS
 
-=head2 init
-
-Initialize module update task
-=cut
-sub init { 1 }
 
 =head2 run
 
