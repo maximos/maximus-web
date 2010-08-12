@@ -82,6 +82,7 @@ sub _run_application {
 
 	my @modules = qw(
 		Maximus::Task::Module::Upload
+		Maximus::Task::Other::SessionExpire
 		Maximus::Task::SCM::Update
 		Maximus::Task::SCM::AutoDiscover
 	);
