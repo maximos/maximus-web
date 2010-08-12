@@ -1,26 +1,54 @@
-#!/usr/bin/env perl
-
-use local::lib;
-use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('Maximus', 'Task');
+package Maximus::Role::Task::SCM;
+use Moose::Role;
+use Digest::SHA qw(sha1_hex);
+use File::Spec;
+use File::Path qw(make_path);
+use Path::Class;
+use Maximus::Class::Module::Source::SCM::Git;
+use Maximus::Class::Module::Source::SCM::Subversion;
+use namespace::autoclean;
 
 =head1 NAME
 
-maximus_task.pl - Execute a Maximus task
-
-=head1 SYNOPSIS
-
-maximus_task.pl [options]
-
-   -t --task           Task to execute, e.g. Modules::Update
-   -q --queue          Send task (and sub-tasks) to the queue server
-   --dump_response     Dump response to STDOUT
+Maximus::Role::Task::SCM - Role for SCM tasks
 
 =head1 DESCRIPTION
 
-Run a Maximus task from the command line.
+Role for SCM tasks.
 
-=head1 AUTHORS
+=head1 METHODS
+
+=head2
+
+Retrieve a C<Maximus::Class::Module::Source::SCM> type object
+=cut
+sub get_source {
+	my($self, $scm) = @_;
+	my $source;
+	if($scm->software eq 'git') {
+		my $local_repo = Path::Class::Dir->new(
+			File::Spec->tmpdir(),
+			sha1_hex(__PACKAGE__),
+			'repositories',
+			sha1_hex($scm->repo_url)
+		);
+		make_path($local_repo->absolute->stringify);
+
+		$source = Maximus::Class::Module::Source::SCM::Git->new(
+			repository => $scm->repo_url,
+			local_repository => $local_repo->absolute->stringify,
+		);
+	}
+	elsif($scm->software eq 'svn') {
+		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
+			repository => $scm->repo_url,
+		);
+	}
+	
+	return $source;
+}
+
+=head1 AUTHOR
 
 Christiaan Kras
 

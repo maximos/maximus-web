@@ -1,18 +1,14 @@
 package Maximus::Task::SCM::Update;
 use Moose;
-use Digest::SHA qw(sha1_hex);
-use File::Spec;
-use File::Path qw(make_path);
-use Path::Class;
 use Maximus::Class::Module;
-use Maximus::Class::Module::Source::SCM::Git;
-use Maximus::Class::Module::Source::SCM::Subversion;
+use namespace::autoclean;
 
 with 'Maximus::Role::Task';
+with 'Maximus::Role::Task::SCM';
 
 =head1 NAME
 
-Maximus::Task::SCM::Update - Update SCM configurations
+Maximus::Task::SCM::Update - Update SCM configurations and modules
 
 =head1 SYNOPSIS
 
@@ -79,36 +75,6 @@ sub run {
 		});
 	}
 	1;
-}
-
-=head2
-
-Retrieve a C<Maximus::Class::Module::Source::SCM> type object
-=cut
-sub get_source {
-	my($self, $scm) = @_;
-	my $source;
-	if($scm->software eq 'git') {
-		my $local_repo = Path::Class::Dir->new(
-			File::Spec->tmpdir(),
-			$self->cfg->{name},
-			'repositories',
-			sha1_hex($scm->repo_url)
-		);
-		make_path($local_repo->absolute->stringify);
-
-		$source = Maximus::Class::Module::Source::SCM::Git->new(
-			repository => $scm->repo_url,
-			local_repository => $local_repo->absolute->stringify,
-		);
-	}
-	elsif($scm->software eq 'svn') {
-		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
-			repository => $scm->repo_url,
-		);
-	}
-	
-	return $source;
 }
 
 =head1 AUTHOR

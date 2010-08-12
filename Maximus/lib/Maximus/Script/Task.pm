@@ -1,5 +1,6 @@
 package Maximus::Script::Task;
 use Moose;
+use YAML;
 use namespace::autoclean;
 
 with 'Catalyst::ScriptRole';
@@ -44,6 +45,18 @@ has 'queue' => (
     default       => sub { 0 },
 );
 
+=head2 dump_response
+
+Dump response to STDOUT
+=cut
+has 'dump_response' => (
+    traits        => [qw(Getopt)],
+    isa           => 'Bool',
+    is            => 'ro',
+    documentation => 'Dump response to STDOUT',
+    default       => sub { 0 },
+);
+
 =head1 METHODS
 
 =head2 run
@@ -63,6 +76,7 @@ sub _run_application {
 	Class::MOP::load_class($module);
 	my $task = $module->new(queue => $self->queue);
 	die('Failed to run task') unless $task->run(@{$self->extra_argv});
+	print Dump($task->response) if($self->dump_response);
 }
 
 =head1 AUTHOR

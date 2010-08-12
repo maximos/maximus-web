@@ -82,6 +82,15 @@ has 'schema' => (
 	},
 );
 
+=head2 response
+
+Field to store output it
+=cut
+has 'response' => (
+	is => 'rw',
+	isa => 'Any',
+);
+
 =head1 METHODS
 
 =head2 run

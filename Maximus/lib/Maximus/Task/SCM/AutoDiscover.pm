@@ -1,26 +1,42 @@
-#!/usr/bin/env perl
+package Maximus::Task::SCM::AutoDiscover;
+use Moose;
 
-use local::lib;
-use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('Maximus', 'Task');
+with 'Maximus::Role::Task';
+with 'Maximus::Role::Task::SCM';
 
 =head1 NAME
 
-maximus_task.pl - Execute a Maximus task
+Maximus::Task::SCM::AutoDiscover - Auto Discover modules from a SCM
 
 =head1 SYNOPSIS
 
-maximus_task.pl [options]
-
-   -t --task           Task to execute, e.g. Modules::Update
-   -q --queue          Send task (and sub-tasks) to the queue server
-   --dump_response     Dump response to STDOUT
+	use Maximus::Task::SCM::AutoDiscover;
+	$task->run($scm_id); # SCM ID number
+	$task->run($scm); # Maximus::Schema::Result::Scm
 
 =head1 DESCRIPTION
 
-Run a Maximus task from the command line.
+Update module database.
 
-=head1 AUTHORS
+=head1 METHODS
+
+=head2 run
+
+Run task
+=cut
+sub run {
+	my($self, $scm) = @_;
+	unless(ref($scm) eq 'Maximus::Schema::Result::Scm') {
+		$scm = $self->schema->resultset('Scm')->find({id => $scm});
+	}
+	
+	my $source = $self->get_source($scm);
+	$self->response( $source->auto_discover );
+	1;
+}
+
+
+=head1 AUTHOR
 
 Christiaan Kras
 
