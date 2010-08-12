@@ -1,6 +1,5 @@
 package Maximus::Script::Task;
 use Moose;
-use Maximus;
 use namespace::autoclean;
 
 with 'Catalyst::ScriptRole';
