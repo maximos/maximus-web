@@ -26,7 +26,7 @@ Run task
 sub run {
 	my $self = shift;
 	$self->schema->resultset('Session')->search({
-		expires => {'<' => scalar time}
+		expires => {'<', time()}
 	})->delete;
 	1;
 }
