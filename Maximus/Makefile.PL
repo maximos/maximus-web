@@ -57,6 +57,7 @@ requires 'namespace::autoclean';
 requires 'Net::Twitter' => '3.13003';
 requires 'Path::Class' => '0.19';
 requires 'SQL::Translator' => '0.11006';
+requires 'Storable' => '2.21';
 requires 'Template' => '2.22';
 requires 'Template::Plugin::Digest::SHA1' => '0.03';
 requires 'version';
