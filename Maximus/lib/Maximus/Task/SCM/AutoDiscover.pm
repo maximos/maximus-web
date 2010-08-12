@@ -31,7 +31,7 @@ sub run {
 	}
 	
 	my $source = $self->get_source($scm);
-	$self->response( $source->auto_discover );
+	$self->response( [$source->auto_discover] );
 	1;
 }
 
