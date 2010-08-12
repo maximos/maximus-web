@@ -92,7 +92,7 @@ sub _run_application {
 			printf('Task %s with arguments: %s', $module, Dump(@args)) if($self->verbose);
 			
 			my $task = $module->new;
-			$task->run(@args);
+			warn 'Failed to execute task' unless $task->run(@args);
 			printf('Response contains: %s', Dump($task->response)) if($self->verbose);
 		});
 	}
