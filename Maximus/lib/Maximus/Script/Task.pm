@@ -29,7 +29,6 @@ has 'task' => (
     isa           => 'Str',
     is            => 'ro',
     documentation => 'Task to execute',
-    required      => 1,
 );
 
 =head2 queue
