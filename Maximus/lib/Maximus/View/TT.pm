@@ -8,6 +8,7 @@ use base 'Catalyst::View::TT';
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     render_die => 1,
+    PRE_CHOMP => 1,
 	CATALYST_VAR => 'c',
 	INCLUDE_PATH => [Maximus->path_to( 'root', 'templates' )],
 	WRAPPER => 'template.tt',
