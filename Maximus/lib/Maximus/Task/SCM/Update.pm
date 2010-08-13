@@ -27,9 +27,13 @@ Run task
 =cut
 sub run {
 	my($self, $scm_id) = @_;
-	my $rs = $self->schema->resultset('Scm');
+	my $search;
+	if(ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1 or !ref($scm_id) && $scm_id > 0) {
+		$search = {id => $scm_id};
+	}
+
 	# Fetch all or search for given SCM
-	foreach my $scm( $scm_id ? $rs->search({id => $scm_id}) : $rs->all ) {
+	foreach my $scm( $self->schema->resultset('Scm')->search($search) ) {
 		my $source = $self->get_source($scm);
 		my $latest_rev = $source->get_latest_revision;
 		if(!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev) {
