@@ -41,21 +41,42 @@ has_field 'repo_url' => (
 =cut
 has_field 'modules' => (
 	type => 'Select',
-	select_widget => 'checkbox_group',
+	select_widget => 'select',
+	multiple => 1,
 );
 
-=head2 add_module
+=head2 user
 
-Add module to the options list
 =cut
-has 'options_modules' => (
-	traits => ['Array'],
-	is => 'rw',
-	default => sub { [ ] },
-	handles => {
-		add_module => 'push',
-	}
+has 'user' => (
+	is => 'ro',
+	isa => 'Maximus::Schema::Result::User',
+	required => 1,
 );
+
+=head1 METHODS
+
+=head2 options_modules
+
+=cut
+sub options_modules {
+	my $self = shift;
+	return unless $self->user;
+	
+	my @selections;
+	foreach my $modscope( $self->user->modscopes) {
+		my @modules = $modscope->modules;
+		if(@modules) {
+			foreach my $module(@modules) {
+				push @selections, {
+					value => $module->id,
+					label => sprintf('%s.%s', $modscope->name, $module->name),
+				};
+			}
+		}
+	}
+	return @selections;
+}
 
 =head1 AUTHOR
 

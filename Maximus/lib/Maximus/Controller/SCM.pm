@@ -39,18 +39,19 @@ Handle the configuration form
 =cut
 sub form :Private {
 	my( $self, $c ) = @_;
-	$c->stash();
 	
 	my($init_object, $scm) = {};
 	if($scm = $c->stash->{scm}) {
 		$init_object = {
-			'software' => $c->stash->{scm}->software,
-			'repo_url' => $c->stash->{scm}->repo_url,
+			software => $c->stash->{scm}->software,
+			repo_url => $c->stash->{scm}->repo_url,
+			modules => [ map { $_->id } $c->stash->{scm}->modules ],
 		};
 	}
 	
 	my $form = Maximus::Form::SCM::Configuration->new({
 		init_object => $init_object,
+		user => $c->user->get_object(),
 	});
 	
 	$form->process( $c->req->parameters );
@@ -60,8 +61,8 @@ sub form :Private {
 	);
 	
 	if($form->validated) {
-		eval {
-			$c->model('DB::SCM')->update_or_create({
+		$c->model('DB')->txn_do(sub {
+			my $scm = $c->model('DB::SCM')->update_or_create({
 				id => $scm ? $scm->id : undef,
 				user_id => $c->user->id,
 				software => $form->field('software')->value,
@@ -69,7 +70,14 @@ sub form :Private {
 				settings => '',
 			}, {key => 'primary'});
 			
-		};
+			$scm->modules->update({
+				scm_id => undef
+			});
+			
+			$c->model('DB::Module')->search({
+				id => [ @{$form->field('modules')->value} ]
+			})->update({scm_id => $scm->id});
+		});
 		if($@) {
 			$c->stash(error_msg => 'An unknown error occured!');
 			$c->log->warn($@);
