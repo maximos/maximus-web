@@ -40,9 +40,8 @@ requires 'Exception::Class' => '1.30';
 requires 'File::Copy::Recursive' => '0.38';
 requires 'File::Path' => '2.08';
 requires 'File::Temp' => '0.22';
-#We won't be using these yet, so no need to require them
-#requires 'Gearman::Client' => '1.11';
-#requires 'Gearman::Server' => '1.11';
+requires 'Gearman' => '1.11';
+requires 'Gearman::Server' => '1.11';
 requires 'HTML::FormHandler' => '0.32002';
 requires 'HOP::Lexer' => '0.032';
 requires 'JavaScript::Minifier::XS' => '0.07';
