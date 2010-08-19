@@ -1,6 +1,7 @@
 package Maximus::Class::Module::Source::SCM::Subversion;
 use Moose;
 use Carp qw/confess/;
+use Path::Class;
 use namespace::autoclean;
 
 with 'Maximus::Role::Module::Source';
