@@ -28,6 +28,12 @@ Location of remote Subversion repository. Must be publicly readable
 =cut
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
 
+=head2 local_repository
+
+Location of the local copy of the Subversion repository
+=cut
+has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
+
 =head2 trunk
 
 Path to trunk. If the repository hosts more modules then set it to the module
@@ -60,28 +66,60 @@ sub init_repo {
 	my $self = shift;
 	confess 'version is required' unless $self->version;
 	
-	my $url;
+	my $cmd;
+	# Checkout or update repository local persistent copy
 	if($self->version eq 'dev') {
-		$url = join('/', ($self->repository, $self->trunk));
+		my $localrepo = Path::Class::Dir->new($self->local_repository, '.svn');
+		my $action = (-d $localrepo->absolute) ? 'update' : 'checkout';
+		my $url = join('/', ($self->repository, $self->trunk));
+		
+		if($action eq 'checkout') {
+			$cmd = join(' ', (
+				'svn',
+				$action,
+				$url,
+				$self->local_repository,
+			));
+		}
+		elsif($action eq 'update') {
+			$cmd = join(' ', (
+				'svn',
+				$action,
+				$self->local_repository,
+			));
+		}
+		
+		# Update or checkout repository
+		`$cmd`;
+		
+		# Fast export local repository to tmpDir for further processing
+		$cmd = join(' ', (
+			'svn export --force',
+			$self->local_repository,
+			$self->tmpDir
+		));
+		`$cmd`;
 	}
+	# Export to temp. directory
 	else {
 		my %versions = $self->get_versions;
 		confess('Specified version doesn\'t exist in repository')
 		  unless exists($versions{$self->version});
-		
-		$url = join('/', (
+
+		my $url = join('/', (
 			$self->repository,
 			$self->tags,
 			$versions{$self->version})
 		);
+		
+		my $cmd = join(' ', (
+			'svn export --force',
+			$url,
+			$self->tmpDir
+		));
+		
+		`$cmd`;
 	}
-	
-	my $cmd = join(' ', (
-		'svn export --force',
-		$url,
-		$self->tmpDir)
-	);
-	`$cmd`;
 }
 
 =head2 prepare

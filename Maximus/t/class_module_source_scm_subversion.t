@@ -14,10 +14,13 @@ my $ae = Archive::Extract->new( archive => $zip->stringify, type => 'zip' );
 Maximus::Exception::Module::Archive->throw(error => $ae->error)
   unless $ae->extract( to => $tmp_dir );
 
+my $localrepo_tmp_dir = File::Temp->newdir( CLEANUP => 1 );
+my $localrepo = Path::Class::Dir->new( $localrepo_tmp_dir );
 my $svndir = Path::Class::Dir->new($tmp_dir->dirname, 'svnrepo');
 my $scm = new_ok('Maximus::Class::Module::Source::SCM::Subversion' => [(
+	local_repository => $localrepo->stringify,
 	repository => 'file:///'. $svndir->volume . $svndir->as_foreign('Unix'),
-	trunk => 'trunk/mod2.mod',
+	trunk => 'trunk',
 	tags => 'tags',
 	tags_filter => 'mod2-(.+)',
 )]);
@@ -57,8 +60,7 @@ foreach(qw/0.01 0.02 0.03 dev/) {
 	ok($scm->validated, sprintf('test.mod2 %s validated', $_));
 }
 
-# Auto discover modules. Need to reset trunk path for that.
-$scm->trunk('trunk');
+# Auto discover modules.
 my @got_auto_discover = $scm->auto_discover();
 my @expected_auto_discover = (
 	[ undef, 'mod2' ],

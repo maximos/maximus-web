@@ -24,16 +24,16 @@ Retrieve a C<Maximus::Class::Module::Source::SCM> type object
 =cut
 sub get_source {
 	my($self, $scm) = @_;
+	my $local_repo = Path::Class::Dir->new(
+		File::Spec->tmpdir(),
+		sha1_hex(__PACKAGE__),
+		'repositories',
+		sha1_hex($scm->repo_url)
+	);
+	make_path($local_repo->absolute->stringify);
+		
 	my $source;
 	if($scm->software eq 'git') {
-		my $local_repo = Path::Class::Dir->new(
-			File::Spec->tmpdir(),
-			sha1_hex(__PACKAGE__),
-			'repositories',
-			sha1_hex($scm->repo_url)
-		);
-		make_path($local_repo->absolute->stringify);
-
 		$source = Maximus::Class::Module::Source::SCM::Git->new(
 			repository => $scm->repo_url,
 			local_repository => $local_repo->absolute->stringify,
@@ -42,7 +42,20 @@ sub get_source {
 	elsif($scm->software eq 'svn') {
 		$source = Maximus::Class::Module::Source::SCM::Subversion->new(
 			repository => $scm->repo_url,
+			local_repository => $local_repo->absolute->stringify,
 		);
+		
+		# Default settings from SCM table
+		my $settings = $scm->settings;
+		if(exists $settings->{trunk}) {
+			$source->trunk( $settings->{trunk} );
+		}
+		if(exists $settings->{tags}) {
+			$source->tags( $settings->{tags} );
+		}
+		if(exists $settings->{tags_filter}) {
+			$source->tags_filter( $settings->{tags_filter} );
+		}
 	}
 	
 	return $source;
