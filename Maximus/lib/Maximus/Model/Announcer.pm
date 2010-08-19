@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base 'Catalyst::Model::Adaptor';
 
-__PACKAGE__->config( 
+__PACKAGE__->config(
     class       => 'Maximus::Class::Broadcast::Announcer',
     constructor => 'new',
 );
@@ -26,24 +26,25 @@ inside L<Catalyst> action.
 =head2 COMPONENT
 
 =cut
+
 sub COMPONENT {
-	my($class, $app, $args) = @_;
-	my $announcer = $class->SUPER::COMPONENT(@_);
+    my ($class, $app, $args) = @_;
+    my $announcer = $class->SUPER::COMPONENT(@_);
 
-	foreach my $driver_name(keys %{$args->{drivers}}) {
-		my $module = 'Maximus::Class::Broadcast::Driver::' . $driver_name;
-		eval {
-			my $module = $module;
-			$module =~ s/::/\//g;
-			require $module . '.pm'
-		};
-		$app->log->warn($@) and next if($@);
+    foreach my $driver_name (keys %{$args->{drivers}}) {
+        my $module = 'Maximus::Class::Broadcast::Driver::' . $driver_name;
+        eval {
+            my $module = $module;
+            $module =~ s/::/\//g;
+            require $module . '.pm';
+        };
+        $app->log->warn($@) and next if ($@);
 
-		my %args = %{$args->{drivers}->{$driver_name}};
-		my $listener = $module->new(\%args);
-		$announcer->addListener($listener);
-	}
-	return $announcer;
+        my %args     = %{$args->{drivers}->{$driver_name}};
+        my $listener = $module->new(\%args);
+        $announcer->addListener($listener);
+    }
+    return $announcer;
 }
 
 =head1 AUTHOR
@@ -73,4 +74,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
+
 1;

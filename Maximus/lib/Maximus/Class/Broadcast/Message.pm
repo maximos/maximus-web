@@ -21,9 +21,10 @@ Message class to be passed to a announcer and/or driver.
 
 The actual message
 =cut
+
 has 'text' => (
-	isa => 'Str',
-	is => 'ro',
+    isa => 'Str',
+    is  => 'ro',
 );
 
 =head1 AUTHOR

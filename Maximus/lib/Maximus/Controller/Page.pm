@@ -3,7 +3,7 @@ use Moose;
 use Path::Class;
 use namespace::autoclean;
 
-BEGIN {extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -20,14 +20,15 @@ This controller is responsible for serving a number of static pages.
 Display template from I</static/templates/page/> directory. Redirects to a 404
 error page when not found.
 =cut
-sub index :Path('/') {
-	my( $self, $c, @args) = @_;
-	unshift @args, 'page';
-	$args[$#args] .= '.tt';
-	my @include_path = @{$c->view('TT')->config->{INCLUDE_PATH}};
-	my $path = Path::Class::File->new( @include_path, @args );
-	$c->detach('/default') unless(-f $path->stringify);
-	$c->stash( template => Path::Class::File->new( @args )->stringify );
+
+sub index : Path('/') {
+    my ($self, $c, @args) = @_;
+    unshift @args, 'page';
+    $args[$#args] .= '.tt';
+    my @include_path = @{$c->view('TT')->config->{INCLUDE_PATH}};
+    my $path = Path::Class::File->new(@include_path, @args);
+    $c->detach('/default') unless (-f $path->stringify);
+    $c->stash(template => Path::Class::File->new(@args)->stringify);
 }
 
 =head1 AUTHOR

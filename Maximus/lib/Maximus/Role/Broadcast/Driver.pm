@@ -23,6 +23,7 @@ This is the interface for all Maxmimu::Class::Broadcast::Announcer drivers.
 Maximus::Class::Broadcast::Announcer calls this method and passes the message to
 this method.
 =cut
+
 requires 'say';
 
 =head1 AUTHOR

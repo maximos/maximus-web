@@ -9,7 +9,10 @@ use Cwd;
 use File::Copy::Recursive qw(dircopy);
 use Path::Class;
 
-our $GIT = $^O eq 'MSWin32' ? '"C:\Program Files\Git\cmd\git.cmd"' : '/usr/bin/env git';
+our $GIT =
+  $^O eq 'MSWin32'
+  ? '"C:\Program Files\Git\cmd\git.cmd"'
+  : '/usr/bin/env git';
 
 =head1 NAME
 
@@ -31,12 +34,14 @@ Git support for retrieving the modules sources.
 
 Location of remote Git repository. Must be publicly readable
 =cut
+
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
 
 =head2 local_repository
 
 Location of the local copy of the Git repository
 =cut
+
 has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
 =head2 tags_filter
@@ -45,6 +50,7 @@ If the repository hosts more modules then set this to filter the listing.
 e.g.: C<^v(.+)> if this module uses tags in the style of I<v0.01> or I<v0.3.0>.
 You MUST add a capture so the version string can be fetched.
 =cut
+
 has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
 
 =head1 METHODS
@@ -53,127 +59,135 @@ has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
 
 Initialize repository. Either clones or pulls to update
 =cut
-sub init_repo {
-	my $self = shift;
-	use autodie;
 
-	my $cmd;
-	my $cwd = getcwd;
-	chdir $self->local_repository;
-	
-	my $localrepo = Path::Class::Dir->new($self->local_repository, '.git');
-	unless(-d $localrepo->absolute) {
-		$cmd = sprintf('%s clone %s %s', $GIT, $self->repository, $self->local_repository);
-	}
-	else {
-		$cmd = sprintf('%s pull origin master', $GIT);
-	}
-	system $cmd;
-	chdir $cwd;
+sub init_repo {
+    my $self = shift;
+    use autodie;
+
+    my $cmd;
+    my $cwd = getcwd;
+    chdir $self->local_repository;
+
+    my $localrepo = Path::Class::Dir->new($self->local_repository, '.git');
+    unless (-d $localrepo->absolute) {
+        $cmd = sprintf('%s clone %s %s',
+            $GIT, $self->repository, $self->local_repository);
+    }
+    else {
+        $cmd = sprintf('%s pull origin master', $GIT);
+    }
+    system $cmd;
+    chdir $cwd;
 }
 
 =head2 prepare
 
 Fetch files for I<version> and store them inside the temporary directory
 =cut
+
 sub prepare {
-	my($self, $mod) = @_;
-	use autodie;
-	confess 'version is required' unless $self->version;
+    my ($self, $mod) = @_;
+    use autodie;
+    confess 'version is required' unless $self->version;
 
-	$self->init_repo;
+    $self->init_repo;
 
-	my $cmd;
-	my $cwd = getcwd;
-	chdir $self->local_repository;
-	
-	my $hash;
-	if($self->version eq 'dev') {
-		$hash = 'HEAD';
-	}
-	else {
-		my %versions = $self->get_versions;
-		confess('Specified version '.$self->version.' doesn\'t exist in repository')
-		  unless exists($versions{$self->version});
-		$hash = $versions{$self->version};
-	}
+    my $cmd;
+    my $cwd = getcwd;
+    chdir $self->local_repository;
 
-	my $branch = 'work-'.$self->version;
-	$cmd = sprintf('%s checkout -f -b %s %s', $GIT, $branch, $hash);
-	system $cmd;
-	
-	my $path = Path::Class::Dir->new($self->local_repository);
-	dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
-	
-	my @cleanup = (
-		sprintf('%s checkout master', $GIT),
-		sprintf('%s branch -d %s', $GIT, $branch),
-		sprintf('%s gc', $GIT),
-	);
-	foreach(@cleanup) {
-		system $_;
-	}
+    my $hash;
+    if ($self->version eq 'dev') {
+        $hash = 'HEAD';
+    }
+    else {
+        my %versions = $self->get_versions;
+        confess('Specified version '
+              . $self->version
+              . ' doesn\'t exist in repository')
+          unless exists($versions{$self->version});
+        $hash = $versions{$self->version};
+    }
 
-	chdir $cwd;
-	
-	$self->findAndMoveRootDir($mod);
-	$self->validate($mod);
+    my $branch = 'work-' . $self->version;
+    $cmd = sprintf('%s checkout -f -b %s %s', $GIT, $branch, $hash);
+    system $cmd;
+
+    my $path = Path::Class::Dir->new($self->local_repository);
+    dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
+
+    my @cleanup = (
+        sprintf('%s checkout master', $GIT),
+        sprintf('%s branch -d %s', $GIT, $branch),
+        sprintf('%s gc',           $GIT),
+    );
+    foreach (@cleanup) {
+        system $_;
+    }
+
+    chdir $cwd;
+
+    $self->findAndMoveRootDir($mod);
+    $self->validate($mod);
 }
 
 =head2 get_versions
 
 Returns all versions
 =cut
+
 sub get_versions {
-	my($self) = @_;
-	my %tags;
-	
-	my $cmd = sprintf('%s ls-remote --tags %s', $GIT, $self->repository);
-	my @tags = `$cmd`;
+    my ($self) = @_;
+    my %tags;
 
-	foreach(@tags) {
-		my($sha1,$noise,$version) = unpack('A40 A11 A*', $_);
-		$tags{$version} = $sha1;
-	}
-	
-	%tags = map { $_ => $tags{$_} } grep { $_ !~ /\^\{\}$/ } keys %tags;
-	
-	if(length($self->tags_filter) > 0) {
-		my $regex = $self->tags_filter;
-		%tags = map { 
-			my $k = $_;
-			$k =~ s/$regex$/$1/;
-			$k => $tags{$_};
-		} grep {/$regex/} keys %tags;
-	}
+    my $cmd = sprintf('%s ls-remote --tags %s', $GIT, $self->repository);
+    my @tags = `$cmd`;
 
-	return %tags;
+    foreach (@tags) {
+        my ($sha1, $noise, $version) = unpack('A40 A11 A*', $_);
+        $tags{$version} = $sha1;
+    }
+
+    %tags = map { $_ => $tags{$_} } grep { $_ !~ /\^\{\}$/ } keys %tags;
+
+    if (length($self->tags_filter) > 0) {
+        my $regex = $self->tags_filter;
+        %tags = map {
+            my $k = $_;
+            $k =~ s/$regex$/$1/;
+            $k => $tags{$_};
+        } grep {/$regex/} keys %tags;
+    }
+
+    return %tags;
 }
 
 =head2 get_latest_revision
 
 Retrieve latest revision of master
 =cut
+
 sub get_latest_revision {
-	my($self) = @_;
-	my %heads;
-	my $cmd = sprintf('%s ls-remote --heads %s', $GIT, $self->repository);
-	my @heads = `$cmd`;
-	foreach(@heads) {
-		my($sha1,$noise,$ref) = unpack('A40 A A*', $_);
-		$heads{$ref} = $sha1;
-	}
-	return $heads{'refs/heads/master'};
+    my ($self) = @_;
+    my %heads;
+    my $cmd = sprintf('%s ls-remote --heads %s', $GIT, $self->repository);
+    my @heads = `$cmd`;
+    foreach (@heads) {
+        my ($sha1, $noise, $ref) = unpack('A40 A A*', $_);
+        $heads{$ref} = $sha1;
+    }
+    return $heads{'refs/heads/master'};
 }
 
 =head2 auto_discover
 
 Discover available modules from the repository
 =cut
+
 around 'auto_discover' => sub {
-	my($orig, $self) = @_;
-	$self->init_repo;
-	return $self->$orig(@_, $self->local_repository);
+    my ($orig, $self) = @_;
+    $self->init_repo;
+    return $self->$orig(@_, $self->local_repository);
 };
 
 =head1 AUTHOR

@@ -25,43 +25,56 @@ modules and which files the module depends on.
 
 Scan input and return a list with tokens
 =cut
+
 sub tokens {
-	my($self, $input_iterator) = @_;
-	my $lexer = string_lexer($input_iterator, (
-		[ 'COMMENT', qr/'.*?\n/, sub {()} ],
-		[ 'COMMENT', qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i, sub {()} ],
-		[ 'MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
-		[ 'MODULEVERSION', qr/\bModuleInfo[\s\t]+"Version: .+"/i, sub {
-		  	my($label, $value) = @_;
-		  	$value =~ /"Version: (.+)"/;
-		  	[$label, $1]
-		  }
-		],
-		[ 'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/, \&_text],
-		[ 'INCLUDE_FILE', qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/, sub {
-		  	my($label, $value) = @_;
-		  	$value =~ /"(.+)"/;
-		  	[$label, $1]
-		  }
-		],
-	));
-	
-	my @tokens;
-	while(my $token = $lexer->()) {
-		next unless ref($token) eq 'ARRAY';
-		push @tokens, $token;
-	}
-	return @tokens;
+    my ($self, $input_iterator) = @_;
+    my $lexer = string_lexer(
+        $input_iterator,
+        (   ['COMMENT', qr/'.*?\n/, sub { () }],
+            [   'COMMENT',
+                qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i,
+                sub { () }
+            ],
+            ['MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
+            [   'MODULEVERSION',
+                qr/\bModuleInfo[\s\t]+"Version: .+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"Version: (.+)"/;
+                    [$label, $1];
+                  }
+            ],
+            [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/,
+                \&_text
+            ],
+            [   'INCLUDE_FILE',
+                qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"(.+)"/;
+                    [$label, $1];
+                  }
+            ],
+        )
+    );
+
+    my @tokens;
+    while (my $token = $lexer->()) {
+        next unless ref($token) eq 'ARRAY';
+        push @tokens, $token;
+    }
+    return @tokens;
 }
 
 =head2 _text
 
 Private subroutine
 =cut
+
 sub _text {
-	my($label, $value) = @_;
-	my @values = split(/\s/, $value);
-	[$label, $values[1]]
+    my ($label, $value) = @_;
+    my @values = split(/\s/, $value);
+    [$label, $values[1]];
 }
 
 =head1 SEE ALSO

@@ -28,10 +28,11 @@ of Maximus.
 
 A L<Log::Log4perl::Logger> object;
 =cut
+
 has 'logger' => (
-	isa => 'Log::Log4perl::Logger',
-	is => 'ro',
-	default => sub { Log::Log4perl->get_logger() }
+    isa     => 'Log::Log4perl::Logger',
+    is      => 'ro',
+    default => sub { Log::Log4perl->get_logger() }
 );
 
 =head1 METHODS
@@ -40,9 +41,10 @@ has 'logger' => (
 
 Ignores the message but adds 1 to the C<counter> attribute.
 =cut
+
 sub say {
-	my($self, $msg) = @_;
-	$self->logger->info( $msg->text );
+    my ($self, $msg) = @_;
+    $self->logger->info($msg->text);
 }
 
 =head1 AUTHOR

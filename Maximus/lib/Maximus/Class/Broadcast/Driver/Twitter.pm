@@ -5,7 +5,7 @@ use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
 our $VERSION = '0.001';
-$VERSION = eval{ $VERSION };
+$VERSION = eval {$VERSION};
 
 =head1 NAME
 
@@ -44,27 +44,30 @@ Broadcast messages to Twitter.
 
 Net::Twitter object
 =cut
+
 has 'nt' => (
-	isa => 'Net::Twitter',
-	is => 'rw',
+    isa => 'Net::Twitter',
+    is  => 'rw',
 );
 
 =head2 username
 
 Read-Only, used for creating a Net::Twitter object
 =cut
+
 has 'username' => (
-	isa => 'Str',
-	is => 'ro',
+    isa => 'Str',
+    is  => 'ro',
 );
 
 =head2 password
 
 Read-Only, used for creating a Net::Twitter object
 =cut
+
 has 'password' => (
-	isa => 'Str',
-	is => 'ro',
+    isa => 'Str',
+    is  => 'ro',
 );
 
 =head1 METHODS
@@ -73,24 +76,28 @@ has 'password' => (
 
 Tweet the message
 =cut
+
 sub say {
-	my($self, $msg) = @_;
-	return $self->nt->update($msg->text);
+    my ($self, $msg) = @_;
+    return $self->nt->update($msg->text);
 }
 
 =head2 BUILD
 
 Allow the constructor to create a Net::Twitter object when none is passed
 =cut
+
 sub BUILD {
-	my $self = shift;
-	if($self->username && $self->password && !$self->nt) {
-		$self->nt( Net::Twitter->new(
-			traits => ['API::REST'],
-			username => $self->username,
-			password => $self->password,
-		));
-	}
+    my $self = shift;
+    if ($self->username && $self->password && !$self->nt) {
+        $self->nt(
+            Net::Twitter->new(
+                traits   => ['API::REST'],
+                username => $self->username,
+                password => $self->password,
+            )
+        );
+    }
 }
 
 =head1 AUTHOR

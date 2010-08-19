@@ -28,6 +28,7 @@ Archive support for retrieving the modules sources.
 
 Location to archive file
 =cut
+
 has 'file' => (is => 'rw', isa => 'Str', required => 1);
 
 =head1 METHODS
@@ -36,20 +37,21 @@ has 'file' => (is => 'rw', isa => 'Str', required => 1);
 
 Extract given archive to temporary directory and modify its contents if required
 =cut
+
 sub prepare {
-	my($self, $mod) = @_;
-	my $type = File::Type->new->checktype_filename($self->file);
-	
-	Maximus::Exception::Module::Archive->throw(
-		error => 'Not a zip archive: ' . $type
-	) unless $type eq 'application/zip';
-	
-	my $ae = Archive::Extract->new( archive => $self->file, type => 'zip' );
-	Maximus::Exception::Module::Archive->throw(error => $ae->error)
-	  unless $ae->extract( to => $self->tmpDir );
-	
-	$self->findAndMoveRootDir($mod);
-	$self->validate($mod);
+    my ($self, $mod) = @_;
+    my $type = File::Type->new->checktype_filename($self->file);
+
+    Maximus::Exception::Module::Archive->throw(
+        error => 'Not a zip archive: ' . $type)
+      unless $type eq 'application/zip';
+
+    my $ae = Archive::Extract->new(archive => $self->file, type => 'zip');
+    Maximus::Exception::Module::Archive->throw(error => $ae->error)
+      unless $ae->extract(to => $self->tmpDir);
+
+    $self->findAndMoveRootDir($mod);
+    $self->validate($mod);
 }
 
 =head1 AUTHOR

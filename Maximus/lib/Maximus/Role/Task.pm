@@ -27,68 +27,74 @@ This is the interface for all tasks
 
 Contains a HashRef with the configuration in maximus.conf
 =cut
+
 has 'cfg' => (
-	is => 'ro',
-	isa => 'HashRef',
-	lazy => 1,
-	default => sub {
-		Config::Any->load_files({
-			files => ['maximus.conf'],
-			use_ext => 1,
-			flatten_to_hash => 1,
-		})->{'maximus.conf'};
-	},
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        Config::Any->load_files(
+            {   files           => ['maximus.conf'],
+                use_ext         => 1,
+                flatten_to_hash => 1,
+            }
+        )->{'maximus.conf'};
+    },
 );
 
 =head2 gearman
 
 Gearman client
 =cut
+
 has 'gearman' => (
-	is => 'ro',
-	isa => 'Gearman::Client',
-	lazy => 1,
-	default => sub {
-		my $self = shift;
-		my $cfg = $self->cfg;
-		my %opts = (
-			job_servers => [ $cfg->{Gearman}->{job_servers} ],
-			prefix => $cfg->{Gearman}->{prefix} // undef,
-		);
-		Gearman::Client->new( %opts );
-	},
+    is      => 'ro',
+    isa     => 'Gearman::Client',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my $cfg  = $self->cfg;
+        my %opts = (
+            job_servers => [$cfg->{Gearman}->{job_servers}],
+            prefix      => $cfg->{Gearman}->{prefix} // undef,
+        );
+        Gearman::Client->new(%opts);
+    },
 );
 
 =head2 queue
 
 Send task and subtasks to the queue server
 =cut
+
 has 'queue' => (
-	is => 'ro',
-	isa => 'Bool',
+    is  => 'ro',
+    isa => 'Bool',
 );
 
 =head2 schema
 
 DBIx::Class schema
 =cut
+
 has 'schema' => (
-	is => 'ro',
-	isa => 'DBIx::Class::Schema',
-	lazy => 1,
-	default => sub {
-		my $self = shift;
-		Maximus::Schema->connect( $self->cfg->{'Model::DB'}->{connect_info} );
-	},
+    is      => 'ro',
+    isa     => 'DBIx::Class::Schema',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        Maximus::Schema->connect($self->cfg->{'Model::DB'}->{connect_info});
+    },
 );
 
 =head2 response
 
 Field to store output it
 =cut
+
 has 'response' => (
-	is => 'rw',
-	isa => 'Any',
+    is  => 'rw',
+    isa => 'Any',
 );
 
 =head1 METHODS
@@ -99,16 +105,18 @@ Run the task. It should return true if successfull. If I<queue> has been set the
 task will be dispatched to the queue server when invoked. When sent to the queue
 server it'll return the job server handle.
 =cut
+
 requires 'run';
 
 around 'run' => sub {
-	my($orig, $self, @params) = @_;
-	if($self->queue) {
-		return $self->gearman->dispatch_background(ref($self) => freeze(\@params));
-	}
-	else {
-		return $self->$orig(@params);
-	}
+    my ($orig, $self, @params) = @_;
+    if ($self->queue) {
+        return $self->gearman->dispatch_background(
+            ref($self) => freeze(\@params));
+    }
+    else {
+        return $self->$orig(@params);
+    }
 };
 
 =head1 AUTHOR

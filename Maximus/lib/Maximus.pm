@@ -5,19 +5,19 @@ use namespace::autoclean;
 
 use Catalyst::Runtime 5.80;
 use Catalyst qw/
-    ConfigLoader
-	Compress::Gzip
-	Authentication
-	Authorization::Roles
-	Assets
-	Cache
-	PageCache
-	RequireSSL
-    Static::Simple
-	Session
-	Session::Store::DBIC
-	Session::State::Cookie
-/;
+  ConfigLoader
+  Compress::Gzip
+  Authentication
+  Authorization::Roles
+  Assets
+  Cache
+  PageCache
+  RequireSSL
+  Static::Simple
+  Session
+  Session::Store::DBIC
+  Session::State::Cookie
+  /;
 use Catalyst::Log::Log4perl;
 
 extends 'Catalyst';
@@ -35,52 +35,52 @@ $VERSION = eval $VERSION;
 # local deployment.
 
 __PACKAGE__->config(
-    name => 'Maximus',
+    name         => 'Maximus',
     default_view => 'TT',
-    salt => 'default-salt',
+    salt         => 'default-salt',
+
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
-	'Plugin::Assets' => {
-		minify => 'minifier-xs',
-		path => '/static',
-		output_path => 'assets/',
-	},
-    'Plugin::Cache' => {
-    	backend => {
-    		class => 'Cache::FileCache',
-    		default_expires_in => 3600,
-    	},
+    'Plugin::Assets'                            => {
+        minify      => 'minifier-xs',
+        path        => '/static',
+        output_path => 'assets/',
     },
-	'Plugin::Session' => {
-		dbic_class => 'DB::Session',
-		expires => 3600,
-	},
-	'Plugin::Authentication' => {
-		default_realm => 'website',
-		realms => {
-			website => {
-				credential => {
-					class => 'Password',
-					password_field => 'password',
-					password_type => 'hashed',
-					password_hash_type => 'SHA-1',
-				},
-				store => {
-					class => 'DBIx::Class',
-					user_model => 'DB::User',
-					role_relation => 'roles',
-					role_field => 'role',
-				},
-			},
-		},
-	},
-	'require_ssl' => {
-		remain_in_ssl => 0,
-	},
+    'Plugin::Cache' => {
+        backend => {
+            class              => 'Cache::FileCache',
+            default_expires_in => 3600,
+        },
+    },
+    'Plugin::Session' => {
+        dbic_class => 'DB::Session',
+        expires    => 3600,
+    },
+    'Plugin::Authentication' => {
+        default_realm => 'website',
+        realms        => {
+            website => {
+                credential => {
+                    class              => 'Password',
+                    password_field     => 'password',
+                    password_type      => 'hashed',
+                    password_hash_type => 'SHA-1',
+                },
+                store => {
+                    class         => 'DBIx::Class',
+                    user_model    => 'DB::User',
+                    role_relation => 'roles',
+                    role_field    => 'role',
+                },
+            },
+        },
+    },
+    'require_ssl' => {remain_in_ssl => 0,},
 );
 
 # Setup logger
-__PACKAGE__->log(Catalyst::Log::Log4perl->new(Maximus->path_to('/').'/log.conf'));
+__PACKAGE__->log(
+    Catalyst::Log::Log4perl->new(Maximus->path_to('/') . '/log.conf'));
 
 # Start the application
 __PACKAGE__->setup();

@@ -25,60 +25,67 @@ Update module database.
 
 Run task
 =cut
-sub run {
-	my($self, $scm_id) = @_;
-	my $search;
-	if(ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1 or !ref($scm_id) && $scm_id > 0) {
-		$search = {id => $scm_id};
-	}
 
-	# Fetch all or search for given SCM
-	foreach my $scm( $self->schema->resultset('Scm')->search($search) ) {
-		my $source = $self->get_source($scm);
-		my $latest_rev = $source->get_latest_revision;
-		if(!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev) {
-			foreach my $module( $scm->modules ) {
-				my %versions = $source->get_versions;
-				# Skip existing versions
-				delete $versions{$_->version} for($module->module_versions->all);
-				# But always retrieve the latest dev version
-				$versions{'dev'} = 1;
-				foreach my $version(keys %versions) {
-					# New Source object
-					my $source = $self->get_source($scm);
-					if($scm->software eq 'svn' && $module->scm_settings) {
-						if(exists $module->scm_settings->{trunk}) {
-							$source->trunk( $module->scm_settings->{trunk} );
-						}
-						if(exists $module->scm_settings->{tags}) {
-							$source->tags( $module->scm_settings->{tags} );
-						}
-						if(exists $module->scm_settings->{tags_filter}) {
-							$source->tags_filter( $module->scm_settings->{tags_filter} );
-						}
-					}
-					
-					$source->version($version);
-					eval {
-						my $mod = Maximus::Class::Module->new(
-							modscope => $module->modscope->name,
-							mod => $module->name,
-							desc => $module->desc,
-							source => $source,
-							schema => $self->schema,
-						);
-						$mod->save( $module->modscope->user_id );
-					};
-					warn $@ if $@;
-				}
-			}
-		}
-		
-		$scm->update({
-			revision => $latest_rev
-		});
-	}
-	1;
+sub run {
+    my ($self, $scm_id) = @_;
+    my $search;
+    if (ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1
+        or !ref($scm_id) && $scm_id > 0)
+    {
+        $search = {id => $scm_id};
+    }
+
+    # Fetch all or search for given SCM
+    foreach my $scm ($self->schema->resultset('Scm')->search($search)) {
+        my $source     = $self->get_source($scm);
+        my $latest_rev = $source->get_latest_revision;
+        if (!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev)
+        {
+            foreach my $module ($scm->modules) {
+                my %versions = $source->get_versions;
+
+                # Skip existing versions
+                delete $versions{$_->version}
+                  for ($module->module_versions->all);
+
+                # But always retrieve the latest dev version
+                $versions{'dev'} = 1;
+                foreach my $version (keys %versions) {
+
+                    # New Source object
+                    my $source = $self->get_source($scm);
+                    if ($scm->software eq 'svn' && $module->scm_settings) {
+                        if (exists $module->scm_settings->{trunk}) {
+                            $source->trunk($module->scm_settings->{trunk});
+                        }
+                        if (exists $module->scm_settings->{tags}) {
+                            $source->tags($module->scm_settings->{tags});
+                        }
+                        if (exists $module->scm_settings->{tags_filter}) {
+                            $source->tags_filter(
+                                $module->scm_settings->{tags_filter});
+                        }
+                    }
+
+                    $source->version($version);
+                    eval {
+                        my $mod = Maximus::Class::Module->new(
+                            modscope => $module->modscope->name,
+                            mod      => $module->name,
+                            desc     => $module->desc,
+                            source   => $source,
+                            schema   => $self->schema,
+                        );
+                        $mod->save($module->modscope->user_id);
+                    };
+                    warn $@ if $@;
+                }
+            }
+        }
+
+        $scm->update({revision => $latest_rev});
+    }
+    1;
 }
 
 =head1 AUTHOR

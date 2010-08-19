@@ -15,43 +15,47 @@ SCM Configuration form
 =head2 username
 
 =cut
+
 has_field 'software' => (
-	type => 'Select',
-	label => 'SCM Software',
-	options => [
-		{ value => 'git', label => 'Git'},
-		{ value => 'svn', label => 'Subversion'},
-	],
-	required => 1,
-	required_message => 'You must enter a SCM',
+    type    => 'Select',
+    label   => 'SCM Software',
+    options => [
+        {value => 'git', label => 'Git'},
+        {value => 'svn', label => 'Subversion'},
+    ],
+    required         => 1,
+    required_message => 'You must enter a SCM',
 );
 
 =head2 repo_url
 
 =cut
+
 has_field 'repo_url' => (
-	type => 'Text',
-	label => 'Repository URL',
-	required => 1,
-	required_message => 'You must enter a repository URL',
+    type             => 'Text',
+    label            => 'Repository URL',
+    required         => 1,
+    required_message => 'You must enter a repository URL',
 );
 
 =head2 modules
 
 =cut
+
 has_field 'modules' => (
-	type => 'Select',
-	select_widget => 'select',
-	multiple => 1,
+    type          => 'Select',
+    select_widget => 'select',
+    multiple      => 1,
 );
 
 =head2 user
 
 =cut
+
 has 'user' => (
-	is => 'ro',
-	isa => 'Maximus::Schema::Result::User',
-	required => 1,
+    is       => 'ro',
+    isa      => 'Maximus::Schema::Result::User',
+    required => 1,
 );
 
 =head1 METHODS
@@ -59,23 +63,24 @@ has 'user' => (
 =head2 options_modules
 
 =cut
+
 sub options_modules {
-	my $self = shift;
-	return unless $self->user;
-	
-	my @selections;
-	foreach my $modscope( $self->user->modscopes) {
-		my @modules = $modscope->modules;
-		if(@modules) {
-			foreach my $module(@modules) {
-				push @selections, {
-					value => $module->id,
-					label => sprintf('%s.%s', $modscope->name, $module->name),
-				};
-			}
-		}
-	}
-	return @selections;
+    my $self = shift;
+    return unless $self->user;
+
+    my @selections;
+    foreach my $modscope ($self->user->modscopes) {
+        my @modules = $modscope->modules;
+        if (@modules) {
+            foreach my $module (@modules) {
+                push @selections,
+                  { value => $module->id,
+                    label => sprintf('%s.%s', $modscope->name, $module->name),
+                  };
+            }
+        }
+    }
+    return @selections;
 }
 
 =head1 AUTHOR

@@ -4,12 +4,12 @@ use strict;
 use base 'Catalyst::View::Email::Template';
 
 __PACKAGE__->config(
-    stash_key => 'email',
+    stash_key       => 'email',
     template_prefix => '',
-    default => {
-    	content_type => 'text/html',
-    	charset => 'utf-8',
-    	view => 'TTEmail',
+    default         => {
+        content_type => 'text/html',
+        charset      => 'utf-8',
+        view         => 'TTEmail',
     },
 );
 

@@ -40,16 +40,17 @@ Add listener
 
 Return listener count
 =cut
+
 has 'listeners' => (
-	traits => ['Array'],
-	is => 'ro',
-	isa => 'ArrayRef[Object]',
-	default => sub { [] },
-	handles => {
-		getListeners => 'elements',
-		addListener => 'push',
-		countListeners => 'count',
-	},
+    traits  => ['Array'],
+    is      => 'ro',
+    isa     => 'ArrayRef[Object]',
+    default => sub { [] },
+    handles => {
+        getListeners   => 'elements',
+        addListener    => 'push',
+        countListeners => 'count',
+    },
 );
 
 =head2 say(string $msg)
@@ -58,21 +59,22 @@ has 'listeners' => (
 
 Announce a message to all listeners, returns the message.
 =cut
+
 sub say {
-	my($self, $msg) = @_;
-	
-	my $ref = ref(\$msg);
-	if($ref eq 'SCALAR') {
-		$msg = Maximus::Class::Broadcast::Message->new(text => $msg);
-	}
-	elsif($ref eq 'HASH') {
-		$msg = Maximus::Class::Broadcast::Message->new(%{$msg});
-	}
-	
-	foreach my $listener($self->getListeners) {
-		$listener->say($msg);
-	}
-	return $msg;
+    my ($self, $msg) = @_;
+
+    my $ref = ref(\$msg);
+    if ($ref eq 'SCALAR') {
+        $msg = Maximus::Class::Broadcast::Message->new(text => $msg);
+    }
+    elsif ($ref eq 'HASH') {
+        $msg = Maximus::Class::Broadcast::Message->new(%{$msg});
+    }
+
+    foreach my $listener ($self->getListeners) {
+        $listener->say($msg);
+    }
+    return $msg;
 }
 
 =head1 AUTHOR

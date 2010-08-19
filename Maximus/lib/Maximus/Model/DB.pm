@@ -5,10 +5,10 @@ use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
     schema_class => 'Maximus::Schema',
-    
+
     connect_info => {
         quote_char => '`',
-        name_sep => '.',
+        name_sep   => '.',
         AutoCommit => 1,
     }
 );

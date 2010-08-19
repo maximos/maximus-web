@@ -15,11 +15,12 @@ Forgot password form
 =head2 username
 
 =cut
+
 has_field 'username' => (
-	type => 'Text',
-	label => 'Username',
-	required => 1,
-	required_message => 'You must enter a username',
+    type             => 'Text',
+    label            => 'Username',
+    required         => 1,
+    required_message => 'You must enter a username',
 );
 
 =head1 AUTHOR

@@ -7,7 +7,7 @@ use Maximus::Form::Account::ForgotPassword;
 use Maximus::Form::Account::Login;
 use Maximus::Form::Account::Signup;
 
-BEGIN {extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -24,159 +24,175 @@ Catalyst Controller to manage accounts
 =head2 index
 
 =cut
-sub index :Path :Args(0) {
-	my ( $self, $c ) = @_;
-	# Require user to be logged in
-	$c->response->redirect('login') unless $c->user_exists;
+
+sub index : Path : Args(0) {
+    my ($self, $c) = @_;
+
+    # Require user to be logged in
+    $c->response->redirect('login') unless $c->user_exists;
 }
 
 =head2 login
 
 =cut
 
-sub login :Local {
-    my ( $self, $c ) = @_;
-    
-	if($c->user_exists) {
-		$c->res->redirect($c->uri_for(
-			$c->controller('Account')->action_for('index')));
-		return;
-	}
-    
-	$c->require_ssl;
-	
-	my $form = Maximus::Form::Account::Login->new;
-	$form->process( $c->req->parameters );
-	$c->stash(form => $form);
+sub login : Local {
+    my ($self, $c) = @_;
 
-	if($form->validated) {
-		if($c->authenticate({username => $form->field('username')->value,
-							 password => $form->field('password')->value } )) {
-			# If successful, then let them use the application
-			$c->response->redirect($c->uri_for(
-				$c->controller('Account')->action_for('index')));
-			return;
-		}
-		else {
-			$c->stash(error_msg => 'Bad username or password.');
-		}
-	}
+    if ($c->user_exists) {
+        $c->res->redirect(
+            $c->uri_for($c->controller('Account')->action_for('index')));
+        return;
+    }
+
+    $c->require_ssl;
+
+    my $form = Maximus::Form::Account::Login->new;
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
+
+    if ($form->validated) {
+        if ($c->authenticate(
+                {   username => $form->field('username')->value,
+                    password => $form->field('password')->value
+                }
+            )
+          )
+        {
+
+            # If successful, then let them use the application
+            $c->response->redirect(
+                $c->uri_for($c->controller('Account')->action_for('index')));
+            return;
+        }
+        else {
+            $c->stash(error_msg => 'Bad username or password.');
+        }
+    }
 }
 
 =head2 logout
 
 =cut
-sub logout :Local {
-	my ($self, $c) = @_;
-	$c->logout;
-	$c->response->redirect($c->uri_for('/'));
+
+sub logout : Local {
+    my ($self, $c) = @_;
+    $c->logout;
+    $c->response->redirect($c->uri_for('/'));
 }
 
 
 =head2 signup
 
 =cut
-sub signup :Local {
-	my ($self, $c) = @_;
-	
-	if($c->user_exists) {
-		$c->res->redirect($c->uri_for(
-			$c->controller('Account')->action_for('index')));
-		return;
-	}
-	
-	$c->require_ssl;
-	
-	my $form = Maximus::Form::Account::Signup->new;
-	$form->process( $c->req->parameters );
-	$c->stash(form => $form);
 
-	if($form->validated) {
-		my $user = $c->find_user({username => $form->field('username')->value}, 'website');
-		
-		if($user) { 
-			$c->stash(error_msg => 'Username already taken.');
-			$c->detach;
-		}
-		
-		eval {
-			$c->model('DB::User')->create({
-				email => $form->field('email')->value,
-				username => $form->field('username')->value,
-				password => sha1_hex($form->field('password')->value),
-			});
-		};
-		if($@) {
-			$c->stash(error_msg => 'An unknown error occured!');
-			$c->log->info($@);
-			$c->detach;
-		}
+sub signup : Local {
+    my ($self, $c) = @_;
 
-		$c->stash(username => $form->field('username')->value);
-		$c->stash(email => {
-			to => $form->field('email')->value,
-			from => $c->config->{email}->{from},
-			subject => 'Account registration',
-			template => 'account/email/signup.tt',
-		});
+    if ($c->user_exists) {
+        $c->res->redirect(
+            $c->uri_for($c->controller('Account')->action_for('index')));
+        return;
+    }
 
-		$c->forward( $c->view('Email::Template') );
-		if(scalar(@{$c->error})) {
-			$c->log->warn('Failed to send a mail: ', @{$c->error});
-			$c->error(0);
-		}
+    $c->require_ssl;
 
-		$c->detach('/account/login');
-	}
+    my $form = Maximus::Form::Account::Signup->new;
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
+
+    if ($form->validated) {
+        my $user =
+          $c->find_user({username => $form->field('username')->value},
+            'website');
+
+        if ($user) {
+            $c->stash(error_msg => 'Username already taken.');
+            $c->detach;
+        }
+
+        eval {
+            $c->model('DB::User')->create(
+                {   email    => $form->field('email')->value,
+                    username => $form->field('username')->value,
+                    password => sha1_hex($form->field('password')->value),
+                }
+            );
+        };
+        if ($@) {
+            $c->stash(error_msg => 'An unknown error occured!');
+            $c->log->info($@);
+            $c->detach;
+        }
+
+        $c->stash(username => $form->field('username')->value);
+        $c->stash(
+            email => {
+                to       => $form->field('email')->value,
+                from     => $c->config->{email}->{from},
+                subject  => 'Account registration',
+                template => 'account/email/signup.tt',
+            }
+        );
+
+        $c->forward($c->view('Email::Template'));
+        if (scalar(@{$c->error})) {
+            $c->log->warn('Failed to send a mail: ', @{$c->error});
+            $c->error(0);
+        }
+
+        $c->detach('/account/login');
+    }
 }
 
 =head2 forgot_password
 
 =cut
+
 sub forgot_password : Local {
-	my ($self, $c) = @_;
-	
-	my $form = Maximus::Form::Account::ForgotPassword->new;
-	$form->process( $c->req->parameters );
-	$c->stash(form => $form);
+    my ($self, $c) = @_;
 
-	if($form->validated) {
-		my $user = $c->model('DB::User')->find({
-			username => $form->field('username')->value
-		});
-		if($user) {
-			$c->stash(
-				email => {
-					to => $user->email,
-					from => $c->config->{email}->{from},
-					subject => 'Please confirm you forgot your password',
-					template => 'account/email/forgot_password.tt',
-				},
-				user => $user,
-			);
+    my $form = Maximus::Form::Account::ForgotPassword->new;
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
 
-			$c->forward( $c->view('Email::Template') );
-			if(scalar(@{$c->error})) {
-				$c->log->warn('Failed to send a mail: ', @{$c->error});
-				$c->error(0);
-				$c->stash(error_msg => 'Failed to send a confirmation e-mail ' .
-									   'because an unexpected error occured. ' .
-									   'We\'ve been notified. Please try ' . 
-									   'again later.');
-				$c->detach;
-			}
+    if ($form->validated) {
+        my $user =
+          $c->model('DB::User')
+          ->find({username => $form->field('username')->value});
+        if ($user) {
+            $c->stash(
+                email => {
+                    to       => $user->email,
+                    from     => $c->config->{email}->{from},
+                    subject  => 'Please confirm you forgot your password',
+                    template => 'account/email/forgot_password.tt',
+                },
+                user => $user,
+            );
 
-			$c->stash(
-				template => 'message.tt',
-				title => 'Confirmation e-mail sent',
-				message => 'A e-mail has been sent with a confirmation link. '.
-						   'Please check your e-mail for instructions.',
-			);
-		}
-		else {
-			$c->stash(error_msg => 'No such user exists.');
-		}
-	}
+            $c->forward($c->view('Email::Template'));
+            if (scalar(@{$c->error})) {
+                $c->log->warn('Failed to send a mail: ', @{$c->error});
+                $c->error(0);
+                $c->stash(error_msg => 'Failed to send a confirmation e-mail '
+                      . 'because an unexpected error occured. '
+                      . 'We\'ve been notified. Please try '
+                      . 'again later.');
+                $c->detach;
+            }
+
+            $c->stash(
+                template => 'message.tt',
+                title    => 'Confirmation e-mail sent',
+                message => 'A e-mail has been sent with a confirmation link. '
+                  . 'Please check your e-mail for instructions.',
+            );
+        }
+        else {
+            $c->stash(error_msg => 'No such user exists.');
+        }
+    }
 }
 
 =head2 reset_password
@@ -185,100 +201,106 @@ Expects a username and a hash. If the hash is faulty nothing will happen. After
 this action has been succesfully executed the link will be expired because the
 password has been changed.
 =cut
-sub reset_password : Path('reset_password') : Args(2) {
-	my ($self, $c, $username, $hash) = @_;
-	my $user = $c->model('DB::User')->find({username => $username});
-	
-	if($user) {
-		my $calc_hash = sha1_hex( $user->password . $c->config->{salt} . $user->id );
-		if($calc_hash eq $hash) {
-			my $password = substr(sha1_hex($c->config->{salt} . $user->id), 0, 8);
-			$user->update( {password => sha1_hex( $password ) } );
-			
-			$c->stash(
-				email => {
-					to => $user->email,
-					from => $c->config->{email}->{from},
-					subject => 'Your new password',
-					template => 'account/email/reset_password.tt',
-				},
-				user => $user,
-				password => $password,
-			);
 
-			$c->forward( $c->view('Email::Template') );
-			if(scalar(@{$c->error})) {
-				$c->log->warn('Failed to send a mail: ', @{$c->error});
-				$c->error(0);
-				$c->stash(error_msg => 'Failed to send you your new password ' .
-									   'because an unexpected error occured. ' .
-									   'We\'ve been notified. Please try ' . 
-									   'again later.');
-				$c->detach;
-			}
-			
-			$c->authenticate({
-				username => $user->username,
-				password => $password,
-			});
-			
-			$c->stash(
-				template => 'message.tt',
-				title => 'Your password has been reset',
-				message => 'A e-mail has been sent with your new password. '.
-						   'Please update it as soon as possible. You\'ve ' . 
-						   'been automatically logged in.',
-			);
-			$c->detach;
-		}
-	}
-	
-	$c->log->info('Attempt at faulty password reset for username ' . $username .
-				  ' with hash ' . $hash);
-	$c->detach('/default');
+sub reset_password : Path('reset_password') : Args(2) {
+    my ($self, $c, $username, $hash) = @_;
+    my $user = $c->model('DB::User')->find({username => $username});
+
+    if ($user) {
+        my $calc_hash =
+          sha1_hex($user->password . $c->config->{salt} . $user->id);
+        if ($calc_hash eq $hash) {
+            my $password =
+              substr(sha1_hex($c->config->{salt} . $user->id), 0, 8);
+            $user->update({password => sha1_hex($password)});
+
+            $c->stash(
+                email => {
+                    to       => $user->email,
+                    from     => $c->config->{email}->{from},
+                    subject  => 'Your new password',
+                    template => 'account/email/reset_password.tt',
+                },
+                user     => $user,
+                password => $password,
+            );
+
+            $c->forward($c->view('Email::Template'));
+            if (scalar(@{$c->error})) {
+                $c->log->warn('Failed to send a mail: ', @{$c->error});
+                $c->error(0);
+                $c->stash(error_msg => 'Failed to send you your new password '
+                      . 'because an unexpected error occured. '
+                      . 'We\'ve been notified. Please try '
+                      . 'again later.');
+                $c->detach;
+            }
+
+            $c->authenticate(
+                {   username => $user->username,
+                    password => $password,
+                }
+            );
+
+            $c->stash(
+                template => 'message.tt',
+                title    => 'Your password has been reset',
+                message  => 'A e-mail has been sent with your new password. '
+                  . 'Please update it as soon as possible. You\'ve '
+                  . 'been automatically logged in.',
+            );
+            $c->detach;
+        }
+    }
+
+    $c->log->info('Attempt at faulty password reset for username '
+          . $username
+          . ' with hash '
+          . $hash);
+    $c->detach('/default');
 }
 
 =head2 edit
 
 Edit account details
 =cut
+
 sub edit : Local {
-	my ($self, $c) = @_;
-	$c->response->redirect('login') unless $c->user_exists;
-	$c->require_ssl;
-	
-	my $form = Maximus::Form::Account::Edit->new({
-		init_object => {
-			email => $c->user->email,
-		}
-	});
+    my ($self, $c) = @_;
+    $c->response->redirect('login') unless $c->user_exists;
+    $c->require_ssl;
 
-	$form->process( $c->req->parameters );
-	$c->stash(form => $form);
+    my $form = Maximus::Form::Account::Edit->new(
+        {init_object => {email => $c->user->email,}});
 
-	if($form->validated) {
-		eval {
-			my $user = $c->model('DB::User')->find({username => $c->user->username});
-			$user->update({
-				email => $form->field('email')->value,
-				password => sha1_hex($form->field('password')->value),
-			});
-		};
-		if($@) {
-			$c->stash(error_msg => 'An unknown error occured!');
-			$c->log->info($@);
-			$c->detach;
-		}
-	
-		$c->stash(
-			template => 'message.tt',
-			title => 'Your details have been updated',
-			message => 'Your account details have been updated. If you\'ve '.
-					   'changed your password remember to sign in with your ' . 
-					   'new password the next time you visit our website.',
-		);
-		$c->detach;
-	}
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
+
+    if ($form->validated) {
+        eval {
+            my $user =
+              $c->model('DB::User')->find({username => $c->user->username});
+            $user->update(
+                {   email    => $form->field('email')->value,
+                    password => sha1_hex($form->field('password')->value),
+                }
+            );
+        };
+        if ($@) {
+            $c->stash(error_msg => 'An unknown error occured!');
+            $c->log->info($@);
+            $c->detach;
+        }
+
+        $c->stash(
+            template => 'message.tt',
+            title    => 'Your details have been updated',
+            message  => 'Your account details have been updated. If you\'ve '
+              . 'changed your password remember to sign in with your '
+              . 'new password the next time you visit our website.',
+        );
+        $c->detach;
+    }
 }
 
 =head1 AUTHOR

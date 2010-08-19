@@ -15,51 +15,56 @@ Upload form
 =head2 enctype
 
 =cut
-has '+enctype' => ( default => 'multipart/form-data'); 
+
+has '+enctype' => (default => 'multipart/form-data');
 
 =head2 file
 
 max_size is 52428800 = 50 megabytes
 =cut
+
 has_field 'file' => (
-	type => 'Upload',
-	label => 'Module Archive (.zip)',
-	max_size => 52428800,
-	required => 1,
-	required_message => 'You need to supply an archive (.zip)',
+    type             => 'Upload',
+    label            => 'Module Archive (.zip)',
+    max_size         => 52428800,
+    required         => 1,
+    required_message => 'You need to supply an archive (.zip)',
 );
 
 =head2scope
 
 Module namespace
 =cut
+
 has_field 'scope' => (
-	type => 'Text',
-	label => 'Modscope',
-	required => 1,
-	required_message => 'You must enter a modscope',
+    type             => 'Text',
+    label            => 'Modscope',
+    required         => 1,
+    required_message => 'You must enter a modscope',
 );
 
 =head2 modname
 
 Module name
 =cut
+
 has_field 'name' => (
-	type => 'Text',
-	label => 'Name',
-	required => 1,
-	required_message => 'You must enter a module name',
+    type             => 'Text',
+    label            => 'Name',
+    required         => 1,
+    required_message => 'You must enter a module name',
 );
 
 =head2 desc
 
 Module description
 =cut
+
 has_field 'desc' => (
-	type => 'Text',
-	label => 'Description',
-	required => 1,
-	required_message => 'You must enter a description',
+    type             => 'Text',
+    label            => 'Description',
+    required         => 1,
+    required_message => 'You must enter a description',
 );
 
 =head1 AUTHOR

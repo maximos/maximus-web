@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use Maximus::Form::SCM::Configuration;
 
-BEGIN {extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -18,133 +18,139 @@ This controller is responsible for managing a users' SCM configurations.
 =head2 base
 
 =cut
-sub base :Chained('/') :PathPart('scm') :CaptureArgs(0) {
-	my( $self, $c ) = @_;
-	$c->response->redirect('/account/login') && $c->detach unless $c->user_exists;
+
+sub base : Chained('/') : PathPart('scm') : CaptureArgs(0) {
+    my ($self, $c) = @_;
+    $c->response->redirect('/account/login') && $c->detach
+      unless $c->user_exists;
 }
 
 =head2 index
 
 Display overview of SCM configurations
 =cut
-sub index :Chained('base') :PathPart('') :Args(0) {
-	my( $self, $c ) = @_;
-	my @scms = $c->user->scms;
-	$c->stash( scm_configs => \@scms );
+
+sub index : Chained('base') : PathPart('') : Args(0) {
+    my ($self, $c) = @_;
+    my @scms = $c->user->scms;
+    $c->stash(scm_configs => \@scms);
 }
 
 =head2 form
 
 Handle the configuration form
 =cut
-sub form :Private {
-	my( $self, $c ) = @_;
-	
-	my($init_object, $scm) = {};
-	if($scm = $c->stash->{scm}) {
-		$init_object = {
-			software => $c->stash->{scm}->software,
-			repo_url => $c->stash->{scm}->repo_url,
-			modules => [ map { $_->id } $c->stash->{scm}->modules ],
-		};
-	}
-	
-	my $form = Maximus::Form::SCM::Configuration->new({
-		init_object => $init_object,
-		user => $c->user->get_object(),
-	});
-	
-	$form->process( $c->req->parameters );
-	$c->stash(
-		form => $form,
-		template => 'scm/configuration.tt'
-	);
-	
-	if($form->validated) {
-		$c->model('DB')->txn_do(sub {
-			my $scm = $c->model('DB::SCM')->update_or_create({
-				id => $scm ? $scm->id : undef,
-				user_id => $c->user->id,
-				software => $form->field('software')->value,
-				repo_url => $form->field('repo_url')->value,
-				settings => '',
-			}, {key => 'primary'});
-			
-			$scm->modules->update({
-				scm_id => undef
-			});
-			
-			$c->model('DB::Module')->search({
-				id => [ @{$form->field('modules')->value} ]
-			})->update({scm_id => $scm->id});
-		});
-		if($@) {
-			$c->stash(error_msg => 'An unknown error occured!');
-			$c->log->warn($@);
-			$c->detach;
-		}
 
-		$c->flash(message => 'Your SCM Configuration has been stored.');
-		$c->response->redirect(
-			$c->uri_for_action('/scm/index')
-		);
-	}
+sub form : Private {
+    my ($self, $c) = @_;
+
+    my ($init_object, $scm) = {};
+    if ($scm = $c->stash->{scm}) {
+        $init_object = {
+            software => $c->stash->{scm}->software,
+            repo_url => $c->stash->{scm}->repo_url,
+            modules  => [map { $_->id } $c->stash->{scm}->modules],
+        };
+    }
+
+    my $form = Maximus::Form::SCM::Configuration->new(
+        {   init_object => $init_object,
+            user        => $c->user->get_object(),
+        }
+    );
+
+    $form->process($c->req->parameters);
+    $c->stash(
+        form     => $form,
+        template => 'scm/configuration.tt'
+    );
+
+    if ($form->validated) {
+        $c->model('DB')->txn_do(
+            sub {
+                my $scm = $c->model('DB::SCM')->update_or_create(
+                    {   id => $scm ? $scm->id : undef,
+                        user_id  => $c->user->id,
+                        software => $form->field('software')->value,
+                        repo_url => $form->field('repo_url')->value,
+                        settings => '',
+                    },
+                    {key => 'primary'}
+                );
+
+                $scm->modules->update({scm_id => undef});
+
+                $c->model('DB::Module')
+                  ->search({id => [@{$form->field('modules')->value}]})
+                  ->update({scm_id => $scm->id});
+            }
+        );
+        if ($@) {
+            $c->stash(error_msg => 'An unknown error occured!');
+            $c->log->warn($@);
+            $c->detach;
+        }
+
+        $c->flash(message => 'Your SCM Configuration has been stored.');
+        $c->response->redirect($c->uri_for_action('/scm/index'));
+    }
 }
 
 =head2 new
 
 Add a new SCM configuration
 =cut
-sub add :Chained('base') :PathPart('new') :Args(0) {
-	my( $self, $c ) = @_;
-	$c->forward('form');
+
+sub add : Chained('base') : PathPart('new') : Args(0) {
+    my ($self, $c) = @_;
+    $c->forward('form');
 }
 
 =head2 get_scm
 
 Retrieve a SCM record
 =cut
-sub get_scm :Chained('base') :PathPart('') :CaptureArgs(1) {
-	my( $self, $c, $scm_id ) = @_;
-	my $scm = $c->model('DB::SCM')->find({id => $scm_id});
-	$c->detach('/error_404') unless $scm;
-	$c->detach('/error_403') unless( $c->user->id == $scm->user_id);
-	$c->stash('scm' => $scm);
+
+sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
+    my ($self, $c, $scm_id) = @_;
+    my $scm = $c->model('DB::SCM')->find({id => $scm_id});
+    $c->detach('/error_404') unless $scm;
+    $c->detach('/error_403') unless ($c->user->id == $scm->user_id);
+    $c->stash('scm' => $scm);
 }
 
 =head2 edit
 
 Edit a SCM configuration
 =cut
-sub edit :Chained('get_scm') :PathPart('edit') :Args(0) {
-	my( $self, $c ) = @_;
-	$c->forward('form');
+
+sub edit : Chained('get_scm') : PathPart('edit') : Args(0) {
+    my ($self, $c) = @_;
+    $c->forward('form');
 }
 
 =head2 delete
 
 Delete a SCM configuration
 =cut
-sub delete :Chained('get_scm') :PathPart('delete') :Args(0) {
-	my( $self, $c ) = @_;
 
-	eval {
-		$c->stash->{scm}->delete;
-	};
-	if($@) {
-		$c->flash(
-			message => 'Failed to delete your SCM Configuration.',
-			status => 'Error',
-		);
-		$c->log->warn($@);
-	}
-	else {
-		$c->flash(message => 'Your SCM Configuration has been deleted.');
-	}
-	$c->response->redirect(
-		$c->uri_for_action('/scm/index')
-	);
+sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
+    my ($self, $c) = @_;
+
+    eval { $c->stash->{scm}->delete; };
+    if ($@) {
+        $c->flash(
+            message => 'Failed to delete your SCM Configuration.',
+            status  => 'Error',
+        );
+        $c->log->warn($@);
+    }
+    else {
+        $c->flash(message => 'Your SCM Configuration has been deleted.');
+    }
+    $c->response->redirect($c->uri_for_action('/scm/index'));
 }
+
 =head1 AUTHOR
 
 Christiaan Kras

@@ -15,41 +15,45 @@ Sign-up form
 =head2 username
 
 =cut
+
 has_field 'username' => (
-	type => 'Text',
-	label => 'Username',
-	required => 1,
-	required_message => 'You must enter a username',
+    type             => 'Text',
+    label            => 'Username',
+    required         => 1,
+    required_message => 'You must enter a username',
 );
 
 =head2 email
 
 =cut
+
 has_field 'email' => (
-	type => 'Email',
-	label => 'E-Mail',
-	required => 1,
-	required_message => 'You must enter a e-mail address',
+    type             => 'Email',
+    label            => 'E-Mail',
+    required         => 1,
+    required_message => 'You must enter a e-mail address',
 );
 
 =head2 password
 
 =cut
+
 has_field 'password' => (
-	type => 'Password',
-	label => 'Password',
-	required => 1,
-	required_message => 'You must enter a password',
+    type             => 'Password',
+    label            => 'Password',
+    required         => 1,
+    required_message => 'You must enter a password',
 );
 
 =head2 confirm_password
 
 =cut
+
 has_field 'confirm_password' => (
-	type => 'PasswordConf',
-	label => 'Confirm password',
-	required => 1,
-	required_message => 'You must confirm your password',
+    type             => 'PasswordConf',
+    label            => 'Confirm password',
+    required         => 1,
+    required_message => 'You must confirm your password',
 );
 
 =head1 AUTHOR

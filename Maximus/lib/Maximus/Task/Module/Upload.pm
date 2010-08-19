@@ -27,30 +27,39 @@ Upload module archive for persistent storage.
 
 Run task
 =cut
+
 sub run {
-	my($self, $module_version) = @_;
-	unless(ref($module_version) eq 'Maximus::Schema::Result::ModuleVersion') {
-		$module_version = $self->schema->resultset('ModuleVersion')->find({id => $module_version});
-	}
-	
-	return 1 if($module_version->remote_location);
-	
-	my $filename = sprintf('%s-%s-%s.zip', $module_version->module->modscope->name, $module_version->module->name, $module_version->version);
-	my $path = Path::Class::File->new($FindBin::Bin, '../', 'root', 'static', 'archives', $filename);
+    my ($self, $module_version) = @_;
+    unless (ref($module_version) eq 'Maximus::Schema::Result::ModuleVersion')
+    {
+        $module_version =
+          $self->schema->resultset('ModuleVersion')
+          ->find({id => $module_version});
+    }
 
-	make_path($path->dir->stringify);
-	
-	open my $fh, '>', $path->stringify or die('Failed to create new file: ' . $path->stringify);
-	binmode $fh;
-	print $fh $module_version->get_column('archive');
-	close $fh;
+    return 1 if ($module_version->remote_location);
 
-	my $remote_location = Path::Class::File->new('/', 'static', 'archives', $filename)->as_foreign('Unix')->stringify;
-	$module_version->update({
-		remote_location => $remote_location,
-	});
-	$self->response($remote_location);
-	1;
+    my $filename = sprintf('%s-%s-%s.zip',
+        $module_version->module->modscope->name,
+        $module_version->module->name,
+        $module_version->version);
+    my $path = Path::Class::File->new($FindBin::Bin, '../', 'root', 'static',
+        'archives', $filename);
+
+    make_path($path->dir->stringify);
+
+    open my $fh, '>', $path->stringify
+      or die('Failed to create new file: ' . $path->stringify);
+    binmode $fh;
+    print $fh $module_version->get_column('archive');
+    close $fh;
+
+    my $remote_location =
+      Path::Class::File->new('/', 'static', 'archives', $filename)
+      ->as_foreign('Unix')->stringify;
+    $module_version->update({remote_location => $remote_location,});
+    $self->response($remote_location);
+    1;
 }
 
 

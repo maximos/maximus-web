@@ -24,15 +24,16 @@ Update module database.
 
 Run task
 =cut
+
 sub run {
-	my($self, $scm) = @_;
-	unless(ref($scm) eq 'Maximus::Schema::Result::Scm') {
-		$scm = $self->schema->resultset('Scm')->find({id => $scm});
-	}
-	
-	my $source = $self->get_source($scm);
-	$self->response( [$source->auto_discover] );
-	1;
+    my ($self, $scm) = @_;
+    unless (ref($scm) eq 'Maximus::Schema::Result::Scm') {
+        $scm = $self->schema->resultset('Scm')->find({id => $scm});
+    }
+
+    my $source = $self->get_source($scm);
+    $self->response([$source->auto_discover]);
+    1;
 }
 
 

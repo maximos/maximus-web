@@ -23,16 +23,14 @@ This class represents a module
 
 Modscope (namespace) of module, e.g. B<brl>.example
 =cut
-subtype 'ModScope'
-	=> as Str
-	=> where {
-		my $modscope = $_;
-		foreach my $reservedScope(('brl', 'pub')) {
-			return 0 if(lc($modscope) eq lc($reservedScope));
-		}
-		1;
-	}
-	=> message { "This modscope ($_) is reserved!" };
+
+subtype 'ModScope' => as Str => where {
+    my $modscope = $_;
+    foreach my $reservedScope (('brl', 'pub')) {
+        return 0 if (lc($modscope) eq lc($reservedScope));
+    }
+    1;
+} => message {"This modscope ($_) is reserved!"};
 
 has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
@@ -40,38 +38,43 @@ has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
 Name of module, e.g. brl.B<example>
 =cut
+
 has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 desc
 
 Description of module
 =cut
+
 has 'desc' => (is => 'rw', isa => 'Str', required => 1);
 
 =head2 source
 
 Source location. Needs to be a class which does L<Maximus::Role::Module::Source>
 =cut
+
 has 'source' => (
-	is => 'rw',
-	does => 'Maximus::Role::Module::Source',
-	required => 1
+    is       => 'rw',
+    does     => 'Maximus::Role::Module::Source',
+    required => 1
 );
 
 =head2 scm_settings
 
 SCM specific settings
 =cut
+
 has 'scm_settings' => (
-	is => 'rw',
-	isa => 'HashRef',
-	default => sub { {} },
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub { {} },
 );
 
 =head2 schema
 
 L<DBIx::Class schema>
 =cut
+
 has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
 
 =head1 METHODS
@@ -80,74 +83,81 @@ has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
 
 Save module in database
 =cut
+
 sub save {
-	my($self, $user_id) = @_;
-	
-	Maximus::Exception::Module->throw('schema is missing') unless $self->schema;
-	
-	Maximus::Exception::Module->throw(
-		'required parameter $user_id is missing'
-	) unless $user_id;
-	
-   	# A user can only upload a module for the given modscope if the modscope
-   	# belongs to the user or if it doesn't exist yet
-   	my $modscope = $self->schema->resultset('Modscope')->single({
-   		name => $self->modscope,
-    });   	
-    
-   	if($modscope && $user_id != $modscope->user_id) {
-   		Maximus::Exception::Module->throw(
-   			user_msg => 'This modscope doesn\'t belong to you'
-   		);
-	}
-    elsif(!$modscope) {
-		$modscope = $self->schema->resultset('Modscope')->create({
-			name => $self->modscope,
-    		user_id => $user_id,
-		});
-	}
-	
-	my $mod = $self->schema->resultset('Module')->update_or_create({
-		modscope_id => $modscope->id,
-		name => $self->mod,
-		desc => $self->desc,
-		scm_settings => $self->scm_settings,
-	});
-	
-	$self->source->prepare($self);
-	$self->source->validate($self) unless $self->source->validated;
-	
-	my @deps = $self->source->findDependencies($self);
-	
-	my $fh = IO::File->new_tmpfile;
-	my $filename = $self->source->archive($self, $fh);
-	
-	my $archive;
-	while(<$fh>) {
-		$archive .= $_;
-	}
-	
-	my $version;
-	$self->schema->txn_do(sub {
-		$version = $self->schema->resultset('ModuleVersion')->update_or_create({
-			module_id => $mod->id,
-			version => $self->source->version,
-			archive => $archive,
-		});
-		
-		$version->module_dependencies->delete;
-		$self->schema->resultset('ModuleDependency')->create({
-			module_version_id => $version->id,
-			modscope => $_->[0],
-			modname => $_->[1],
-		}) foreach @deps;
-	});
+    my ($self, $user_id) = @_;
 
-	Maximus::Exception::Module->throw(
-		'Unable to save module to database'
-	) unless $version;
+    Maximus::Exception::Module->throw('schema is missing')
+      unless $self->schema;
 
-	return $version;
+    Maximus::Exception::Module->throw(
+        'required parameter $user_id is missing')
+      unless $user_id;
+
+    # A user can only upload a module for the given modscope if the modscope
+    # belongs to the user or if it doesn't exist yet
+    my $modscope =
+      $self->schema->resultset('Modscope')
+      ->single({name => $self->modscope,});
+
+    if ($modscope && $user_id != $modscope->user_id) {
+        Maximus::Exception::Module->throw(
+            user_msg => 'This modscope doesn\'t belong to you');
+    }
+    elsif (!$modscope) {
+        $modscope = $self->schema->resultset('Modscope')->create(
+            {   name    => $self->modscope,
+                user_id => $user_id,
+            }
+        );
+    }
+
+    my $mod = $self->schema->resultset('Module')->update_or_create(
+        {   modscope_id  => $modscope->id,
+            name         => $self->mod,
+            desc         => $self->desc,
+            scm_settings => $self->scm_settings,
+        }
+    );
+
+    $self->source->prepare($self);
+    $self->source->validate($self) unless $self->source->validated;
+
+    my @deps = $self->source->findDependencies($self);
+
+    my $fh = IO::File->new_tmpfile;
+    my $filename = $self->source->archive($self, $fh);
+
+    my $archive;
+    while (<$fh>) {
+        $archive .= $_;
+    }
+
+    my $version;
+    $self->schema->txn_do(
+        sub {
+            $version =
+              $self->schema->resultset('ModuleVersion')->update_or_create(
+                {   module_id => $mod->id,
+                    version   => $self->source->version,
+                    archive   => $archive,
+                }
+              );
+
+            $version->module_dependencies->delete;
+            $self->schema->resultset('ModuleDependency')->create(
+                {   module_version_id => $version->id,
+                    modscope          => $_->[0],
+                    modname           => $_->[1],
+                }
+            ) foreach @deps;
+        }
+    );
+
+    Maximus::Exception::Module->throw('Unable to save module to database')
+      unless $version;
+
+    return $version;
 }
 
 =head1 AUTHOR

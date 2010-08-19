@@ -30,19 +30,14 @@ A exception used when handling module archives
 
 A exception used when processing module sources
 =cut
+
 use Exception::Class (
-	'Maximus::Exception' => {
-		fields => qw/ user_msg /,
-	},
-	'Maximus::Exception::Module' => {
-		isa => 'Maximus::Exception',
-	},
-	'Maximus::Exception::Module::Archive' => {
-		isa => 'Maximus::Exception::Module',
-	},
-	'Maximus::Exception::Module::Source' => {
-		isa => 'Maximus::Exception::Module',
-	},
+    'Maximus::Exception'         => {fields => qw/ user_msg /,},
+    'Maximus::Exception::Module' => {isa    => 'Maximus::Exception',},
+    'Maximus::Exception::Module::Archive' =>
+      {isa => 'Maximus::Exception::Module',},
+    'Maximus::Exception::Module::Source' =>
+      {isa => 'Maximus::Exception::Module',},
 );
 
 =head1 SEE ALSO

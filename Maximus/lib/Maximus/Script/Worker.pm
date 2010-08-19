@@ -27,30 +27,33 @@ Worker script that waits for Gearman to supply a task to it.
 
 Contains a HashRef with the configuration in maximus.conf
 =cut
+
 has 'cfg' => (
-	is => 'ro',
-	isa => 'HashRef',
-	lazy => 1,
-	default => sub {
-		Config::Any->load_files({
-			files => ['maximus.conf'],
-			use_ext => 1,
-			flatten_to_hash => 1,
-		})->{'maximus.conf'};
-	},
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        Config::Any->load_files(
+            {   files           => ['maximus.conf'],
+                use_ext         => 1,
+                flatten_to_hash => 1,
+            }
+        )->{'maximus.conf'};
+    },
 );
 
 =head2 verbose
 
 Verbose mode
 =cut
+
 has 'verbose' => (
     traits        => [qw(Getopt)],
-	cmd_aliases   => 'v',
+    cmd_aliases   => 'v',
     isa           => 'Bool',
     is            => 'ro',
     documentation => 'Verbose mode',
-    default       => sub { 0 },
+    default       => sub {0},
 );
 
 =head1 METHODS
@@ -58,48 +61,55 @@ has 'verbose' => (
 =head2 run
 
 =cut
+
 sub run {
-	my $self = shift;
-	$self->_run_application;
+    my $self = shift;
+    $self->_run_application;
 }
 
 =head2 _run_application
 
 =cut
+
 sub _run_application {
     my $self = shift;
-	
-	my $cfg = $self->cfg;
-	my %opts = (
-		job_servers => [ $cfg->{Gearman}->{job_servers} ],
-		prefix => $cfg->{Gearman}->{prefix} // undef,
-	);
-	
-	my $worker = Gearman::Worker->new( %opts );
-	
-	# Flush output-buffer
-	$| = 1;
 
-	my @modules = qw(
-		Maximus::Task::Module::Upload
-		Maximus::Task::Other::SessionExpire
-		Maximus::Task::SCM::Update
-		Maximus::Task::SCM::AutoDiscover
-	);
+    my $cfg  = $self->cfg;
+    my %opts = (
+        job_servers => [$cfg->{Gearman}->{job_servers}],
+        prefix      => $cfg->{Gearman}->{prefix} // undef,
+    );
 
-	foreach my $module(@modules) {
-		$worker->register_function($module, sub {
-			Class::MOP::load_class($module);
-			my @args = thaw($_[0]->arg);
-			printf('Task %s with arguments: %s', $module, Dump(@args)) if($self->verbose);
-			
-			my $task = $module->new;
-			warn 'Failed to execute task' unless $task->run(@args);
-			printf('Response contains: %s', Dump($task->response)) if($self->verbose);
-		});
-	}
+    my $worker = Gearman::Worker->new(%opts);
 
-	$worker->work while 1;
+    # Flush output-buffer
+    $| = 1;
+
+    my @modules = qw(
+      Maximus::Task::Module::Upload
+      Maximus::Task::Other::SessionExpire
+      Maximus::Task::SCM::Update
+      Maximus::Task::SCM::AutoDiscover
+    );
+
+    foreach my $module (@modules) {
+        $worker->register_function(
+            $module,
+            sub {
+                Class::MOP::load_class($module);
+                my @args = thaw($_[0]->arg);
+                printf('Task %s with arguments: %s', $module, Dump(@args))
+                  if ($self->verbose);
+
+                my $task = $module->new;
+                warn 'Failed to execute task' unless $task->run(@args);
+                printf('Response contains: %s', Dump($task->response))
+                  if ($self->verbose);
+            }
+        );
+    }
+
+    $worker->work while 1;
 }
 
 =head1 AUTHOR

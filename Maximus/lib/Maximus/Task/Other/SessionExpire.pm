@@ -23,12 +23,12 @@ Delete expired sessions from the database
 
 Run task
 =cut
+
 sub run {
-	my $self = shift;
-	$self->schema->resultset('Session')->search({
-		expires => {'<', time()}
-	})->delete;
-	1;
+    my $self = shift;
+    $self->schema->resultset('Session')->search({expires => {'<', time()}})
+      ->delete;
+    1;
 }
 
 
