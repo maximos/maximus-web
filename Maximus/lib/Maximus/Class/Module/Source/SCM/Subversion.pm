@@ -24,7 +24,7 @@ Subversion support for retrieving the modules sources.
 
 =head2 repository
 
-Location of remote Git repository. Must be publicly readable
+Location of remote Subversion repository. Must be publicly readable
 =cut
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
 
