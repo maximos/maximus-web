@@ -140,12 +140,10 @@ __PACKAGE__->belongs_to(
 
 
 use JSON::Any;
-__PACKAGE__->inflate_column('settings', {
+__PACKAGE__->inflate_column($_, {
 	inflate => sub { JSON::Any->jsonToObj(shift || '{}') },
 	deflate => sub { JSON::Any->objToJson(shift || {} ) },
-});
-1;
-
+}) for(qw/settings auto_discover_response/);
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
