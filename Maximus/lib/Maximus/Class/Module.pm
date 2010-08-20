@@ -3,6 +3,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use Maximus::Exceptions;
 use IO::File;
+use namespace::autoclean;
 
 =head1 NAME
 
@@ -188,4 +189,5 @@ THE SOFTWARE.
 
 =cut
 
+__PACKAGE__->meta->make_immutable;
 1;

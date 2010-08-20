@@ -4,6 +4,7 @@ use FindBin qw($Bin);
 use IO::File;
 use File::Path qw(make_path);
 use Path::Class;
+use namespace::autoclean;
 
 with 'Maximus::Role::Task';
 
@@ -91,4 +92,5 @@ THE SOFTWARE.
 
 =cut
 
+__PACKAGE__->meta->make_immutable;
 1;

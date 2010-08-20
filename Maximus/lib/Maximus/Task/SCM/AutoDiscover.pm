@@ -2,6 +2,7 @@ package Maximus::Task::SCM::AutoDiscover;
 use Moose;
 use DateTime;
 use JSON::Any;
+use namespace::autoclean;
 
 with 'Maximus::Role::Task';
 with 'Maximus::Role::Task::SCM';
@@ -74,4 +75,5 @@ THE SOFTWARE.
 
 =cut
 
+__PACKAGE__->meta->make_immutable;
 1;
