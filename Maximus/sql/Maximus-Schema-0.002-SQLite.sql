@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Tue Aug  3 22:13:59 2010
+-- Created on Fri Aug 20 10:23:25 2010
 -- 
 
 BEGIN TRANSACTION;
@@ -16,7 +16,9 @@ CREATE TABLE scm (
   software varchar(15) NOT NULL,
   repo_url varchar(255) NOT NULL,
   settings text NOT NULL,
-  revision varchar(45)
+  revision varchar(45),
+  auto_discover_request datetime,
+  auto_discover_response text
 );
 
 CREATE INDEX scm_idx_user_id ON scm (user_id);

@@ -6,7 +6,10 @@ package Maximus::Schema::Result::ModuleDependency;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use Moose;
+use MooseX::NonMoose;
+use namespace::autoclean;
+extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
@@ -89,9 +92,10 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.06001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Je5fyQTIyNnlAaUN0YKHCg
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3MO4ZvJDCamk6socSnFu7A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

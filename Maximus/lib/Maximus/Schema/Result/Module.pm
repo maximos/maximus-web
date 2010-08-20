@@ -6,7 +6,10 @@ package Maximus::Schema::Result::Module;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Core';
+use Moose;
+use MooseX::NonMoose;
+use namespace::autoclean;
+extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
@@ -140,12 +143,17 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07000 @ 2010-08-03 22:11:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VXUUgXe9c7xQ2s3HGaUQCg
+# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ycpnznbppGiYXrmhJyvw7A
 
 use JSON::Any;
 __PACKAGE__->inflate_column('scm_settings', {
 	inflate => sub { JSON::Any->jsonToObj(shift || '{}' ) },
-	deflate => sub { JSON::Any->objToJson(shift || '{}' ) },
+	deflate => sub { JSON::Any->objToJson(shift || {} ) },
 });
+1;
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

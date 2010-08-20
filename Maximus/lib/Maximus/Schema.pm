@@ -6,15 +6,23 @@ package Maximus::Schema;
 use strict;
 use warnings;
 
-use base 'DBIx::Class::Schema';
+use Moose;
+use MooseX::NonMoose;
+use namespace::autoclean;
+extends 'DBIx::Class::Schema';
 
 __PACKAGE__->load_namespaces;
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-04-30 21:49:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zAEiZzvcsSRnSEZ3mIbRqA
+# Created by DBIx::Class::Schema::Loader v0.05001 @ 2010-08-20 10:22:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a9dE0f69LjgOoj2f1+8uyg
 
 __PACKAGE__->load_components(qw/Schema::Versioned/);
 __PACKAGE__->upgrade_directory('sql/');
 our $VERSION = '0.002';
+1;
+
+
+# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

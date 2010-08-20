@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Tue Aug  3 22:13:58 2010
+-- Created on Fri Aug 20 10:23:23 2010
 -- 
 SET foreign_key_checks=0;
 
@@ -80,6 +80,8 @@ CREATE TABLE `scm` (
   `repo_url` varchar(255) NOT NULL,
   `settings` text NOT NULL,
   `revision` varchar(45),
+  `auto_discover_request` datetime,
+  `auto_discover_response` text,
   INDEX `scm_idx_user_id` (`user_id`),
   PRIMARY KEY (`id`),
   CONSTRAINT `scm_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
