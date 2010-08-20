@@ -1,7 +1,6 @@
 package Maximus::Task::SCM::AutoDiscover;
 use Moose;
 use DateTime;
-use JSON::Any;
 use namespace::autoclean;
 
 with 'Maximus::Role::Task';
@@ -39,7 +38,7 @@ sub run {
 
     $scm->update(
         {   auto_discover_request  => DateTime->now(),
-            auto_discover_response => JSON::Any->objToJson($self->response),
+            auto_discover_response => $self->response,
         }
     );
 
