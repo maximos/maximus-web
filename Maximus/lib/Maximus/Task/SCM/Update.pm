@@ -29,8 +29,10 @@ Run task
 sub run {
     my ($self, $scm_id) = @_;
     my $search;
-    if (ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1
-        or !ref($scm_id) && $scm_id > 0)
+    if (defined($scm_id)
+        && (ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1
+            or !ref($scm_id) && $scm_id > 0)
+      )
     {
         $search = {id => $scm_id};
     }
