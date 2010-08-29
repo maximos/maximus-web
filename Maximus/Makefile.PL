@@ -53,6 +53,7 @@ requires 'Log::Dispatch'                                => '2.26';
 requires 'Log::Log4perl'                                => '1.28';
 requires 'File::Type'                                   => '0.22';
 requires 'Moose'                                        => '1.08';
+requires 'MooseX::NonMoose'                             => '0.15';
 requires 'MooseX::Storage'                              => '0.25';
 requires 'namespace::autoclean'                         => '0.11';
 requires 'Net::Twitter'                                 => '3.13003';
