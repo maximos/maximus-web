@@ -4,8 +4,8 @@ use Net::Twitter;
 use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
-our $VERSION = '0.001';
-$VERSION = eval {$VERSION};
+our $VERSION = '0.002';
+$VERSION = eval { $VERSION };
 
 =head1 NAME
 
@@ -15,17 +15,21 @@ Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
 
 	use Maximus::Class::Broadcast::Driver::Twitter;
 	my $driver = Maximus::Class::Broadcast::Driver::Twitter->new(
-		username => 'maximus',
-		password => 'secret',
+		consumer_key => 'maximus',
+		consumer_secret => 'secret',
+        access_token => 'token',
+        access_token_secret => 'secret',
 	);
 	
 	# -or-
 	
 	use Net::Twitter;
 	my $nt = Net::Twitter->new(
-		traits => ['API::REST'],
-		username => 'maximus',
-		password => 'secret',
+		traits => ['OAuth', 'API::REST'],
+		consumer_key => 'maximus',
+		consumer_secret => 'secret',
+        access_token => 'token',
+        access_token_secret => 'secret',
 	);
 	
 	$driver = Maximus::Class::Broadcast::Driver::Twitter->new( nt => $nt);
@@ -50,22 +54,42 @@ has 'nt' => (
     is  => 'rw',
 );
 
-=head2 username
+=head2 consumer_key
 
 Read-Only, used for creating a Net::Twitter object
 =cut
 
-has 'username' => (
+has 'consumer_key' => (
     isa => 'Str',
     is  => 'ro',
 );
 
-=head2 password
+=head2 consumer_key
 
 Read-Only, used for creating a Net::Twitter object
 =cut
 
-has 'password' => (
+has 'consumer_secret' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+=head2 access_token
+
+Read-Only, used for creating a Net::Twitter object
+=cut
+
+has 'access_token' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+=head2 access_token_secret
+
+Read-Only, used for creating a Net::Twitter object
+=cut
+
+has 'access_token_secret' => (
     isa => 'Str',
     is  => 'ro',
 );
@@ -78,8 +102,8 @@ Tweet the message
 =cut
 
 sub say {
-    my ($self, $msg) = @_;
-    return $self->nt->update($msg->text);
+    my ( $self, $msg ) = @_;
+    return $self->nt->update( $msg->text );
 }
 
 =head2 BUILD
@@ -89,12 +113,19 @@ Allow the constructor to create a Net::Twitter object when none is passed
 
 sub BUILD {
     my $self = shift;
-    if ($self->username && $self->password && !$self->nt) {
+    if (   $self->consumer_key
+        && $self->consumer_secret
+        && $self->access_token
+        && $self->access_token_secret
+        && !$self->nt )
+    {
         $self->nt(
             Net::Twitter->new(
-                traits   => ['API::REST'],
-                username => $self->username,
-                password => $self->password,
+                traits              => [ 'OAuth', 'API::REST' ],
+                consumer_key        => $self->consumer_key,
+                consumer_secret     => $self->consumer_secret,
+                access_token        => $self->access_token,
+                access_token_secret => $self->access_token_secret,
             )
         );
     }
