@@ -75,15 +75,16 @@ sub form : Private {
                     repo_url => $form->field('repo_url')->value,
                     settings => '',
                 );
-                if($scm) {
-                    $scm->update(\%data);
+                if ($scm) {
+                    $scm->update( \%data );
                     $scm->modules->update( { scm_id => undef } );
                     $c->model('DB::Module')
-                      ->search( { id => [ @{ $form->field('modules')->value } ] } )
+                      ->search(
+                        { id => [ @{ $form->field('modules')->value } ] } )
                       ->update( { scm_id => $scm->id } );
                 }
                 else {
-                    $scm = $c->model('DB::SCM')->create(\%data);
+                    $scm = $c->model('DB::SCM')->create( \%data );
                 }
             }
         );
