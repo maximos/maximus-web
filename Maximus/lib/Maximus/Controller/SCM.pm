@@ -20,7 +20,7 @@ This controller is responsible for managing a users' SCM configurations.
 =cut
 
 sub base : Chained('/') : PathPart('scm') : CaptureArgs(0) {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
     $c->response->redirect('/account/login') && $c->detach
       unless $c->user_exists;
 }
@@ -31,9 +31,9 @@ Display overview of SCM configurations
 =cut
 
 sub index : Chained('base') : PathPart('') : Args(0) {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
     my @scms = $c->user->scms;
-    $c->stash(scm_configs => \@scms);
+    $c->stash( scm_configs => \@scms );
 }
 
 =head2 form
@@ -42,30 +42,31 @@ Handle the configuration form
 =cut
 
 sub form : Private {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
 
-    my ($init_object, $scm) = {};
-    if ($scm = $c->stash->{scm}) {
+    my ( $init_object, $scm ) = {};
+    if ( $scm = $c->stash->{scm} ) {
         $init_object = {
             software => $c->stash->{scm}->software,
             repo_url => $c->stash->{scm}->repo_url,
-            modules  => [map { $_->id } $c->stash->{scm}->modules],
+            modules  => [ map { $_->id } $c->stash->{scm}->modules ],
         };
     }
 
     my $form = Maximus::Form::SCM::Configuration->new(
-        {   init_object => $init_object,
+        {
+            init_object => $init_object,
             user        => $c->user->get_object(),
         }
     );
 
-    $form->process($c->req->parameters);
+    $form->process( $c->req->parameters );
     $c->stash(
         form     => $form,
         template => 'scm/configuration.tt'
     );
 
-    if ($form->validated) {
+    if ( $form->validated ) {
         $c->model('DB')->txn_do(
             sub {
                 my %data = (
@@ -87,13 +88,13 @@ sub form : Private {
             }
         );
         if ($@) {
-            $c->stash(error_msg => 'An unknown error occured!');
+            $c->stash( error_msg => 'An unknown error occured!' );
             $c->log->warn($@);
             $c->detach;
         }
 
-        $c->flash(message => 'Your SCM Configuration has been stored.');
-        $c->response->redirect($c->uri_for_action('/scm/index'));
+        $c->flash( message => 'Your SCM Configuration has been stored.' );
+        $c->response->redirect( $c->uri_for_action('/scm/index') );
     }
 }
 
@@ -103,7 +104,7 @@ Add a new SCM configuration
 =cut
 
 sub add : Chained('base') : PathPart('new') : Args(0) {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
     $c->forward('form');
 }
 
@@ -113,11 +114,11 @@ Retrieve a SCM record
 =cut
 
 sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
-    my ($self, $c, $scm_id) = @_;
-    my $scm = $c->model('DB::SCM')->find({id => $scm_id});
+    my ( $self, $c, $scm_id ) = @_;
+    my $scm = $c->model('DB::SCM')->find( { id => $scm_id } );
     $c->detach('/error_404') unless $scm;
-    $c->detach('/error_403') unless ($c->user->id == $scm->user_id);
-    $c->stash('scm' => $scm);
+    $c->detach('/error_403') unless ( $c->user->id == $scm->user_id );
+    $c->stash( 'scm' => $scm );
 }
 
 =head2 edit
@@ -126,7 +127,7 @@ Edit a SCM configuration
 =cut
 
 sub edit : Chained('get_scm') : PathPart('edit') : Args(0) {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
     $c->forward('form');
 }
 
@@ -136,7 +137,7 @@ Delete a SCM configuration
 =cut
 
 sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
 
     eval { $c->stash->{scm}->delete; };
     if ($@) {
@@ -147,9 +148,9 @@ sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
         $c->log->warn($@);
     }
     else {
-        $c->flash(message => 'Your SCM Configuration has been deleted.');
+        $c->flash( message => 'Your SCM Configuration has been deleted.' );
     }
-    $c->response->redirect($c->uri_for_action('/scm/index'));
+    $c->response->redirect( $c->uri_for_action('/scm/index') );
 }
 
 =head1 AUTHOR
