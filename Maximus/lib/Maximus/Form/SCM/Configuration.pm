@@ -12,7 +12,7 @@ SCM Configuration form
 
 =head1 Attributes
 
-=head2 username
+=head2 software 
 
 =cut
 
