@@ -68,21 +68,22 @@ sub form : Private {
     if ($form->validated) {
         $c->model('DB')->txn_do(
             sub {
-                my $scm = $c->model('DB::SCM')->update_or_create(
-                    {   id => $scm ? $scm->id : undef,
-                        user_id  => $c->user->id,
-                        software => $form->field('software')->value,
-                        repo_url => $form->field('repo_url')->value,
-                        settings => '',
-                    },
-                    {key => 'primary'}
+                my %data = (
+                    user_id  => $c->user->id,
+                    software => $form->field('software')->value,
+                    repo_url => $form->field('repo_url')->value,
+                    settings => '',
                 );
-
-                $scm->modules->update({scm_id => undef});
-
-                $c->model('DB::Module')
-                  ->search({id => [@{$form->field('modules')->value}]})
-                  ->update({scm_id => $scm->id});
+                if($scm) {
+                    $scm->update(\%data);
+                    $scm->modules->update( { scm_id => undef } );
+                    $c->model('DB::Module')
+                      ->search( { id => [ @{ $form->field('modules')->value } ] } )
+                      ->update( { scm_id => $scm->id } );
+                }
+                else {
+                    $scm = $c->model('DB::SCM')->create(\%data);
+                }
             }
         );
         if ($@) {
