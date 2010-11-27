@@ -1,4 +1,3 @@
-[% flash_msg = c.flash.message %]
-[% IF flash_msg %]
+[% IF c.flash.message %]
 	<div class="js[% c.flash.status or 'Success' %]Box jsCloseableBox">[% c.flash.message | html %]</div>
 [% END %]
