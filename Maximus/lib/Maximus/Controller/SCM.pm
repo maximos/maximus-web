@@ -2,6 +2,7 @@ package Maximus::Controller::SCM;
 use Moose;
 use namespace::autoclean;
 use Maximus::Form::SCM::Configuration;
+use Maximus::Task::SCM::AutoDiscover;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -152,6 +153,36 @@ sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
         $c->flash( message => 'Your SCM Configuration has been deleted.' );
     }
     $c->response->redirect( $c->uri_for_action('/scm/index') );
+}
+
+=head2 autodiscover
+
+Autodiscover modules inside a SCM repository.
+Force firing a new task by adding the I<refresh> param.
+=cut
+
+sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $scm = $c->stash->{scm};
+    if (   length( $scm->get_column('auto_discover_request') ) == 0
+        && length( $scm->get_column('auto_discover_response') ) == 0
+        || exists $c->req->query_params->{refresh} )
+    {
+        my $task = Maximus::Task::SCM::AutoDiscover->new( queue => 1 );
+        my $task_id = $task->run( $scm->id );
+        if ($task_id) {
+            $scm->update(
+                { auto_discover_response => { task_id => $task_id } } );
+            $c->log->info( 'Task fired with ID: ' . $task_id );
+        }
+        else {
+            $c->log->error(
+                'Failed to fire task ' . ref($task) . ' for SCM ' . $scm->id );
+        }
+        return $c->response->redirect(
+            $c->uri_for( $self->action_for('autodiscover'), [ $scm->id ] ) );
+    }
 }
 
 =head1 AUTHOR

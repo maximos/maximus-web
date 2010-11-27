@@ -6,7 +6,7 @@
 	
 	<p>Once uploaded you can <strike>update your module</strike> to use the
 	SCM configuration. If you're hosting a full modscope inside your repository
-	you	might want to use our <strike>auto-discover</strike> feature to import
+	you might want to use our auto-discover feature to import
 	all modules at once.</p>
 	
 	<p>Currently we only accept repositories with public read access.</p>
@@ -21,6 +21,7 @@
 			[% "<ul>" IF loop.first %]
 			<li><strong>[% scm.software | ucfirst | html %]</strong> <em title="Last known revision [% scm.revision %]">[% scm.repo_url | html %]</em>
 			    <a href="[% c.uri_for( c.controller('SCM').action_for('edit'), [scm.id]) %]">[edit]</a>
+			    <a href="[% c.uri_for( c.controller('SCM').action_for('autodiscover'), [scm.id]) %]">[auto-discover]</a>
 				<a href="[% c.uri_for( c.controller('SCM').action_for('delete'), [scm.id]) %]">[delete]</a></li>
 			[% "</ul>" IF loop.last %]
 		[% END %]
