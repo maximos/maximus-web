@@ -42,7 +42,7 @@ sub login : Local {
 
     if ($c->user_exists) {
         $c->res->redirect(
-            $c->uri_for($c->controller('Account')->action_for('index')));
+            $c->uri_for( $self->action_for('index') ) );
         return;
     }
 
@@ -63,7 +63,7 @@ sub login : Local {
 
             # If successful, then let them use the application
             $c->response->redirect(
-                $c->uri_for($c->controller('Account')->action_for('index')));
+                $c->uri_for( $self->action_for('index') ) );
             return;
         }
         else {
@@ -92,7 +92,7 @@ sub signup : Local {
 
     if ($c->user_exists) {
         $c->res->redirect(
-            $c->uri_for($c->controller('Account')->action_for('index')));
+            $c->uri_for( $self->action_for('index') ) );
         return;
     }
 
