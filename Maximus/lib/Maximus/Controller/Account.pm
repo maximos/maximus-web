@@ -268,7 +268,7 @@ Edit account details
 
 sub edit : Local {
     my ($self, $c) = @_;
-    $c->response->redirect('login') unless $c->user_exists;
+    $c->response->redirect('login') and $c->detach unless $c->user_exists;
     $c->require_ssl;
 
     my $form = Maximus::Form::Account::Edit->new(
