@@ -29,7 +29,8 @@ sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
     # Require user to be logged in
-    $c->response->redirect('login') unless $c->user_exists;
+    $c->response->redirect( $c->uri_for( $self->action_for('login') ) )
+      unless $c->user_exists;
 }
 
 =head2 login
