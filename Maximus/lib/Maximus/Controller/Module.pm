@@ -105,9 +105,12 @@ sub module : Path : Args(2) {
         };
     }
 
-    @{$c->stash->{sortedVersions}} = sort {
-        local $a = 999 if $a eq 'dev';
-        local $b = 999 if $b eq 'dev';
+    @{ $c->stash->{sortedVersions} } = sort {
+        local ( $a, $b ) = ( $a, $b );
+        $a = 999 if $a eq 'dev';
+        $b = 999 if $b eq 'dev';
+        $a =~ s/[^\d\.]//g;
+        $b =~ s/[^\d\.]//g;
         version->declare($b) <=> version->declare($a);
     } keys %versions;
 
@@ -170,12 +173,15 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                     };
                 }
 
-                @{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
-                    local $a = 999
+                @{ $c->stash->{sortedVersions}->{$scope}->{$modname} } = sort {
+                    local ( $a, $b ) = ( $a, $b );
+                    $a = 999
                       if $a eq 'dev';
-                    local $b = 999 if $b eq 'dev';
+                    $b = 999 if $b eq 'dev';
+                    $a =~ s/[^\d\.]//g;
+                    $b =~ s/[^\d\.]//g;
                     version->declare($a) <=> version->declare($b);
-                } keys %{$sources->{$scope}->{$modname}->{versions}};
+                } keys %{ $sources->{$scope}->{$modname}->{versions} };
             }
         }
 
