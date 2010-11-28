@@ -3,7 +3,7 @@
 <head>
 	<title>[% c.config.name %] - BlitzMax Module Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="description" content="Maximus - the blitzmax module manager" />
+	<meta name="description" content="Maximus - the BlitzMax module manager" />
 	<meta name="keywords" content="" />
 	[% USE date %]
 	<meta name="Design" content="Copyright [% date.format(date.now, '%Y') %] skn3[ac]" />
