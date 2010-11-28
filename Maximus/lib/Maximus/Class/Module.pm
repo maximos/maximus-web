@@ -139,9 +139,11 @@ sub save {
         sub {
             $version =
               $self->schema->resultset('ModuleVersion')->update_or_create(
-                {   module_id => $mod->id,
-                    version   => $self->source->version,
-                    archive   => $archive,
+                {
+                    module_id       => $mod->id,
+                    version         => $self->source->version,
+                    archive         => $archive,
+                    remote_location => undef,
                 }
               );
 
