@@ -10,7 +10,7 @@ maximus_worker.pl - Run a Gearman worker for Maximus
 
 =head1 SYNOPSIS
 
-maximus_task.pl [options]
+maximus_worker.pl [options]
 
    -v --verbose           Verbose mode
 
