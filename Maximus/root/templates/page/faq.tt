@@ -4,7 +4,7 @@
 
 	<dl id="faqlist">
 		<dt>When is [% c.config.name %] expected to be ready?</dt>
-		<dd>We don't know.</dd>
+		<dd>We don't know. It'll be ready when it's ready.</dd>
 		
 		<dt>Who is <em>we</em>?</dt>
 		<dd>Us, Plash (a.k.a. Komiga) and Htbaa.</dd>
