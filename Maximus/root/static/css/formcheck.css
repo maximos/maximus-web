@@ -17,6 +17,15 @@
 		p		: error line
 */
 
+.fc-tbx *{
+	position: relative;
+	z-Index: 10000;
+}
+
+.fc-tbx table{
+	margin: 0 0 0 0; 
+}
+
 .fc-tbx .tl{
 	background: url('/static/images/formcheck/tl.png') no-repeat;
 }
