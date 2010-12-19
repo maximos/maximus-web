@@ -27,9 +27,9 @@ Catalyst Controller for Modules;
 =cut
 
 sub index : Path : Args(0) {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
-    $c->response->redirect( $c->uri_for('modscopes') );
+    $c->response->redirect($c->uri_for('modscopes'));
 }
 
 =head2 modscopes
@@ -38,9 +38,9 @@ Display all modscopes
 =cut
 
 sub modscopes : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
     my @modscopes =
-      $c->model('DB::Modscope')->search( undef, { order_by => 'name', } );
+      $c->model('DB::Modscope')->search(undef, {order_by => 'name',});
     $c->stash->{modscopes} = \@modscopes;
 }
 
@@ -50,13 +50,13 @@ Display all modules for the given modscope
 =cut
 
 sub modscope : Path : Args(1) {
-    my ( $self, $c, $scope ) = @_;
-    my $modscope = $c->model('DB::Modscope')->find( { name => $scope } );
+    my ($self, $c, $scope) = @_;
+    my $modscope = $c->model('DB::Modscope')->find({name => $scope});
     $c->detach('/default') unless $modscope;
 
     $c->stash->{modscope} = $modscope;
     my @modules =
-      $modscope->search_related( 'modules', undef, { order_by => 'name' } );
+      $modscope->search_related('modules', undef, {order_by => 'name'});
     $c->stash->{modules} = \@modules;
 }
 
@@ -66,15 +66,13 @@ Display information about a module
 =cut
 
 sub module : Path : Args(2) {
-    my ( $self, $c, $scope, $modname ) = @_;
+    my ($self, $c, $scope, $modname) = @_;
 
     my $rs = $c->model('DB::Module')->search(
-        {
-            'modscope.name' => $scope,
+        {   'modscope.name' => $scope,
             'me.name'       => $modname,
         },
-        {
-            join     => 'modscope',
+        {   join     => 'modscope',
             prefetch => 'modscope',
         }
     );
@@ -86,30 +84,28 @@ sub module : Path : Args(2) {
     my @module_versions = $module->search_related(
         'module_versions',
         undef,
-        {
-            columns  => [qw/id version/],
+        {   columns  => [qw/id version/],
             prefetch => 'module_dependencies',
         }
     );
 
     foreach my $version (@module_versions) {
         my @deps;
-        foreach my $dependantVersion ( $version->module_dependencies ) {
+        foreach my $dependantVersion ($version->module_dependencies) {
             push @deps,
-              sprintf( '%s.%s',
-                $dependantVersion->modscope, $dependantVersion->modname );
+              sprintf('%s.%s',
+                $dependantVersion->modscope, $dependantVersion->modname);
         }
 
         my $v = $version->version;
         $versions{$v} = {
             deps => \@deps,
-            url =>
-              $c->uri_for( 'download', ( $scope, $modname, $v ) )->as_string,
+            url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
         };
     }
 
-    @{ $c->stash->{sortedVersions} } = sort {
-        local ( $a, $b ) = ( $a, $b );
+    @{$c->stash->{sortedVersions}} = sort {
+        local ($a, $b) = ($a, $b);
         $a = 999 if $a eq 'dev';
         $b = 999 if $b eq 'dev';
         $a =~ s/[^\d\.]//g;
@@ -127,16 +123,15 @@ Retrieve sources file
 =cut
 
 sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
     my $sources = {};
 
-    unless ( ( $sources = $c->cache->get('sources_list') )
-        && ( $c->stash->{sortedVersions} = $c->cache->get('sources_list_sv') ) )
+    unless (($sources = $c->cache->get('sources_list'))
+        && ($c->stash->{sortedVersions} = $c->cache->get('sources_list_sv')))
     {
         my @modscope_rs = $c->model('DB::Modscope')->search(
             undef,
-            {
-                order_by => { -desc => 'me.name', },
+            {   order_by => {-desc => 'me.name',},
                 prefetch => 'modules',
             }
         );
@@ -144,17 +139,16 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
         foreach my $modscope (@modscope_rs) {
             my $scope = $modscope->name;
 
-            foreach my $module ( $modscope->modules ) {
+            foreach my $module ($modscope->modules) {
                 my $modname = $module->name;
                 $sources->{$scope}->{$modname}->{desc} = $module->desc;
 
-                # Don't fetch `archive` because it contains the raw archive data
-                # and is expected to be a big resultset
+              # Don't fetch `archive` because it contains the raw archive data
+              # and is expected to be a big resultset
                 my @module_versions = $module->search_related(
                     'module_versions',
                     undef,
-                    {
-                        columns  => [qw/id module_id version/],
+                    {   columns  => [qw/id module_id version/],
                         prefetch => 'module_dependencies',
                     }
                 );
@@ -162,37 +156,36 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                 foreach my $version (@module_versions) {
                     my @deps;
                     foreach
-                      my $dependantVersion ( $version->module_dependencies )
+                      my $dependantVersion ($version->module_dependencies)
                     {
                         push @deps,
-                          sprintf( '%s.%s',
+                          sprintf('%s.%s',
                             $dependantVersion->modscope,
-                            $dependantVersion->modname );
+                            $dependantVersion->modname);
                     }
 
                     my $v = $version->version;
                     $sources->{$scope}->{$modname}->{versions}->{$v} = {
                         deps => \@deps,
-                        url =>
-                          $c->uri_for( 'download', ( $scope, $modname, $v ) )
+                        url => $c->uri_for('download', ($scope, $modname, $v))
                           ->as_string,
                     };
                 }
 
-                @{ $c->stash->{sortedVersions}->{$scope}->{$modname} } = sort {
-                    local ( $a, $b ) = ( $a, $b );
+                @{$c->stash->{sortedVersions}->{$scope}->{$modname}} = sort {
+                    local ($a, $b) = ($a, $b);
                     $a = 999
                       if $a eq 'dev';
                     $b = 999 if $b eq 'dev';
                     $a =~ s/[^\d\.]//g;
                     $b =~ s/[^\d\.]//g;
                     version->declare($a) <=> version->declare($b);
-                } keys %{ $sources->{$scope}->{$modname}->{versions} };
+                } keys %{$sources->{$scope}->{$modname}->{versions}};
             }
         }
 
-        $c->cache->set( 'sources_list',    $sources );
-        $c->cache->set( 'sources_list_sv', $c->stash->{sortedVersions} );
+        $c->cache->set('sources_list',    $sources);
+        $c->cache->set('sources_list_sv', $c->stash->{sortedVersions});
     }
 
     $c->stash->{sources} = $sources || {};
@@ -204,10 +197,10 @@ Sources file in JSON
 =cut
 
 sub sources_json : Chained('sources') : PathPart('json') : Args(0) {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
     $c->res->content_type('application/json');
-    $c->res->body( JSON::Any->objToJson( $c->stash->{sources} ) );
+    $c->res->body(JSON::Any->objToJson($c->stash->{sources}));
 }
 
 =head2 /module/sources/xml
@@ -216,10 +209,10 @@ Sources file in XML
 =cut
 
 sub sources_xml : Chained('sources') : PathPart('xml') : Args(0) {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
     $c->res->content_type('text/xml');
-    $c->res->body( XMLout( $c->stash->{sources} ) );
+    $c->res->body(XMLout($c->stash->{sources}));
 }
 
 =head2 download
@@ -228,21 +221,19 @@ Download archive based on modscope, module name and version
 =cut
 
 sub download : Local : Args(3) {
-    my ( $self, $c, $modscope, $module, $version ) = @_;
+    my ($self, $c, $modscope, $module, $version) = @_;
 
     my @search = (
-        {
-            'modscope.name'           => $modscope,
+        {   'modscope.name'           => $modscope,
             'me.name'                 => $module,
             'module_versions.version' => $version,
         },
-        {
-            join       => [qw /modscope module_versions/],
+        {   join       => [qw /modscope module_versions/],
             '+columns' => ['module_versions.remote_location'],
         }
     );
 
-    my $rs = $c->model('DB::Module')->search( $search[0], $search[1] );
+    my $rs = $c->model('DB::Module')->search($search[0], $search[1]);
 
     my $row = $rs->first;
     $c->detach('/default') unless $row;
@@ -251,22 +242,22 @@ sub download : Local : Args(3) {
     $c->res->redirect($location) and $c->detach if $location;
 
     # Fetch module_version row to fetch archive data
-    my $version_row = $row->module_versions->find( { version => $version } );
+    my $version_row = $row->module_versions->find({version => $version});
 
-    # Persistently store module. Which will be processed later by the job server
+  # Persistently store module. Which will be processed later by the job server
     $c->log->warn('Unable to queue Maximus::Task::Module::Upload')
-      unless Maximus::Task::Module::Upload->new( queue => 1 )
-          ->run( $version_row->id );
+      unless Maximus::Task::Module::Upload->new(queue => 1)
+          ->run($version_row->id);
 
     my $fh = IO::File->new_tmpfile;
-    $fh->print( $version_row->archive ) or die($!);
-    $fh->seek( 0, 0 );
+    $fh->print($version_row->archive) or die($!);
+    $fh->seek(0, 0);
 
-    my $filename = sprintf( '%s-%s-%s.zip', $modscope, $module, $version );
-    $c->res->header( 'Content-Disposition',
-        qq[attachment; filename="$filename"] );
-    $c->res->header( 'ETag',           md5_hex( $version_row->archive ) );
-    $c->res->header( 'Content-Length', length( $version_row->archive ) );
+    my $filename = sprintf('%s-%s-%s.zip', $modscope, $module, $version);
+    $c->res->header('Content-Disposition',
+        qq[attachment; filename="$filename"]);
+    $c->res->header('ETag',           md5_hex($version_row->archive));
+    $c->res->header('Content-Length', length($version_row->archive));
     $c->res->content_type('application/x-zip');
     $c->res->body($fh);
 }

@@ -5,7 +5,7 @@ use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
 our $VERSION = '0.002';
-$VERSION = eval { $VERSION };
+$VERSION = eval {$VERSION};
 
 =head1 NAME
 
@@ -102,8 +102,8 @@ Tweet the message
 =cut
 
 sub say {
-    my ( $self, $msg ) = @_;
-    return $self->nt->update( $msg->text );
+    my ($self, $msg) = @_;
+    return $self->nt->update($msg->text);
 }
 
 =head2 BUILD
@@ -117,14 +117,14 @@ sub BUILD {
         && $self->consumer_secret
         && $self->access_token
         && $self->access_token_secret
-        && !$self->nt )
+        && !$self->nt)
     {
         $self->nt(
             Net::Twitter->new(
-                traits              => [ 'OAuth', 'API::REST' ],
-                consumer_key        => $self->consumer_key,
-                consumer_secret     => $self->consumer_secret,
-                access_token        => $self->access_token,
+                traits          => ['OAuth', 'API::REST'],
+                consumer_key    => $self->consumer_key,
+                consumer_secret => $self->consumer_secret,
+                access_token    => $self->access_token,
                 access_token_secret => $self->access_token_secret,
             )
         );

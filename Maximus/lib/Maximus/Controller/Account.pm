@@ -26,10 +26,10 @@ Catalyst Controller to manage accounts
 =cut
 
 sub index : Path : Args(0) {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
     # Require user to be logged in
-    $c->response->redirect( $c->uri_for( $self->action_for('login') ) )
+    $c->response->redirect($c->uri_for($self->action_for('login')))
       unless $c->user_exists;
 }
 
@@ -38,25 +38,22 @@ sub index : Path : Args(0) {
 =cut
 
 sub login : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
-    if ( $c->user_exists ) {
-        $c->res->redirect(
-            $c->uri_for( $self->action_for('index') ) );
+    if ($c->user_exists) {
+        $c->res->redirect($c->uri_for($self->action_for('index')));
         return;
     }
 
     $c->require_ssl;
 
     my $form = Maximus::Form::Account::Login->new;
-    $form->process( $c->req->parameters );
-    $c->stash( form => $form );
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
 
-    if ( $form->validated ) {
-        if (
-            $c->authenticate(
-                {
-                    username => $form->field('username')->value,
+    if ($form->validated) {
+        if ($c->authenticate(
+                {   username => $form->field('username')->value,
                     password => $form->field('password')->value
                 }
             )
@@ -64,12 +61,11 @@ sub login : Local {
         {
 
             # If successful, then let them use the application
-            $c->response->redirect(
-                $c->uri_for( $self->action_for('index') ) );
+            $c->response->redirect($c->uri_for($self->action_for('index')));
             return;
         }
         else {
-            $c->stash( error_msg => 'Bad username or password.' );
+            $c->stash(error_msg => 'Bad username or password.');
         }
     }
 }
@@ -79,9 +75,9 @@ sub login : Local {
 =cut
 
 sub logout : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
     $c->logout;
-    $c->response->redirect( $c->uri_for('/') );
+    $c->response->redirect($c->uri_for('/'));
 }
 
 =head2 signup
@@ -89,46 +85,44 @@ sub logout : Local {
 =cut
 
 sub signup : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
-    if ( $c->user_exists ) {
-        $c->res->redirect(
-            $c->uri_for( $self->action_for('index') ) );
+    if ($c->user_exists) {
+        $c->res->redirect($c->uri_for($self->action_for('index')));
         return;
     }
 
     $c->require_ssl;
 
     my $form = Maximus::Form::Account::Signup->new;
-    $form->process( $c->req->parameters );
-    $c->stash( form => $form );
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
 
-    if ( $form->validated ) {
+    if ($form->validated) {
         my $user =
-          $c->find_user( { username => $form->field('username')->value },
-            'website' );
+          $c->find_user({username => $form->field('username')->value},
+            'website');
 
         if ($user) {
-            $c->stash( error_msg => 'Username already taken.' );
+            $c->stash(error_msg => 'Username already taken.');
             $c->detach;
         }
 
         eval {
             $c->model('DB::User')->create(
-                {
-                    email    => $form->field('email')->value,
+                {   email    => $form->field('email')->value,
                     username => $form->field('username')->value,
-                    password => sha1_hex( $form->field('password')->value ),
+                    password => sha1_hex($form->field('password')->value),
                 }
             );
         };
         if ($@) {
-            $c->stash( error_msg => 'An unknown error occured!' );
+            $c->stash(error_msg => 'An unknown error occured!');
             $c->log->info($@);
             $c->detach;
         }
 
-        $c->stash( username => $form->field('username')->value );
+        $c->stash(username => $form->field('username')->value);
         $c->stash(
             email => {
                 to       => $form->field('email')->value,
@@ -138,9 +132,9 @@ sub signup : Local {
             }
         );
 
-        $c->forward( $c->view('Email::Template') );
-        if ( scalar( @{ $c->error } ) ) {
-            $c->log->warn( 'Failed to send a mail: ', @{ $c->error } );
+        $c->forward($c->view('Email::Template'));
+        if (scalar(@{$c->error})) {
+            $c->log->warn('Failed to send a mail: ', @{$c->error});
             $c->error(0);
         }
 
@@ -153,16 +147,16 @@ sub signup : Local {
 =cut
 
 sub forgot_password : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
 
     my $form = Maximus::Form::Account::ForgotPassword->new;
-    $form->process( $c->req->parameters );
-    $c->stash( form => $form );
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
 
-    if ( $form->validated ) {
+    if ($form->validated) {
         my $user =
           $c->model('DB::User')
-          ->find( { username => $form->field('username')->value } );
+          ->find({username => $form->field('username')->value});
         if ($user) {
             $c->stash(
                 email => {
@@ -174,26 +168,26 @@ sub forgot_password : Local {
                 user => $user,
             );
 
-            $c->forward( $c->view('Email::Template') );
-            if ( scalar( @{ $c->error } ) ) {
-                $c->log->warn( 'Failed to send a mail: ', @{ $c->error } );
+            $c->forward($c->view('Email::Template'));
+            if (scalar(@{$c->error})) {
+                $c->log->warn('Failed to send a mail: ', @{$c->error});
                 $c->error(0);
-                $c->stash( error_msg => 'Failed to send a confirmation e-mail '
+                $c->stash(error_msg => 'Failed to send a confirmation e-mail '
                       . 'because an unexpected error occured. '
                       . 'We\'ve been notified. Please try '
-                      . 'again later.' );
+                      . 'again later.');
                 $c->detach;
             }
 
             $c->stash(
                 template => 'message.tt',
                 title    => 'Confirmation e-mail sent',
-                message  => 'A e-mail has been sent with a confirmation link. '
+                message => 'A e-mail has been sent with a confirmation link. '
                   . 'Please check your e-mail for instructions.',
             );
         }
         else {
-            $c->stash( error_msg => 'No such user exists.' );
+            $c->stash(error_msg => 'No such user exists.');
         }
     }
 }
@@ -206,16 +200,16 @@ password has been changed.
 =cut
 
 sub reset_password : Path('reset_password') : Args(2) {
-    my ( $self, $c, $username, $hash ) = @_;
-    my $user = $c->model('DB::User')->find( { username => $username } );
+    my ($self, $c, $username, $hash) = @_;
+    my $user = $c->model('DB::User')->find({username => $username});
 
     if ($user) {
         my $calc_hash =
-          sha1_hex( $user->password . $c->config->{salt} . $user->id );
-        if ( $calc_hash eq $hash ) {
+          sha1_hex($user->password . $c->config->{salt} . $user->id);
+        if ($calc_hash eq $hash) {
             my $password =
-              substr( sha1_hex( $c->config->{salt} . $user->id ), 0, 8 );
-            $user->update( { password => sha1_hex($password) } );
+              substr(sha1_hex($c->config->{salt} . $user->id), 0, 8);
+            $user->update({password => sha1_hex($password)});
 
             $c->stash(
                 email => {
@@ -228,20 +222,19 @@ sub reset_password : Path('reset_password') : Args(2) {
                 password => $password,
             );
 
-            $c->forward( $c->view('Email::Template') );
-            if ( scalar( @{ $c->error } ) ) {
-                $c->log->warn( 'Failed to send a mail: ', @{ $c->error } );
+            $c->forward($c->view('Email::Template'));
+            if (scalar(@{$c->error})) {
+                $c->log->warn('Failed to send a mail: ', @{$c->error});
                 $c->error(0);
-                $c->stash( error_msg => 'Failed to send you your new password '
+                $c->stash(error_msg => 'Failed to send you your new password '
                       . 'because an unexpected error occured. '
                       . 'We\'ve been notified. Please try '
-                      . 'again later.' );
+                      . 'again later.');
                 $c->detach;
             }
 
             $c->authenticate(
-                {
-                    username => $user->username,
+                {   username => $user->username,
                     password => $password,
                 }
             );
@@ -257,10 +250,10 @@ sub reset_password : Path('reset_password') : Args(2) {
         }
     }
 
-    $c->log->info( 'Attempt at faulty password reset for username '
+    $c->log->info('Attempt at faulty password reset for username '
           . $username
           . ' with hash '
-          . $hash );
+          . $hash);
     $c->detach('/default');
 }
 
@@ -270,29 +263,28 @@ Edit account details
 =cut
 
 sub edit : Local {
-    my ( $self, $c ) = @_;
+    my ($self, $c) = @_;
     $c->response->redirect('login') and $c->detach unless $c->user_exists;
     $c->require_ssl;
 
     my $form = Maximus::Form::Account::Edit->new(
-        { init_object => { email => $c->user->email, } } );
+        {init_object => {email => $c->user->email,}});
 
-    $form->process( $c->req->parameters );
-    $c->stash( form => $form );
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
 
-    if ( $form->validated ) {
+    if ($form->validated) {
         eval {
             my $user =
-              $c->model('DB::User')->find( { username => $c->user->username } );
+              $c->model('DB::User')->find({username => $c->user->username});
             $user->update(
-                {
-                    email    => $form->field('email')->value,
-                    password => sha1_hex( $form->field('password')->value ),
+                {   email    => $form->field('email')->value,
+                    password => sha1_hex($form->field('password')->value),
                 }
             );
         };
         if ($@) {
-            $c->stash( error_msg => 'An unknown error occured!' );
+            $c->stash(error_msg => 'An unknown error occured!');
             $c->log->info($@);
             $c->detach;
         }

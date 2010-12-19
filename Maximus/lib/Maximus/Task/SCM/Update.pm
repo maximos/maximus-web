@@ -88,7 +88,7 @@ sub run {
 
         $scm->update({revision => $latest_rev});
     }
-    Maximus->cache->remove($_) for(qw/sources_list sources_list_sv/);
+    Maximus->cache->remove($_) for (qw/sources_list sources_list_sv/);
     1;
 }
 
