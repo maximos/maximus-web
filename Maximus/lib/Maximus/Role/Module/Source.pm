@@ -157,7 +157,7 @@ sub _findDependencies {
         'Sourcefile doesn\'t exist: ' . $filename)
       unless (-e $filename);
 
-    open(my $fh, $filename);
+    open my $fh, '<', $filename;
     Maximus::Exception::Module::Source->throw(
         'Couldn\'t open sourcefile: ' . $filename)
       unless ($fh);
