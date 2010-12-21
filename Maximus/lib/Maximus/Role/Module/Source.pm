@@ -152,7 +152,7 @@ sub _findDependencies {
     my ($self, $mod, $filename) = @_;
     confess('Sources are not validated') unless $self->validated;
 
-    $filename =~ s/\\/\//g if $filename; # Fix Win32 paths
+    $filename =~ s/\\/\//g if $filename;    # Fix Win32 paths
     $filename = $self->processDir . '/' . $mod->mod . '.bmx' unless $filename;
     Maximus::Exception::Module::Source->throw(
         'Sourcefile doesn\'t exist: ' . $filename)
