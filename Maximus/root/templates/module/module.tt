@@ -5,7 +5,7 @@
 	[% FOR version IN sortedVersions %]
 		[% "<h3>Available versions</h3><ol id=\"modversionlist\">" IF loop.first %]
 		[% FILTER collapse %]
-		<li><a href="[% versions.${version}.url | html %]">[% version | html -%]</a>
+		<li><a href="[% versions.${version}.url | html %]" rel="nofollow">[% version | html -%]</a>
 			[%- FOR dependency IN versions.${version}.deps.sort %]
 				[%- ": depends on " IF loop.first -%]
 				[% m = dependency.split('\\.') %]
