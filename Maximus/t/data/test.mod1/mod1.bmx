@@ -1,5 +1,6 @@
 SuperStrict
 
+'Module test.mod2
 Module test.mod1
 ModuleInfo "Name: test.mod1"
 ModuleInfo "Version: 1.1.15"

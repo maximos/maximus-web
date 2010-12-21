@@ -30,7 +30,7 @@ my @expectedTokens = (
 );
 
 # Helpful debug line
-# print pack('A15A*', $_->[0], $_->[1]), "\n" foreach(@foundTokens);
+# diag pack('A15A*', $_->[0], $_->[1]), "\n" foreach(@foundTokens);
 
 is_deeply(\@foundTokens, \@expectedTokens, 'Lexer found expected tokens');
 
