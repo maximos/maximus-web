@@ -14,51 +14,11 @@ our $GIT =
   ? '"C:\Program Files\Git\cmd\git.cmd"'
   : '/usr/bin/env git';
 
-=head1 NAME
-
-Maximus::Class::Module::Source::SCM::Git - Handles module sources inside a Git
-repository
-
-=head1 SYNOPSIS
-
-	use Maximus::Class::Module::Source::SCM::Git;
-	my $source = Maximus::Class::Module::Source::SCM::Git->new;
-
-=head1 DESCRIPTION
-
-Git support for retrieving the modules sources.
-
-=head1 ATTRIBUTES
-
-=head2 repository
-
-Location of remote Git repository. Must be publicly readable
-=cut
-
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
-
-=head2 local_repository
-
-Location of the local copy of the Git repository
-=cut
 
 has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
-=head2 tags_filter
-
-If the repository hosts more modules then set this to filter the listing.
-e.g.: C<^v(.+)> if this module uses tags in the style of I<v0.01> or I<v0.3.0>.
-You MUST add a capture so the version string can be fetched.
-=cut
-
 has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
-
-=head1 METHODS
-
-=head2 init_repo
-
-Initialize repository. Either clones or pulls to update
-=cut
 
 sub init_repo {
     my $self = shift;
@@ -79,11 +39,6 @@ sub init_repo {
     system $cmd;
     chdir $cwd;
 }
-
-=head2 prepare
-
-Fetch files for I<version> and store them inside the temporary directory
-=cut
 
 sub prepare {
     my ($self, $mod) = @_;
@@ -131,11 +86,6 @@ sub prepare {
     $self->validate($mod);
 }
 
-=head2 get_versions
-
-Returns all versions
-=cut
-
 sub get_versions {
     my ($self) = @_;
     my %tags;
@@ -162,11 +112,6 @@ sub get_versions {
     return %tags;
 }
 
-=head2 get_latest_revision
-
-Retrieve latest revision of master
-=cut
-
 sub get_latest_revision {
     my ($self) = @_;
     my %heads;
@@ -179,16 +124,65 @@ sub get_latest_revision {
     return $heads{'refs/heads/master'};
 }
 
-=head2 auto_discover
-
-Discover available modules from the repository
-=cut
-
 around 'auto_discover' => sub {
     my ($orig, $self) = @_;
     $self->init_repo;
     return $self->$orig(@_, $self->local_repository);
 };
+
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Class::Module::Source::SCM::Git - Handles module sources inside a Git
+repository
+
+=head1 SYNOPSIS
+
+	use Maximus::Class::Module::Source::SCM::Git;
+	my $source = Maximus::Class::Module::Source::SCM::Git->new;
+
+=head1 DESCRIPTION
+
+Git support for retrieving the modules sources.
+
+=head1 ATTRIBUTES
+
+=head2 repository
+
+Location of remote Git repository. Must be publicly readable
+
+=head2 local_repository
+
+Location of the local copy of the Git repository
+
+=head2 tags_filter
+
+If the repository hosts more modules then set this to filter the listing.
+e.g.: C<^v(.+)> if this module uses tags in the style of I<v0.01> or I<v0.3.0>.
+You MUST add a capture so the version string can be fetched.
+
+=head1 METHODS
+
+=head2 init_repo
+
+Initialize repository. Either clones or pulls to update
+
+=head2 prepare
+
+Fetch files for I<version> and store them inside the temporary directory
+
+=head2 get_versions
+
+Returns all versions
+
+=head2 get_latest_revision
+
+Retrieve latest revision of master
+
+=head2 auto_discover
+
+Discover available modules from the repository
 
 =head1 AUTHOR
 
@@ -217,7 +211,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

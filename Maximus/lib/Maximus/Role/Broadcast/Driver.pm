@@ -1,6 +1,8 @@
 package Maximus::Role::Broadcast::Driver;
 use Moose::Role;
 
+requires 'say';
+
 =head1 NAME
 
 Maximus::Role::Broadcast::Driver - Base driver for Announcer
@@ -22,9 +24,6 @@ This is the interface for all Maxmimu::Class::Broadcast::Announcer drivers.
 
 Maximus::Class::Broadcast::Announcer calls this method and passes the message to
 this method.
-=cut
-
-requires 'say';
 
 =head1 AUTHOR
 

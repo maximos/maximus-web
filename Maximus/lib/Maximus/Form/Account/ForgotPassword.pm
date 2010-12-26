@@ -2,6 +2,15 @@ package Maximus::Form::Account::ForgotPassword;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
+has_field 'username' => (
+    type             => 'Text',
+    label            => 'Username',
+    required         => 1,
+    required_message => 'You must enter a username',
+);
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Form::Account::ForgotPassword - Forgot Password form
@@ -13,15 +22,6 @@ Forgot password form
 =head1 Attributes
 
 =head2 username
-
-=cut
-
-has_field 'username' => (
-    type             => 'Text',
-    label            => 'Username',
-    required         => 1,
-    required_message => 'You must enter a username',
-);
 
 =head1 AUTHOR
 
@@ -51,5 +51,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

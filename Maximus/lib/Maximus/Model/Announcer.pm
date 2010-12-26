@@ -8,25 +8,6 @@ __PACKAGE__->config(
     constructor => 'new',
 );
 
-=head1 NAME
-
-Maximus::Model::Announcer - Announcements from Maximus!
-
-=head1 SYNOPSIS
-
-See L<Maximus::Class::Broadcast::Announcer>
-
-=head1 DESCRIPTION
-
-This is a model using Maximus::Class::Broadcast::Announcer to announce messages
-inside L<Catalyst> action.
-
-=head1 METHODS
-
-=head2 COMPONENT
-
-=cut
-
 sub COMPONENT {
     my ($class, $app, $args) = @_;
     my $announcer = $class->SUPER::COMPONENT(@_);
@@ -46,6 +27,23 @@ sub COMPONENT {
     }
     return $announcer;
 }
+
+=head1 NAME
+
+Maximus::Model::Announcer - Announcements from Maximus!
+
+=head1 SYNOPSIS
+
+See L<Maximus::Class::Broadcast::Announcer>
+
+=head1 DESCRIPTION
+
+This is a model using Maximus::Class::Broadcast::Announcer to announce messages
+inside L<Catalyst> action.
+
+=head1 METHODS
+
+=head2 COMPONENT
 
 =head1 AUTHOR
 

@@ -7,67 +7,15 @@ use namespace::autoclean;
 with 'Maximus::Role::Module::Source';
 with 'Maximus::Role::Module::Source::SCM';
 
-=head1 NAME
-
-Maximus::Class::Module::Source::SCM::Subversion - Handles module sources inside
-a Subversion repository
-
-=head1 SYNOPSIS
-
-	use Maximus::Class::Module::Source::SCM::Subversion;
-	my $source = Maximus::Class::Module::Source::SCM::Subversion->new;
-
-=head1 DESCRIPTION
-
-Subversion support for retrieving the modules sources.
-
-=head1 ATTRIBUTES
-
-=head2 repository
-
-Location of remote Subversion repository. Must be publicly readable
-=cut
-
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);
-
-=head2 local_repository
-
-Location of the local copy of the Subversion repository
-=cut
 
 has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
-=head2 trunk
-
-Path to trunk. If the repository hosts more modules then set it to the module
-path, e.g. trunk/my.mod
-=cut
-
 has 'trunk' => (is => 'rw', isa => 'Str', default => 'trunk');
-
-=head2 tags
-
-Path to tags. If the repository hosts more modules then set I<tags_filter> to
-filter the listing.
-=cut
 
 has 'tags' => (is => 'rw', isa => 'Str', default => 'tags');
 
-=head2 tags_filter
-
-If the repository hosts more modules then set this to filter the listing.
-e.g.: C<^my\.mod-(.+)> if this module uses tags in the style of I<my.mod-0.01>
-or I<my.mod-0.3.0>. You MUST add a capture so the version string can be fetched.
-=cut
-
 has 'tags_filter' => (is => 'rw', isa => 'Str', default => '');
-
-=head1 METHODS
-
-=head2 init_repo
-
-Initialize repository. Either clones or pulls to update
-=cut
 
 sub init_repo {
     my $self = shift;
@@ -114,22 +62,12 @@ sub init_repo {
     }
 }
 
-=head2 prepare
-
-Fetch files for I<version> and sort them inside the temporary directory
-=cut
-
 sub prepare {
     my ($self, $mod) = @_;
     $self->init_repo;
     $self->findAndMoveRootDir($mod);
     $self->validate($mod);
 }
-
-=head2 get_versions
-
-Returns all versions
-=cut
 
 sub get_versions {
     my ($self) = @_;
@@ -153,11 +91,6 @@ sub get_versions {
     return %tags;
 }
 
-=head2 get_latest_revision
-
-Retrieve latest revision of trunk
-=cut
-
 sub get_latest_revision {
     my ($self) = @_;
     my $cmd      = 'svn info ' . join('/', ($self->repository, $self->trunk));
@@ -169,11 +102,6 @@ sub get_latest_revision {
     return $revision[0];
 }
 
-=head2 auto_discover
-
-Discover available modules from the repository
-=cut
-
 around 'auto_discover' => sub {
     my ($orig, $self) = @_;
     my $old_version = $self->version;
@@ -182,6 +110,70 @@ around 'auto_discover' => sub {
     $self->version($old_version);
     return $self->$orig(@_, $self->tmpDir);
 };
+
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Class::Module::Source::SCM::Subversion - Handles module sources inside
+a Subversion repository
+
+=head1 SYNOPSIS
+
+	use Maximus::Class::Module::Source::SCM::Subversion;
+	my $source = Maximus::Class::Module::Source::SCM::Subversion->new;
+
+=head1 DESCRIPTION
+
+Subversion support for retrieving the modules sources.
+
+=head1 ATTRIBUTES
+
+=head2 repository
+
+Location of remote Subversion repository. Must be publicly readable
+
+=head2 local_repository
+
+Location of the local copy of the Subversion repository
+
+=head2 trunk
+
+Path to trunk. If the repository hosts more modules then set it to the module
+path, e.g. trunk/my.mod
+
+=head2 tags
+
+Path to tags. If the repository hosts more modules then set I<tags_filter> to
+filter the listing.
+
+=head2 tags_filter
+
+If the repository hosts more modules then set this to filter the listing.
+e.g.: C<^my\.mod-(.+)> if this module uses tags in the style of I<my.mod-0.01>
+or I<my.mod-0.3.0>. You MUST add a capture so the version string can be fetched.
+
+=head1 METHODS
+
+=head2 init_repo
+
+Initialize repository. Either clones or pulls to update
+
+=head2 prepare
+
+Fetch files for I<version> and sort them inside the temporary directory
+
+=head2 get_versions
+
+Returns all versions
+
+=head2 get_latest_revision
+
+Retrieve latest revision of trunk
+
+=head2 auto_discover
+
+Discover available modules from the repository
 
 =head1 AUTHOR
 
@@ -210,7 +202,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

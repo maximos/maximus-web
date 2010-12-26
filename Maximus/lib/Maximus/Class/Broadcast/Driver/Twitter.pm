@@ -7,6 +7,58 @@ with 'Maximus::Role::Broadcast::Driver';
 our $VERSION = '0.002';
 $VERSION = eval {$VERSION};
 
+has 'nt' => (
+    isa => 'Net::Twitter',
+    is  => 'rw',
+);
+
+has 'consumer_key' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+has 'consumer_secret' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+has 'access_token' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+has 'access_token_secret' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+sub say {
+    my ($self, $msg) = @_;
+    return $self->nt->update($msg->text);
+}
+
+sub BUILD {
+    my $self = shift;
+    if (   $self->consumer_key
+        && $self->consumer_secret
+        && $self->access_token
+        && $self->access_token_secret
+        && !$self->nt)
+    {
+        $self->nt(
+            Net::Twitter->new(
+                traits          => ['OAuth', 'API::REST'],
+                consumer_key    => $self->consumer_key,
+                consumer_secret => $self->consumer_secret,
+                access_token    => $self->access_token,
+                access_token_secret => $self->access_token_secret,
+            )
+        );
+    }
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
@@ -42,94 +94,45 @@ Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
 
 Broadcast messages to Twitter.
 
+
 =head1 ATTRIBUTES
 
 =head2 nt
 
 Net::Twitter object
-=cut
 
-has 'nt' => (
-    isa => 'Net::Twitter',
-    is  => 'rw',
-);
 
 =head2 consumer_key
 
 Read-Only, used for creating a Net::Twitter object
-=cut
 
-has 'consumer_key' => (
-    isa => 'Str',
-    is  => 'ro',
-);
 
 =head2 consumer_key
 
 Read-Only, used for creating a Net::Twitter object
-=cut
 
-has 'consumer_secret' => (
-    isa => 'Str',
-    is  => 'ro',
-);
 
 =head2 access_token
 
 Read-Only, used for creating a Net::Twitter object
-=cut
 
-has 'access_token' => (
-    isa => 'Str',
-    is  => 'ro',
-);
 
 =head2 access_token_secret
 
 Read-Only, used for creating a Net::Twitter object
-=cut
 
-has 'access_token_secret' => (
-    isa => 'Str',
-    is  => 'ro',
-);
 
 =head1 METHODS
 
 =head2 say(L<Maximus::Class::Broadcast::Message> $msg)
 
 Tweet the message
-=cut
 
-sub say {
-    my ($self, $msg) = @_;
-    return $self->nt->update($msg->text);
-}
 
 =head2 BUILD
 
 Allow the constructor to create a Net::Twitter object when none is passed
-=cut
 
-sub BUILD {
-    my $self = shift;
-    if (   $self->consumer_key
-        && $self->consumer_secret
-        && $self->access_token
-        && $self->access_token_secret
-        && !$self->nt)
-    {
-        $self->nt(
-            Net::Twitter->new(
-                traits          => ['OAuth', 'API::REST'],
-                consumer_key    => $self->consumer_key,
-                consumer_secret => $self->consumer_secret,
-                access_token    => $self->access_token,
-                access_token_secret => $self->access_token_secret,
-            )
-        );
-    }
-}
 
 =head1 AUTHOR
 
@@ -159,5 +162,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

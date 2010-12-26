@@ -5,26 +5,6 @@ use Maximus::Exceptions;
 use IO::File;
 use namespace::autoclean;
 
-=head1 NAME
-
-Maximus::Class::Module - Represents a module
-
-=head1 SYNOPSIS
-
-	use Maximus::Class::Module;
-	my $module = Maximus::Class::Module->new;
-
-=head1 DESCRIPTION
-
-This class represents a module
-
-=head1 ATTRIBUTES
-
-=head2 modscope
-
-Modscope (namespace) of module, e.g. B<brl>.example
-=cut
-
 subtype 'ModScope' => as Str => where {
     my $modscope = $_;
     foreach my $reservedScope (('brl', 'pub')) {
@@ -35,24 +15,9 @@ subtype 'ModScope' => as Str => where {
 
 has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
-=head2 mod
-
-Name of module, e.g. brl.B<example>
-=cut
-
 has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
-=head2 desc
-
-Description of module
-=cut
-
 has 'desc' => (is => 'rw', isa => 'Str', required => 1);
-
-=head2 source
-
-Source location. Needs to be a class which does L<Maximus::Role::Module::Source>
-=cut
 
 has 'source' => (
     is       => 'rw',
@@ -60,30 +25,13 @@ has 'source' => (
     required => 1
 );
 
-=head2 scm_settings
-
-SCM specific settings
-=cut
-
 has 'scm_settings' => (
     is      => 'rw',
     isa     => 'HashRef',
     default => sub { {} },
 );
 
-=head2 schema
-
-L<DBIx::Class schema>
-=cut
-
 has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
-
-=head1 METHODS
-
-=head2 save
-
-Save module in database
-=cut
 
 sub save {
     my ($self, $user_id) = @_;
@@ -162,6 +110,53 @@ sub save {
     return $version;
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Class::Module - Represents a module
+
+=head1 SYNOPSIS
+
+	use Maximus::Class::Module;
+	my $module = Maximus::Class::Module->new;
+
+=head1 DESCRIPTION
+
+This class represents a module
+
+=head1 ATTRIBUTES
+
+=head2 modscope
+
+Modscope (namespace) of module, e.g. B<brl>.example
+
+=head2 mod
+
+Name of module, e.g. brl.B<example>
+
+=head2 desc
+
+Description of module
+
+=head2 source
+
+Source location. Needs to be a class which does L<Maximus::Role::Module::Source>
+
+=head2 scm_settings
+
+SCM specific settings
+
+=head2 schema
+
+L<DBIx::Class schema>
+
+=head1 METHODS
+
+=head2 save
+
+Save module in database
+
 =head1 AUTHOR
 
 Christiaan Kras
@@ -190,5 +185,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

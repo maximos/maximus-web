@@ -9,22 +9,6 @@ use Maximus::Form::Account::Signup;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-=head1 NAME
-
-Maximus::Controller::Account - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller to manage accounts
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
-
 sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
@@ -32,10 +16,6 @@ sub index : Path : Args(0) {
     $c->response->redirect($c->uri_for($self->action_for('login')))
       unless $c->user_exists;
 }
-
-=head2 login
-
-=cut
 
 sub login : Local {
     my ($self, $c) = @_;
@@ -70,19 +50,11 @@ sub login : Local {
     }
 }
 
-=head2 logout
-
-=cut
-
 sub logout : Local {
     my ($self, $c) = @_;
     $c->logout;
     $c->response->redirect($c->uri_for('/'));
 }
-
-=head2 signup
-
-=cut
 
 sub signup : Local {
     my ($self, $c) = @_;
@@ -142,10 +114,6 @@ sub signup : Local {
     }
 }
 
-=head2 forgot_password
-
-=cut
-
 sub forgot_password : Local {
     my ($self, $c) = @_;
 
@@ -191,13 +159,6 @@ sub forgot_password : Local {
         }
     }
 }
-
-=head2 reset_password
-
-Expects a username and a hash. If the hash is faulty nothing will happen. After
-this action has been succesfully executed the link will be expired because the
-password has been changed.
-=cut
 
 sub reset_password : Path('reset_password') : Args(2) {
     my ($self, $c, $username, $hash) = @_;
@@ -257,11 +218,6 @@ sub reset_password : Path('reset_password') : Args(2) {
     $c->detach('/default');
 }
 
-=head2 edit
-
-Edit account details
-=cut
-
 sub edit : Local {
     my ($self, $c) = @_;
     $c->response->redirect('login') and $c->detach unless $c->user_exists;
@@ -300,6 +256,38 @@ sub edit : Local {
     }
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Controller::Account - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller to manage accounts
+
+=head1 METHODS
+
+=head2 index
+
+=head2 login
+
+=head2 logout
+
+=head2 signup
+
+=head2 forgot_password
+
+=head2 reset_password
+
+Expects a username and a hash. If the hash is faulty nothing will happen. After
+this action has been succesfully executed the link will be expired because the
+password has been changed.
+
+=head2 edit
+
+Edit account details
+
 =head1 AUTHOR
 
 Christiaan Kras
@@ -328,5 +316,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

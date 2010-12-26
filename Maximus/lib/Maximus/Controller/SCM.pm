@@ -6,41 +6,17 @@ use Maximus::Task::SCM::AutoDiscover;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-=head1 NAME
-
-Maximus::Controller::SCM - SCM configuration management
-
-=head1 DESCRIPTION
-
-This controller is responsible for managing a users' SCM configurations.
-
-=head1 METHODS
-
-=head2 base
-
-=cut
-
 sub base : Chained('/') : PathPart('scm') : CaptureArgs(0) {
     my ($self, $c) = @_;
     $c->response->redirect('/account/login') && $c->detach
       unless $c->user_exists;
 }
 
-=head2 index
-
-Display overview of SCM configurations
-=cut
-
 sub index : Chained('base') : PathPart('') : Args(0) {
     my ($self, $c) = @_;
     my @scms = $c->user->scms;
     $c->stash(scm_configs => \@scms);
 }
-
-=head2 form
-
-Handle the configuration form
-=cut
 
 sub form : Private {
     my ($self, $c) = @_;
@@ -98,20 +74,10 @@ sub form : Private {
     }
 }
 
-=head2 new
-
-Add a new SCM configuration
-=cut
-
 sub add : Chained('base') : PathPart('new') : Args(0) {
     my ($self, $c) = @_;
     $c->forward('form');
 }
-
-=head2 get_scm
-
-Retrieve a SCM record
-=cut
 
 sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ($self, $c, $scm_id) = @_;
@@ -121,20 +87,10 @@ sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     $c->stash('scm' => $scm);
 }
 
-=head2 edit
-
-Edit a SCM configuration
-=cut
-
 sub edit : Chained('get_scm') : PathPart('edit') : Args(0) {
     my ($self, $c) = @_;
     $c->forward('form');
 }
-
-=head2 delete
-
-Delete a SCM configuration
-=cut
 
 sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
     my ($self, $c) = @_;
@@ -152,12 +108,6 @@ sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
     }
     $c->response->redirect($c->uri_for_action('/scm/index'));
 }
-
-=head2 autodiscover
-
-Autodiscover modules inside a SCM repository.
-Force firing a new task by adding the I<refresh> param.
-=cut
 
 sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
     my ($self, $c) = @_;
@@ -181,6 +131,49 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
             $c->uri_for($self->action_for('autodiscover'), [$scm->id]));
     }
 }
+
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Controller::SCM - SCM configuration management
+
+=head1 DESCRIPTION
+
+This controller is responsible for managing a users' SCM configurations.
+
+=head1 METHODS
+
+=head2 base
+
+=head2 index
+
+Display overview of SCM configurations
+
+=head2 form
+
+Handle the configuration form
+
+=head2 new
+
+Add a new SCM configuration
+
+=head2 get_scm
+
+Retrieve a SCM record
+
+=head2 edit
+
+Edit a SCM configuration
+
+=head2 delete
+
+Delete a SCM configuration
+
+=head2 autodiscover
+
+Autodiscover modules inside a SCM repository.
+Force firing a new task by adding the I<refresh> param.
 
 =head1 AUTHOR
 
@@ -209,7 +202,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

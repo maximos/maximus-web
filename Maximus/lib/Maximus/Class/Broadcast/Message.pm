@@ -2,6 +2,13 @@ package Maximus::Class::Broadcast::Message;
 use Moose;
 use namespace::autoclean;
 
+has 'text' => (
+    isa => 'Str',
+    is  => 'ro',
+);
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Class::Broadcast::Message - Message
@@ -20,12 +27,6 @@ Message class to be passed to a announcer and/or driver.
 =head2 text
 
 The actual message
-=cut
-
-has 'text' => (
-    isa => 'Str',
-    is  => 'ro',
-);
 
 =head1 AUTHOR
 
@@ -55,5 +56,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

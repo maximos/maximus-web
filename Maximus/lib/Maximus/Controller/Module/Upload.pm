@@ -8,21 +8,6 @@ use Maximus::Form::Module::Upload;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-=head1 NAME
-
-Maximus::Controller::Module::Upload - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=head2 auto
-
-auto makes sure the user is logged in before doing anything
-=cut
-
 sub auto : Private {
     my ($self, $c) = @_;
 
@@ -34,10 +19,6 @@ sub auto : Private {
 
     return 1;
 }
-
-=head2 index
-
-=cut
 
 sub index : Path : Args(0) {
     my ($self, $c) = @_;
@@ -110,6 +91,24 @@ sub index : Path : Args(0) {
     }
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Controller::Module::Upload - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller.
+
+=head1 METHODS
+
+=head2 auto
+
+auto makes sure the user is logged in before doing anything
+
+=head2 index
+
 =head1 AUTHOR
 
 Christiaan Kras
@@ -138,5 +137,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

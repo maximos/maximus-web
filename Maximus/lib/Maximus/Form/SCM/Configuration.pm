@@ -2,20 +2,6 @@ package Maximus::Form::SCM::Configuration;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-=head1 NAME
-
-Maximus::Form::SCM::Configuration - SCM Configuration form
-
-=head1 DESCRIPTION
-
-SCM Configuration form
-
-=head1 Attributes
-
-=head2 software 
-
-=cut
-
 has_field 'software' => (
     type    => 'Select',
     label   => 'SCM Software',
@@ -27,10 +13,6 @@ has_field 'software' => (
     required_message => 'You must enter a SCM',
 );
 
-=head2 repo_url
-
-=cut
-
 has_field 'repo_url' => (
     type             => 'Text',
     label            => 'Repository URL',
@@ -38,31 +20,17 @@ has_field 'repo_url' => (
     required_message => 'You must enter a repository URL',
 );
 
-=head2 modules
-
-=cut
-
 has_field 'modules' => (
     type          => 'Select',
     select_widget => 'select',
     multiple      => 1,
 );
 
-=head2 user
-
-=cut
-
 has 'user' => (
     is       => 'ro',
     isa      => 'Maximus::Schema::Result::User',
     required => 1,
 );
-
-=head1 METHODS
-
-=head2 options_modules
-
-=cut
 
 sub options_modules {
     my $self = shift;
@@ -82,6 +50,30 @@ sub options_modules {
     }
     return @selections;
 }
+
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Form::SCM::Configuration - SCM Configuration form
+
+=head1 DESCRIPTION
+
+SCM Configuration form
+
+=head1 Attributes
+
+=head2 software 
+
+=head2 repo_url
+
+=head2 modules
+
+=head2 user
+
+=head1 METHODS
+
+=head2 options_modules
 
 =head1 AUTHOR
 
@@ -111,5 +103,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

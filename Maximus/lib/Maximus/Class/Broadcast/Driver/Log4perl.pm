@@ -4,6 +4,19 @@ use Log::Log4perl;
 use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
+has 'logger' => (
+    isa     => 'Log::Log4perl::Logger',
+    is      => 'ro',
+    default => sub { Log::Log4perl->get_logger() }
+);
+
+sub say {
+    my ($self, $msg) = @_;
+    $self->logger->info($msg->text);
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Class::Broadcast::Driver::Log4perl - Log4perl driver
@@ -26,26 +39,13 @@ of Maximus.
 
 =head2 logger
 
-A L<Log::Log4perl::Logger> object;
-=cut
-
-has 'logger' => (
-    isa     => 'Log::Log4perl::Logger',
-    is      => 'ro',
-    default => sub { Log::Log4perl->get_logger() }
-);
+A L<Log::Log4perl::Logger> object
 
 =head1 METHODS
 
 =head2 say(L<Maximus::Class::Broadcast::Message> $msg)
 
 Ignores the message but adds 1 to the C<counter> attribute.
-=cut
-
-sub say {
-    my ($self, $msg) = @_;
-    $self->logger->info($msg->text);
-}
 
 =head1 AUTHOR
 
@@ -75,5 +75,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

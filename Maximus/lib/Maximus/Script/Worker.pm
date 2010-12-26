@@ -9,25 +9,6 @@ use 5.10.0;
 
 with 'Catalyst::ScriptRole';
 
-=head1 NAME
-
-Maximus::Script::Worker - Maximus Gearman worker
-
-=head1 SYNOPSIS
-
-	maximus_worker.pl [options]
-
-=head1 DESCRIPTION
-
-Worker script that waits for Gearman to supply a task to it.
-
-=head1 ATTRIBUTES
-
-=head2 cfg
-
-Contains a HashRef with the configuration in maximus.conf
-=cut
-
 has 'cfg' => (
     is      => 'ro',
     isa     => 'HashRef',
@@ -42,11 +23,6 @@ has 'cfg' => (
     },
 );
 
-=head2 verbose
-
-Verbose mode
-=cut
-
 has 'verbose' => (
     traits        => [qw(Getopt)],
     cmd_aliases   => 'v',
@@ -56,20 +32,10 @@ has 'verbose' => (
     default       => sub {0},
 );
 
-=head1 METHODS
-
-=head2 run
-
-=cut
-
 sub run {
     my $self = shift;
     $self->_run_application;
 }
-
-=head2 _run_application
-
-=cut
 
 sub _run_application {
     my $self = shift;
@@ -112,6 +78,36 @@ sub _run_application {
     $worker->work while 1;
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Script::Worker - Maximus Gearman worker
+
+=head1 SYNOPSIS
+
+	maximus_worker.pl [options]
+
+=head1 DESCRIPTION
+
+Worker script that waits for Gearman to supply a task to it.
+
+=head1 ATTRIBUTES
+
+=head2 cfg
+
+Contains a HashRef with the configuration in maximus.conf
+
+=head2 verbose
+
+Verbose mode
+
+=head1 METHODS
+
+=head2 run
+
+=head2 _run_application
+
 =head1 AUTHOR
 
 Christiaan Kras
@@ -139,7 +135,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;

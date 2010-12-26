@@ -2,6 +2,29 @@ package Maximus::Form::Account::Edit;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
+has_field 'email' => (
+    type             => 'Email',
+    label            => 'E-Mail',
+    required         => 1,
+    required_message => 'You must enter a e-mail address',
+);
+
+has_field 'password' => (
+    type             => 'Password',
+    label            => 'Password',
+    required         => 1,
+    required_message => 'You must enter a password',
+);
+
+has_field 'confirm_password' => (
+    type             => 'PasswordConf',
+    label            => 'Confirm password',
+    required         => 1,
+    required_message => 'You must confirm your password',
+);
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Form::Account::Signup - Account Edit form
@@ -14,36 +37,9 @@ Account edit form
 
 =head2 email
 
-=cut
-
-has_field 'email' => (
-    type             => 'Email',
-    label            => 'E-Mail',
-    required         => 1,
-    required_message => 'You must enter a e-mail address',
-);
-
 =head2 password
 
-=cut
-
-has_field 'password' => (
-    type             => 'Password',
-    label            => 'Password',
-    required         => 1,
-    required_message => 'You must enter a password',
-);
-
 =head2 confirm_password
-
-=cut
-
-has_field 'confirm_password' => (
-    type             => 'PasswordConf',
-    label            => 'Confirm password',
-    required         => 1,
-    required_message => 'You must confirm your password',
-);
 
 =head1 AUTHOR
 
@@ -73,5 +69,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

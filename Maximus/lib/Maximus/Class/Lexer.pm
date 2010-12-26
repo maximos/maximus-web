@@ -3,29 +3,6 @@ use Moose;
 use HOP::Lexer 'string_lexer';
 use namespace::autoclean;
 
-=head1 NAME
-
-Maximus::Class::Lexer - BlitzMax Lexer
-
-=head1 SYNOPSIS
-
-	use Maximus::Class::Lexer;
-	my $lexer = Maximus::Class::Lexer->new;
-	my @tokens = $lexer->tokens('string');
-
-=head1 DESCRIPTION
-
-Provides a minimal BlitzMax lexer to retrieve information about dependant
-modules and which files the module depends on.
-
-=head1 METHODS
-
-
-=head2 tokens(I<$input_iterator>)
-
-Scan input and return a list with tokens
-=cut
-
 sub tokens {
     my ($self, $input_iterator) = @_;
     my $lexer = string_lexer(
@@ -66,16 +43,35 @@ sub tokens {
     return @tokens;
 }
 
-=head2 _text
-
-Private subroutine
-=cut
-
 sub _text {
     my ($label, $value) = @_;
     my @values = split(/\s/, $value);
     [$label, $values[1]];
 }
+
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Class::Lexer - BlitzMax Lexer
+
+=head1 SYNOPSIS
+
+	use Maximus::Class::Lexer;
+	my $lexer = Maximus::Class::Lexer->new;
+	my @tokens = $lexer->tokens('string');
+
+=head1 DESCRIPTION
+
+Provides a minimal BlitzMax lexer to retrieve information about dependant
+modules and which files the module depends on.
+
+=head1 METHODS
+
+
+=head2 tokens(I<$input_iterator>)
+
+Scan input and return a list with tokens
 
 =head1 SEE ALSO
 
@@ -109,5 +105,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

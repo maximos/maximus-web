@@ -8,21 +8,6 @@ use Maximus::Class::Module::Source::SCM::Git;
 use Maximus::Class::Module::Source::SCM::Subversion;
 use namespace::autoclean;
 
-=head1 NAME
-
-Maximus::Role::Task::SCM - Role for SCM tasks
-
-=head1 DESCRIPTION
-
-Role for SCM tasks.
-
-=head1 METHODS
-
-=head2
-
-Retrieve a C<Maximus::Class::Module::Source::SCM> type object
-=cut
-
 sub get_source {
     my ($self, $scm) = @_;
     my $local_repo = Path::Class::Dir->new(
@@ -59,6 +44,20 @@ sub get_source {
 
     return $source;
 }
+
+=head1 NAME
+
+Maximus::Role::Task::SCM - Role for SCM tasks
+
+=head1 DESCRIPTION
+
+Role for SCM tasks.
+
+=head1 METHODS
+
+=head2
+
+Retrieve a C<Maximus::Class::Module::Source::SCM> type object
 
 =head1 AUTHOR
 

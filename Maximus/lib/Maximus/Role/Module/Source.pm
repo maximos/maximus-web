@@ -9,42 +9,9 @@ use Maximus::Exceptions;
 use Maximus::Class::Lexer;
 use version;
 
-=head1 NAME
-
-Maximus::Role::Module::Source - Interface for module source handlers
-
-=head1 SYNOPSIS
-
-	package Maximus::Class::Module::Source::SCM::Foo;
-	use Moose;
-
-	with 'Maximus::Role::Module::Source';
-
-=head1 DESCRIPTION
-
-This is the interface for all Maximus::Class::Module::Source classes
-
-=head1 ATTRIBUTES
-
-=head2 version
-
-Version of module this source represents
-=cut
-
 has 'version' => (is => 'rw', isa => 'Str', default => '');
 
-=head2 validated
-
-Returns true if C<validate> succeeded.
-=cut
-
 has 'validated' => (is => 'rw', isa => 'Bool');
-
-=head2 tmpDir
-
-Retrieve path to temporary directory for file storage. This directory wil be
-automatically cleaned up.
-=cut
 
 has 'tmpDir' => (
     is         => 'ro',
@@ -57,13 +24,6 @@ sub _tmpDirBuilder {
     return File::Temp->newdir();
 }
 
-=head2 processDir
-
-Another temporary directory to which the module files will be copied. This will
-allow for module uploads that contain a full modscope. Either through SCM or a
-ZIP Archive. This is done to make sure we'll only archive the intended module.
-=cut
-
 has 'processDir' => (
     is         => 'ro',
     isa        => 'File::Temp::Dir',
@@ -71,21 +31,7 @@ has 'processDir' => (
     lazy_build => 1,
 );
 
-=head1 METHODS
-
-=head2 prepare
-
-Prepare contents of temporarily directory to validate against the I<validate>
-method of L<Maximus::Class::Module::Source::Base> 
-=cut
-
 requires 'prepare';
-
-=head2 validate(I<$module>)
-
-Validate directory structure and its contents to see if it can be archived.
-I<$module> ISA Maximus::Class::Module
-=cut
 
 sub validate {
     my ($self, $mod) = @_;
@@ -124,14 +70,6 @@ sub validate {
       unless $modNameOK;
     $self->validated(1);
 }
-
-=head2 findDependencies(I<$module>)
-
-Analyze BlitzMax source code to find dependent modules.
-Returns an array with at each index an array of which the first value is the
-modscope, and the second the modname.
-I<$module> ISA Maximus::Class::Module
-=cut
 
 sub findDependencies {
     my ($self, $mod) = @_;
@@ -182,13 +120,6 @@ sub _findDependencies {
     return @deps;
 }
 
-=head2 archive(I<$module>, I<$fh>)
-
-Create an archive out of the contents of the temporarily directory
-I<$fh> should be a C<IO::Handle> or any other derived handle. Returns the name
-of the archive on success.
-=cut
-
 sub archive {
     my ($self, $mod, $fh) = @_;
     confess('Sources are not validated')  unless $self->validated;
@@ -231,13 +162,6 @@ sub archive {
     sprintf('%s.%s-%s.zip', $mod->modscope, $mod->mod, $self->version);
 }
 
-=head2 findAndMoveRootDir(I<$module>)
-
-Find the location of the mainfile and move the contents of this directory to the
-root of the temporary directory. After that it cleans out SCM specific
-directories.
-=cut
-
 sub findAndMoveRootDir {
     my ($self, $mod) = @_;
     my $mainFile = $mod->mod . '.bmx';
@@ -272,6 +196,73 @@ sub findAndMoveRootDir {
 
     remove_tree(@dirs) if @dirs;
 }
+
+=head1 NAME
+
+Maximus::Role::Module::Source - Interface for module source handlers
+
+=head1 SYNOPSIS
+
+	package Maximus::Class::Module::Source::SCM::Foo;
+	use Moose;
+
+	with 'Maximus::Role::Module::Source';
+
+=head1 DESCRIPTION
+
+This is the interface for all Maximus::Class::Module::Source classes
+
+=head1 ATTRIBUTES
+
+=head2 version
+
+Version of module this source represents
+
+=head2 validated
+
+Returns true if C<validate> succeeded.
+
+=head2 tmpDir
+
+Retrieve path to temporary directory for file storage. This directory wil be
+automatically cleaned up.
+
+=head2 processDir
+
+Another temporary directory to which the module files will be copied. This will
+allow for module uploads that contain a full modscope. Either through SCM or a
+ZIP Archive. This is done to make sure we'll only archive the intended module.
+
+=head1 METHODS
+
+=head2 prepare
+
+Prepare contents of temporarily directory to validate against the I<validate>
+method of L<Maximus::Class::Module::Source::Base> 
+
+=head2 validate(I<$module>)
+
+Validate directory structure and its contents to see if it can be archived.
+I<$module> ISA Maximus::Class::Module
+
+=head2 findDependencies(I<$module>)
+
+Analyze BlitzMax source code to find dependent modules.
+Returns an array with at each index an array of which the first value is the
+modscope, and the second the modname.
+I<$module> ISA Maximus::Class::Module
+
+=head2 archive(I<$module>, I<$fh>)
+
+Create an archive out of the contents of the temporarily directory
+I<$fh> should be a C<IO::Handle> or any other derived handle. Returns the name
+of the archive on success.
+
+=head2 findAndMoveRootDir(I<$module>)
+
+Find the location of the mainfile and move the contents of this directory to the
+root of the temporary directory. After that it cleans out SCM specific
+directories.
 
 =head1 AUTHOR
 

@@ -3,6 +3,19 @@ use Moose;
 use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
+has 'counter' => (
+    isa     => 'Int',
+    is      => 'rw',
+    default => 0,
+);
+
+sub say {
+    my ($self, $msg) = @_;
+    $self->counter($self->counter + 1);
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Class::Broadcast::Driver::Null - Test driver
@@ -24,25 +37,13 @@ ignored. It does however count the number of times C<say> has been called.
 =head2 counter
 
 Contains the number of times C<say> has been called.
-=cut
-
-has 'counter' => (
-    isa     => 'Int',
-    is      => 'rw',
-    default => 0,
-);
 
 =head1 METHODS
 
 =head2 say(L<Maximus::Class::Broadcast::Message> $msg)
 
 Ignores the message but adds 1 to the C<counter> attribute.
-=cut
 
-sub say {
-    my ($self, $msg) = @_;
-    $self->counter($self->counter + 1);
-}
 
 =head1 AUTHOR
 
@@ -72,5 +73,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

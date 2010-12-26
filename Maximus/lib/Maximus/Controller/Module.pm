@@ -10,32 +10,11 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-=head1 NAME
-
-Maximus::Controller::Module - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller for Modules;
-
-=head1 METHODS
-
-=cut
-
-=head2 index
-
-=cut
-
 sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
     $c->response->redirect($c->uri_for('modscopes'));
 }
-
-=head2 modscopes
-
-Display all modscopes
-=cut
 
 sub modscopes : Local {
     my ($self, $c) = @_;
@@ -43,11 +22,6 @@ sub modscopes : Local {
       $c->model('DB::Modscope')->search(undef, {order_by => 'name',});
     $c->stash->{modscopes} = \@modscopes;
 }
-
-=head2 modscope
-
-Display all modules for the given modscope
-=cut
 
 sub modscope : Path : Args(1) {
     my ($self, $c, $scope) = @_;
@@ -59,11 +33,6 @@ sub modscope : Path : Args(1) {
       $modscope->search_related('modules', undef, {order_by => 'name'});
     $c->stash->{modules} = \@modules;
 }
-
-=head2 module
-
-Display information about a module
-=cut
 
 sub module : Path : Args(2) {
     my ($self, $c, $scope, $modname) = @_;
@@ -116,11 +85,6 @@ sub module : Path : Args(2) {
     $c->stash->{module}   = $module;
     $c->stash->{versions} = \%versions;
 }
-
-=head2 sources
-
-Retrieve sources file
-=cut
 
 sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
     my ($self, $c) = @_;
@@ -191,11 +155,6 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
     $c->stash->{sources} = $sources || {};
 }
 
-=head2 /module/sources/json
-
-Sources file in JSON
-=cut
-
 sub sources_json : Chained('sources') : PathPart('json') : Args(0) {
     my ($self, $c) = @_;
 
@@ -203,22 +162,12 @@ sub sources_json : Chained('sources') : PathPart('json') : Args(0) {
     $c->res->body(JSON::Any->objToJson($c->stash->{sources}));
 }
 
-=head2 /module/sources/xml
-
-Sources file in XML
-=cut
-
 sub sources_xml : Chained('sources') : PathPart('xml') : Args(0) {
     my ($self, $c) = @_;
 
     $c->res->content_type('text/xml');
     $c->res->body(XMLout($c->stash->{sources}));
 }
-
-=head2 download
-
-Download archive based on modscope, module name and version
-=cut
 
 sub download : Local : Args(3) {
     my ($self, $c, $modscope, $module, $version) = @_;
@@ -262,6 +211,47 @@ sub download : Local : Args(3) {
     $c->res->body($fh);
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Controller::Module - Catalyst Controller
+
+=head1 DESCRIPTION
+
+Catalyst Controller for Modules;
+
+=head1 METHODS
+
+=head2 index
+
+=head2 modscopes
+
+Display all modscopes
+
+=head2 modscope
+
+Display all modules for the given modscope
+
+=head2 module
+
+Display information about a module
+
+=head2 sources
+
+Retrieve sources file
+
+=head2 /module/sources/json
+
+Sources file in JSON
+
+=head2 /module/sources/xml
+
+Sources file in XML
+
+=head2 download
+
+Download archive based on modscope, module name and version
 =head1 AUTHOR
 
 Christiaan Kras
@@ -290,5 +280,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

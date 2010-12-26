@@ -10,6 +10,32 @@ BEGIN { extends 'Catalyst::Controller' }
 #
 __PACKAGE__->config(namespace => '');
 
+sub index : Path : Args(0) {
+    my ($self, $c) = @_;
+}
+
+sub default : Private {
+    my ($self, $c) = @_;
+    $c->forward('error_404');
+}
+
+sub error_404 : Private {
+    my ($self, $c) = @_;
+    $c->stash->{template} = '404.tt';
+    $c->response->status(404);
+}
+
+sub error_403 : Private {
+    my ($self, $c) = @_;
+    $c->stash->{template} = '403.tt';
+    $c->response->status(403);
+}
+
+sub end : ActionClass('RenderView') {
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Controller::Root - Root Controller for Maximus
@@ -24,53 +50,21 @@ Maximus::Controller::Root - Root Controller for Maximus
 
 The root page (/)
 
-=cut
-
-sub index : Path : Args(0) {
-    my ($self, $c) = @_;
-}
-
 =head2 default
 
 Standard 404 error page
 
-=cut
-
-sub default : Private {
-    my ($self, $c) = @_;
-    $c->forward('error_404');
-}
-
 =head2 error_404
 
 Standard 404 not-found page
-=cut
-
-sub error_404 : Private {
-    my ($self, $c) = @_;
-    $c->stash->{template} = '404.tt';
-    $c->response->status(404);
-}
 
 =head2 error_403
 
 Standard 403 forbidden page
-=cut
-
-sub error_403 : Private {
-    my ($self, $c) = @_;
-    $c->stash->{template} = '403.tt';
-    $c->response->status(403);
-}
 
 =head2 end
 
 Attempt to render a view, if needed.
-
-=cut
-
-sub end : ActionClass('RenderView') {
-}
 
 =head1 AUTHOR
 
@@ -99,7 +93,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 =cut
-
-__PACKAGE__->meta->make_immutable;
 
 1;
