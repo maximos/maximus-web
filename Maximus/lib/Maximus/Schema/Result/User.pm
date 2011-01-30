@@ -90,6 +90,21 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xjGzMUdsAE2WtAwXE9+TFw
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+sub insert {
+    my ( $self, @args ) = @_;
+
+    my $guard = $self->result_source->schema->txn_scope_guard;
+    $self->next::method(@args);
+
+    # Create user-<id>-mutable role and link it to the new user
+    my $rs_roles = $self->result_source->schema->resultset('Role');
+    my $role = $rs_roles->create({role => 'user-' . $self->id . '-mutable'});
+    $self->create_related('user_roles', {role_id => $role->id});
+
+    $guard->commit;
+
+    return $self;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
