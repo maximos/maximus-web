@@ -30,13 +30,6 @@ __PACKAGE__->table("modscope");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 user_id
-
-  data_type: 'integer'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 name
 
   data_type: 'varchar'
@@ -53,13 +46,6 @@ __PACKAGE__->add_columns(
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "user_id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
   "name",
   { data_type => "varchar", is_nullable => 0, size => 45 },
 );
@@ -67,21 +53,6 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("uniq_name", ["name"]);
 
 =head1 RELATIONS
-
-=head2 user
-
-Type: belongs_to
-
-Related object: L<Maximus::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "Maximus::Schema::Result::User",
-  { id => "user_id" },
-  {},
-);
 
 =head2 modules
 
@@ -99,8 +70,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p0Gz7WhDu69BsYFjhWkUcQ
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:39:48
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cWOg5osbMP6hslyeYeCjlQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

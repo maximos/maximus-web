@@ -70,36 +70,6 @@ __PACKAGE__->add_unique_constraint("Index_2", ["username"]);
 
 =head1 RELATIONS
 
-=head2 modscopes
-
-Type: has_many
-
-Related object: L<Maximus::Schema::Result::Modscope>
-
-=cut
-
-__PACKAGE__->has_many(
-  "modscopes",
-  "Maximus::Schema::Result::Modscope",
-  { "foreign.user_id" => "self.id" },
-  {},
-);
-
-=head2 scms
-
-Type: has_many
-
-Related object: L<Maximus::Schema::Result::Scm>
-
-=cut
-
-__PACKAGE__->has_many(
-  "scms",
-  "Maximus::Schema::Result::Scm",
-  { "foreign.user_id" => "self.id" },
-  {},
-);
-
 =head2 user_roles
 
 Type: has_many
@@ -116,8 +86,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Njc/JXf4nwryYC5Luz+KzQ
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:46:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xjGzMUdsAE2WtAwXE9+TFw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -30,13 +30,6 @@ __PACKAGE__->table("scm");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 user_id
-
-  data_type: 'integer'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 software
 
   data_type: 'varchar'
@@ -80,13 +73,6 @@ __PACKAGE__->add_columns(
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "user_id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
   "software",
   { data_type => "varchar", is_nullable => 0, size => 15 },
   "repo_url",
@@ -119,24 +105,9 @@ __PACKAGE__->has_many(
   {},
 );
 
-=head2 user
 
-Type: belongs_to
-
-Related object: L<Maximus::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "user",
-  "Maximus::Schema::Result::User",
-  { id => "user_id" },
-  {},
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Oev6tDjoUpH6TYsAgMO4FA
+# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:46:06
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Phz+IejW26NDnFptWtV9Cw
 
 
 use JSON::Any;
