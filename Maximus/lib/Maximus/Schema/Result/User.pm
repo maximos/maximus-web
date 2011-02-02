@@ -89,6 +89,11 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:46:06
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xjGzMUdsAE2WtAwXE9+TFw
 
+__PACKAGE__->many_to_many(
+    "roles",
+    "user_roles",
+    "role"
+);
 
 sub insert {
     my ( $self, @args ) = @_;
