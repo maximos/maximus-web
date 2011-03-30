@@ -24,6 +24,7 @@ has_field 'modules' => (
     type          => 'Select',
     select_widget => 'select',
     multiple      => 1,
+    size          => 10,
 );
 
 has 'user' => (
