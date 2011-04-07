@@ -6,8 +6,8 @@
 	<meta name="description" content="Maximus - the BlitzMax module manager" />
 	<meta name="keywords" content="" />
 	[% USE date %]
-	<meta name="Design" content="Copyright [% date.format(date.now, '%Y') %] skn3[ac]" />
-	<meta name="Website" content="Copyright [% date.format(date.now, '%Y') %] Christiaan Kras" />
+	<meta name="Design" content="Copyright 2010-[% date.format(date.now, '%Y') %] skn3[ac]" />
+	<meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
 	[%- CALL c.assets.include('js/mootools-1.2.4-core.js') -%]
 	[%- CALL c.assets.include('js/mootools-1.2.4.4-more.js') -%]
 	[%- CALL c.assets.include('js/formcheck-1.5-yc.js') -%]
