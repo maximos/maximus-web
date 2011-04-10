@@ -120,5 +120,24 @@ sub insert {
     return $self;
 }
 
+=head2 search_role_objects($pattern)
+
+Search for object id's in user roles.
+
+C<$pattern> can be either a Regexp or a string. When using a string only supply
+the prefix, e.g. I<scm> for I<^scm-\d+>
+
+=cut
+
+sub search_role_objects {
+    my ($self, $pattern) = @_;
+    unless (ref($pattern) eq 'Regexp') {
+        $pattern = qr/^$pattern-\d+/;
+    }
+    
+    return map { $_->role =~ m/(\d+)/ }
+      grep     { $_->role =~ $pattern } $self->roles;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
