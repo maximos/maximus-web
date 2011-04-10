@@ -14,7 +14,7 @@ sub base : Chained('/') : PathPart('scm') : CaptureArgs(0) {
 
 sub index : Chained('base') : PathPart('') : Args(0) {
     my ($self, $c) = @_;
-    my @scms = $c->user->scms;
+    my @scms = $c->user->obj->get_scms;
     $c->stash(scm_configs => \@scms);
 }
 
@@ -32,7 +32,7 @@ sub form : Private {
 
     my $form = Maximus::Form::SCM::Configuration->new(
         {   init_object => $init_object,
-            user        => $c->user->get_object(),
+            user        => $c->user->obj,
         }
     );
 
@@ -46,7 +46,6 @@ sub form : Private {
         $c->model('DB')->txn_do(
             sub {
                 my %data = (
-                    user_id  => $c->user->id,
                     software => $form->field('software')->value,
                     repo_url => $form->field('repo_url')->value,
                     settings => '',
@@ -61,6 +60,8 @@ sub form : Private {
                 else {
                     $scm = $c->model('DB::SCM')->create(\%data);
                 }
+                
+                $c->user->obj->find_or_create_related('user_roles', { role_id => $scm->get_role('mutable')->id});
             }
         );
         if ($@) {
@@ -83,7 +84,10 @@ sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ($self, $c, $scm_id) = @_;
     my $scm = $c->model('DB::SCM')->find({id => $scm_id});
     $c->detach('/error_404') unless $scm;
-    $c->detach('/error_403') unless ($c->user->id == $scm->user_id);
+    $c->detach('/error_403')
+      unless $c->user_exists && $c->check_any_user_role(
+              ('is_superuser', 'scm-' . $scm->id . '-mutable')
+      );
     $c->stash('scm' => $scm);
 }
 

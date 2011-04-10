@@ -139,5 +139,20 @@ sub search_role_objects {
       grep     { $_->role =~ $pattern } $self->roles;
 }
 
+=head2 get_scms
+
+Retrieve all SCM's this user has access to
+
+=cut
+
+sub get_scms {
+    my ($self) = @_;
+    my @scms   = $self->search_role_objects(qr/^scm-\d+-mutable/);
+    return unless @scms;
+
+    my $rs     = $self->result_source->schema->resultset('Scm');
+    return $rs->search({ id => \@scms});
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

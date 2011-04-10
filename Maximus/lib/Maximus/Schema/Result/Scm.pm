@@ -116,6 +116,63 @@ __PACKAGE__->inflate_column($_, {
 	deflate => sub { JSON::Any->objToJson(shift || {} ) },
 }) for(qw/settings auto_discover_response/);
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+=head1 METHODS
+
+=head2 insert
+
+Inserting a scm record will also insert a role with a value of
+I<scm-id-mutable>.
+
+=cut
+
+sub insert {
+    my ( $self, @args ) = @_;
+
+    my $guard = $self->result_source->schema->txn_scope_guard;
+    $self->next::method(@args);
+
+    # Create scm-<id>-mutable role and link it to the new user
+    my $rs_roles = $self->result_source->schema->resultset('Role');
+    my $role = $rs_roles->create({role => 'scm-' . $self->id . '-mutable'});
+
+    $guard->commit;
+
+    return $self;
+}
+
+=head2 delete
+
+Deleting a scm record will also remove any related roles
+
+=cut
+
+sub delete {
+    my ( $self, @args ) = @_;
+
+    my $schema = $self->result_source->schema;
+    my $guard  = $schema->txn_scope_guard;
+    $self->next::method(@args);
+
+    my $rs_roles = $schema->resultset('Role');
+    my $roles = $rs_roles->search_like({ role => 'scm-'.$self->id.'-%' });
+    $roles->delete;
+
+    $guard->commit;
+
+    return $self;
+}
+
+=head2 get_role
+
+Retrieve role
+
+=cut
+
+sub get_role {
+    my ( $self, $name ) = @_;
+    my $rs_roles = $self->result_source->schema->resultset('Role');
+    return $rs_roles->single({ role => 'scm-' . $self->id.'-'.$name });
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
