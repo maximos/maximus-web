@@ -95,6 +95,15 @@ __PACKAGE__->many_to_many(
     "role"
 );
 
+=head1 METHODS
+
+=head2 insert
+
+Inserting a user record will also insert a role with a value of
+I<user-id-mutable>.
+
+=cut
+
 sub insert {
     my ( $self, @args ) = @_;
 
