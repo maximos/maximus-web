@@ -7,26 +7,6 @@ use namespace::autoclean;
 with 'Maximus::Role::Task';
 with 'Maximus::Role::Task::SCM';
 
-=head1 NAME
-
-Maximus::Task::SCM::Update - Update SCM configurations and modules
-
-=head1 SYNOPSIS
-
-	use Maximus::Task::SCM::Update;
-	$task->run();
-
-=head1 DESCRIPTION
-
-Update module database.
-
-=head1 METHODS
-
-=head2 run
-
-Run task
-=cut
-
 sub run {
     my ($self, $scm_id) = @_;
     my $search;
@@ -92,13 +72,34 @@ sub run {
     1;
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Task::SCM::Update - Update SCM configurations and modules
+
+=head1 SYNOPSIS
+
+	use Maximus::Task::SCM::Update;
+	$task->run();
+
+=head1 DESCRIPTION
+
+Update module database.
+
+=head1 METHODS
+
+=head2 run
+
+Run task
+
 =head1 AUTHOR
 
 Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -120,5 +121,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

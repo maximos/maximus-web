@@ -24,6 +24,7 @@ has_field 'modules' => (
     type          => 'Select',
     select_widget => 'select',
     multiple      => 1,
+    size          => 10,
 );
 
 has 'user' => (
@@ -81,7 +82,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

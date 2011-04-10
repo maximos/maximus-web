@@ -8,27 +8,6 @@ use namespace::autoclean;
 
 with 'Maximus::Role::Task';
 
-=head1 NAME
-
-Maximus::Task::Module::Upload - Upload module archive for persistent storage
-
-=head1 SYNOPSIS
-
-	use Maximus::Task::Module::Upload;
-	$task->run($module_version_id); # Module Version ID number
-	$task->run($module_version); # Maximus::Schema::Result::ModuleVersion
-
-=head1 DESCRIPTION
-
-Upload module archive for persistent storage.
-
-=head1 METHODS
-
-=head2 run
-
-Run task
-=cut
-
 sub run {
     my ($self, $module_version) = @_;
     unless (ref($module_version) eq 'Maximus::Schema::Result::ModuleVersion')
@@ -63,6 +42,27 @@ sub run {
     1;
 }
 
+__PACKAGE__->meta->make_immutable;
+
+=head1 NAME
+
+Maximus::Task::Module::Upload - Upload module archive for persistent storage
+
+=head1 SYNOPSIS
+
+	use Maximus::Task::Module::Upload;
+	$task->run($module_version_id); # Module Version ID number
+	$task->run($module_version); # Maximus::Schema::Result::ModuleVersion
+
+=head1 DESCRIPTION
+
+Upload module archive for persistent storage.
+
+=head1 METHODS
+
+=head2 run
+
+Run task
 
 =head1 AUTHOR
 
@@ -70,7 +70,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -92,5 +92,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

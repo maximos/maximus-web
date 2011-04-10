@@ -16,3 +16,5 @@ maximus.log
 /Maximus/root/static/archives
 *.bak
 !.perltidyrc
+*~
+

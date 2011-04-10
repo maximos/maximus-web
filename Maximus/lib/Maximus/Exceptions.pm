@@ -1,5 +1,14 @@
 package Maximus::Exceptions;
 
+use Exception::Class (
+    'Maximus::Exception'         => {fields => qw/ user_msg /,},
+    'Maximus::Exception::Module' => {isa    => 'Maximus::Exception',},
+    'Maximus::Exception::Module::Archive' =>
+      {isa => 'Maximus::Exception::Module',},
+    'Maximus::Exception::Module::Source' =>
+      {isa => 'Maximus::Exception::Module',},
+);
+
 =head1 NAME
 
 Maximus::Exceptions - All Exceptions in Maximus
@@ -29,16 +38,6 @@ A exception used when handling module archives
 =head2 Maximus::Exception::Module::Source
 
 A exception used when processing module sources
-=cut
-
-use Exception::Class (
-    'Maximus::Exception'         => {fields => qw/ user_msg /,},
-    'Maximus::Exception::Module' => {isa    => 'Maximus::Exception',},
-    'Maximus::Exception::Module::Archive' =>
-      {isa => 'Maximus::Exception::Module',},
-    'Maximus::Exception::Module::Source' =>
-      {isa => 'Maximus::Exception::Module',},
-);
 
 =head1 SEE ALSO
 
@@ -50,7 +49,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

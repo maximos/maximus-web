@@ -5,6 +5,15 @@ use namespace::autoclean;
 
 with 'Maximus::Role::Task';
 
+sub run {
+    my $self = shift;
+    $self->schema->resultset('Session')->search({expires => {'<', time()}})
+      ->delete;
+    1;
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Task::Other::SessionExpire - Delete expired sessions from the database
@@ -23,15 +32,6 @@ Delete expired sessions from the database
 =head2 run
 
 Run task
-=cut
-
-sub run {
-    my $self = shift;
-    $self->schema->resultset('Session')->search({expires => {'<', time()}})
-      ->delete;
-    1;
-}
-
 
 =head1 AUTHOR
 
@@ -39,7 +39,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -61,5 +61,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;
