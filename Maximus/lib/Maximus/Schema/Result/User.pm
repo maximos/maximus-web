@@ -154,5 +154,20 @@ sub get_scms {
     return $rs->search({ id => \@scms});
 }
 
+=head2 get_modscopes
+
+Retrieve all modscopes this user has access to
+
+=cut
+
+sub get_modscopes {
+    my ($self) = @_;
+    my @modscopes = $self->search_role_objects(qr/^modscope-\d+-mutable/);
+    return unless @modscopes;
+
+    my $rs        = $self->result_source->schema->resultset('Modscope');
+    return $rs->search({ id => \@modscopes});
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
