@@ -4,9 +4,6 @@ use Net::Twitter;
 use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
-our $VERSION = '0.002';
-$VERSION = eval {$VERSION};
-
 has 'nt' => (
     isa => 'Net::Twitter',
     is  => 'rw',
