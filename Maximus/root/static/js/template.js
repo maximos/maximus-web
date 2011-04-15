@@ -25,7 +25,9 @@ var template = {
                 dd_error.inject(el.getParent('dd'), 'after');
             });
 
-            new Form.Validator.Inline(form);
+            new Form.Validator.Inline(form, {
+                errorPrefix: ''
+            });
         });
         
         //theme inputs (only in ff2+ ie7+ chrome safari3 etc)
