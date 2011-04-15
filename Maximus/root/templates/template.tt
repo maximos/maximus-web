@@ -4,7 +4,7 @@
 	<title>[% c.config.name %] - BlitzMax Module Manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="Maximus - the BlitzMax module manager" />
-	<meta name="keywords" content="" />
+	<meta name="keywords" content="Maximus,BlitzMax,module,manager,maximos,package" />
 	[% USE date %]
 	<meta name="Design" content="Copyright 2010-[% date.format(date.now, '%Y') %] skn3[ac]" />
 	<meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
