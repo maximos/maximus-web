@@ -19,7 +19,7 @@ var template = {
                 var id = el.get('id') + '_error_msg'
                 var dd_error = new Element('dd', {
                     id: id,
-                    'class': 'error',
+                    'class': 'error'
                 });
                 el.set('class', el.get('class') + " msgPos:'" + id + "'");
                 dd_error.inject(el.getParent('dd'), 'after');
