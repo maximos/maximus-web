@@ -13,18 +13,23 @@ window.addEvent('domready', function() {
 
 var template = {
 	doForms: function() {
-		//register formcheck forms
-		$$('form.jsForm').each(function(element) {
-			element.store('formCheck',new FormCheck(element,{
-				display: {
-					fadeDuration: (Browser.Engine.trident?0:220),
-					fixPngForIe: false
-				}
-			}));
+		$$('form.jsForm').each(function(form) {
+            // Prepare form inputs to hold error messages for invalid input
+            form.getElements('[type=text], [type=password], textarea').each(function(el) {
+                var id = el.get('id') + '_error_msg'
+                var dd_error = new Element('dd', {
+                    id: id,
+                    'class': 'error',
+                });
+                el.set('class', el.get('class') + " msgPos:'" + id + "'");
+                dd_error.inject(el.getParent('dd'), 'after');
+            });
+
+            new Form.Validator.Inline(form);
 		});
 		
 		//theme inputs (only in ff2+ ie7+ chrome safari3 etc)
-		if ((Browser.Engine.trident && Browser.Engine.version >= 6) || Browser.Engine.webkit || (Browser.Engine.gecko && Browser.Engine.version >= 18)) { 
+		if ((Browser.ie && Browser.version >= 6) || Browser.chrome || Browser.safari || Browser.opera || (Browser.gecko && Browser.version >= 18)) { 
 			$$('input[type=text],input[type=password],textarea,select').each(function(element) {
 				//contain the input
 				var container = new Element('div',{'style':'display:inline-block;'}).wraps(element);
@@ -67,23 +72,20 @@ var template = {
 				'click': function() {
 				    var fx = new Fx.Tween(element);
 					
-					if (Browser.Engine.trident) {
+					if (Browser.ie) {
 						//internet explorer
-						if (Browser.Engine.version <= 4) {
+						if (Browser.version <= 4) {
 							//ie6
-							template.removeAllFormTips();
 							element.destroy();
 						} else {
 							//newer
 							element.setStyle('overflow','hidden');
-							template.removeAllFormTips();
 						    fx.start('height', '0').chain(function() {
 						        element.destroy();
 						    });
 						}
 					} else {
 						//others (good browsers)
-						template.removeAllFormTips();
 					    fx.start('opacity', '0').chain(function() {
 					        this.start('height', '0')
 					    }).chain(function() {
@@ -92,12 +94,6 @@ var template = {
 	    			}
 				}
 			})
-		});
-	},
-	
-	removeAllFormTips: function() {
-		$$('.jsForm').each(function(element) {
-			element.retrieve('formCheck').reinitialize('forced');
 		});
 	},
 	
@@ -118,4 +114,5 @@ var template = {
 		);
 		element.empty().addClass('skin'+type+'Box').adopt(row1,row2,row3);
 	}
-}
+};
+
