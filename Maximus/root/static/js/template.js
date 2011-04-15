@@ -15,7 +15,7 @@ var template = {
     doForms: function() {
         $$('form.jsForm').each(function(form) {
             // Prepare form inputs to hold error messages for invalid input
-            form.getElements('[type=text], [type=password], textarea').each(function(el) {
+            form.getElements('[type=text], [type=password], textarea, select').each(function(el) {
                 var id = el.get('id') + '_error_msg'
                 var dd_error = new Element('dd', {
                     id: id,
