@@ -154,7 +154,7 @@ sub delete {
     $self->next::method(@args);
 
     my $rs_roles = $schema->resultset('Role');
-    my $roles = $rs_roles->search_like({ role => 'scm-'.$self->id.'-%' });
+    my $roles = $rs_roles->search({role => {-like => 'scm-' . $self->id . '-%'}});
     $roles->delete;
 
     $guard->commit;
