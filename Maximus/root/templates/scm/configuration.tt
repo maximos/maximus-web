@@ -12,7 +12,7 @@
 <form method="post" action="" class="jsForm">
 	<dl class="skinFieldGroup">
 		[% INCLUDE form/select_single.tt field='software' %]
-		[% INCLUDE form/input.tt field='repo_url' class="validate['required']" %]
+		[% INCLUDE form/input.tt field='repo_url' class="required" %]
 		[% INCLUDE form/select_multiple.tt field='modules' %]
 		<dd><input type="submit" name="submit" value="Save" /></dd>
 	</dl>
