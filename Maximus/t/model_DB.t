@@ -41,4 +41,29 @@ ok($scm->delete, 'Delete SCM');
 $scm_role = Maximus->model('DB::Role')->find({id => $scm_role->id});
 ok(!$scm_role, 'scm-<id>-mutable role deleted');
 
+my $modscope = Maximus->model('DB::Modscope')->create({name => 'testscope'});
+
+my $modscope_get_roles = sub {
+    return Maximus->model('DB::Role')
+      ->search({role => {-like => 'modscope-' . $modscope->id . '-%'}});
+};
+
+my @modscope_roles               = $modscope_get_roles->();
+my @modscope_role_names          = sort map { $_->role } @modscope_roles;
+my @modscope_role_names_expected = (
+    'modscope-' . $modscope->id . '-mutable',
+    'modscope-' . $modscope->id . '-readable'
+);
+@modscope_role_names_expected = sort(@modscope_role_names_expected);
+
+is_deeply(
+    \@modscope_role_names,
+    \@modscope_role_names_expected,
+    'Modscope contains expected roles'
+);
+ok($modscope->delete, 'Delete modscope');
+ok(!Maximus->model('DB::Role')->find({role => $_->role}),
+    $_->role . ' deleted')
+  for (@modscope_roles);
+
 done_testing();
