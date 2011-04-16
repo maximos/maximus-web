@@ -34,31 +34,31 @@ has 'scm_settings' => (
 has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
 
 sub save {
-    my ($self, $user_id) = @_;
+    my ($self, $user) = @_;
 
     Maximus::Exception::Module->throw('schema is missing')
       unless $self->schema;
 
-    Maximus::Exception::Module->throw(
-        'required parameter $user_id is missing')
-      unless $user_id;
+    Maximus::Exception::Module->throw('required parameter $user is missing')
+      unless $user;
 
-    # A user can only upload a module for the given modscope if the modscope
-    # belongs to the user or if it doesn't exist yet
-    my $modscope =
-      $self->schema->resultset('Modscope')
-      ->single({name => $self->modscope,});
+    my $rs_modscope = $self->schema->resultset('Modscope');
+    my $modscope = $rs_modscope->find_or_new({name => $self->modscope});
 
-    if ($modscope && $user_id != $modscope->user_id) {
+    unless ($modscope->in_storage) {
+        $modscope->insert;
+        $user->create_related('user_roles',
+            {role_id => $modscope->get_role('readable')->id});
+    }
+
+    # A user can only upload a module for the given modscope if the user has
+    # permission to use it
+    my $modscope_id = $modscope->id;
+    unless ($user->search_role_objects(qr/^modscope-$modscope_id-readable$/)
+        || $user->is_superuser)
+    {
         Maximus::Exception::Module->throw(
             user_msg => 'This modscope doesn\'t belong to you');
-    }
-    elsif (!$modscope) {
-        $modscope = $self->schema->resultset('Modscope')->create(
-            {   name    => $self->modscope,
-                user_id => $user_id,
-            }
-        );
     }
 
     my $mod = $self->schema->resultset('Module')->update_or_create(
@@ -153,9 +153,10 @@ L<DBIx::Class schema>
 
 =head1 METHODS
 
-=head2 save
+=head2 save(I<$user>)
 
-Save module in database
+Save module in database. I<$user> should be a L<DBIx::Class::Row> from
+L<Maximus::Schema::Result::User>.
 
 =head1 AUTHOR
 

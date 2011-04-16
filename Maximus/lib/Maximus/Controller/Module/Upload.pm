@@ -48,7 +48,7 @@ sub index : Path : Args(0) {
                         source   => $source,
                         schema   => $c->model('DB')->schema,
                     );
-                    $module->save($c->user->get('id'));
+                    $module->save($c->user->obj);
 
                     $c->cache->remove('sources_list');
                     $c->cache->remove('sources_list_sv');

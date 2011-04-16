@@ -38,7 +38,7 @@ sub options_modules {
     return unless $self->user;
 
     my @selections;
-    foreach my $modscope ($self->user->modscopes) {
+    foreach my $modscope ($self->user->get_modscopes) {
         my @modules = $modscope->modules;
         if (@modules) {
             foreach my $module (@modules) {

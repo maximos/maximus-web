@@ -220,7 +220,14 @@ sub reset_password : Path('reset_password') : Args(2) {
 
 sub edit : Local {
     my ($self, $c) = @_;
+
     $c->response->redirect('login') and $c->detach unless $c->user_exists;
+
+    unless ($c->user_exists
+        && $c->check_any_user_role('user-' . $c->user->id . '-mutable'))
+    {
+        $c->detach('/error_403');
+    }
     $c->require_ssl;
 
     my $form = Maximus::Form::Account::Edit->new(
@@ -286,7 +293,8 @@ password has been changed.
 
 =head2 edit
 
-Edit account details
+Allow for the user to edit its account details. If the user doesn't have the
+role I<user-id-mutable> it will display a 403 forbidden error.
 
 =head1 AUTHOR
 
