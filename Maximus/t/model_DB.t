@@ -17,6 +17,12 @@ is( $user->roles->first->role,
     'user-<id>-mutable role available'
 );
 
+ok(!$user->is_superuser, 'not is_superuser');
+my $role_superuser =
+  Maximus->model('DB::Role')->create({role => 'is_superuser'});
+$user->create_related('user_roles', {role_id => $role_superuser->id});
+ok($user->is_superuser, 'is_superuser');
+
 my $scm = Maximus->model('DB::Scm')->create(
     {   software => 'git',
         repo_url => '',

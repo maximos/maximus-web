@@ -169,5 +169,16 @@ sub get_modscopes {
     return $rs->search({ id => \@modscopes});
 }
 
+=head2 is_superuser
+
+See if the user has the I<is_superuser> role
+
+=cut
+
+sub is_superuser {
+    my ($self) = @_;
+    return scalar grep { $_->role eq 'is_superuser' } $self->roles;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
