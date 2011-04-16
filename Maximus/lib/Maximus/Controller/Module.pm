@@ -182,8 +182,7 @@ sub download : Local : Args(3) {
         }
     );
 
-    my $rs = $c->model('DB::Module')->search($search[0], $search[1]);
-
+    my $rs  = $c->model('DB::Module')->search(@search);
     my $row = $rs->first;
     $c->detach('/default') unless $row;
 
