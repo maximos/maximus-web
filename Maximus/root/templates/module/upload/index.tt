@@ -23,8 +23,8 @@
 	<dl class="skinFieldGroup">
 		[% INCLUDE form/input.tt field='scope' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
 		[% INCLUDE form/input.tt field='name' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
-		[% INCLUDE form/input.tt field='desc' input_type='text' class="required validate-alphanum minLength:5 maxLength:255" %]
-		[% INCLUDE form/input.tt field='file' input_type='file' class="validate['required']" %]
+		[% INCLUDE form/input.tt field='desc' input_type='text' class="required minLength:5 maxLength:255" %]
+		[% INCLUDE form/input.tt field='file' input_type='file' class="required" %]
 		<dd><input type="submit" name="submit" value="Upload" /></dd>
 	</dl>
 </form>
