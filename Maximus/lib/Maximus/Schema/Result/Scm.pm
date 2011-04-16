@@ -131,7 +131,7 @@ sub insert {
     my $guard = $self->result_source->schema->txn_scope_guard;
     $self->next::method(@args);
 
-    # Create scm-<id>-mutable role and link it to the new user
+    # Create scm-<id>-mutable role and link it to the new scm
     my $rs_roles = $self->result_source->schema->resultset('Role');
     my $role = $rs_roles->create({role => 'scm-' . $self->id . '-mutable'});
 
