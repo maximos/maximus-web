@@ -48,7 +48,8 @@ sub save {
     unless ($modscope->in_storage) {
         $modscope->insert;
         $user->create_related('user_roles',
-            {role_id => $modscope->get_role('readable')->id});
+            {role_id => $modscope->get_role($_)->id})
+          for (qw/mutable readable/);
     }
 
     # A user can only upload a module for the given modscope if the user has
