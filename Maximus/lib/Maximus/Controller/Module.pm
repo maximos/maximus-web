@@ -257,6 +257,7 @@ Sources file in XML
 =head2 download
 
 Download archive based on modscope, module name and version
+
 =head1 AUTHOR
 
 Christiaan Kras
