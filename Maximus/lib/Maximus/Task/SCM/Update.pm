@@ -52,6 +52,10 @@ sub run {
 
                     $source->version($version);
                     eval {
+                        my @users = $module->modscope->get_authors('mutable');
+                        die('No authors assigned to this modscope')
+                          unless @users;
+
                         my $mod = Maximus::Class::Module->new(
                             modscope => $module->modscope->name,
                             mod      => $module->name,
@@ -59,7 +63,7 @@ sub run {
                             source   => $source,
                             schema   => $self->schema,
                         );
-                        $mod->save($module->modscope->user_id);
+                        $mod->save($users[0]);
                     };
                     warn $@ if $@;
                 }
