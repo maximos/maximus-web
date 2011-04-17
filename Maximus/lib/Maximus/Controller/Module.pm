@@ -84,6 +84,8 @@ sub module : Path : Args(2) {
 
     $c->stash->{module}   = $module;
     $c->stash->{versions} = \%versions;
+    $c->stash->{authors} =
+      [map { $_->username } $module->modscope->get_authors];
 }
 
 sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {

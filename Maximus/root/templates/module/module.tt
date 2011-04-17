@@ -1,6 +1,6 @@
 <h1><a href="[% c.uri_for('/module/modscopes') %]">Modscope</a>: <a href="[% c.uri_for('/module', module.modscope.name) %]">[% module.modscope.name | html %]</a>.[% module.name | html %]</h1>
 <div class="jsRoundedBox">
-	<p><em>Author: [% module.modscope.user.username %]</em></p>
+	<p><em>Author: [% authors.sort.join(', ') %]</em></p>
 	<p>[% module.desc | html %]</p>
 	[% FOR version IN sortedVersions %]
 		[% "<h3>Available versions</h3><ol id=\"modversionlist\">" IF loop.first %]

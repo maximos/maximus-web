@@ -132,5 +132,19 @@ sub get_role {
     return $rs_roles->single({ role => 'modscope-' . $self->id . '-' . $name });
 }
 
+=head2 get_authors
+
+Retrieve the authors who're allowed to use this modscope
+
+=cut
+
+sub get_authors {
+    my ( $self, $role_name ) = @_;
+    my $role     = $self->get_role($role_name || 'readable');
+    my @roles    = $role->search_related('user_roles');
+    my @authors  = map { $_->user } @roles;
+    return @authors;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
