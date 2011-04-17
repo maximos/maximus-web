@@ -177,20 +177,26 @@ sub download : Local : Args(3) {
             'me.name'                 => $module,
             'module_versions.version' => $version,
         },
-        {   join       => [qw /modscope module_versions/],
-            '+columns' => ['module_versions.remote_location'],
-        }
+        {join => [qw /modscope module_versions/],}
     );
 
     my $rs  = $c->model('DB::Module')->search(@search);
     my $row = $rs->first;
-    $c->detach('/default') unless $row;
+    $c->detach('/error_404') unless $row;
 
-    my $location = $row->get_column('remote_location');
-    $c->res->redirect($location) and $c->detach if $location;
+    my $version_rs = $row->search_related(
+        'module_versions',
+        {version => $version},
+        {columns => [qw/id remote_location/]}
+    );
+    my $version_row = $version_rs->first();
+    $c->detach('/error_404') unless $version_row;
+    $c->res->redirect($version_row->remote_location) and $c->detach
+      if $version_row->remote_location;
 
-    # Fetch module_version row to fetch archive data
-    my $version_row = $row->module_versions->find({version => $version});
+    # Refetch so we can access the id and archive columns
+    $version_row =
+      $version_row->get_from_storage({columns => [qw/id archive/]});
 
   # Persistently store module. Which will be processed later by the job server
     $c->log->warn('Unable to queue Maximus::Task::Module::Upload')
