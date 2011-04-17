@@ -162,7 +162,7 @@ Retrieve all modscopes this user has access to
 
 sub get_modscopes {
     my ($self) = @_;
-    my @modscopes = $self->search_role_objects(qr/^modscope-\d+-mutable/);
+    my @modscopes = $self->search_role_objects(qr/^modscope-\d+-readable/);
     return unless @modscopes;
 
     my $rs        = $self->result_source->schema->resultset('Modscope');
