@@ -4,6 +4,7 @@ use Archive::Zip qw/:ERROR_CODES :CONSTANTS/;
 use File::Copy::Recursive qw/dirmove/;
 use File::Find;
 use File::Path qw/remove_tree/;
+use File::Slurp;
 use File::Temp;
 use Maximus::Exceptions;
 use Maximus::Class::Lexer;
@@ -43,15 +44,11 @@ sub validate {
     my $modName = join('.', $mod->modscope, $mod->mod);
     my $mainFile = $self->processDir . '/' . $mod->mod . '.bmx';
 
-    my $fh = new IO::File;
     Maximus::Exception::Module::Source->throw(
         'Unable to open main file: ' . $mainFile)
-      unless ($fh->open($mainFile));
+      unless (-f $mainFile);
 
-    my $contents;
-    $contents .= $_ for (<$fh>);
-    $fh->close;
-
+    my $contents  = read_file($mainFile);
     my $lexer     = Maximus::Class::Lexer->new;
     my @tokens    = $lexer->tokens($contents);
     my $modNameOK = 0;
