@@ -197,6 +197,11 @@ sub findAndMoveRootDir {
     remove_tree(@dirs) if @dirs;
 }
 
+sub DEMOLISH {
+    my($self) = @_;
+    remove_tree($self->tmpDir, $self->processDir, { verbose => 0 });
+}
+
 =head1 NAME
 
 Maximus::Role::Module::Source - Interface for module source handlers
@@ -263,6 +268,10 @@ of the archive on success.
 Find the location of the mainfile and move the contents of this directory to the
 root of the temporary directory. After that it cleans out SCM specific
 directories.
+
+=head2 DEMOLISH
+
+Moose deconstructor. Makes sure the temporary directories are cleaned up.
 
 =head1 AUTHOR
 
