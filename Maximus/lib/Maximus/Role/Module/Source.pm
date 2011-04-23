@@ -195,8 +195,8 @@ sub findAndMoveRootDir {
 }
 
 sub DEMOLISH {
-    my($self) = @_;
-    remove_tree($self->tmpDir, $self->processDir, { verbose => 0 });
+    my ($self) = @_;
+    remove_tree($self->tmpDir, $self->processDir, {verbose => 0});
 }
 
 =head1 NAME
