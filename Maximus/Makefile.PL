@@ -41,6 +41,7 @@ requires 'Email::Valid'                                 => '0.184';
 requires 'Exception::Class'                             => '1.30';
 requires 'File::Copy::Recursive'                        => '0.38';
 requires 'File::Path'                                   => '2.08';
+requires 'File::Slurp'                                  => '9999.13';
 requires 'File::Temp'                                   => '0.22';
 requires 'Gearman::Client'                              => '1.11';
 requires 'Gearman::Server'                              => '1.11';

@@ -98,7 +98,7 @@ is( $scm->get_latest_revision(),
 
 # Auto discover on multi module repo
 my @got_auto_discover = $scm->auto_discover();
-my @expected_auto_discover = ([undef, 'test1'], [undef, 'test2']);
+my @expected_auto_discover = (['test', 'test1'], ['test', 'test2']);
 is_deeply(\@got_auto_discover, \@expected_auto_discover,
     'Automatic discovery OK');
 

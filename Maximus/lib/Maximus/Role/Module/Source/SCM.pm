@@ -2,10 +2,18 @@ package Maximus::Role::Module::Source::SCM;
 use Moose::Role;
 use File::Find;
 use Path::Class;
+use File::Slurp;
 
 requires 'get_versions';
 
 requires 'get_latest_revision';
+
+has 'lexer' => (
+    is      => 'ro',
+    isa     => 'Maximus::Class::Lexer',
+    lazy    => 1,
+    default => sub { Maximus::Class::Lexer->new },
+);
 
 sub auto_discover {
     my ($self, undef, undef, $dir) = @_;
@@ -22,7 +30,24 @@ sub auto_discover {
                         push @mods, [$scope, $mod];
                     }
                     else {
-                        push @mods, [undef, $mod];
+                        my $scope;
+                        my $file_path =
+                          Path::Class::File->new($File::Find::name,
+                            $mod . '.bmx');
+
+                        # Parse the mainfile to find out what the modscope is
+                        # supposed to be
+                        if (-f $file_path->stringify) {
+                            my $contents = read_file($file_path->stringify);
+                            my @tokens   = $self->lexer->tokens($contents);
+                            foreach my $token (@tokens) {
+                                if ($token->[0] eq 'MODULENAME') {
+                                    $scope = lc((split /\./, $token->[1])[0]);
+                                    last;
+                                }
+                            }
+                        }
+                        push @mods, [$scope, $mod];
                     }
                 }
             }
@@ -64,7 +89,7 @@ returns the latest revision of the repository
 search the repository for module names. Used for a repository hosting an entire
 modscope.
 
-It does its best to support multi modscope repositories by adding the scope
+It does its best to support multi modscope repositories by adding the scope.
 
 Returns all found module names and if applicable also the modscope.
 
