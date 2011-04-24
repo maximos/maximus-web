@@ -22,7 +22,7 @@ use Catalyst::Log::Log4perl;
 
 extends 'Catalyst';
 
-our $VERSION = '0.01';
+our $VERSION = '1.000000';
 $VERSION = eval $VERSION;
 
 # Configure the application.
