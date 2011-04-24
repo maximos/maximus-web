@@ -1,7 +1,7 @@
 This is the web front- and backend for Maximus.
 
 maximus-web is responsible for keeping an up to date BlitzMax module repository.
-Its main tasks consists of fething modules and packing them to a useable archive
+Its main tasks consists of fetching modules and packing them to a useable archive
 format for maximus, the commandline and GUI application.
 
 Run script/maximus_server.pl to test the application.
