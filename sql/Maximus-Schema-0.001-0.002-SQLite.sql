@@ -4,6 +4,7 @@ BEGIN;
 
 CREATE TABLE scm (
   id INTEGER PRIMARY KEY NOT NULL,
+  user_id integer NOT NULL,
   software varchar(15) NOT NULL,
   repo_url varchar(255) NOT NULL,
   settings text NOT NULL,
@@ -12,25 +13,7 @@ CREATE TABLE scm (
   auto_discover_response text
 );
 
-CREATE TEMPORARY TABLE modscope_temp_alter (
-  id INTEGER PRIMARY KEY NOT NULL,
-  name varchar(45) NOT NULL
-);
-
-INSERT INTO modscope_temp_alter SELECT id, name FROM modscope;
-
-DROP TABLE modscope;
-
-CREATE TABLE modscope (
-  id INTEGER PRIMARY KEY NOT NULL,
-  name varchar(45) NOT NULL
-);
-
-CREATE UNIQUE INDEX uniq_name03 ON modscope (name);
-
-INSERT INTO modscope SELECT id, name FROM modscope_temp_alter;
-
-DROP TABLE modscope_temp_alter;
+CREATE INDEX scm_idx_user_id ON scm (user_id);
 
 CREATE TEMPORARY TABLE module_temp_alter (
   id INTEGER PRIMARY KEY NOT NULL,
