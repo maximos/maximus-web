@@ -41,7 +41,7 @@ will take less time. You can probably install most modules from your package
 manager (apt, yum), but the versions of these modules are usually far behind.
 
 	$ git clone git://github.com/Htbaa/maximus-web.git
-	$ cd maximus-web/Maximus
+	$ cd maximus-web
 	$ perl Makefile.PL
 	$ make
 	$ make installdeps
@@ -80,9 +80,9 @@ maximus-web as a stand-alone FastCGI daemon. For other deployment options please
 read Catalyst::Manual::Cookbook.
 
 	<VirtualHost *:80>
-		DocumentRoot /home/maximus/maximus-web/Maximus/root
+		DocumentRoot /home/maximus/maximus-web/root
 		FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
-		Alias /static /home/maximus/maximus-web/Maximus/root/static
+		Alias /static /home/maximus/maximus-web/root/static
 		Alias / /tmp/maximus.fcgi/
 
 		# This is for modules that need the Authorization header like 
@@ -95,8 +95,8 @@ read Catalyst::Manual::Cookbook.
 	</VirtualHost>
 
 	<VirtualHost *:443>
-		DocumentRoot /home/maximus/maximus-web/Maximus/root
-		Alias /static /home/maximus/maximus-web/Maximus/root/static
+		DocumentRoot /home/maximus/maximus-web/root
+		Alias /static /home/maximus/maximus-web/root/static
 		Alias / /tmp/maximus.fcgi/
 
 		SSLEngine on
@@ -131,8 +131,8 @@ And this is a sample configuration for running through a reverse proxy.
 	
 	<VirtualHost *:80>
 		ServerName maximus.htbaa.com
-		DocumentRoot /home/maximus/maximus-web/Maximus/root
-		Alias /static /home/maximus/maximus-web/Maximus/root/static
+		DocumentRoot /home/maximus/maximus-web/root
+		Alias /static /home/maximus/maximus-web/root/static
 
 		ProxyRequests Off
 		<Proxy *>
