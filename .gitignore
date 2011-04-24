@@ -5,16 +5,17 @@ Makefile*
 META.yml
 blib
 build
-/Maximus/inc
+/inc
 pm_to_blib
 MANIFEST*
 !MANIFEST.SKIP
 maximus.conf
 *.ttc
 maximus.log
-/Maximus/root/static/assets
-/Maximus/root/static/archives
+/root/static/assets
+/root/static/archives
 *.bak
 !.perltidyrc
 *~
+*.sqlite
 
