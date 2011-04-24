@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Aug 20 10:23:23 2010
+-- Created on Sun Apr 24 14:05:42 2011
 -- 
 SET foreign_key_checks=0;
 
@@ -15,6 +15,18 @@ CREATE TABLE `dbix_class_schema_versions` (
   PRIMARY KEY (`version`)
 );
 
+DROP TABLE IF EXISTS `modscope`;
+
+--
+-- Table: `modscope`
+--
+CREATE TABLE `modscope` (
+  `id` integer unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE `uniq_name` (`name`)
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS `role`;
 
 --
@@ -25,6 +37,22 @@ CREATE TABLE `role` (
   `role` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE `Index_2` (`role`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `scm`;
+
+--
+-- Table: `scm`
+--
+CREATE TABLE `scm` (
+  `id` integer unsigned NOT NULL auto_increment,
+  `software` varchar(15) NOT NULL,
+  `repo_url` varchar(255) NOT NULL,
+  `settings` text NOT NULL,
+  `revision` varchar(45),
+  `auto_discover_request` datetime,
+  `auto_discover_response` text,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `session`;
@@ -53,55 +81,6 @@ CREATE TABLE `user` (
   UNIQUE `Index_2` (`username`)
 ) ENGINE=InnoDB;
 
-DROP TABLE IF EXISTS `modscope`;
-
---
--- Table: `modscope`
---
-CREATE TABLE `modscope` (
-  `id` integer unsigned NOT NULL auto_increment,
-  `user_id` integer unsigned NOT NULL,
-  `name` varchar(45) NOT NULL,
-  INDEX `modscope_idx_user_id` (`user_id`),
-  PRIMARY KEY (`id`),
-  UNIQUE `uniq_name` (`name`),
-  CONSTRAINT `modscope_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS `scm`;
-
---
--- Table: `scm`
---
-CREATE TABLE `scm` (
-  `id` integer unsigned NOT NULL auto_increment,
-  `user_id` integer unsigned NOT NULL,
-  `software` varchar(15) NOT NULL,
-  `repo_url` varchar(255) NOT NULL,
-  `settings` text NOT NULL,
-  `revision` varchar(45),
-  `auto_discover_request` datetime,
-  `auto_discover_response` text,
-  INDEX `scm_idx_user_id` (`user_id`),
-  PRIMARY KEY (`id`),
-  CONSTRAINT `scm_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
-DROP TABLE IF EXISTS `user_role`;
-
---
--- Table: `user_role`
---
-CREATE TABLE `user_role` (
-  `user_id` integer unsigned NOT NULL,
-  `role_id` integer unsigned NOT NULL,
-  INDEX `user_role_idx_role_id` (`role_id`),
-  INDEX `user_role_idx_user_id` (`user_id`),
-  PRIMARY KEY (`user_id`, `role_id`),
-  CONSTRAINT `user_role_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_role_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS `module`;
 
 --
@@ -120,6 +99,21 @@ CREATE TABLE `module` (
   UNIQUE `Index_3` (`modscope_id`, `name`),
   CONSTRAINT `module_fk_modscope_id` FOREIGN KEY (`modscope_id`) REFERENCES `modscope` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `module_fk_scm_id` FOREIGN KEY (`scm_id`) REFERENCES `scm` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `user_role`;
+
+--
+-- Table: `user_role`
+--
+CREATE TABLE `user_role` (
+  `user_id` integer unsigned NOT NULL,
+  `role_id` integer unsigned NOT NULL,
+  INDEX `user_role_idx_role_id` (`role_id`),
+  INDEX `user_role_idx_user_id` (`user_id`),
+  PRIMARY KEY (`user_id`, `role_id`),
+  CONSTRAINT `user_role_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_role_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `module_version`;

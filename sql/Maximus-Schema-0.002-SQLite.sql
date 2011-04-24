@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Aug 20 10:23:25 2010
+-- Created on Sun Apr 24 14:05:43 2011
 -- 
 
 BEGIN TRANSACTION;
@@ -12,7 +12,6 @@ DROP TABLE scm;
 
 CREATE TABLE scm (
   id INTEGER PRIMARY KEY NOT NULL,
-  user_id integer NOT NULL,
   software varchar(15) NOT NULL,
   repo_url varchar(255) NOT NULL,
   settings text NOT NULL,
@@ -20,8 +19,6 @@ CREATE TABLE scm (
   auto_discover_request datetime,
   auto_discover_response text
 );
-
-CREATE INDEX scm_idx_user_id ON scm (user_id);
 
 --
 -- Table: dbix_class_schema_versions
@@ -33,6 +30,18 @@ CREATE TABLE dbix_class_schema_versions (
   installed varchar(20) NOT NULL,
   PRIMARY KEY (version)
 );
+
+--
+-- Table: modscope
+--
+DROP TABLE modscope;
+
+CREATE TABLE modscope (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name varchar(45) NOT NULL
+);
+
+CREATE UNIQUE INDEX uniq_name ON modscope (name);
 
 --
 -- Table: role
@@ -73,36 +82,6 @@ CREATE TABLE user (
 CREATE UNIQUE INDEX Index_202 ON user (username);
 
 --
--- Table: modscope
---
-DROP TABLE modscope;
-
-CREATE TABLE modscope (
-  id INTEGER PRIMARY KEY NOT NULL,
-  user_id integer NOT NULL,
-  name varchar(45) NOT NULL
-);
-
-CREATE INDEX modscope_idx_user_id ON modscope (user_id);
-
-CREATE UNIQUE INDEX uniq_name ON modscope (name);
-
---
--- Table: user_role
---
-DROP TABLE user_role;
-
-CREATE TABLE user_role (
-  user_id integer NOT NULL,
-  role_id integer NOT NULL,
-  PRIMARY KEY (user_id, role_id)
-);
-
-CREATE INDEX user_role_idx_role_id ON user_role (role_id);
-
-CREATE INDEX user_role_idx_user_id ON user_role (user_id);
-
---
 -- Table: module
 --
 DROP TABLE module;
@@ -121,6 +100,21 @@ CREATE INDEX module_idx_modscope_id ON module (modscope_id);
 CREATE INDEX module_idx_scm_id ON module (scm_id);
 
 CREATE UNIQUE INDEX Index_3 ON module (modscope_id, name);
+
+--
+-- Table: user_role
+--
+DROP TABLE user_role;
+
+CREATE TABLE user_role (
+  user_id integer NOT NULL,
+  role_id integer NOT NULL,
+  PRIMARY KEY (user_id, role_id)
+);
+
+CREATE INDEX user_role_idx_role_id ON user_role (role_id);
+
+CREATE INDEX user_role_idx_user_id ON user_role (user_id);
 
 --
 -- Table: module_version
