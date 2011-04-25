@@ -2,6 +2,7 @@ package Maximus::Controller::SCM;
 use Moose;
 use namespace::autoclean;
 use Maximus::Form::SCM::Configuration;
+use Maximus::Form::SCM::AutoDiscover;
 use Maximus::Task::SCM::AutoDiscover;
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -135,6 +136,70 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
         return $c->response->redirect(
             $c->uri_for($self->action_for('autodiscover'), [$scm->id]));
     }
+
+    my $init_object = {};
+    if ($scm->auto_discover_request) {
+        my @modules;
+        foreach (@{$scm->auto_discover_response}) {
+            push @modules,
+              {modscope => $_->[0], mod => $_->[1], desc => undef};
+        }
+        $init_object = {modules => \@modules};
+    }
+
+    my $form = Maximus::Form::SCM::AutoDiscover->new(
+        {   init_object => $init_object,
+            user        => $c->user->obj,
+        }
+    );
+
+    $form->process($c->req->parameters);
+    $c->stash(form => $form);
+
+    if ($form->validated) {
+        my (@error_msgs, @modules_added, @modules_skipped);
+        foreach my $form_module ($form->field('modules')->fields) {
+            my $module_name = sprintf('%s.%s',
+                $form_module->field('modscope')->value,
+                $form_module->field('mod')->value);
+            $c->model('DB')->txn_do(
+                sub {
+                    my $module = Maximus::Class::Module->new(
+                        modscope => $form_module->field('modscope')->value,
+                        mod      => $form_module->field('mod')->value,
+                        desc     => $form_module->field('desc')->value || '',
+                        schema   => $c->model('DB')->schema,
+                    );
+                    my $mod = $module->save($c->user->obj);
+                    $mod->update({scm_id => $scm->id});
+                    push @modules_added, $module_name;
+                }
+            );
+            my $e;
+            if ($e = Maximus::Exception::Module->caught()) {
+                push @error_msgs,
+                  $e->user_msg || 'An unexpected error occured.';
+            }
+            elsif ($@) {
+                push @error_msgs, 'An unkown error occured.';
+                $c->log->info($@) if ($@);
+            }
+
+            $c->log->info($e->error) if($e);
+
+            if ($e || $@) {
+                push @modules_skipped, $module_name;
+            }
+        }
+
+        $c->log->warn($_) for (@error_msgs);
+        $c->stash(
+            {   modules_added   => \@modules_added,
+                modules_skipped => \@modules_skipped,
+            }
+        );
+        $c->stash(template => 'scm/autodiscover_added.tt');
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -179,6 +244,8 @@ Delete a SCM configuration
 
 Autodiscover modules inside a SCM repository.
 Force firing a new task by adding the I<refresh> param.
+The result can be used to automatically add all the modules to the Maximus
+database.
 
 =head1 AUTHOR
 

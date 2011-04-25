@@ -1,0 +1,26 @@
+<h1>SCM Auto-Discover Result</h1>
+<div class="jsRoundedBox">
+    [% IF modules_added.size > 0 %]
+		<div class="jsRoundedBox">
+			<div class="jsSuccessBox"><h2>The following modules have been added</h2></div>
+		</div>
+        <p>These modules will be automatically updated whenever your SCM repository is being updated.</p>
+        [% FOREACH module IN modules_added %]
+            [% "<ul>" IF loop.first %]
+            <li>[% module %]
+            [% "</ul>" IF loop.last %]
+        [% END %]
+    [% END %]
+    <p>&nbsp;</p>
+    [% IF modules_skipped.size > 0 %]
+		<div class="jsRoundedBox">
+			<div class="jsErrorBox"><h2>The following modules have been skipped</h2></div>
+        </div>
+        [% FOREACH module IN modules_skipped %]
+            [% "<ul>" IF loop.first %]
+            <li>[% module %]
+            [% "</ul>" IF loop.last %]
+        [% END %]
+    [% END %]
+</div>
+

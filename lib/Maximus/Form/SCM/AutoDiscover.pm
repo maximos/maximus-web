@@ -2,9 +2,31 @@ package Maximus::Form::SCM::AutoDiscover;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
+has_field 'modules' => (type => 'Repeatable');
+
+has_field 'modules.modscope' => (
+    type             => 'Text',
+    label            => 'Scope',
+    required         => 1,
+    required_message => 'You must enter a module scope',
+);
+
+has_field 'modules.mod' => (
+    type             => 'Text',
+    label            => 'Name',
+    required         => 1,
+    required_message => 'You must enter a module name',
+);
+
+has_field 'modules.desc' => (
+    type             => 'Text',
+    label            => 'Description',
+    required_message => 'You must enter a description',
+);
+
 =head1 NAME
 
-Maximus::Form::SCM::Auto Discover - SCM Auto Discover form
+Maximus::Form::SCM::AutoDiscover - SCM Auto Discover form
 
 =head1 DESCRIPTION
 
@@ -12,76 +34,25 @@ SCM Auto Discover form
 
 =head1 Attributes
 
-=head2 username
-
-=cut
-
-has_field 'software' => (
-    type    => 'Select',
-    label   => 'SCM Software',
-    options => [
-        {value => 'git', label => 'Git'},
-        {value => 'svn', label => 'Subversion'},
-    ],
-    required         => 1,
-    required_message => 'You must enter a SCM',
-);
-
-=head2 repo_url
-
-=cut
-
-has_field 'repo_url' => (
-    type             => 'Text',
-    label            => 'Repository URL',
-    required         => 1,
-    required_message => 'You must enter a repository URL',
-);
-
 =head2 modules
 
-=cut
+A Repeatable field that contains the following fields:
 
-has_field 'modules' => (
-    type          => 'Select',
-    select_widget => 'select',
-    multiple      => 1,
-);
+=over 4
 
-=head2 user
+=item modscope
 
-=cut
+The module scope
 
-has 'user' => (
-    is       => 'ro',
-    isa      => 'Maximus::Schema::Result::User',
-    required => 1,
-);
+=item modname
 
-=head1 METHODS
+The module name
 
-=head2 options_modules
+=item description
 
-=cut
+The module description
 
-sub options_modules {
-    my $self = shift;
-    return unless $self->user;
-
-    my @selections;
-    foreach my $modscope ($self->user->modscopes) {
-        my @modules = $modscope->modules;
-        if (@modules) {
-            foreach my $module (@modules) {
-                push @selections,
-                  { value => $module->id,
-                    label => sprintf('%s.%s', $modscope->name, $module->name),
-                  };
-            }
-        }
-    }
-    return @selections;
-}
+=back
 
 =head1 AUTHOR
 
@@ -89,7 +60,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

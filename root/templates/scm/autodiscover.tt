@@ -1,3 +1,5 @@
+[% USE String %]
+
 <h1>SCM Auto-Discover</h1>
 <div class="jsRoundedBox">
     [% IF scm.auto_discover_response.size == 0 AND scm.auto_discover_request %]
@@ -10,17 +12,27 @@
             location.href = location.href;
         }).delay(30000);
         </script>
-    [% ELSIF scm.auto_discover_response.size > 0 AND scm.auto_discover_request%]
+    [% ELSIF scm.auto_discover_response.size > 0 AND scm.auto_discover_request %]
         <p>This Auto-Discover result was created on [% scm.auto_discover_request %]. If in the meantime the repository contains more modules than listed here you can request this resultset to be <a href="[% c.uri_for( c.controller('SCM').action_for('autodiscover'), [scm.id]) %]?refresh=1">refreshed</a>.</p>
-        [% FOR module IN scm.auto_discover_response %]
-            [% "<ul>" IF loop.first %]
-            <li>
-                <ul>
-                    <li>[% module.0 | html %]</li>
-                    <li>[% module.1 | html %]</li>
-                </ul>
-            </li>
-            [% "</ul>" IF loop.last %]
-        [% END %]
     [% END %]
 </div>
+
+[% IF scm.auto_discover_response.size > 0 AND scm.auto_discover_request %]
+    <form method="post" action="" class="jsForm">
+        [% FOREACH element IN form.field('modules').fields %]
+            <hr />
+            <dl class="skinFieldGroup">
+            [% FOREACH field IN element.fields %]
+                [% field_name = String.new('modules.').append(element.accessor).append('.').append(field.name) %]
+                [% input_class = 'required' IF field.required %]
+                [% INCLUDE form/input.tt field=field_name class=input_class %]
+            [% END %]
+            </dl>
+            [% "<hr />" IF loop.last %]
+        [% END %]
+        <dl class="skinFieldGroup">
+            <dd><input type="submit" name="submit" value="Save" /></dd>
+        </dl>
+    </form>
+[% END %]
+

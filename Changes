@@ -1,6 +1,7 @@
 Revision history for Maximus.
 
 1.000000  0000-00-00 00:00:00
+    - Added SCM auto discovery management to add modules in a batch
     - Added basic SCM management
     - Added task for module auto discovery
     - Added task to check for SCM repository updates
