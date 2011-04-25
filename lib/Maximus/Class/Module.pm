@@ -22,7 +22,6 @@ has 'desc' => (is => 'rw', isa => 'Str', required => 1);
 has 'source' => (
     is       => 'rw',
     does     => 'Maximus::Role::Module::Source',
-    required => 1
 );
 
 has 'scm_settings' => (
@@ -69,6 +68,8 @@ sub save {
             scm_settings => $self->scm_settings,
         }
     );
+
+    return $mod unless $self->source;
 
     $self->source->prepare($self);
     $self->source->validate($self) unless $self->source->validated;
@@ -158,6 +159,9 @@ L<DBIx::Class schema>
 
 Save module in database. I<$user> should be a L<DBIx::Class::Row> from
 L<Maximus::Schema::Result::User>.
+
+When no I<source> has been given when constructing the object this method
+returns the L<DBIx::Class::Row> that contains the record of the module.
 
 =head1 AUTHOR
 
