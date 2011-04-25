@@ -88,8 +88,9 @@ sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     $c->detach('/error_404') unless $scm;
     $c->detach('/error_403')
       unless $c->user_exists
-      && $c->check_any_user_role(
-        ('is_superuser', 'scm-' . $scm->id . '-mutable'));
+          && $c->check_any_user_role(
+              ('is_superuser', 'scm-' . $scm->id . '-mutable')
+          );
     $c->stash('scm' => $scm);
 }
 
