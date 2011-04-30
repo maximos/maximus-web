@@ -24,10 +24,10 @@ commands.
     
 This results in something like this:
 
-  export MODULEBUILDRC=/home/username/perl/.modulebuildrc
-  export PERL_MM_OPT='INSTALL_BASE=/home/username/perl'
-  export PERL5LIB='/home/username/perl/lib/perl5:/home/username/perl/lib/perl5/i386-linux'
-  export PATH="/home/username/perl/bin:$PATH"
+    export MODULEBUILDRC=/home/username/perl/.modulebuildrc
+    export PERL_MM_OPT='INSTALL_BASE=/home/username/perl'
+    export PERL5LIB='/home/username/perl/lib/perl5:/home/username/perl/lib/perl5/i386-linux'
+    export PATH="/home/username/perl/bin:$PATH"
  
 Copy these export lines and execute them on your command line. You can also 
 store these exports in your ~/.bashrc so anytime you login these paths are set
@@ -178,3 +178,4 @@ Now self sign the certificate
       
 To use the certificate for to virtual host in Apache set SSLCertificateFile to
 server.crt and SSLCertificateKeyFile to server.key.
+
