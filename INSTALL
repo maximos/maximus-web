@@ -5,8 +5,8 @@ targeted at 10.04 the steps are probably not much different for older versions.
 
 First, make sure all required software is installed
 
-	$ sudo apt-get install build-essential libmodule-install-perl mysql-server\
-		git-core
+    $ sudo apt-get install build-essential libmodule-install-perl mysql-server\
+        git-core
 
 This step is not required perse, but it helps you to install the required Perl
 modules in a local directory. Doing so makes sure modules aren't installed in
@@ -14,14 +14,14 @@ the same directory as where your distribution installs its modules. Whenever
 you decide to upgrade your system or install updates you risk your modules being
 overwritten. So that's why we go for a local installation.
 
-	$ sudo apt-get install liblocal-lib-perl
+    $ sudo apt-get install liblocal-lib-perl
 
 Next, we need to make sure local::lib is being used. By calling perl from the
 command line and simply load local::lib we get a nice set of helpful export
 commands.
 
-	$ perl -Mlocal::lib
-	
+    $ perl -Mlocal::lib
+    
 This results in something like this:
 
   export MODULEBUILDRC=/home/username/perl/.modulebuildrc
@@ -40,141 +40,141 @@ some coffee. After all dependencies have been installed any forthcoming updates
 will take less time. You can probably install most modules from your package
 manager (apt, yum), but the versions of these modules are usually far behind.
 
-	$ git clone git://github.com/Htbaa/maximus-web.git
-	$ cd maximus-web
-	$ perl Makefile.PL
-	$ make
-	$ make installdeps
+    $ git clone git://github.com/Htbaa/maximus-web.git
+    $ cd maximus-web
+    $ perl Makefile.PL
+    $ make
+    $ make installdeps
 
 CONFIGURING MYSQL
 
 Create user called maximus. By default we expect the password to be 'demo'.
 
-	$ mysql -umaximus -p --database maximus < sql/Maximus-Schema-0.001-MySQL.sql
-	
+    $ mysql -umaximus -p --database maximus < sql/Maximus-Schema-0.001-MySQL.sql
+    
 In case of an upgrade run the following command. For now, if the password is
 something other than 'demo' please alter the maximus_sql-upgrade.sql script
 before running it.
 
-	$ perl script/maximus_sql-upgrade.pl
+    $ perl script/maximus_sql-upgrade.pl
 
 CONFIGURING MAXIMUS
 
-	$ cp maxmimus.default.conf maximus.conf
+    $ cp maxmimus.default.conf maximus.conf
 
 Edit maximus.conf to your needs. The file uses Apache like configuration style.
 If something isn't clear, please let me know.
 
 RUNNING THE FASTCGI DAEMON
 
-	$ perl script/maximus_fastcgi.pl -l /tmp/maximus.socket -n 5 -p /tmp/maximus.pid -d
+    $ perl script/maximus_fastcgi.pl -l /tmp/maximus.socket -n 5 -p /tmp/maximus.pid -d
 
 CONFIGURING APACHE2 FOR FASTCGI
 
 First enable SSL support
 
-	$ sudo a2enmod ssl
-	
+    $ sudo a2enmod ssl
+    
 Here's a minimal virtual host configuration for Apache. This assumes running
 maximus-web as a stand-alone FastCGI daemon. For other deployment options please
 read Catalyst::Manual::Cookbook.
 
-	<VirtualHost *:80>
-		DocumentRoot /home/maximus/maximus-web/root
-		FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
-		Alias /static /home/maximus/maximus-web/root/static
-		Alias / /tmp/maximus.fcgi/
+    <VirtualHost *:80>
+        DocumentRoot /home/maximus/maximus-web/root
+        FastCgiExternalServer /tmp/maximus.fcgi -socket /tmp/maximus.socket
+        Alias /static /home/maximus/maximus-web/root/static
+        Alias / /tmp/maximus.fcgi/
 
-		# This is for modules that need the Authorization header like 
-		# Catalyst::Plugin::Authentication::Credential::HTTP
-		# mod_cgi and mod_fastcgi don't do this by default
-		RewriteCond %{HTTP:Authorization} ^(.+)
-		RewriteRule ^(.*)$ $1 [E=HTTP_AUTHORIZATION:%1,PT]
-		
-		RewriteRule ^$ / [R]	        
-	</VirtualHost>
+        # This is for modules that need the Authorization header like 
+        # Catalyst::Plugin::Authentication::Credential::HTTP
+        # mod_cgi and mod_fastcgi don't do this by default
+        RewriteCond %{HTTP:Authorization} ^(.+)
+        RewriteRule ^(.*)$ $1 [E=HTTP_AUTHORIZATION:%1,PT]
+        
+        RewriteRule ^$ / [R]            
+    </VirtualHost>
 
-	<VirtualHost *:443>
-		DocumentRoot /home/maximus/maximus-web/root
-		Alias /static /home/maximus/maximus-web/root/static
-		Alias / /tmp/maximus.fcgi/
+    <VirtualHost *:443>
+        DocumentRoot /home/maximus/maximus-web/root
+        Alias /static /home/maximus/maximus-web/root/static
+        Alias / /tmp/maximus.fcgi/
 
-		SSLEngine on
-		SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-	</VirtualHost>
+        SSLEngine on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+    </VirtualHost>
 
 RUNNING A PSGI SUPPORTED SERVER
 
 Starman gives the best performance, but is *nix only
 
-	$ starman script/maximus.psgi
+    $ starman script/maximus.psgi
 
 Plack has plackup which works on Windows as well
 
-	$ plackup script/maximus.psgi
+    $ plackup script/maximus.psgi
 
 Or use the build in dev server
 
-	$ perl script/maximus_server -k -p 5000
-	
+    $ perl script/maximus_server -k -p 5000
+    
 CONFIGURING APACHE2 FOR REVERSE PROXY
 
 Largely the same as running through FastCGI, but it needs some additional
 modules to be enabled.
 
-	$ sudo a2enmod proxy
-	$ sudo a2enmod proxy_http
-	$ sudo a2enmod ssl
-	
+    $ sudo a2enmod proxy
+    $ sudo a2enmod proxy_http
+    $ sudo a2enmod ssl
+    
 And this is a sample configuration for running through a reverse proxy.
-	
-	<VirtualHost *:80>
-		ServerName maximus.htbaa.com
-		DocumentRoot /home/maximus/maximus-web/root
-		Alias /static /home/maximus/maximus-web/root/static
+    
+    <VirtualHost *:80>
+        ServerName maximus.htbaa.com
+        DocumentRoot /home/maximus/maximus-web/root
+        Alias /static /home/maximus/maximus-web/root/static
 
-		ProxyRequests Off
-		<Proxy *>
-				Order deny,allow
-				Allow from all
-		</Proxy>
+        ProxyRequests Off
+        <Proxy *>
+                Order deny,allow
+                Allow from all
+        </Proxy>
 
-		ProxyPass /static !
-		ProxyPass /favicon.ico !
+        ProxyPass /static !
+        ProxyPass /favicon.ico !
 
-		ProxyPass / http://localhost:5000/
-		ProxyPassReverse / http://localhost:5000/
-	</VirtualHost>
+        ProxyPass / http://localhost:5000/
+        ProxyPassReverse / http://localhost:5000/
+    </VirtualHost>
 
-	<VirtualHost *:443>
-		...
-		SSLEngine on
-		SSLProxyEngine on
-		SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-		SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-		...
-	</VirtualHost>
-	
+    <VirtualHost *:443>
+        ...
+        SSLEngine on
+        SSLProxyEngine on
+        SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        ...
+    </VirtualHost>
+    
 SELF SIGNED CERTIFICATE
 
 Create a private key
 
-	$ openssl genrsa -des3 -out server.key 1024
-	
+    $ openssl genrsa -des3 -out server.key 1024
+    
 Remember that the common name should be the domain name!
 
-	$ openssl req -new -key server.key -out server.csr
-	
+    $ openssl req -new -key server.key -out server.csr
+    
 Remove passphrase from key so Apache won't complain
 
-	$ cp server.key server.key.org
-	$ openssl rsa -in server.key.org -out server.key
-	
+    $ cp server.key server.key.org
+    $ openssl rsa -in server.key.org -out server.key
+    
 Now self sign the certificate
 
-	$ openssl x509 -req -days 365 -in server.csr -signkey server.key \
-	  -out server.crt
-	  
+    $ openssl x509 -req -days 365 -in server.csr -signkey server.key \
+      -out server.crt
+      
 To use the certificate for to virtual host in Apache set SSLCertificateFile to
 server.crt and SSLCertificateKeyFile to server.key.
