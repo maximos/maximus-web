@@ -155,7 +155,36 @@ And this is a sample configuration for running through a reverse proxy.
         SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
         ...
     </VirtualHost>
-    
+
+CONFIGURING LIGHTTPD FOR FASTCGI
+
+Instead of using Apache 2 to serve static files and route requests to Maximus
+we can also use lighttpd. Which is more lightweight than Apache 2.
+
+First enable the FastCGI module:
+
+    $ sudo lighty-enable-mod fastcgi
+
+Then add host to /etc/lighttpd/lighttpd.conf like this:
+
+    $HTTP["host"] =~ "^maximus\.htbaa\.com$" {
+        server.document-root = "/home/maximus/maximus-web/Maximus/root"
+        $HTTP["url"] !~ "^/(favicon\.ico$|static/)" {
+            fastcgi.server = (
+                "/" => (
+                    "Maximus" => (
+                        "socket" => "/tmp/maximus.socket",
+                        "check-local" => "disable",
+                        "fix-root-scriptname" => "enable"
+                    )
+                )
+            )
+        }
+    }
+
+This will make lighttpd serve the static files and passes application requests
+to the Maximus application.
+
 SELF SIGNED CERTIFICATE
 
 Create a private key
