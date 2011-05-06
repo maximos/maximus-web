@@ -8,12 +8,12 @@
 	[% USE date %]
 	<meta name="Design" content="Copyright 2010-[% date.format(date.now, '%Y') %] skn3[ac]" />
 	<meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
-	[%- CALL c.assets.include('js/mootools-core-1.3.1.js') -%]
-	[%- CALL c.assets.include('js/mootools-more-1.3.1.1.js') -%]
-	[%- CALL c.assets.include('js/template.js') -%]
-	[%- CALL c.assets.include('css/reset-min.css') -%]
-	[%- CALL c.assets.include('css/styles.css') -%]
-	[%- CALL c.assets.include('css/styles-other.css') -%]
+	[%- CALL c.assets.include('js/mootools-core-1.3.1.js', -3) -%]
+	[%- CALL c.assets.include('js/mootools-more-1.3.1.1.js', -2) -%]
+	[%- CALL c.assets.include('js/template.js', -1) -%]
+	[%- CALL c.assets.include('css/reset-min.css', -6) -%]
+	[%- CALL c.assets.include('css/styles.css', -5) -%]
+	[%- CALL c.assets.include('css/styles-other.css', -4) -%]
 	[% c.assets.export %]
 	
 	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
