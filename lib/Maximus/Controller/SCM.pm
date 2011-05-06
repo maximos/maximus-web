@@ -188,7 +188,7 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
                 $c->log->info($@) if ($@);
             }
 
-            $c->log->info($e->error) if($e);
+            $c->log->info($e->error) if ($e);
 
             if ($e || $@) {
                 push @modules_skipped, $module_name;
