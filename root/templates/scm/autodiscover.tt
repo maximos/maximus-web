@@ -17,7 +17,7 @@
     [% END %]
 </div>
 
-[% IF scm.auto_discover_response.size > 0 AND scm.auto_discover_request %]
+[% IF scm.auto_discover_response.size > 0 AND scm.auto_discover_request AND NOT scm.auto_discover_response.task_id %]
     <form method="post" action="" class="jsForm">
         [% FOREACH element IN form.field('modules').fields %]
             <hr />

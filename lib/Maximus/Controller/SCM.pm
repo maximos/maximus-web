@@ -139,7 +139,9 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
     }
 
     my $init_object = {};
-    if ($scm->auto_discover_request) {
+    if ($scm->auto_discover_request
+        && ref($scm->auto_discover_response) eq 'ARRAY')
+    {
         my @modules;
         foreach (@{$scm->auto_discover_response}) {
             push @modules,
