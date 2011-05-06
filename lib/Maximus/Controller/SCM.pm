@@ -148,8 +148,18 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
     {
         my @modules;
         foreach (@{$scm->auto_discover_response}) {
+
+            # Search if module exists so we can use its existing description
+            my $module_rs =
+              $c->model('DB::Module')
+              ->search({'modscope.name' => $_->[0], 'me.name' => $_->[1]},
+                {join => [qw/modscope/]});
+
             push @modules,
-              {modscope => $_->[0], mod => $_->[1], desc => undef};
+              { modscope => $_->[0],
+                mod      => $_->[1],
+                desc => $module_rs->first ? $module_rs->first->desc : undef
+              };
         }
         $init_object = {modules => \@modules};
     }
