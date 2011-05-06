@@ -58,6 +58,7 @@ sub save {
         || $user->is_superuser)
     {
         Maximus::Exception::Module->throw(
+            error => 'Access denied to modscope',
             user_msg => 'This modscope doesn\'t belong to you');
     }
 
