@@ -44,28 +44,32 @@ sub form : Private {
     );
 
     if ($form->validated) {
-        $c->model('DB')->txn_do(
-            sub {
-                my %data = (
-                    software => $form->field('software')->value,
-                    repo_url => $form->field('repo_url')->value,
-                    settings => '',
-                );
-                if ($scm) {
-                    $scm->update(\%data);
-                    $scm->modules->update({scm_id => undef});
-                    $c->model('DB::Module')
-                      ->search({id => [@{$form->field('modules')->value}]})
-                      ->update({scm_id => $scm->id});
-                }
-                else {
-                    $scm = $c->model('DB::SCM')->create(\%data);
-                }
+        eval {
+            $c->model('DB')->txn_do(
+                sub {
+                    my %data = (
+                        software => $form->field('software')->value,
+                        repo_url => $form->field('repo_url')->value,
+                        settings => '',
+                    );
+                    if ($scm) {
+                        $scm->update(\%data);
+                        $scm->modules->update({scm_id => undef});
+                        $c->model('DB::Module')
+                          ->search(
+                            {id => [@{$form->field('modules')->value}]})
+                          ->update({scm_id => $scm->id});
+                    }
+                    else {
+                        $scm = $c->model('DB::SCM')->create(\%data);
+                    }
 
-                $c->user->obj->find_or_create_related('user_roles',
-                    {role_id => $scm->get_role('mutable')->id});
-            }
-        );
+                    $c->user->obj->find_or_create_related('user_roles',
+                        {role_id => $scm->get_role('mutable')->id});
+                }
+            );
+        };
+
         if ($@) {
             $c->stash(error_msg => 'An unknown error occured!');
             $c->log->warn($@);
@@ -165,19 +169,24 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
             my $module_name = sprintf('%s.%s',
                 $form_module->field('modscope')->value,
                 $form_module->field('mod')->value);
-            $c->model('DB')->txn_do(
-                sub {
-                    my $module = Maximus::Class::Module->new(
-                        modscope => $form_module->field('modscope')->value,
-                        mod      => $form_module->field('mod')->value,
-                        desc     => $form_module->field('desc')->value || '',
-                        schema   => $c->model('DB')->schema,
-                    );
-                    my $mod = $module->save($c->user->obj);
-                    $mod->update({scm_id => $scm->id});
-                    push @modules_added, $module_name;
-                }
-            );
+
+            eval {
+                $c->model('DB')->txn_do(
+                    sub {
+                        my $module = Maximus::Class::Module->new(
+                            modscope =>
+                              $form_module->field('modscope')->value,
+                            mod  => $form_module->field('mod')->value,
+                            desc => $form_module->field('desc')->value || '',
+                            schema => $c->model('DB')->schema,
+                        );
+                        my $mod = $module->save($c->user->obj);
+                        $mod->update({scm_id => $scm->id});
+                        push @modules_added, $module_name;
+                    }
+                );
+            };
+
             my $e;
             if ($e = Maximus::Exception::Module->caught()) {
                 push @error_msgs,
