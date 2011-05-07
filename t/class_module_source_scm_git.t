@@ -36,6 +36,7 @@ can_ok(
       tags_filter
       prepare
       auto_discover
+      apply_scm_settings
       /
 );
 

@@ -130,6 +130,14 @@ around 'auto_discover' => sub {
     return $self->$orig(@_, $self->local_repository);
 };
 
+sub apply_scm_settings {
+    my ($self, $scm_settings) = @_;
+
+    if (defined $scm_settings->{git_tags_filter}) {
+        $self->tags_filter($scm_settings->{git_tags_filter});
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
@@ -183,6 +191,10 @@ Retrieve latest revision of master
 =head2 auto_discover
 
 Discover available modules from the repository
+
+=head2 apply_scm_settings
+
+Apply SCM specific settings
 
 =head1 AUTHOR
 

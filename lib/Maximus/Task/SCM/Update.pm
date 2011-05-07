@@ -20,7 +20,9 @@ sub run {
 
     # Fetch all or search for given SCM
     foreach my $scm ($self->schema->resultset('Scm')->search($search)) {
-        my $source     = $self->get_source($scm);
+        my $source = $self->get_source($scm);
+        $source->apply_scm_settings($scm->settings) if ($scm->settings);
+
         my $latest_rev = $source->get_latest_revision;
         if (!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev)
         {
@@ -37,18 +39,12 @@ sub run {
 
                     # New Source object
                     my $source = $self->get_source($scm);
-                    if ($scm->software eq 'svn' && $module->scm_settings) {
-                        if (exists $module->scm_settings->{trunk}) {
-                            $source->trunk($module->scm_settings->{trunk});
-                        }
-                        if (exists $module->scm_settings->{tags}) {
-                            $source->tags($module->scm_settings->{tags});
-                        }
-                        if (exists $module->scm_settings->{tags_filter}) {
-                            $source->tags_filter(
-                                $module->scm_settings->{tags_filter});
-                        }
-                    }
+
+
+                    $source->apply_scm_settings($scm->settings)
+                      if ($scm->settings);
+                    $source->apply_scm_settings($module->scm_settings)
+                      if ($module->scm_settings);
 
                     $source->version($version);
                     eval {

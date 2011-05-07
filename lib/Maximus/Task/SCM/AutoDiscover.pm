@@ -13,6 +13,8 @@ sub run {
     }
 
     my $source = $self->get_source($scm);
+    $source->apply_scm_settings($scm->settings) if ($scm->settings);
+
     $self->response([$source->auto_discover]);
 
     $scm->update(

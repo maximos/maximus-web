@@ -8,6 +8,8 @@ requires 'get_versions';
 
 requires 'get_latest_revision';
 
+requires 'apply_scm_settings';
+
 has 'lexer' => (
     is      => 'ro',
     isa     => 'Maximus::Class::Lexer',
@@ -83,6 +85,10 @@ returns a hash with available versions
 =head2 get_last_revision
 
 returns the latest revision of the repository
+
+=head2 apply_scm_settings
+
+Apply SCM specific settings
 
 =head2 auto_discover
 
