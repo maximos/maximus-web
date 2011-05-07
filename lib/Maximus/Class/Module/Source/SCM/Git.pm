@@ -18,7 +18,7 @@ has 'repository' => (is => 'ro', isa => 'Str', required => 1);
 
 has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
-has 'tags_filter' => (is => 'ro', isa => 'Str', default => '');
+has 'tags_filter' => (is => 'rw', isa => 'Str', default => '');
 
 sub init_repo {
     my $self = shift;
