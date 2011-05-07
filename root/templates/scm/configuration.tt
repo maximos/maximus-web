@@ -1,4 +1,5 @@
-<h1>Ladida SCM Configuration</h1>
+[%- CALL c.assets.include('js/scm/configuration.js', 100) -%]
+<h1>SCM Configuration</h1>
 
 <div class="jsRoundedBox">
 	<p>Please fill in the form to store your SCM settings.</p>
@@ -13,6 +14,14 @@
 	<dl class="skinFieldGroup">
 		[% INCLUDE form/select_single.tt field='software' %]
 		[% INCLUDE form/input.tt field='repo_url' class="required" %]
+        <div id="scm_git" class="scm_tab">
+            [% INCLUDE form/input.tt field='git_tags_filter' %]
+        </div>
+        <div id="scm_svn" class="scm_tab">
+            [% INCLUDE form/input.tt field='svn_trunk' %]
+            [% INCLUDE form/input.tt field='svn_tags' %]
+            [% INCLUDE form/input.tt field='svn_tags_filter' %]
+        </div>
 		[% INCLUDE form/select_multiple.tt field='modules' %]
 		<dd><input type="submit" name="submit" value="Save" /></dd>
 	</dl>

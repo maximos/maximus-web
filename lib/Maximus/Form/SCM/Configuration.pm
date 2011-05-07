@@ -27,6 +27,26 @@ has_field 'modules' => (
     size          => 10,
 );
 
+has_field 'git_tags_filter' => (
+    type => 'Text',
+    label => 'Tags filter (regular expression)',
+);
+
+has_field 'svn_trunk' => (
+    type => 'Text',
+    label => 'Path to Trunk (leave empty for default: /trunk)',
+);
+
+has_field 'svn_tags' => (
+    type => 'Text',
+    label => 'Path to Tags (leave empty for default: /tags)',
+);
+
+has_field 'svn_tags_filter' => (
+    type => 'Text',
+    label => 'Tags filter (regular expression)',
+);
+
 has 'user' => (
     is       => 'ro',
     isa      => 'Maximus::Schema::Result::User',
@@ -71,6 +91,14 @@ SCM Configuration form
 =head2 modules
 
 =head2 user
+
+=head2 git_tags_filter
+
+=head2 svn_trunk
+
+=head2 svn_tags
+
+=head2 svn_tags_filter
 
 =head1 METHODS
 

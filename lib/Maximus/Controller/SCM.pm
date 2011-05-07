@@ -25,10 +25,13 @@ sub form : Private {
     my ($init_object, $scm) = {};
     if ($scm = $c->stash->{scm}) {
         $init_object = {
-            software => $c->stash->{scm}->software,
-            repo_url => $c->stash->{scm}->repo_url,
-            modules  => [map { $_->id } $c->stash->{scm}->modules],
+            software => $scm->software,
+            repo_url => $scm->repo_url,
+            modules  => [map { $_->id } $scm->modules],
         };
+
+        # Merge settings
+        $init_object = {%$init_object, %{$scm->settings}};
     }
 
     my $form = Maximus::Form::SCM::Configuration->new(
@@ -50,7 +53,13 @@ sub form : Private {
                     my %data = (
                         software => $form->field('software')->value,
                         repo_url => $form->field('repo_url')->value,
-                        settings => '',
+                        settings => {
+                            map { $_->name => $_->value } grep {
+                                my $software =
+                                  $form->field('software')->value;
+                                $_->name =~ m/^$software/;
+                              } $form->fields
+                        },
                     );
                     if ($scm) {
                         $scm->update(\%data);
