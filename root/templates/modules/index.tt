@@ -8,6 +8,7 @@
     	<li>Change its description</li>
     	<li><strike>Delete specific versions</strike> (<em>but please only do so in case of non-working releases, or for legal reasons</em>)</li>
     </ul> 
+    <p>You can also <a href="[% c.uri_for( c.controller('Modules').action_for('add') ) %]">add a module</a> without uploading it. Be sure to have the SCM configuration stored so you can assign it to your module.</p>
     <p><em>Tip: use <a href="[% c.uri_for( c.controller('SCM').action_for('index') ) %]">SCM management</a> with auto-discovery if you're hosting your modules inside a SCM repository!</em></p>
 
     <div class="jsRoundedBox">
@@ -20,7 +21,7 @@
             [% FOR module IN modscope.modules %]
                 [% "<ul>" IF loop.first %]
                 <li><strong>[% module.name | html %]</strong>
-                    <a href="[% c.uri_for( c.controller('Modules').action_for('edit'), modscope.name, module.name) %]">[edit]</a>
+                    <a href="[% c.uri_for( c.controller('Modules').action_for('edit'), [modscope.name, module.name]) %]">[edit]</a>
                     <a href="[% c.uri_for( c.controller('Module').action_for('module'), modscope.name, module.name) %]" target="_blank">[view page]</a>
                     [% IF module.scm_id %] <small>(scm assigned)</small>[% END %]
                     [% IF module.desc.length > 0 %]<br /><em>[% module.desc | html %]</em>[% END %]

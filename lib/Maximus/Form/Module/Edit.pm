@@ -5,13 +5,11 @@ extends 'HTML::FormHandler';
 has_field 'scope' => (
     type     => 'Text',
     label    => 'Modscope',
-    readonly => 1,
 );
 
 has_field 'name' => (
     type     => 'Text',
     label    => 'Name',
-    readonly => 1,
 );
 
 has_field 'desc' => (
