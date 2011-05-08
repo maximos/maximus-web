@@ -7,7 +7,7 @@
     <p>To stay up to date with [% c.config.name %] you can follow the project on <a href="http://twitter.com/maximusweb" target="_blank">Twitter</a> or
     you can join us on IRC at <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a></p>
     
-    
+    <p>For more information please take a look at our <a href="[% c.uri_for('/faq') %]">F.A.Q.</a></p> 
         
         <div class="jsRoundedBox">
             <div class="jsSuccessBox"><h2>We need your help!</h2></div>
