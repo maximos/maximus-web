@@ -2,18 +2,18 @@
 <h1>SCM Configuration</h1>
 
 <div class="jsRoundedBox">
-	<p>Please fill in the form to store your SCM settings.</p>
-	[% IF error_msg %]
-		<div class="jsRoundedBox">
-			<div class="jsErrorBox">[% error_msg %]</div>
-		</div>
-	[% END %]
+    <p>Please fill in the form to store your SCM settings.</p>
+    [% IF error_msg %]
+        <div class="jsRoundedBox">
+            <div class="jsErrorBox">[% error_msg %]</div>
+        </div>
+    [% END %]
 </div>
-	
+    
 <form method="post" action="" class="jsForm">
-	<dl class="skinFieldGroup">
-		[% INCLUDE form/select_single.tt field='software' %]
-		[% INCLUDE form/input.tt field='repo_url' class="required" %]
+    <dl class="skinFieldGroup">
+        [% INCLUDE form/select_single.tt field='software' %]
+        [% INCLUDE form/input.tt field='repo_url' class="required" %]
         <div id="scm_git" class="scm_tab">
             [% INCLUDE form/input.tt field='git_tags_filter' %]
         </div>
@@ -23,8 +23,8 @@
             [% INCLUDE form/input.tt field='svn_tags_filter' %]
         </div>
         [% IF form.field('modules').options.as_list.size > 0 %]
-    		[% INCLUDE form/select_multiple.tt field='modules' %]
+            [% INCLUDE form/select_multiple.tt field='modules' %]
         [% END %]
-		<dd><input type="submit" name="submit" value="Save" /></dd>
-	</dl>
+        <dd><input type="submit" name="submit" value="Save" /></dd>
+    </dl>
 </form>
