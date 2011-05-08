@@ -15,7 +15,7 @@
    </select>
 </dd>
 [% IF f.has_errors %]
-	[% FOR error IN f.errors %]
-		<dd class="error">[% error %]</dd>
-	[% END %]
+    [% FOR error IN f.errors %]
+        <dd class="error">[% error %]</dd>
+    [% END %]
 [% END %]

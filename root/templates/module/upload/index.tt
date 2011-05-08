@@ -1,30 +1,30 @@
 <h1>Upload Module</h1>
 <div class="jsRoundedBox">
-	<p>You can upload your zipped module with this form. Currently files can be of a maximum of [% form.field('file').max_size / 1024 / 1024 %] mega-bytes.
-	 Before uploading, please remove temporary compiled (binary) files. Maximus will remove most of these files (all in .bmx/, as well as .o, .s, .a and .i files).</p>
-	<p>Your archive/module has to meet the following requirements:</p>
-	<ul>
-		<li>Currently only single-module archives are supported</li>
-		<li>A <i>Module</i> statement is required: <i>Module htbaapub.rest</i></li>
-		<li>The modscope (htbaapub in the example) must belong to you. If the modscope doesn't exist yet you're free to
-		register it by uploading a module. If the modscope exists and it doesn't belong to you then choose another one.
-		The modscopes brl, maxgui and pub are reserved.</li>
-		<li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
-		Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
-	</ul>
-	[% IF error_msg %]
-		<div class="jsRoundedBox">
-			<div class="jsErrorBox">[% error_msg %]</div>
-		</div>
-	[% END %]
+    <p>You can upload your zipped module with this form. Currently files can be of a maximum of [% form.field('file').max_size / 1024 / 1024 %] mega-bytes.
+     Before uploading, please remove temporary compiled (binary) files. Maximus will remove most of these files (all in .bmx/, as well as .o, .s, .a and .i files).</p>
+    <p>Your archive/module has to meet the following requirements:</p>
+    <ul>
+        <li>Currently only single-module archives are supported</li>
+        <li>A <i>Module</i> statement is required: <i>Module htbaapub.rest</i></li>
+        <li>The modscope (htbaapub in the example) must belong to you. If the modscope doesn't exist yet you're free to
+        register it by uploading a module. If the modscope exists and it doesn't belong to you then choose another one.
+        The modscopes brl, maxgui and pub are reserved.</li>
+        <li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
+        Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
+    </ul>
+    [% IF error_msg %]
+        <div class="jsRoundedBox">
+            <div class="jsErrorBox">[% error_msg %]</div>
+        </div>
+    [% END %]
 </div>
 
 <form method="post" action="[% c.uri_for('/module/upload') %]" enctype="[% form.enctype %]" class="jsForm">
-	<dl class="skinFieldGroup">
-		[% INCLUDE form/input.tt field='scope' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
-		[% INCLUDE form/input.tt field='name' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
-		[% INCLUDE form/input.tt field='desc' input_type='text' class="required minLength:5 maxLength:255" %]
-		[% INCLUDE form/input.tt field='file' input_type='file' class="required" %]
-		<dd><input type="submit" name="submit" value="Upload" /></dd>
-	</dl>
+    <dl class="skinFieldGroup">
+        [% INCLUDE form/input.tt field='scope' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
+        [% INCLUDE form/input.tt field='name' input_type='text' class="required validate-alphanum minLength:1 maxLength:25" %]
+        [% INCLUDE form/input.tt field='desc' input_type='text' class="required minLength:5 maxLength:255" %]
+        [% INCLUDE form/input.tt field='file' input_type='file' class="required" %]
+        <dd><input type="submit" name="submit" value="Upload" /></dd>
+    </dl>
 </form>

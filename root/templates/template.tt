@@ -1,70 +1,70 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>[% c.config.name %] - BlitzMax Module Manager</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="description" content="[% c.config.name %]- the BlitzMax module manager" />
-	<meta name="keywords" content="[% c.config.name %],BlitzMax,module,manager,package" />
-	[% USE date %]
-	<meta name="Design" content="Copyright 2010-[% date.format(date.now, '%Y') %] skn3[ac]" />
-	<meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
-	[%- CALL c.assets.include('js/mootools-core-1.3.1.js', -3) -%]
-	[%- CALL c.assets.include('js/mootools-more-1.3.1.1.js', -2) -%]
-	[%- CALL c.assets.include('js/template.js', -1) -%]
-	[%- CALL c.assets.include('css/reset-min.css', -6) -%]
-	[%- CALL c.assets.include('css/styles.css', -5) -%]
-	[%- CALL c.assets.include('css/styles-other.css', -4) -%]
-	[% c.assets.export %]
-	
-	<!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
+    <title>[% c.config.name %] - BlitzMax Module Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="[% c.config.name %]- the BlitzMax module manager" />
+    <meta name="keywords" content="[% c.config.name %],BlitzMax,module,manager,package" />
+    [% USE date %]
+    <meta name="Design" content="Copyright 2010-[% date.format(date.now, '%Y') %] skn3[ac]" />
+    <meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
+    [%- CALL c.assets.include('js/mootools-core-1.3.1.js', -3) -%]
+    [%- CALL c.assets.include('js/mootools-more-1.3.1.1.js', -2) -%]
+    [%- CALL c.assets.include('js/template.js', -1) -%]
+    [%- CALL c.assets.include('css/reset-min.css', -6) -%]
+    [%- CALL c.assets.include('css/styles.css', -5) -%]
+    [%- CALL c.assets.include('css/styles-other.css', -4) -%]
+    [% c.assets.export %]
+    
+    <!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
 </head>
 <body>
-	<div id="skinBackground">
-		<div id="skinContainer" class="skinWidth">
-			<div id="skinRow1" class="skinWidth">
-				<div class="skinContent">
+    <div id="skinBackground">
+        <div id="skinContainer" class="skinWidth">
+            <div id="skinRow1" class="skinWidth">
+                <div class="skinContent">
 
-					<img id="skinLogo" src="/static/images/blank.gif" alt="" width="1" height="1" />
-					<div id="skinHeader">
-						
-					</div>
-					<ul id="skinMenu"> 
-						
-						[% INCLUDE template/menu_item.tt href=c.uri_for('/') title='Home' %]
-						[% INCLUDE template/menu_item.tt href=c.uri_for('/client') title='Client' %]
-						[% INCLUDE template/menu_item.tt href=c.uri_for('/module/modscopes') title='Modules' %]
-						[% INCLUDE template/menu_item.tt href=c.uri_for('/faq') title='F.A.Q.' %]
+                    <img id="skinLogo" src="/static/images/blank.gif" alt="" width="1" height="1" />
+                    <div id="skinHeader">
+                        
+                    </div>
+                    <ul id="skinMenu"> 
+                        
+                        [% INCLUDE template/menu_item.tt href=c.uri_for('/') title='Home' %]
+                        [% INCLUDE template/menu_item.tt href=c.uri_for('/client') title='Client' %]
+                        [% INCLUDE template/menu_item.tt href=c.uri_for('/module/modscopes') title='Modules' %]
+                        [% INCLUDE template/menu_item.tt href=c.uri_for('/faq') title='F.A.Q.' %]
 
-						[% IF c.user_exists %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/module/upload') title='Upload Module' %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/scm') title='My SCM\'s' %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/account') title='My Account' %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/logout') title='Logout' %]
-						[% ELSE %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/signup') title='Sign-up' %]
-							[% INCLUDE template/menu_item.tt href=c.uri_for('/account/login') title='Login' %]
-						[% END %]
-					</ul>
-				</div>
-			</div>
-			<div id="skinRow2" class="skinWidth">
-				<!--[if lte IE 6]><div id="skinRow2fix"><![endif]-->
-					<div class="skinContent">[% content %]</div>
-				<!--[if lte IE 6]></div><![endif]-->
-			</div>
-			<div id="skinRow3" class="skinWidth"></div>
-		</div>
-	</div>
+                        [% IF c.user_exists %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/module/upload') title='Upload Module' %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/scm') title='My SCM\'s' %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/account') title='My Account' %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/account/logout') title='Logout' %]
+                        [% ELSE %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/account/signup') title='Sign-up' %]
+                            [% INCLUDE template/menu_item.tt href=c.uri_for('/account/login') title='Login' %]
+                        [% END %]
+                    </ul>
+                </div>
+            </div>
+            <div id="skinRow2" class="skinWidth">
+                <!--[if lte IE 6]><div id="skinRow2fix"><![endif]-->
+                    <div class="skinContent">[% content %]</div>
+                <!--[if lte IE 6]></div><![endif]-->
+            </div>
+            <div id="skinRow3" class="skinWidth"></div>
+        </div>
+    </div>
 [% IF c.config.google_analytics_id.length == 12 %]
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
 [% END %]
 </body>
 </html>

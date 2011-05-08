@@ -1,12 +1,12 @@
 <h1>[% title | html %]</h1>
 <div class="jsRoundedBox">
-	[% IF message %]
-		<p>[% message | html %]</p>
-	[% END %]
-	[% IF success_message %]
-		<div class="jsSuccessBox">[% success_message | html %]</div>
-	[% END %]
-	[% IF error_message %]
-		<div class="jsErrorBox">[% error_message | html %]</div>
-	[% END %]
+    [% IF message %]
+        <p>[% message | html %]</p>
+    [% END %]
+    [% IF success_message %]
+        <div class="jsSuccessBox">[% success_message | html %]</div>
+    [% END %]
+    [% IF error_message %]
+        <div class="jsErrorBox">[% error_message | html %]</div>
+    [% END %]
 </div>

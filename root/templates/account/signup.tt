@@ -1,21 +1,21 @@
 <h1>Sign-Up</h1>
 
 <div class="jsRoundedBox">
-	<p>Please fill in the form to create an account. Creating an account allows you
-	to manage your own modscopes and modules.</p>
-	[% IF error_msg %]
-		<div class="jsRoundedBox">
-			<div class="jsErrorBox">[% error_msg %]</div>
-		</div>
-	[% END %]
+    <p>Please fill in the form to create an account. Creating an account allows you
+    to manage your own modscopes and modules.</p>
+    [% IF error_msg %]
+        <div class="jsRoundedBox">
+            <div class="jsErrorBox">[% error_msg %]</div>
+        </div>
+    [% END %]
 </div>
-	
+    
 <form method="post" action="[% c.uri_for('/account/signup') %]" class="jsForm">
-	<dl class="skinFieldGroup">
-		[% INCLUDE form/input.tt field='email' class="required validate-email" %]
-		[% INCLUDE form/input.tt field='username' class="required validate-alphanum minLength:3 maxLength:25" %]
-		[% INCLUDE form/input.tt field='password' input_type='password' class="required minLength:6 maxLength:50" %]
-		[% INCLUDE form/input.tt field='confirm_password' input_type='password' class="required validate-match matchInput:'password' matchName:'password'" %]
-		<dd><input type="submit" name="submit" value="Sign-Up" /></dd>
-	</dl>
+    <dl class="skinFieldGroup">
+        [% INCLUDE form/input.tt field='email' class="required validate-email" %]
+        [% INCLUDE form/input.tt field='username' class="required validate-alphanum minLength:3 maxLength:25" %]
+        [% INCLUDE form/input.tt field='password' input_type='password' class="required minLength:6 maxLength:50" %]
+        [% INCLUDE form/input.tt field='confirm_password' input_type='password' class="required validate-match matchInput:'password' matchName:'password'" %]
+        <dd><input type="submit" name="submit" value="Sign-Up" /></dd>
+    </dl>
 </form>

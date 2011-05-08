@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>[% c.config.name | html %] E-mail</title>
+    <title>[% c.config.name | html %] E-mail</title>
 </head>
 <body>
 [% content %]
