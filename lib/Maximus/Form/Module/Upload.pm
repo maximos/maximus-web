@@ -37,7 +37,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Maximus::Form::Account::Login - Module upload form
+Maximus::Form::Module::Upload - Module upload form
 
 =head1 DESCRIPTION
 
@@ -51,7 +51,7 @@ Upload form
 
 max_size is 52428800 = 50 megabytes
 
-=head2scope
+=head2 scope
 
 Module namespace
 
