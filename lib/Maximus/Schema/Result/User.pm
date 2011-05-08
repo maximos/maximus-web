@@ -156,13 +156,16 @@ sub get_scms {
 
 =head2 get_modscopes
 
-Retrieve all modscopes this user has access to
+=head2 get_modscopes (I<$role>)
+
+Retrieve all modscopes this user has access to. Defaults to role I<readable>.
 
 =cut
 
 sub get_modscopes {
-    my ($self) = @_;
-    my @modscopes = $self->search_role_objects(qr/^modscope-\d+-readable/);
+    my ($self, $role) = @_;
+    $role ||= 'readable';
+    my @modscopes = $self->search_role_objects(qr/^modscope-\d+-$role/);
     return unless @modscopes;
 
     my $rs        = $self->result_source->schema->resultset('Modscope');
