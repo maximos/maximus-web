@@ -4,7 +4,7 @@
     Subversion or Git then the best way to get your modules uploaded is to
     add your SCM configurations here.</p>
     
-    <p>Once uploaded you can <strike>update your module</strike> to use the
+    <p>Once uploaded you can <a href="[% c.uri_for( c.controller('Modules').action_for('index') ) %]">update your module</a> to use the
     SCM configuration. If you're hosting a full modscope inside your repository
     you might want to use our auto-discover feature to import
     all modules at once.</p>

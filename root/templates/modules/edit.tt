@@ -1,0 +1,31 @@
+[%- CALL c.assets.include('js/modules/edit.js', 100) -%]
+<h1>Edit Module</h1>
+
+<div class="jsRoundedBox">
+    <p>Please fill in the form to store your Module settings.</p>
+    [% IF error_msg %]
+        <div class="jsRoundedBox">
+            <div class="jsErrorBox">[% error_msg %]</div>
+        </div>
+    [% END %]
+</div>
+
+<form method="post" action="" class="jsForm">
+    <dl class="skinFieldGroup">
+        [% INCLUDE form/input.tt field='scope' %]
+        [% INCLUDE form/input.tt field='name' %]
+        [% INCLUDE form/input.tt field='desc' %]
+        [% IF form.field('scm_id').options.as_list.size > 0 %]
+        [% INCLUDE form/select_single.tt field='scm_id' %]
+        <div id="scm_git" class="scm_tab">
+            [% INCLUDE form/input.tt field='git_tags_filter' %]
+        </div>
+        <div id="scm_svn" class="scm_tab">
+            [% INCLUDE form/input.tt field='svn_trunk' %]
+            [% INCLUDE form/input.tt field='svn_tags' %]
+            [% INCLUDE form/input.tt field='svn_tags_filter' %]
+        </div>
+        [% END %]
+        <dd><input type="submit" name="submit" value="Save" /></dd>
+    </dl>
+</form>
