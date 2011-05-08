@@ -22,7 +22,9 @@
             [% INCLUDE form/input.tt field='svn_tags' %]
             [% INCLUDE form/input.tt field='svn_tags_filter' %]
         </div>
-		[% INCLUDE form/select_multiple.tt field='modules' %]
+        [% IF form.field('modules').options.as_list.size > 0 %]
+    		[% INCLUDE form/select_multiple.tt field='modules' %]
+        [% END %]
 		<dd><input type="submit" name="submit" value="Save" /></dd>
 	</dl>
 </form>
