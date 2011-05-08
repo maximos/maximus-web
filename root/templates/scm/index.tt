@@ -1,7 +1,7 @@
 <h1>SCM Configurations</h1>
 <div class="jsRoundedBox">
     <p>If you're hosting your module(s) inside a SCM managed repository such as
-    Subversion and Git then the best way to get your modules uploaded is to
+    Subversion or Git then the best way to get your modules uploaded is to
     add your SCM configurations here.</p>
     
     <p>Once uploaded you can <strike>update your module</strike> to use the
