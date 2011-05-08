@@ -17,6 +17,7 @@ use Catalyst qw/
   Session
   Session::Store::DBIC
   Session::State::Cookie
+  StackTrace
   /;
 use Catalyst::Log::Log4perl;
 use Template::Stash;

@@ -23,6 +23,7 @@ requires 'Catalyst::Plugin::PageCache'                  => '0.22';
 requires 'Catalyst::Plugin::Session'                    => '0.30';
 requires 'Catalyst::Plugin::Session::Store::DBIC'       => '0.11';
 requires 'Catalyst::Plugin::Session::State::Cookie'     => '0.17';
+requires 'Catalyst::Plugin::StackTrace'                 => '0.11';
 requires 'Catalyst::Plugin::Static::Simple'             => '0.29';
 requires 'Catalyst::Plugin::RequireSSL'                 => '0.06';
 requires 'Catalyst::View::Email'                        => '0.30';
