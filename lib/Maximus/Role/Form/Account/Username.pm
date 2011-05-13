@@ -2,7 +2,7 @@ package Maximus::Role::Form::Account::Username;
 use HTML::FormHandler::Moose::Role;
 
 has_field 'username' => (
-    type             => 'Text',
+    type             => '+Maximus::FormField::AlNum',
     label            => 'Username',
     required         => 1,
     required_message => 'You must enter a username',
