@@ -3,13 +3,13 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
 has_field 'scope' => (
-    type     => 'Text',
-    label    => 'Modscope',
+    type  => 'Text',
+    label => 'Modscope',
 );
 
 has_field 'name' => (
-    type     => 'Text',
-    label    => 'Name',
+    type  => 'Text',
+    label => 'Name',
 );
 
 has_field 'desc' => (

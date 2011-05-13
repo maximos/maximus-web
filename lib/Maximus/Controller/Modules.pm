@@ -42,7 +42,7 @@ sub form : Private {
         }
     );
 
-    if($module) {
+    if ($module) {
         $form->field('scope')->readonly(1);
         $form->field('name')->readonly(1);
     }
@@ -74,7 +74,8 @@ sub form : Private {
                         scm_settings => {
                             map { $_->name => $_->value }
                               grep {
-                                $software ne '' && $_->name =~ m/^$software/
+                                     $software ne ''
+                                  && $_->name =~ m/^$software/
                               } $form->fields
                         },
                     )->save($c->user->obj);
