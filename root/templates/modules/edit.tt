@@ -12,9 +12,9 @@
 
 <form method="post" action="" class="jsForm">
     <dl class="skinFieldGroup">
-        [% INCLUDE form/input.tt field='scope' %]
-        [% INCLUDE form/input.tt field='name' %]
-        [% INCLUDE form/input.tt field='desc' %]
+        [% INCLUDE form/input.tt field='scope' class="required validate-alphanum minLength:1 maxLength:25" %]
+        [% INCLUDE form/input.tt field='name' class="required validate-alphanum minLength:1 maxLength:25" %]
+        [% INCLUDE form/input.tt field='desc' class="required minLength:5 maxLength:255" %]
         [% INCLUDE form/select_single.tt field='scm_id' %]
         <div id="scm_git" class="scm_tab">
             [% INCLUDE form/input.tt field='git_tags_filter' %]
