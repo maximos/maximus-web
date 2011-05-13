@@ -3,13 +3,19 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
 has_field 'scope' => (
-    type  => 'Text',
-    label => 'Modscope',
+    type             => 'Text',
+    label            => 'Modscope',
+    required         => 1,
+    required_message => 'You must enter a modscope',
+    maxlength        => 25,
 );
 
 has_field 'name' => (
-    type  => 'Text',
-    label => 'Name',
+    type             => 'Text',
+    label            => 'Name',
+    required         => 1,
+    required_message => 'You must enter a modscope',
+    maxlength        => 25,
 );
 
 has_field 'desc' => (
@@ -17,6 +23,7 @@ has_field 'desc' => (
     label            => 'Description',
     required         => 1,
     required_message => 'You must enter a description',
+    maxlength        => 255,
 );
 
 has_field 'scm_id' => (

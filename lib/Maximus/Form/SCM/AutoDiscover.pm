@@ -9,6 +9,7 @@ has_field 'modules.modscope' => (
     label            => 'Scope',
     required         => 1,
     required_message => 'You must enter a module scope',
+    maxlength        => 25,
 );
 
 has_field 'modules.mod' => (
@@ -16,12 +17,13 @@ has_field 'modules.mod' => (
     label            => 'Name',
     required         => 1,
     required_message => 'You must enter a module name',
+    maxlength        => 25,
 );
 
 has_field 'modules.desc' => (
     type             => 'Text',
     label            => 'Description',
-    required_message => 'You must enter a description',
+    maxlength        => 255,
 );
 
 =head1 NAME

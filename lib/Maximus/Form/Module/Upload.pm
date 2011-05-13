@@ -17,6 +17,7 @@ has_field 'scope' => (
     label            => 'Modscope',
     required         => 1,
     required_message => 'You must enter a modscope',
+    maxlength        => 25,
 );
 
 has_field 'name' => (
@@ -24,6 +25,7 @@ has_field 'name' => (
     label            => 'Name',
     required         => 1,
     required_message => 'You must enter a module name',
+    maxlength        => 25,
 );
 
 has_field 'desc' => (
@@ -31,6 +33,7 @@ has_field 'desc' => (
     label            => 'Description',
     required         => 1,
     required_message => 'You must enter a description',
+    maxlength        => 255,
 );
 
 __PACKAGE__->meta->make_immutable;

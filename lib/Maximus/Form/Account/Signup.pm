@@ -7,6 +7,8 @@ has_field 'username' => (
     label            => 'Username',
     required         => 1,
     required_message => 'You must enter a username',
+    minlength        => 3,
+    maxlength        => 25,
 );
 
 has_field 'email' => (
@@ -21,6 +23,8 @@ has_field 'password' => (
     label            => 'Password',
     required         => 1,
     required_message => 'You must enter a password',
+    minlength        => 6,
+    maxlength        => 50,
 );
 
 has_field 'confirm_password' => (
