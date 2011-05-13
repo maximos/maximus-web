@@ -8,6 +8,7 @@ has_field 'username' => (
     required_message => 'You must enter a username',
     minlength        => 3,
     maxlength        => 25,
+    css_class        => 'required validate-alphanum minLength:3 maxLength:25',
 );
 
 no HTML::FormHandler::Moose::Role;

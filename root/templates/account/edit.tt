@@ -13,7 +13,7 @@
     <dl class="skinFieldGroup">
         [% INCLUDE form/input.tt field='email' class="required validate-email maxLength:45" %]
         [% INCLUDE form/input.tt field='password' input_type='password' class="required minLength:6 maxLength:50" %]
-        [% INCLUDE form/input.tt field='confirm_password' input_type='password' class="required validate-match matchInput:'password' matchName:'password'" %]
+        [% INCLUDE form/input.tt field='confirm_password' input_type='password' %]
         <dd><input type="submit" name="submit" value="Edit Account" /></dd>
     </dl>
 </form>

@@ -1,6 +1,6 @@
 [% f = form.field(field) %]
 <dt><label for="[% f.id %]">[% f.label %]</label></dt>
-<dd><textarea name="[% f.html_name %]" id="[% f.id %]" rows="[% f.rows %]" cols="[% f.cols %]" class="[% class %]" [% 'readonly="readonly"' IF f.readonly %]>[% f.fif | html %]</textarea></dd>
+<dd><textarea name="[% f.html_name %]" id="[% f.id %]" rows="[% f.rows %]" cols="[% f.cols %]" class="[% f.class %]" [% 'readonly="readonly"' IF f.readonly %]>[% f.fif | html %]</textarea></dd>
 [% IF f.has_errors %]
     [% FOR error IN f.errors %]
         <dd class="error">[% error %]</dd>

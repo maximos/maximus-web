@@ -6,7 +6,7 @@
         name="[% f.name %]"
      [% IF option.value == f.fif %]
         checked="checked"
-     [% END %] class="[% class %]">
+     [% END %] class="[% f.css_class %]">
      [% option.label | html %]<br />
    [% END %]
 </dd>

@@ -12,6 +12,7 @@ has_field 'file' => (
     max_size         => 52428800,
     required         => 1,
     required_message => 'You need to supply an archive (.zip)',
+    css_class        => 'required',
 );
 
 __PACKAGE__->meta->make_immutable;

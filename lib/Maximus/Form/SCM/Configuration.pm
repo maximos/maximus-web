@@ -18,6 +18,7 @@ has_field 'repo_url' => (
     label            => 'Repository URL',
     required         => 1,
     required_message => 'You must enter a repository URL',
+    css_class        => 'required',
 );
 
 has_field 'modules' => (

@@ -7,6 +7,7 @@ has_field 'email' => (
     required         => 1,
     required_message => 'You must enter a e-mail address',
     maxlength        => 45,
+    css_class        => 'required validate-email maxLength:45',
 );
 
 no HTML::FormHandler::Moose::Role;
