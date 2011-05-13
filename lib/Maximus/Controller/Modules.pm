@@ -73,8 +73,9 @@ sub form : Private {
                         desc         => $form->field('desc')->value,
                         scm_settings => {
                             map { $_->name => $_->value }
-                              grep { $_->name =~ m/^$software/; }
-                              $form->fields
+                              grep {
+                                $software ne '' && $_->name =~ m/^$software/
+                              } $form->fields
                         },
                     )->save($c->user->obj);
 

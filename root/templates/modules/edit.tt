@@ -15,7 +15,6 @@
         [% INCLUDE form/input.tt field='scope' %]
         [% INCLUDE form/input.tt field='name' %]
         [% INCLUDE form/input.tt field='desc' %]
-        [% IF form.field('scm_id').options.as_list.size > 0 %]
         [% INCLUDE form/select_single.tt field='scm_id' %]
         <div id="scm_git" class="scm_tab">
             [% INCLUDE form/input.tt field='git_tags_filter' %]
@@ -25,7 +24,6 @@
             [% INCLUDE form/input.tt field='svn_tags' %]
             [% INCLUDE form/input.tt field='svn_tags_filter' %]
         </div>
-        [% END %]
         <dd><input type="submit" name="submit" value="Save" /></dd>
     </dl>
 </form>

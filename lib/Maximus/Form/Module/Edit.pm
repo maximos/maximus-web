@@ -56,7 +56,7 @@ sub options_scm_id {
     my $self = shift;
     return unless $self->user;
 
-    my @selections;
+    my @selections = ({value => undef, label => 'None'});
     foreach my $scm ($self->user->get_scms) {
         push @selections,
           { value => $scm->id,
