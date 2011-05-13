@@ -24,8 +24,7 @@
             <dl class="skinFieldGroup">
             [% FOREACH field IN element.fields %]
                 [% field_name = String.new('modules.').append(element.accessor).append('.').append(field.name) %]
-                [% input_class = 'required' IF field.required %]
-                [% INCLUDE form/input.tt field=field_name class=input_class %]
+                [% INCLUDE form/input.tt field=field_name %]
             [% END %]
             </dl>
             [% "<hr />" IF loop.last %]
