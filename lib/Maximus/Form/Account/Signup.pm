@@ -8,13 +8,6 @@ with 'Maximus::Role::Form::Account::Email';
 
 with 'Maximus::Role::Form::Account::Password';
 
-has_field 'confirm_password' => (
-    type             => 'PasswordConf',
-    label            => 'Confirm password',
-    required         => 1,
-    required_message => 'You must confirm your password',
-);
-
 __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
