@@ -2,29 +2,7 @@ package Maximus::Form::Module::Edit;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-has_field 'scope' => (
-    type             => 'Text',
-    label            => 'Modscope',
-    required         => 1,
-    required_message => 'You must enter a modscope',
-    maxlength        => 25,
-);
-
-has_field 'name' => (
-    type             => 'Text',
-    label            => 'Name',
-    required         => 1,
-    required_message => 'You must enter a modscope',
-    maxlength        => 25,
-);
-
-has_field 'desc' => (
-    type             => 'Text',
-    label            => 'Description',
-    required         => 1,
-    required_message => 'You must enter a description',
-    maxlength        => 255,
-);
+with 'Maximus::Role::Form::Module';
 
 has_field 'scm_id' => (
     type          => 'Select',

@@ -2,21 +2,10 @@ package Maximus::Form::Account::Edit;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-has_field 'email' => (
-    type             => 'Email',
-    label            => 'E-Mail',
-    required         => 1,
-    required_message => 'You must enter a e-mail address',
-);
 
-has_field 'password' => (
-    type             => 'Password',
-    label            => 'Password',
-    required         => 1,
-    required_message => 'You must enter a password',
-    minlength        => 6,
-    maxlength        => 50,
-);
+with 'Maximus::Role::Form::Account::Email';
+
+with 'Maximus::Role::Form::Account::Password';
 
 has_field 'confirm_password' => (
     type             => 'PasswordConf',

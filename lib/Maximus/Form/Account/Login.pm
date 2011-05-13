@@ -2,19 +2,9 @@ package Maximus::Form::Account::Login;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-has_field 'username' => (
-    type             => 'Text',
-    label            => 'Username',
-    required         => 1,
-    required_message => 'You must enter a username',
-);
+with 'Maximus::Role::Form::Account::Username';
 
-has_field 'password' => (
-    type             => 'Password',
-    label            => 'Password',
-    required         => 1,
-    required_message => 'You must enter a password',
-);
+with 'Maximus::Role::Form::Account::Password';
 
 __PACKAGE__->meta->make_immutable;
 

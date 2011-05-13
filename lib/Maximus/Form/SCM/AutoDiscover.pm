@@ -5,7 +5,7 @@ extends 'HTML::FormHandler';
 has_field 'modules' => (type => 'Repeatable');
 
 has_field 'modules.modscope' => (
-    type             => 'Text',
+    type             => '+Maximus::FormField::AlNum',
     label            => 'Scope',
     required         => 1,
     required_message => 'You must enter a module scope',
@@ -13,7 +13,7 @@ has_field 'modules.modscope' => (
 );
 
 has_field 'modules.mod' => (
-    type             => 'Text',
+    type             => '+Maximus::FormField::AlNum',
     label            => 'Name',
     required         => 1,
     required_message => 'You must enter a module name',

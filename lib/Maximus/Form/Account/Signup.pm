@@ -2,30 +2,11 @@ package Maximus::Form::Account::Signup;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
-has_field 'username' => (
-    type             => 'Text',
-    label            => 'Username',
-    required         => 1,
-    required_message => 'You must enter a username',
-    minlength        => 3,
-    maxlength        => 25,
-);
+with 'Maximus::Role::Form::Account::Username';
 
-has_field 'email' => (
-    type             => 'Email',
-    label            => 'E-Mail',
-    required         => 1,
-    required_message => 'You must enter a e-mail address',
-);
+with 'Maximus::Role::Form::Account::Email';
 
-has_field 'password' => (
-    type             => 'Password',
-    label            => 'Password',
-    required         => 1,
-    required_message => 'You must enter a password',
-    minlength        => 6,
-    maxlength        => 50,
-);
+with 'Maximus::Role::Form::Account::Password';
 
 has_field 'confirm_password' => (
     type             => 'PasswordConf',
