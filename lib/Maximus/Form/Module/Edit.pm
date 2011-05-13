@@ -23,7 +23,6 @@ has_field 'scm_id' => (
     type          => 'Select',
     select_widget => 'select',
     multiple      => 1,
-    size          => 10,
     label         => 'SCM Configuration',
 );
 
