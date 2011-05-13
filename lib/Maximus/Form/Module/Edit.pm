@@ -22,7 +22,6 @@ has_field 'desc' => (
 has_field 'scm_id' => (
     type          => 'Select',
     select_widget => 'select',
-    multiple      => 1,
     label         => 'SCM Configuration',
 );
 
