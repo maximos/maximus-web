@@ -1,7 +1,7 @@
 <h1>Timeline</h1>
 <div class="jsRoundedBox">
     <h2>Feeds</h2>
-    <p>This timeline is also available in <a href="[% c.uri_for('/timeline/rss') %]" target="_blank">RSS 2.0</a> and <a href="[% c.uri_for('/timeline/rss') %]" target="_blank">Atom</a>.</p>
+    <p>This timeline is also available in <a href="[% c.uri_for('/timeline/rss') %]" target="_blank">RSS 2.0</a> and <a href="[% c.uri_for('/timeline/atom') %]" target="_blank">Atom</a>.</p>
 </div>
 
 <p>&nbsp;</p>
