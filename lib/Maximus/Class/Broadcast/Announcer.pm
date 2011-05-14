@@ -25,6 +25,9 @@ sub say {
     elsif ($ref eq 'HASH') {
         $msg = Maximus::Class::Broadcast::Message->new(%{$msg});
     }
+    else {
+        $msg = Maximus::Class::Broadcast::Message->new($msg);
+    }
 
     foreach my $listener ($self->getListeners) {
         $listener->say($msg);
