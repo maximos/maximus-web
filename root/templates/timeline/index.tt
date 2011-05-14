@@ -1,0 +1,22 @@
+<h1>Timeline</h1>
+<div class="jsRoundedBox">
+    <h2>Feeds</h2>
+    <p>This timeline is also available in <a href="[% c.uri_for('/timeline/rss') %]" target="_blank">RSS 2.0</a> and <a href="[% c.uri_for('/timeline/rss') %]" target="_blank">Atom</a>.</p>
+</div>
+
+<p>&nbsp;</p>
+
+<div class="jsRoundedBox">
+    <h2>Announcements</h2>
+    [% IF announcements.size > 0 %]
+        <p>These are the latest [% announcements.size %] announcements.</p>
+        [% FOR announcement IN announcements %]
+            [% "<ul>" IF loop.first %]
+            <li><em>[% announcement.date %]</em> [% announcement.message %]</li>
+            [% "</ul>" IF loop.last %]
+        [% END %]
+    [% ELSE %]
+        <p>There are no announcements yet</p>
+    [% END %]
+</div>
+
