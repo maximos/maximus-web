@@ -1,4 +1,4 @@
-package Maximus::Controller::Modules;
+package Maximus::Controller::Module::Manage;
 use Moose;
 use namespace::autoclean;
 use Maximus::Form::Module::Edit;
@@ -48,7 +48,7 @@ sub form : Private {
     }
 
     $form->process($c->req->parameters);
-    $c->stash(form => $form, template => 'modules/edit.tt');
+    $c->stash(form => $form, template => 'module/manage/edit.tt');
 
     if ($form->validated) {
         eval {
@@ -92,7 +92,7 @@ sub form : Private {
         }
 
         $c->flash(message => 'Your Module configuration has been stored.');
-        $c->response->redirect($c->uri_for_action('/modules/index'));
+        $c->response->redirect($c->uri_for_action('/module/manage/index'));
     }
 }
 
@@ -133,7 +133,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Maximus::Controller::Modules - Catalyst Controller
+Maximus::Controller::Module::Manage - Catalyst Controller
 
 =head1 DESCRIPTION
 

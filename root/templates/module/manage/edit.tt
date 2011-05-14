@@ -1,4 +1,4 @@
-[%- CALL c.assets.include('js/modules/edit.js', 100) -%]
+[%- CALL c.assets.include('js/module/edit.js', 100) -%]
 <h1>Edit Module</h1>
 
 <div class="jsRoundedBox">
