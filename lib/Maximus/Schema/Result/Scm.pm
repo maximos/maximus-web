@@ -56,6 +56,7 @@ __PACKAGE__->table("scm");
 =head2 auto_discover_request
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 auto_discover_response
@@ -82,7 +83,11 @@ __PACKAGE__->add_columns(
   "revision",
   { data_type => "varchar", is_nullable => 1, size => 45 },
   "auto_discover_request",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "auto_discover_response",
   { data_type => "text", is_nullable => 1 },
 );
@@ -106,8 +111,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:46:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Phz+IejW26NDnFptWtV9Cw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-14 11:37:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XqhMxHZmDKBbnbFulAgYPg
 
 
 use JSON::Any;
