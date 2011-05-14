@@ -10,8 +10,8 @@ extends 'DBIx::Class::Schema';
 __PACKAGE__->load_namespaces;
 
 
-# Created by DBIx::Class::Schema::Loader v0.05001 @ 2011-05-14 11:37:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+QJ5DCIjeg/Os2HAi5XsEg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-14 15:39:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vLonTLLPAm6VLcbA/+tlQA
 
 __PACKAGE__->load_components(qw/Schema::Versioned/);
 __PACKAGE__->upgrade_directory('sql/');
