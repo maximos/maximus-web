@@ -3,6 +3,12 @@ use Moose;
 use DateTime;
 use namespace::autoclean;
 
+use constant {
+    MSG_TYPE_GENERAL => 'general',
+    MSG_TYPE_MODULE  => 'module',
+    MSG_TYPE_AUTHOR  => 'author',
+};
+
 has 'text' => (
     isa => 'Str',
     is  => 'ro',
@@ -12,6 +18,17 @@ has 'date' => (
     isa     => 'DateTime',
     is      => 'ro',
     default => sub { DateTime->now }
+);
+
+has 'type' => (
+    isa     => 'Str',
+    is      => 'ro',
+    default => MSG_TYPE_GENERAL,
+);
+
+has 'meta_data' => (
+    isa => 'HashRef',
+    is  => 'ro',
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -38,6 +55,31 @@ The actual message
 =head2 date
 
 The publication date and time
+
+=head2 type
+
+Type of message, choose out of:
+
+=over 4
+
+=item MSG_TYPE_GENERAL
+
+This message type indicates it's a general announcement.
+
+=item MSG_TYPE_MODULE
+
+This message type indicates it's a module announcement.
+
+=item MSG_TYPE_AUTHOR
+
+This message type indicates it's a author announcement.
+
+=back
+
+=head2 meta_data
+
+Additional meta data that a driver can use. The kind of data inside usually
+depends on the I<type> of the message.
 
 =head1 AUTHOR
 
