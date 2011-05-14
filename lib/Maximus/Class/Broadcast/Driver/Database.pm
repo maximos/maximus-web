@@ -3,6 +3,24 @@ use Moose;
 use namespace::autoclean;
 with 'Maximus::Role::Broadcast::Driver';
 
+has 'model' => (
+    isa      => 'DBIx::Class::ResultSet',
+    is       => 'ro',
+    required => 1,
+);
+
+sub say {
+    my ($self, $msg) = @_;
+
+    return $self->model->create(
+        {   date    => $msg->date,
+            message => $msg->text,
+        }
+    );
+}
+
+__PACKAGE__->meta->make_immutable;
+
 =head1 NAME
 
 Maximus::Class::Broadcast::Driver::Database - Database driver
@@ -21,26 +39,16 @@ system of Maximus.
 
 =head1 ATTRIBUTES
 
-=head2 counter
+=head2 model
 
-Contains the number of times C<say> has been called.
-=cut
-has 'counter' => (
-	isa => 'Int',
-	is => 'rw',
-	default => 0,
-);
+Contains the L<DBIx::Class::ResultSet> object in which the message will be
+stored.
 
 =head1 METHODS
 
 =head2 say(L<Maximus::Class::Broadcast::Message> $msg)
 
-Ignores the message but adds 1 to the C<counter> attribute.
-=cut
-sub say {
-	my($self, $msg) = @_;
-	$self->counter( $self->counter + 1);
-}
+Adds the message to the database.
 
 =head1 AUTHOR
 
@@ -48,7 +56,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010 Christiaan Kras
+Copyright (c) 2010-2011 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -70,5 +78,4 @@ THE SOFTWARE.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
 1;

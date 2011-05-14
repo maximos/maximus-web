@@ -21,7 +21,8 @@ sub COMPONENT {
         };
         $app->log->warn($@) and next if ($@);
 
-        my %args     = %{$args->{drivers}->{$driver_name}};
+        my %args = %{$args->{drivers}->{$driver_name}};
+        $args{model} = $app->model($args{model}) if exists($args{model});
         my $listener = $module->new(\%args);
         $announcer->addListener($listener);
     }
