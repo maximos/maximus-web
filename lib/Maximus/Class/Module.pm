@@ -32,6 +32,9 @@ has 'scm_settings' => (
 
 has 'schema' => (is => 'rw', 'isa' => 'DBIx::Class::Schema');
 
+has 'announcer' =>
+  (is => 'rw', isa => 'Maximus::Class::Broadcast::Announcer');
+
 sub save {
     my ($self, $user) = @_;
 
@@ -110,6 +113,18 @@ sub save {
     Maximus::Exception::Module->throw('Unable to save module to database')
       unless $version;
 
+  # Skip dev-modules for the time being. Auto updates from SCM repo's
+  # currently always update all dev versions, even if there aren't any changes
+    if ($self->announcer && $self->source->version ne 'dev') {
+        $self->announcer->say(
+            sprintf(
+                'New module %s.%s V%s uploaded by %s',
+                $self->modscope,        $self->mod,
+                $self->source->version, $user->username
+            )
+        );
+    }
+
     return $version;
 }
 
@@ -154,6 +169,11 @@ SCM specific settings
 
 L<DBIx::Class schema>
 
+=head2 announcer
+
+A L<Maximus::Broadcast::Announcer> object. If available will broadcast a module
+update when saved.
+
 =head1 METHODS
 
 =head2 save(I<$user>)
@@ -163,6 +183,10 @@ L<Maximus::Schema::Result::User>.
 
 When no I<source> has been given when constructing the object this method
 returns the L<DBIx::Class::Row> that contains the record of the module.
+
+If a I<announcer> object has been given it will broadcast the module release
+to the different drivers, but only if it's not a dev release and I<source> has
+been given as well.
 
 =head1 AUTHOR
 
