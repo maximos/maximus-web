@@ -118,11 +118,19 @@ sub save {
   # currently always update all dev versions, even if there aren't any changes
     if ($self->announcer && $self->source->version ne 'dev') {
         $self->announcer->say(
-            sprintf(
-                'New module %s.%s V%s uploaded by %s',
-                $self->modscope,        $self->mod,
-                $self->source->version, $user->username
-            )
+            {   text => sprintf(
+                    'New module %s.%s V%s uploaded by %s',
+                    $self->modscope,        $self->mod,
+                    $self->source->version, $user->username
+                ),
+                type => Maximus::Class::Broadcast::Message->MSG_TYPE_MODULE,
+                meta_data => {
+                    scope   => $self->modscope,
+                    name    => $self->mod,
+                    version => $self->source->version,
+                    author  => $user->username,
+                },
+            }
         );
     }
 

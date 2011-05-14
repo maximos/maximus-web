@@ -13,8 +13,10 @@ sub say {
     my ($self, $msg) = @_;
 
     return $self->model->create(
-        {   date    => $msg->date,
-            message => $msg->text,
+        {   date         => $msg->date,
+            message      => $msg->text,
+            message_type => $msg->type,
+            meta_data    => $msg->meta_data,
         }
     );
 }
