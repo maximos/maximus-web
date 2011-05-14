@@ -1,10 +1,17 @@
 package Maximus::Class::Broadcast::Message;
 use Moose;
+use DateTime;
 use namespace::autoclean;
 
 has 'text' => (
     isa => 'Str',
     is  => 'ro',
+);
+
+has 'date' => (
+    isa => 'DateTime',
+    is  => 'ro',
+    default => sub { DateTime->now }
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -27,6 +34,10 @@ Message class to be passed to a announcer and/or driver.
 =head2 text
 
 The actual message
+
+=head2 date
+
+The publication date and time
 
 =head1 AUTHOR
 
