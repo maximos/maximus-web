@@ -41,6 +41,17 @@ __PACKAGE__->table("announcement");
   data_type: 'text'
   is_nullable: 0
 
+=head2 message_type
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 45
+
+=head2 meta_data
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -59,13 +70,22 @@ __PACKAGE__->add_columns(
   },
   "message",
   { data_type => "text", is_nullable => 0 },
+  "message_type",
+  { data_type => "varchar", is_nullable => 0, size => 45 },
+  "meta_data",
+  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-14 11:37:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vcMozcw/v6digzLcNlB6kg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-14 15:41:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T8IPxXaS/foXU/y2zVYs6w
 
+use JSON::Any;
+__PACKAGE__->inflate_column('meta_data', {
+	inflate => sub { JSON::Any->jsonToObj(shift || '{}' ) },
+	deflate => sub { JSON::Any->objToJson(shift || {} ) },
+});
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
