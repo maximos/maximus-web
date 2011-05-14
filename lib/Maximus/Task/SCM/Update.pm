@@ -18,6 +18,8 @@ sub run {
         $search = {id => $scm_id};
     }
 
+    my $announcer = Maximus->model('announcer');
+
     # Fetch all or search for given SCM
     foreach my $scm ($self->schema->resultset('Scm')->search($search)) {
         my $source = $self->get_source($scm);
@@ -53,11 +55,12 @@ sub run {
                           unless @users;
 
                         my $mod = Maximus::Class::Module->new(
-                            modscope => $module->modscope->name,
-                            mod      => $module->name,
-                            desc     => $module->desc,
-                            source   => $source,
-                            schema   => $self->schema,
+                            modscope  => $module->modscope->name,
+                            mod       => $module->name,
+                            desc      => $module->desc,
+                            source    => $source,
+                            schema    => $self->schema,
+                            announcer => $announcer,
                         );
                         $mod->save($users[0]);
                     };
