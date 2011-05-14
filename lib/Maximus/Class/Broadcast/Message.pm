@@ -9,8 +9,8 @@ has 'text' => (
 );
 
 has 'date' => (
-    isa => 'DateTime',
-    is  => 'ro',
+    isa     => 'DateTime',
+    is      => 'ro',
     default => sub { DateTime->now }
 );
 
