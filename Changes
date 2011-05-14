@@ -1,6 +1,7 @@
 Revision history for Maximus.
 
 1.000000  0000-00-00 00:00:00
+    - Added Timeline feature with RSS and Atom feeds
     - Added ability to add a module without uploading an archive
     - Added basic module management for modifying a description and module
       specific SCM settings
