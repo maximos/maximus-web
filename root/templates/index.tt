@@ -9,12 +9,11 @@
     
     <p>For more information please take a look at our <a href="[% c.uri_for('/faq') %]">F.A.Q.</a></p> 
         
-        <div class="jsRoundedBox">
-            <div class="jsSuccessBox"><h2>We need your help!</h2></div>
-            <p><a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img title="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=chrome" width="149" height="37" alt="[Please donate to support us]" border="0" style="float:right;margin-left:10px;" /></a> If you make use of [% c.config.name %] please consider a small donation to keep this service running. Details can be found at our Pledgie page.</p>
-        </div>
+    <div class="jsRoundedBox">
+        <div class="jsSuccessBox"><h2>We need your help!</h2></div>
+        <p><a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img title="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=chrome" width="149" height="37" alt="[Please donate to support us]" border="0" style="float:right;margin-left:10px;" /></a> If you make use of [% c.config.name %] please consider a small donation to keep this service running. Details can be found at our Pledgie page.</p>
+    </div>
     
-    
-    <h3>Sources</h3>
-    <p class="center"><a href="[% c.uri_for('/module/sources/json') %]">JSON</a>, <a href="[% c.uri_for('/module/sources/xml') %]">XML</a></p>
+    <h2>Sources</h2>
+    <p><a href="[% c.uri_for('/module/sources/json') %]">JSON</a>, <a href="[% c.uri_for('/module/sources/xml') %]">XML</a></p>
 </div>
