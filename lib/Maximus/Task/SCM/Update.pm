@@ -42,7 +42,6 @@ sub run {
                     # New Source object
                     my $source = $self->get_source($scm);
 
-
                     $source->apply_scm_settings($scm->settings)
                       if ($scm->settings);
                     $source->apply_scm_settings($module->scm_settings)
