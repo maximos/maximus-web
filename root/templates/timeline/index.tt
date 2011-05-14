@@ -10,9 +10,19 @@
     <h2>Announcements</h2>
     [% IF announcements.as_list.size > 0 %]
         <p>These are the latest [% announcements.size %] announcements.</p>
+        [% USE String %]
         [% FOR announcement IN announcements %]
             [% "<ul>" IF loop.first %]
-            <li><em>[% announcement.date %]</em> [% announcement.message %]</li>
+            [% message = String.new(announcement.0.message) %]
+            [% IF announcement.1.highlight %]
+                [% replacement = String.new('<a href="')
+                                       .append(announcement.1.link)
+                                       .append('">')
+                                       .append(announcement.1.highlight)
+                                       .append('</a>') %]
+                [% message = message.replace(announcement.1.highlight, replacement) %]
+            [% END %]
+            <li><em>[% announcement.0.date %]</em> [% message %]</li>
             [% "</ul>" IF loop.last %]
         [% END %]
     [% ELSE %]

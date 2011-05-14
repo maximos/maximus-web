@@ -2,18 +2,37 @@ package Maximus::Controller::Timeline;
 use DateTime;
 use Moose;
 use namespace::autoclean;
+use Maximus::Class::Broadcast::Message;
+use 5.10.0;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
 sub base : Chained('/') : PathPart('timeline') : CaptureArgs(0) {
     my ($self, $c) = @_;
 
-    $c->stash(
-        announcements => [
-            $c->model('DB::Announcement')
-              ->search(undef, {order_by => {-desc => 'date'}})
-        ]
-    );
+    my @announcements;
+    my @announcement_rs =
+      $c->model('DB::Announcement')
+      ->search(undef, {order_by => {-desc => 'date'}});
+
+    foreach my $announcement (@announcement_rs) {
+        my %extra = (link => $c->uri_for('/'));
+        my $meta_data = $announcement->meta_data;
+
+        if ($announcement->message_type eq
+            Maximus::Class::Broadcast::Message->MSG_TYPE_MODULE)
+        {
+            $extra{link} =
+              $c->uri_for('/module', $meta_data->{scope}, $meta_data->{name});
+
+            $extra{highlight} = join "\.",
+              ($meta_data->{scope}, $meta_data->{name});
+        }
+
+        push @announcements, [$announcement, \%extra];
+    }
+
+    $c->stash(announcements => \@announcements);
 }
 
 sub index : Chained('base') : PathPart('') : Args(0) {
@@ -26,10 +45,10 @@ sub build_feed : Chained('base') : PathPart('') : CaptureArgs(0) {
     my @entries;
     foreach my $announcement (@{$c->stash->{announcements}}) {
         push @entries,
-          { id       => $announcement->id,
-            title    => $announcement->message,
-            modified => $announcement->date,
-            link     => $c->req->base,
+          { id       => $announcement->[0]->id,
+            title    => $announcement->[0]->message,
+            modified => $announcement->[0]->date,
+            link     => $announcement->[1]->{link},
           };
     }
 
