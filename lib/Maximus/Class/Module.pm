@@ -20,8 +20,8 @@ has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 has 'desc' => (is => 'rw', isa => 'Str', required => 1);
 
 has 'source' => (
-    is       => 'rw',
-    does     => 'Maximus::Role::Module::Source',
+    is   => 'rw',
+    does => 'Maximus::Role::Module::Source',
 );
 
 has 'scm_settings' => (
@@ -61,8 +61,9 @@ sub save {
         || $user->is_superuser)
     {
         Maximus::Exception::Module->throw(
-            error => 'Access denied to modscope',
-            user_msg => 'This modscope doesn\'t belong to you');
+            error    => 'Access denied to modscope',
+            user_msg => 'This modscope doesn\'t belong to you'
+        );
     }
 
     my $mod = $self->schema->resultset('Module')->update_or_create(
