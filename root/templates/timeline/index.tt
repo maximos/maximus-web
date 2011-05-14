@@ -9,8 +9,8 @@
 <div class="jsRoundedBox">
     <h2>Announcements</h2>
     [% IF announcements.as_list.size > 0 %]
-        <p>These are the latest [% announcements.as_list.size %] announcements.</p>
-        [% FOR announcement IN announcements.as_list %]
+        <p>These are the latest [% announcements.size %] announcements.</p>
+        [% FOR announcement IN announcements %]
             [% "<ul>" IF loop.first %]
             <li><em>[% announcement.date %]</em> [% announcement.message %]</li>
             [% "</ul>" IF loop.last %]

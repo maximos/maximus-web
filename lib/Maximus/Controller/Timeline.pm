@@ -8,8 +8,12 @@ BEGIN { extends 'Catalyst::Controller'; }
 sub base : Chained('/') : PathPart('timeline') : CaptureArgs(0) {
     my ($self, $c) = @_;
 
-    $c->stash(announcements => $c->model('DB::Announcement')
-          ->search_literal(undef, {order_by => {-desc => 'date'}}));
+    $c->stash(
+        announcements => [
+            $c->model('DB::Announcement')
+              ->search(undef, {order_by => {-desc => 'date'}})
+        ]
+    );
 }
 
 sub index : Chained('base') : PathPart('') : Args(0) {
@@ -20,7 +24,7 @@ sub build_feed : Chained('base') : PathPart('') : CaptureArgs(0) {
     my ($self, $c) = @_;
 
     my @entries;
-    foreach my $announcement ($c->stash->{announcements}) {
+    foreach my $announcement (@{$c->stash->{announcements}}) {
         push @entries,
           { id       => $announcement->id,
             title    => $announcement->message,
