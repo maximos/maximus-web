@@ -132,7 +132,7 @@ around 'auto_discover' => sub {
 };
 
 sub apply_scm_settings {
-    my($self,$scm_settings) = @_;
+    my ($self, $scm_settings) = @_;
 
     if (defined $scm_settings->{svn_trunk}) {
         $self->trunk($scm_settings->{svn_trunk});
@@ -141,8 +141,7 @@ sub apply_scm_settings {
         $self->tags($scm_settings->{svn_tags});
     }
     if (defined $scm_settings->{svn_tags_filter}) {
-        $self->tags_filter(
-            $scm_settings->{svn_tags_filter});
+        $self->tags_filter($scm_settings->{svn_tags_filter});
     }
 }
 
