@@ -145,7 +145,11 @@ sub archive {
     $zip->removeMember($modName . '/doc/commands.html');
 
     # Remove files that are the result of a compilation
-    foreach ($zip->membersMatching('\.(o|s|a|i|exe|gitignore|bmx\/)$')) {
+    foreach (
+        $zip->membersMatching(
+            '(meta\.maximus) | \.(o|s|a|i|exe|gitignore|bmx\/)$')
+      )
+    {
         $zip->removeMember($_);
     }
 

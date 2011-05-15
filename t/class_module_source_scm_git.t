@@ -93,7 +93,7 @@ $scm        = new_ok(
 );
 
 is( $scm->get_latest_revision(),
-    '149a351ed45a477815529805d4b31c3fe53c497e',
+    '78a94e0d0c105366e9d1b759de3bba1f23fd626c',
     'Latest revision check'
 );
 
