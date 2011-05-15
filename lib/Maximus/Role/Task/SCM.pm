@@ -17,11 +17,17 @@ sub get_source {
     make_path($local_repo->absolute->stringify);
 
     my $source;
+    my $settings = $scm->settings;
     if ($scm->software eq 'git') {
         $source = Maximus::Class::Module::Source::SCM::Git->new(
             repository       => $scm->repo_url,
             local_repository => $local_repo->absolute->stringify,
         );
+
+        # Default settings from SCM table
+        if (exists $settings->{tags_filter}) {
+            $source->tags_filter($settings->{tags_filter});
+        }
     }
     elsif ($scm->software eq 'svn') {
         $source = Maximus::Class::Module::Source::SCM::Subversion->new(
@@ -30,7 +36,6 @@ sub get_source {
         );
 
         # Default settings from SCM table
-        my $settings = $scm->settings;
         if (exists $settings->{trunk}) {
             $source->trunk($settings->{trunk});
         }
