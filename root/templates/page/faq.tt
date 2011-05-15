@@ -61,6 +61,16 @@
         <dd>Yes! We'll be using <a href="http://twitter.com/maximusweb" target="_blank">@maximusweb</a>
         for that. Newly uploaded modules are announced there too.</dd>
 
+        <dt>Installed modules contain a <em>meta.maximus</em> file, what is it?</dt>
+        <dd>[% c.config.name %] has to track which modules it installed to decide which modules
+        it can update, and which ones to leave alone. This way [% c.config.name %] will only
+        modify modules that have been installed by itself. Manually installed
+        modules (outside of the client) won't be upgraded.</dd>
+        <dd>If you're a module author be sure you <u>don't</u> add this file
+        yourself! Otherwise [% c.config.name %] might alter your work. Aside
+        from that, using [% c.config.name %] will be perfectly save with your
+        own SCM managed modules. That being said, use it at your own risk.</dd>
+
         <dt>Where can I find the source code for [% c.config.name %]?</dt>
         <dd>Both the <a href="http://www.github.com/maximos/maximus-web" target="_blank">website repository</a>
         and <a href="http://www.github.com/maximos/maximus" target="_blank">client repository</a>
