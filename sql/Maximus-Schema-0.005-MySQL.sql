@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Sat May 14 15:43:10 2011
+-- Created on Sun May 15 11:59:43 2011
 -- 
 SET foreign_key_checks=0;
 
@@ -16,7 +16,7 @@ CREATE TABLE `announcement` (
   `message_type` varchar(45) NOT NULL,
   `meta_data` text,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
 DROP TABLE IF EXISTS `dbix_class_schema_versions`;
 

@@ -87,6 +87,15 @@ __PACKAGE__->inflate_column('meta_data', {
 	deflate => sub { JSON::Any->objToJson(shift || {} ) },
 });
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+    $sqlt_table->extra(
+        mysql_table_type => 'InnoDB',
+        mysql_charset    => 'utf8'
+    );
+}
+
+
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;
