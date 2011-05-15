@@ -2,7 +2,7 @@ package Maximus::Role::Form::Module;
 use HTML::FormHandler::Moose::Role;
 
 has_field 'scope' => (
-    type             => '+Maximus::FormField::AlNum',
+    type             => '+Maximus::FormField::ModPart',
     label            => 'Modscope',
     required         => 1,
     required_message => 'You must enter a modscope',
@@ -11,7 +11,7 @@ has_field 'scope' => (
 );
 
 has_field 'name' => (
-    type             => '+Maximus::FormField::AlNum',
+    type             => '+Maximus::FormField::ModPart',
     label            => 'Name',
     required         => 1,
     required_message => 'You must enter a module name',
