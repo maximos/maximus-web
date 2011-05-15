@@ -3,11 +3,11 @@
     <p>Below is a list of frequently asked questions concerning [% c.config.name %].</p>
 
     <dl id="faqlist">
-        <dt>What is Maximus?</dt>
-        <dd>Maximus is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>.
-        Maximus is made of 2 parts . The first is this website, a place to host your
+        <dt>What is [% c.config.name %]?</dt>
+        <dd>[% c.config.name %] is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>.
+        [% c.config.name %] is made of 2 parts . The first is this website, a place to host your
         BlitzMax modules. The website is responsible for supplying module packages
-        to the <a href="[% c.uri_for('/client') %]">Maximus client</a>.
+        to the <a href="[% c.uri_for('/client') %]">[% c.config.name %] client</a>.
         The client is used to install and manage installed modules on your
         computer. The client is cross-platform compatible and is available for
         Windows, Mac OSX and Linux. Both the website software and the client are
@@ -18,20 +18,20 @@
         <dt>What features does the website have?</dt>
         <dd>Through the website it's possible to do the following things:
             <ul>
-            	<li>Download BlitzMax modules</li>
-            	<li>Fetch a sources file which contains all hosted modules,
+                <li>Download BlitzMax modules</li>
+                <li>Fetch a sources file which contains all hosted modules,
                 including dependencies. This file is available in JSON and XML.
                 </li>
-            	<li>Upload modules; you can provide a ZIP-file and Maximus
+                <li>Upload modules; you can provide a ZIP-file and [% c.config.name %]
                 figures out what to do with it.</li>
-            	<li>Manage your uploaded modules</li>
-            	<li>Let Maximus use the auto-discover function on your SCM
+                <li>Manage your uploaded modules</li>
+                <li>Let [% c.config.name %] use the auto-discover function on your SCM
                 hosted repository to auto-detect all modules hosted inside
                 that repository. Auto-discovery is designed to work with
                 multi-module (and multi-modscope!) repositories. Currently
                 only Git and Subversion are supported. But more support for
                 other SCM software is on the way.</li>
-                <li>Let Maximus check your SCM repositories for updates and
+                <li>Let [% c.config.name %] check your SCM repositories for updates and
                 automatically generate new packages if there are any updates.
                 Depending on the SCM software you use (e.g. Git) you can specify
                 global settings (such as a tag filter) or specify them per
@@ -59,9 +59,9 @@
 
         <dt>Can I follow progress on Twitter?</dt>
         <dd>Yes! We'll be using <a href="http://twitter.com/maximusweb" target="_blank">@maximusweb</a>
-        for that.</dd>
+        for that. Newly uploaded modules are announced there too.</dd>
 
-        <dt>Where can I find the source code for Maximus?</dt>
+        <dt>Where can I find the source code for [% c.config.name %]?</dt>
         <dd>Both the <a href="http://www.github.com/maximos/maximus-web" target="_blank">website repository</a>
         and <a href="http://www.github.com/maximos/maximus" target="_blank">client repository</a>
         are hosted on GitHub. You are welcome to contribute.</dd>
@@ -78,6 +78,6 @@
         to pay the bills for running this service. You can find more information about the
         campaign on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
         website.</dd>
-        <dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
+        <dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: [% c.config.name %] and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
     </dl>
 </div>
