@@ -29,6 +29,15 @@ sub run {
         if (!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev)
         {
             foreach my $module ($scm->modules) {
+
+                # Reapply SCM settings
+                $source->apply_scm_settings($scm->settings)
+                  if ($scm->settings);
+
+                # Module specific SCM settings
+                $source->apply_scm_settings($module->scm_settings)
+                  if ($module->scm_settings);
+
                 my %versions = $source->get_versions;
 
                 # Skip existing versions
@@ -42,6 +51,7 @@ sub run {
                     # New Source object
                     my $source = $self->get_source($scm);
 
+                    # Reapply scm settings to new Source object
                     $source->apply_scm_settings($scm->settings)
                       if ($scm->settings);
                     $source->apply_scm_settings($module->scm_settings)
