@@ -54,12 +54,13 @@ sub run {
                           unless @users;
 
                         my $mod = Maximus::Class::Module->new(
-                            modscope  => $module->modscope->name,
-                            mod       => $module->name,
-                            desc      => $module->desc,
-                            source    => $source,
-                            schema    => $self->schema,
-                            announcer => $announcer,
+                            modscope     => $module->modscope->name,
+                            mod          => $module->name,
+                            desc         => $module->desc,
+                            source       => $source,
+                            scm_settings => $module->scm_settings,
+                            schema       => $self->schema,
+                            announcer    => $announcer,
                         );
                         $mod->save($users[0]);
                     };
