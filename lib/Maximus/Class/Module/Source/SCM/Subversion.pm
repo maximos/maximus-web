@@ -31,19 +31,32 @@ sub init_repo {
         my $url = join('/', ($self->repository, $self->trunk));
 
         if ($action eq 'checkout') {
-            $cmd =
-              join(' ', ('svn', $action, $url, $self->local_repository,));
+            $cmd = join(
+                ' ',
+                (   'svn --trust-server-cert --non-interactive',
+                    $action, $url, $self->local_repository,
+                )
+            );
         }
         elsif ($action eq 'update') {
-            $cmd = join(' ', ('svn', $action, $self->local_repository,));
+            $cmd = join(
+                ' ',
+                (   'svn --trust-server-cert --non-interactive', $action,
+                    $self->local_repository,
+                )
+            );
         }
 
         # Update or checkout repository
         `$cmd`;
 
         # Fast export local repository to tmpDir for further processing
-        $cmd = join(' ',
-            ('svn export --force', $self->local_repository, $self->tmpDir));
+        $cmd = join(
+            ' ',
+            (   'svn --trust-server-cert --non-interactive export --force',
+                $self->local_repository, $self->tmpDir
+            )
+        );
         `$cmd`;
     }
 
@@ -56,7 +69,12 @@ sub init_repo {
         my $url = join('/',
             ($self->repository, $self->tags, $versions{$self->version}));
 
-        my $cmd = join(' ', ('svn export --force', $url, $self->tmpDir));
+        my $cmd = join(
+            ' ',
+            (   'svn --trust-server-cert --non-interactive export --force',
+                $url, $self->tmpDir
+            )
+        );
 
         `$cmd`;
     }
@@ -74,7 +92,8 @@ sub get_versions {
     my %tags;
 
     if (length($self->tags) > 0) {
-        my $cmd = 'svn list ' . join('/', ($self->repository, $self->tags));
+        my $cmd = 'svn --trust-server-cert --non-interactive list '
+          . join('/', ($self->repository, $self->tags));
         my @ls = `$cmd`;
 
         if (length($self->tags_filter) > 0) {
@@ -93,7 +112,8 @@ sub get_versions {
 
 sub get_latest_revision {
     my ($self) = @_;
-    my $cmd      = 'svn info ' . join('/', ($self->repository, $self->trunk));
+    my $cmd = 'svn --trust-server-cert --non-interactive info '
+      . join('/', ($self->repository, $self->trunk));
     my @info     = `$cmd`;
     my @revision = map {
         $_ =~ s/[^\d]+//g;
