@@ -73,6 +73,7 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:39:48
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cWOg5osbMP6hslyeYeCjlQ
 
+
 =head1 METHODS
 
 =head2 insert
@@ -83,7 +84,7 @@ I<modscope-id-mutable> and I<modscope-id-readable>.
 =cut
 
 sub insert {
-    my ( $self, @args ) = @_;
+    my ($self, @args) = @_;
 
     my $guard = $self->result_source->schema->txn_scope_guard;
     $self->next::method(@args);
@@ -91,7 +92,7 @@ sub insert {
     # Create scm-<id>-mutable role and link it to the new modscope
     my $rs_roles = $self->result_source->schema->resultset('Role');
     $rs_roles->create({role => 'modscope-' . $self->id . '-' . $_})
-      for(qw/mutable readable/);
+      for (qw/mutable readable/);
 
     $guard->commit;
 
@@ -105,14 +106,15 @@ Deleting a scm record will also remove any related roles
 =cut
 
 sub delete {
-    my ( $self, @args ) = @_;
+    my ($self, @args) = @_;
 
     my $schema = $self->result_source->schema;
     my $guard  = $schema->txn_scope_guard;
     $self->next::method(@args);
 
     my $rs_roles = $schema->resultset('Role');
-    my $roles = $rs_roles->search({role => {-like => 'modscope-' . $self->id . '-%'}});
+    my $roles =
+      $rs_roles->search({role => {-like => 'modscope-' . $self->id . '-%'}});
     $roles->delete;
 
     $guard->commit;
@@ -127,9 +129,9 @@ Retrieve role
 =cut
 
 sub get_role {
-    my ( $self, $name ) = @_;
+    my ($self, $name) = @_;
     my $rs_roles = $self->result_source->schema->resultset('Role');
-    return $rs_roles->single({ role => 'modscope-' . $self->id . '-' . $name });
+    return $rs_roles->single({role => 'modscope-' . $self->id . '-' . $name});
 }
 
 =head2 get_authors
@@ -139,10 +141,10 @@ Retrieve the authors who're allowed to use this modscope
 =cut
 
 sub get_authors {
-    my ( $self, $role_name ) = @_;
-    my $role     = $self->get_role($role_name || 'readable');
-    my @roles    = $role->search_related('user_roles');
-    my @authors  = map { $_->user } @roles;
+    my ($self, $role_name) = @_;
+    my $role    = $self->get_role($role_name || 'readable');
+    my @roles   = $role->search_related('user_roles');
+    my @authors = map { $_->user } @roles;
     return @authors;
 }
 

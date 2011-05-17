@@ -89,11 +89,7 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:46:06
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xjGzMUdsAE2WtAwXE9+TFw
 
-__PACKAGE__->many_to_many(
-    "roles",
-    "user_roles",
-    "role"
-);
+__PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 =head1 METHODS
 
@@ -105,7 +101,7 @@ I<user-id-mutable>.
 =cut
 
 sub insert {
-    my ( $self, @args ) = @_;
+    my ($self, @args) = @_;
 
     my $guard = $self->result_source->schema->txn_scope_guard;
     $self->next::method(@args);
@@ -134,7 +130,7 @@ sub search_role_objects {
     unless (ref($pattern) eq 'Regexp') {
         $pattern = qr/^$pattern-\d+/;
     }
-    
+
     return map { $_->role =~ m/(\d+)/ }
       grep     { $_->role =~ $pattern } $self->roles;
 }
@@ -147,11 +143,11 @@ Retrieve all SCM's this user has access to
 
 sub get_scms {
     my ($self) = @_;
-    my @scms   = $self->search_role_objects(qr/^scm-\d+-mutable/);
+    my @scms = $self->search_role_objects(qr/^scm-\d+-mutable/);
     return unless @scms;
 
-    my $rs     = $self->result_source->schema->resultset('Scm');
-    return $rs->search({ id => \@scms});
+    my $rs = $self->result_source->schema->resultset('Scm');
+    return $rs->search({id => \@scms});
 }
 
 =head2 get_modscopes
@@ -168,8 +164,8 @@ sub get_modscopes {
     my @modscopes = $self->search_role_objects(qr/^modscope-\d+-$role/);
     return unless @modscopes;
 
-    my $rs        = $self->result_source->schema->resultset('Modscope');
-    return $rs->search({ id => \@modscopes});
+    my $rs = $self->result_source->schema->resultset('Modscope');
+    return $rs->search({id => \@modscopes});
 }
 
 =head2 is_superuser

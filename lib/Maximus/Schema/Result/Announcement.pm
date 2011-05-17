@@ -82,10 +82,12 @@ __PACKAGE__->set_primary_key("id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T8IPxXaS/foXU/y2zVYs6w
 
 use JSON::Any;
-__PACKAGE__->inflate_column('meta_data', {
-	inflate => sub { JSON::Any->jsonToObj(shift || '{}' ) },
-	deflate => sub { JSON::Any->objToJson(shift || {} ) },
-});
+__PACKAGE__->inflate_column(
+    'meta_data',
+    {   inflate => sub { JSON::Any->jsonToObj(shift || '{}') },
+        deflate => sub { JSON::Any->objToJson(shift || {}) },
+    }
+);
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;

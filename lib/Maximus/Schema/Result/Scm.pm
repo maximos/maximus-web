@@ -116,10 +116,12 @@ __PACKAGE__->has_many(
 
 
 use JSON::Any;
-__PACKAGE__->inflate_column($_, {
-	inflate => sub { JSON::Any->jsonToObj(shift || '{}') },
-	deflate => sub { JSON::Any->objToJson(shift || {} ) },
-}) for(qw/settings auto_discover_response/);
+__PACKAGE__->inflate_column(
+    $_,
+    {   inflate => sub { JSON::Any->jsonToObj(shift || '{}') },
+        deflate => sub { JSON::Any->objToJson(shift || {}) },
+    }
+) for (qw/settings auto_discover_response/);
 
 =head1 METHODS
 
@@ -131,7 +133,7 @@ I<scm-id-mutable>.
 =cut
 
 sub insert {
-    my ( $self, @args ) = @_;
+    my ($self, @args) = @_;
 
     my $guard = $self->result_source->schema->txn_scope_guard;
     $self->next::method(@args);
@@ -152,14 +154,15 @@ Deleting a scm record will also remove any related roles
 =cut
 
 sub delete {
-    my ( $self, @args ) = @_;
+    my ($self, @args) = @_;
 
     my $schema = $self->result_source->schema;
     my $guard  = $schema->txn_scope_guard;
     $self->next::method(@args);
 
     my $rs_roles = $schema->resultset('Role');
-    my $roles = $rs_roles->search({role => {-like => 'scm-' . $self->id . '-%'}});
+    my $roles =
+      $rs_roles->search({role => {-like => 'scm-' . $self->id . '-%'}});
     $roles->delete;
 
     $guard->commit;
@@ -174,9 +177,9 @@ Retrieve role
 =cut
 
 sub get_role {
-    my ( $self, $name ) = @_;
+    my ($self, $name) = @_;
     my $rs_roles = $self->result_source->schema->resultset('Role');
-    return $rs_roles->single({ role => 'scm-' . $self->id.'-'.$name });
+    return $rs_roles->single({role => 'scm-' . $self->id . '-' . $name});
 }
 
 __PACKAGE__->meta->make_immutable;
