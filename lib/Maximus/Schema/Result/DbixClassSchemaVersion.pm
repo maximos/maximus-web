@@ -49,14 +49,6 @@ __PACKAGE__->set_primary_key("version");
 # Created by DBIx::Class::Schema::Loader v0.07001 @ 2010-08-20 10:22:45
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iX8ufoyxRx73DerWav689g
 
-sub sqlt_deploy_hook {
-    my ($self, $sqlt_table) = @_;
-    $sqlt_table->extra(
-        mysql_table_type => 'InnoDB',
-        mysql_charset    => 'utf8'
-    );
-}
-
 =head2 sqlt_deploy_hook
 
 Force MySQL to use InnoDB and UTF-8
