@@ -182,5 +182,19 @@ sub get_role {
     return $rs_roles->single({role => 'scm-' . $self->id . '-' . $name});
 }
 
+=head2 sqlt_deploy_hook
+
+Force MySQL to use InnoDB and UTF-8
+
+=cut
+
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+    $sqlt_table->extra(
+        mysql_table_type => 'InnoDB',
+        mysql_charset    => 'utf8'
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

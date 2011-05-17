@@ -89,6 +89,12 @@ __PACKAGE__->inflate_column(
     }
 );
 
+=head2 sqlt_deploy_hook
+
+Force MySQL to use InnoDB and UTF-8
+
+=cut
+
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
     $sqlt_table->extra(

@@ -74,6 +74,20 @@ __PACKAGE__->has_many(
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aeeX8ej46c6Vr9xg3+9Daw
 
 
+=head2 sqlt_deploy_hook
+
+Force MySQL to use InnoDB and UTF-8
+
+=cut
+
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+    $sqlt_table->extra(
+        mysql_table_type => 'InnoDB',
+        mysql_charset    => 'utf8'
+    );
+}
+
 # You can replace this text with custom content, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;
