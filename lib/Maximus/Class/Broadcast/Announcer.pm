@@ -19,13 +19,14 @@ sub say {
     my ($self, $msg) = @_;
 
     my $ref = ref(\$msg);
+
     if ($ref eq 'SCALAR') {
         $msg = Maximus::Class::Broadcast::Message->new(text => $msg);
     }
     elsif ($ref eq 'HASH') {
         $msg = Maximus::Class::Broadcast::Message->new(%{$msg});
     }
-    else {
+    elsif (ref($msg) ne 'Maximus::Class::Broadcast::Message') {
         $msg = Maximus::Class::Broadcast::Message->new($msg);
     }
 
@@ -77,7 +78,7 @@ Return listener count
 
 =head2 say(string $msg)
 =head2 say(text => $msg)
-=head2 say(L<Maximus::Broadcast::Message>)
+=head2 say(L<Maximus::Class::Broadcast::Message>)
 
 Announce a message to all listeners, returns the message.
 
