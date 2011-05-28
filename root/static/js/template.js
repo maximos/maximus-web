@@ -18,7 +18,7 @@ var template = {
         });
         
         //theme inputs (only in ff2+ ie7+ chrome safari3 etc)
-        if ((Browser.ie && Browser.version >= 6) || Browser.chrome || Browser.safari || Browser.opera || (Browser.gecko && Browser.version >= 18)) { 
+        if ((Browser.ie && parseFloat(Browser.version) >= 6) || Browser.chrome || Browser.safari || Browser.opera || (Browser.firefox && parseFloat(Browser.version) >= 2)) { 
             $$('input[type=text],input[type=password],textarea,select').each(function(element) {
                 //contain the input
                 var container = new Element('div',{'style':'display:inline-block;'}).wraps(element);
