@@ -66,13 +66,14 @@
 [% IF c.config.google_analytics_id.length == 12 %]
     <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    head.js(gaJsHost + 'google-analytics.com/ga.js');
+    head.ready(function() {
+        try {
+        var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
+        pageTracker._trackPageview();
+        } catch(err) {}
+    });
     </script>
-    <script type="text/javascript">
-    try {
-    var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
-    pageTracker._trackPageview();
-    } catch(err) {}</script>
 [% END %]
 </body>
 </html>
