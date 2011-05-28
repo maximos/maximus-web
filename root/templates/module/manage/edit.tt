@@ -1,4 +1,4 @@
-[%- CALL c.assets.include('js/module/edit.js', 100) -%]
+<script type="text/javascript">head.js('/static/js/module/edit.js');</script>
 <h1>Edit Module</h1>
 
 <div class="jsRoundedBox">

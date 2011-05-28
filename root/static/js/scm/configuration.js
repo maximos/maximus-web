@@ -1,5 +1,5 @@
 // Behavior for SCM Configuration form
-window.addEvent('domready', function() {
+(function() {
     var scm_tabs = $$('.scm_tab');
     var software = $('software');
     if(software) {
@@ -13,5 +13,5 @@ window.addEvent('domready', function() {
         });
         software.fireEvent('change');
     }
-});
+})();
 

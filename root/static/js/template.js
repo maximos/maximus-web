@@ -1,16 +1,3 @@
-window.addEvent('domready', function() {
-    //setup rounded rectangles
-    template.doRoundedBoxes('rounded');
-    template.doRoundedBoxes('error');
-    template.doRoundedBoxes('success');
-    
-    //setup closeable boxes
-    template.doCloseableBoxes();
-    
-    //setup forms
-    template.doForms();
-});
-
 var template = {
     doForms: function() {
         $$('form.jsForm').each(function(form) {
@@ -117,4 +104,17 @@ var template = {
         element.empty().addClass('skin'+type+'Box').adopt(row1,row2,row3);
     }
 };
+
+(function() {
+    //setup rounded rectangles
+    template.doRoundedBoxes('rounded');
+    template.doRoundedBoxes('error');
+    template.doRoundedBoxes('success');
+    
+    //setup closeable boxes
+    template.doCloseableBoxes();
+    
+    //setup forms
+    template.doForms();
+})();
 
