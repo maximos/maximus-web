@@ -83,7 +83,7 @@
         <dd>If you want to contribute you are free to fork the projects
         on GitHub. Please do so if you notice small errors. If you want to add new
         features please do discuss this with the development team first. Take
-        a look at our <a href="https://github.com/maximos/maximus-web/wiki/Get-involved">Get Involved</a>
+        a look at our <a href="https://github.com/maximos/maximus-web/wiki/Get-involved" target="_blank">Get Involved</a>
         page as well</dd>
         <dd>[% c.config.name %] is also listed on <a href="http://openhatch.org/+projects/Maximus" target="_blank">OpenHatch</a>.</dd>
 
