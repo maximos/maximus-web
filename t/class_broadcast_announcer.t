@@ -5,6 +5,9 @@ use Test::More;
 BEGIN { use_ok 'Maximus::Class::Broadcast::Announcer' }
 BEGIN { use_ok 'Maximus::Class::Broadcast::Message' }
 BEGIN { use_ok 'Maximus::Class::Broadcast::Driver::Null' }
+BEGIN { use_ok 'Log::Log4perl', qw(:easy) }
+
+my $logger = Log::Log4perl->get_logger();
 
 my $announcer = new_ok('Maximus::Class::Broadcast::Announcer');
 can_ok(
@@ -13,6 +16,7 @@ can_ok(
       getListeners
       countListeners
       say
+      logger
       )
 );
 

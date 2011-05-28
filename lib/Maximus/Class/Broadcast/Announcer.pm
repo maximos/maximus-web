@@ -1,6 +1,7 @@
 package Maximus::Class::Broadcast::Announcer;
 use Moose;
 use Maximus::Class::Broadcast::Message;
+use Log::Log4perl;
 use namespace::autoclean;
 
 has 'listeners' => (
@@ -13,6 +14,13 @@ has 'listeners' => (
         addListener    => 'push',
         countListeners => 'count',
     },
+);
+
+has 'logger' => (
+    isa     => 'Log::Log4perl::Logger',
+    is      => 'ro',
+    default => sub { Log::Log4perl->get_logger() },
+    lazy    => 1,
 );
 
 sub say {
@@ -31,7 +39,8 @@ sub say {
     }
 
     foreach my $listener ($self->getListeners) {
-        $listener->say($msg);
+        eval { $listener->say($msg); };
+        $self->logger->warn($@) if $@ && $self->logger;
     }
     return $msg;
 }
@@ -60,6 +69,12 @@ Maximus::Class::Broadcast::Announcer - Announcer for updates
 
 Provides a generic interface to make announcements about updates, such as newly
 upload modules and such.
+
+=head1 ATTRIBUTES
+
+=head2 logger
+
+A L<Log::Log4perl::Logger> object
 
 =head1 METHODS
 
