@@ -5,7 +5,7 @@ use Maximus::Form::Module::Edit;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
-sub base : Chained('/') : PathPart('module') : CaptureArgs(0) {
+sub begin : Private {
     my ($self, $c) = @_;
 
     if (!$c->user_exists) {
@@ -15,7 +15,10 @@ sub base : Chained('/') : PathPart('module') : CaptureArgs(0) {
     }
 }
 
-sub index : Chained('base') : Path('/modules') : Args(0) {
+sub base : Chained('/') : PathPart('module') : CaptureArgs(0) {
+}
+
+sub index : Path('/modules') : Args(0) {
     my ($self, $c) = @_;
 
     $c->stash(modscopes => [$c->user->obj->get_modscopes]);
@@ -140,6 +143,8 @@ Maximus::Controller::Module::Manage - Catalyst Controller
 Catalyst Controller for managing a user's modules.
 
 =head1 METHODS
+
+=head2 auto
 
 =head2 base
 
