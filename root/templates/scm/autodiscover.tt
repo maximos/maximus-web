@@ -6,7 +6,7 @@
         <p>No BlitzMax modules were discovered during the last auto discovery run ([% scm.auto_discover_request %]).
         If you're sure this SCM repository contains multiple modules you can <a href="[% c.uri_for( c.controller('SCM').action_for('autodiscover'), [scm.id])  %]?refresh=1">try again</a>.</p>
     [% ELSIF scm.auto_discover_response.task_id %]
-        <script type="text/javascript">head.js('/static/js/scm/autodiscover.js');</script>
+        <script type="text/javascript">head.js('/static/js/scm/autodiscover.js?[% c.config.timestamp %]');</script>
         <p>SCM Auto-Discover task is being executed. Please hold. This page will refresh itself every 30 seconds.</p>
     [% ELSIF scm.auto_discover_response.size > 0 AND scm.auto_discover_request %]
         <p>This Auto-Discover result was created on [% scm.auto_discover_request %]. If in the meantime the repository contains more modules than listed here you can request this resultset to be <a href="[% c.uri_for( c.controller('SCM').action_for('autodiscover'), [scm.id]) %]?refresh=1">refreshed</a>.</p>

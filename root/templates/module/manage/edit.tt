@@ -1,4 +1,4 @@
-<script type="text/javascript">head.js('/static/js/module/edit.js');</script>
+<script type="text/javascript">head.js('/static/js/module/edit.js?[% c.config.timestamp %]');</script>
 <h1>Edit Module</h1>
 
 <div class="jsRoundedBox">
