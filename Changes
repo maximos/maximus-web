@@ -1,6 +1,8 @@
 Revision history for Maximus.
 
 1.000000  0000-00-00 00:00:00
+    - Converted maximus_sql_ddl.pl and maximus_sql_upgrade.pl to proper
+      Maximus::Script modules. Filenames were renamed as well
     - Added head.js loader to speed up page loading
     - Changed Subversion SCM to use --trust-server-cert and --non-interactive
     - Added Timeline feature with RSS and Atom feeds
