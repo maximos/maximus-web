@@ -6,19 +6,7 @@ use Maximus::Schema;
 use Storable qw(freeze);
 use 5.10.0;
 
-has 'cfg' => (
-    is      => 'ro',
-    isa     => 'HashRef',
-    lazy    => 1,
-    default => sub {
-        Config::Any->load_files(
-            {   files           => ['maximus.conf'],
-                use_ext         => 1,
-                flatten_to_hash => 1,
-            }
-        )->{'maximus.conf'};
-    },
-);
+with 'Maximus::Role::Schema';
 
 has 'gearman' => (
     is      => 'ro',
@@ -38,16 +26,6 @@ has 'gearman' => (
 has 'queue' => (
     is  => 'ro',
     isa => 'Bool',
-);
-
-has 'schema' => (
-    is      => 'ro',
-    isa     => 'DBIx::Class::Schema',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        Maximus::Schema->connect($self->cfg->{'Model::DB'}->{connect_info});
-    },
 );
 
 has 'response' => (
