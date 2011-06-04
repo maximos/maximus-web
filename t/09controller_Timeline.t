@@ -5,7 +5,7 @@ use Test::More;
 BEGIN { use_ok 'Catalyst::Test', 'Maximus' }
 BEGIN { use_ok 'Maximus::Controller::Timeline' }
 
-ok( request('/timeline')->is_success, 'Request should succeed' );
+ok(request('/timeline')->is_success, 'Request should succeed');
 
 my $req = request('/timeline/rss');
 ok($req->is_success, 'Request should succeed');

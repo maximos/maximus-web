@@ -8,5 +8,5 @@ BEGIN { use_ok 'Maximus::Controller::Module::Manage' }
 TODO: {
     local $TODO = 'Module::Manage tests';
     ok(request('/modules')->is_success, 'Request should succeed');
-};
+}
 done_testing();

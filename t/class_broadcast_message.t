@@ -13,8 +13,8 @@ is(Maximus::Class::Broadcast::Message->MSG_TYPE_AUTHOR,
 
 my $msg = new_ok(
     'Maximus::Class::Broadcast::Message' => [
-        (   text => 'Hello',
-            type => Maximus::Class::Broadcast::Message->MSG_TYPE_MODULE,
+        (   text      => 'Hello',
+            type      => Maximus::Class::Broadcast::Message->MSG_TYPE_MODULE,
             meta_data => {
                 foo => 'bar',
                 baz => 10,
@@ -31,7 +31,7 @@ is( $msg->type,
 );
 isa_ok($msg->date, 'DateTime');
 is($msg->meta_data->{foo}, 'bar', 'meta-data foo');
-is($msg->meta_data->{baz}, 10, 'meta-data baz');
+is($msg->meta_data->{baz}, 10,    'meta-data baz');
 
 $msg = new_ok('Maximus::Class::Broadcast::Message' => [(text => 'Hello')]);
 is( $msg->type,
