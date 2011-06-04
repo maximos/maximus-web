@@ -6,9 +6,9 @@ with 'Maximus::Role::Form::Account::Username';
 
 with 'Maximus::Role::Form::Account::Email';
 
-with 'Maximus::Role::Form::Account::Password';
-
 with 'Maximus::Role::Form::Account::ConfirmPassword';
+
+with 'Maximus::Role::Form::Account::Password';
 
 __PACKAGE__->meta->make_immutable;
 
