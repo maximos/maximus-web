@@ -25,14 +25,14 @@ $ua1->get_ok('/account/signup', 'Request signup page');
 # Try to create account
 my %data = (
     fields => {
-        username         => 'demo_user',
-        password         => 'demo',
-        confirm_password => 'demo',
+        username         => 'demouser',
+        password         => 'demodemo',
+        confirm_password => 'demodemo',
         email            => 'test@maximus.htbaa.com',
     }
 );
 $ua1->submit_form(%data);
-$ua1->content_contains('Welcome demo_user!', 'Signing up successful');
+$ua1->content_contains('Welcome demouser!', 'Signing up successful');
 
 # Logout
 $ua1->get_ok('/account/logout', 'Request logout page');
@@ -49,7 +49,7 @@ $ua1->content_contains('<h1>Login</h1>', 'h1 check');
 $ua1->submit_form(
     fields => {
         username => 'foo',
-        password => 'bar',
+        password => 'foobar',
     }
 );
 $ua1->content_contains('Bad username or password', 'Login should fail');
@@ -61,7 +61,7 @@ $ua1->submit_form(
         password => $data{fields}{password},
     }
 );
-$ua1->content_contains('Welcome demo_user!', 'Login should succeed');
+$ua1->content_contains('Welcome demouser!', 'Login should succeed');
 
 # Try to edit account details
 $ua1->get_ok('/account/edit', 'Request edit account page');
@@ -112,7 +112,7 @@ $ua1->content_contains('<h1>Your password has been reset</h1>', 'h1 check');
 $ua1->content_contains('Your password has been reset', 'Password reset');
 
 $ua1->get_ok('/account', 'Request account page');
-$ua1->content_contains('Welcome demo_user!', 'Automatically logged in');
+$ua1->content_contains('Welcome demouser!', 'Automatically logged in');
 
 # Reset password for further usage
 $user =

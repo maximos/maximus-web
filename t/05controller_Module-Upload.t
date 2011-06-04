@@ -17,11 +17,11 @@ my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 $ua1->get_ok('/account/login', 'Request login page');
 $ua1->submit_form(
     fields => {
-        username => 'demo_user',
-        password => 'demo',
+        username => 'demouser',
+        password => 'demodemo',
     }
 );
-$ua1->content_contains('Welcome demo_user!', 'Login successful');
+$ua1->content_contains('Welcome demouser!', 'Login successful');
 
 # Test valid file upload
 my $modpath = Path::Class::Dir->new('t', 'data', 'test.mod1');

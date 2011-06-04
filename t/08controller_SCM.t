@@ -14,8 +14,8 @@ my $ua1 = Test::WWW::Mechanize::Catalyst->new;
 $ua1->get_ok( '/account/login', 'Request login page' );
 $ua1->submit_form(
     fields => {
-        username => 'demo_user',
-        password => 'demo',
+        username => 'demouser',
+        password => 'demodemo',
     }
 );
 $ua1->content_contains( 'Welcome demo_user!', 'Login successful' );
@@ -49,13 +49,10 @@ my $autodiscover =
 $autodiscover->();
 $ua1->content_contains('task is being executed');
 $scm->update(
-    {
-        auto_discover_request  => DateTime->now(),
+    {   auto_discover_request  => DateTime->now(),
         auto_discover_response => [
-            qw/maxgui drivers/,
-            qw/maxgui fltkmaxgui/,
-            qw/maxgui maxgui/,
-            qw/maxgui proxygadgets/
+            [qw/maxgui drivers/], [qw/maxgui fltkmaxgui/],
+            [qw/maxgui maxgui/],  [qw/maxgui proxygadgets/]
           ]
 
     }
