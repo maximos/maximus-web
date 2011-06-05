@@ -13,7 +13,7 @@ sub base : Chained('/') : PathPart('timeline') : CaptureArgs(0) {
     my @announcements;
     my @announcement_rs =
       $c->model('DB::Announcement')
-      ->search(undef, {order_by => {-desc => 'date'}});
+      ->search(undef, {order_by => {-desc => 'date'}, rows => 50});
 
     foreach my $announcement (@announcement_rs) {
         my %extra = (link => $c->uri_for('/'));
