@@ -7,7 +7,7 @@ has_field 'scope' => (
     required         => 1,
     required_message => 'You must enter a modscope',
     maxlength        => 45,
-    css_class        => 'required validate-alphanum minLength:1 maxLength:25',
+    css_class        => 'required validate-alphanum minLength:1 maxLength:45',
 );
 
 has_field 'name' => (
@@ -16,7 +16,7 @@ has_field 'name' => (
     required         => 1,
     required_message => 'You must enter a module name',
     maxlength        => 45,
-    css_class        => 'required validate-alphanum minLength:1 maxLength:25',
+    css_class        => 'required validate-alphanum minLength:1 maxLength:45',
 );
 
 has_field 'desc' => (
