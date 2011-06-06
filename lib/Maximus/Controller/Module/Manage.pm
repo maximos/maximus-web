@@ -58,7 +58,9 @@ sub form : Private {
             $c->model('DB')->txn_do(
                 sub {
                     my ($scm_id, $software);
-                    if (int($form->field('scm_id')->value) > 0) {
+                    if (defined $form->field('scm_id')->value
+                        && int($form->field('scm_id')->value) > 0)
+                    {
                         my $scm =
                           $c->model('DB::SCM')
                           ->find({id => $form->field('scm_id')->value});
@@ -77,7 +79,8 @@ sub form : Private {
                         scm_settings => {
                             map { $_->name => $_->value }
                               grep {
-                                     $software ne ''
+                                     defined $software
+                                  && $software ne ''
                                   && $_->name =~ m/^$software/
                               } $form->fields
                         },
