@@ -24,19 +24,21 @@ sub init_repo {
     my $self = shift;
     use autodie;
 
-    my $cmd;
+    my @cmd;
     my $cwd = getcwd;
     chdir $self->local_repository;
 
     my $localrepo = Path::Class::Dir->new($self->local_repository, '.git');
     unless (-d $localrepo->absolute) {
-        $cmd = sprintf('%s clone %s %s',
+        push @cmd,
+          sprintf('%s clone --recursive %s %s',
             $GIT, $self->repository, $self->local_repository);
     }
     else {
-        $cmd = sprintf('%s pull origin master', $GIT);
+        push @cmd, sprintf('%s pull origin master', $GIT);
+        push @cmd, sprintf('git submodule update',  $GIT);
     }
-    system $cmd;
+    system $_ for @cmd;
     chdir $cwd;
 }
 
