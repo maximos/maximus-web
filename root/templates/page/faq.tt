@@ -4,8 +4,8 @@
 
     <dl id="faqlist">
         <dt>What is [% c.config.name %]?</dt>
-        <dd>[% c.config.name %] is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>.
-        [% c.config.name %] is made of 2 parts . The first is this website, a place to host your
+        <dd>[% c.config.name %] is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>. 
+        [% c.config.name %] is made of 2 parts. The first is this website, a place to host your
         BlitzMax modules. The website is responsible for supplying module packages
         to the <a href="[% c.uri_for('/client') %]">[% c.config.name %] client</a>.
         The client is used to install and manage installed modules on your
