@@ -1,6 +1,5 @@
 <h1>The [% c.config.name %] Client</h1>
 <div class="jsRoundedBox">
-    <p>This page is reserved for the [% c.config.name %] Client.</p>
     <p>Currently the [% c.config.name %] Client is still under development. As soon
     as we reach beta status you will be able to download compiled versions of the
     client for Linux, Mac and Windows.</p>
