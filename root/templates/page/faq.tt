@@ -48,7 +48,7 @@
         the available time we have to work on it.</dd>
         
         <dt>Who is <em>we</em>?</dt>
-        <dd>The [% c.config.name %] team. Founded by Plash (a.k.a. <a href="http://www.komiga.com/" target="_blank">Komiga</a>, alth)
+        <dd>The [% c.config.name %] team. Founded by Plash (a.k.a. <a href="http://www.komiga.com/" target="_blank">Komiga</a>)
         and <a href="http://www.htbaa.com" target="_blank">Htbaa</a>. Plash
         however is no longer doing any active development. He did however write
         the biggest part of the client and his contributions are very much appreciated.</dd>
