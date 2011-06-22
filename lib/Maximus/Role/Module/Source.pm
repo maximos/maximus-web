@@ -58,6 +58,19 @@ sub validate {
         }
         elsif ($_->[0] eq 'MODULEVERSION') {
             next if ($mod->source->version eq 'dev');
+
+            my $version = version->parse($_->[1])->stringify;
+            if (length($mod->source->version)
+                && $version ne $mod->source->version)
+            {
+                Maximus::Exception::Module::Source->throw(
+                    user_msg => sprintf(
+                        'Module version mismatch. Expected %s but got %s.',
+                        $mod->source->version, $version
+                    )
+                );
+            }
+
             $mod->source->version(version->parse($_->[1])->stringify);
         }
     }
