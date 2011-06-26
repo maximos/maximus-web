@@ -75,9 +75,8 @@
         are hosted on GitHub. You are welcome to contribute.</dd>
 
         <dt>How can I contact the developers or contribute to the project?</dt>
-        <dd>We hang out at IRC: <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a>.
-        If we're not there there's a good chance one of us is in #blitzbasic on
-        the same server.</dd>
+        <dd>Drop by on IRC: <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a>.
+        By the way, #blitzbasic is also on the very same server!</dd>
         <dd>If you want to contribute you are free to fork the projects
         on GitHub. Please do so if you notice small errors. If you want to add new
         features please do discuss this with the development team first. Take
@@ -85,7 +84,7 @@
         page as well.</dd>
         <dd>[% c.config.name %] is also listed on <a href="http://openhatch.org/+projects/Maximus" target="_blank">OpenHatch</a>.</dd>
 
-        <dt>What's up with asking for donations? Is someone going to get rich of this?</dt>
+        <dt>What's up with asking for donations? Is someone planning to get rich of this?</dt>
         <dd>Nope, every penny that comes in will be used to pay the bills for
         running this service. You can find more information about the campaign
         on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
