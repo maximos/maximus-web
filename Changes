@@ -1,6 +1,9 @@
 Revision history for Maximus.
 
 1.000000  0000-00-00 00:00:00
+    - When adding modules through SCM auto-discovery, skipped modules that
+      have been left empty (scope and name) are now no longer being displayed
+      as empty entries, but being left out instead
     - Updated client page to reflect client version 0.9.0
     - When a module version is being provided the source code of the module
       is being scanned to see if the version numbers match

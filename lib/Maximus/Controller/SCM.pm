@@ -189,6 +189,8 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
                 $form_module->field('modscope')->value,
                 $form_module->field('mod')->value);
 
+            next if ($module_name eq '.');
+
             eval {
                 $c->model('DB')->txn_do(
                     sub {
