@@ -42,10 +42,6 @@
         <dt>What features does the client have?</dt>
         <dd>Please visit our <a href="[% c.uri_for('/client') %]">client page</a>
         for more information about the client.</dd>
-
-        <dt>When is [% c.config.name %] expected to be ready?</dt>
-        <dd>We don't know. It'll be ready when it's ready. It much depends on
-        the available time we have to work on it.</dd>
         
         <dt>Who is <em>we</em>?</dt>
         <dd>The [% c.config.name %] team. Founded by Plash (a.k.a. <a href="http://www.komiga.com/" target="_blank">Komiga</a>)
