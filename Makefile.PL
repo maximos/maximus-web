@@ -74,6 +74,7 @@ test_requires 'Cache::Null'                             => '2.04';
 test_requires 'DateTime::Format::SQLite'                => '0.11';
 test_requires 'DBD::SQLite'                             => '1.29';
 test_requires 'Test::More'                              => '0.88';
+test_requires 'Test::Exception'                         => '0.31';
 test_requires 'Test::WWW::Mechanize::Catalyst'          => '0.52';
 recommends 'FCGI'                                       => '0.71';
 recommends 'FCGI::ProcManager'                          => '0.19';
