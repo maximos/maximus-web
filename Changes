@@ -1,6 +1,6 @@
 Revision history for Maximus.
 
-1.000000  0000-00-00 00:00:00
+1.000000  2011-06-26
     - When adding modules through SCM auto-discovery, skipped modules that
       have been left empty (scope and name) are now no longer being displayed
       as empty entries, but being left out instead
