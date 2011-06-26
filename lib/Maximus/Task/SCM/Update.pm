@@ -2,6 +2,7 @@ package Maximus::Task::SCM::Update;
 use Moose;
 use Maximus;
 use Maximus::Class::Module;
+use Maximus::Exceptions;
 use namespace::autoclean;
 
 with 'Maximus::Role::Task';
@@ -74,6 +75,8 @@ sub run {
                         );
                         $mod->save($users[0]);
                     };
+                    my $e = Maximus::Exception::Module::Source->caught();
+                    warn $e->user_msg if $e;
                     warn $@ if $@;
                 }
             }
