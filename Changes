@@ -1,6 +1,7 @@
 Revision history for Maximus.
 
 1.000000  0000-00-00 00:00:00
+    - Updated client page to reflect client version 0.9.0
     - When a module version is being provided the source code of the module
       is being scanned to see if the version numbers match
     - Converted maximus_sql_ddl.pl and maximus_sql_upgrade.pl to proper
