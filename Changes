@@ -1,6 +1,6 @@
 Revision history for Maximus.
 
-1.000000  2011-06-26
+1.000000  2011-06-28
     - Added robots.txt to prevent bots from downloading archives
     - When adding modules through SCM auto-discovery, skipped modules that
       have been left empty (scope and name) are now no longer being displayed
