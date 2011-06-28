@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Exception;
 
 BEGIN { use_ok 'Maximus::Class::Module::Source::SCM::Git' }
 BEGIN { use_ok 'Maximus::Class::Module' }
@@ -53,13 +54,6 @@ is( $scm->get_latest_revision(),
     'Latest revision check'
 );
 
-my $mod = Maximus::Class::Module->new(
-    modscope => 'test',
-    mod      => 'mod1',
-    desc     => 'A test module',
-    source   => $scm,
-);
-
 foreach (qw/2.0.1 2.0.2 2.0.3 dev/) {
 
     # Make a new object so we get a new tmpDir everytime
@@ -69,7 +63,16 @@ foreach (qw/2.0.1 2.0.2 2.0.3 dev/) {
         tags_filter      => 'v?(.+)',
         version          => $_,
     );
-    $scm->prepare($mod);
+
+    my $mod = Maximus::Class::Module->new(
+        modscope => 'test',
+        mod      => 'mod1',
+        desc     => 'A test module',
+        source   => $scm,
+    );
+    lives_ok { $scm->prepare($mod) } 'live life!';
+    my $e = Maximus::Exception::Module::Source->caught();
+    diag $e->user_msg if $e;
     ok($scm->validated, sprintf('test.mod1 %s validated', $_));
 }
 
@@ -103,7 +106,7 @@ my @expected_auto_discover = (['test', 'test1'], ['test', 'test2']);
 is_deeply(\@got_auto_discover, \@expected_auto_discover,
     'Automatic discovery OK');
 
-$mod = Maximus::Class::Module->new(
+my $mod = Maximus::Class::Module->new(
     modscope => 'test',
     mod      => 'test2',
     desc     => 'A test 2 module',

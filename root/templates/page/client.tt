@@ -1,10 +1,88 @@
+[% current_version="0.9.0" %]
 <h1>The [% c.config.name %] Client</h1>
 <div class="jsRoundedBox">
-    <p>This page is reserved for the [% c.config.name %] Client.</p>
-    <p>Currently the [% c.config.name %] Client is still under development. As soon
-    as we reach beta status you will be able to download compiled versions of the
-    client for Linux, Mac and Windows.</p>
-    <p>If you want to help out you can fetch the sources from
-    <a href="http://github.com/maximos/maximus" target="_blank">Github</a> and
-    compile the client yourself.</p>
+    <p>The current version of the [% c.config.name %] Client is <strong>[% current_version %]</strong>.
+    The client is currently under beta, but you can already try it out by
+    downloading the most current version.</p>
+    <p>The client allows you to install BlitzMax modules that are available
+    from this website. When you attempt to install a module the client will
+    scan your module directory to see which modules are already installed and
+    if you're missing a dependency the client will fetch that module as well
+    along with the rest of its dependencies.</p>
+    <p>Modules not being managed by [% c.config.name %] are left alone. When
+    you attempt to install a module not currently managed by [% c.config.name%]
+    it will simply tell you which modules it skipped. Missing dependencies will
+    still be installed.</p>
+    <p>
+        <em>Be warned though, use [% c.config.name %] at your own risk! We are
+        not responsible for any damage caused to your data caused by
+        [% c.config.name %].</em>
+    </p>
+</div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>Download</h2>
+    <p>Currently we only have a binary available for Windows (XP/Vista/7).
+    If you want to try the client on Mac OSX or Linux you can download the
+    source code and compile the client yourself. If you're able to provide
+    binaries for a missing OS please contact us.</p>
+    <ul>
+        <li>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a>
+        </li>
+        <li>
+            <a href="https://github.com/maximos/maximus/zipball/0.9.0">[% c.config.name %] v[% current_version %] source</a>
+        </li>
+    </ul>
+    <p>If you want to work with the latest development version of the
+    [% c.config.name %] client you can clone the <a href="https://github.com/maximos/maximus" target="_blank">Git repository</a>.</p>
+</div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>Getting started</h2>
+    <ol>
+        <li>Download and extract the client archive</li>
+        <li>Start a terminal (on Windows: windows-key + R, cmd, execute)</li>
+        <li>Tell the client where it can find BlitzMax. Execute the following
+            command<br />
+            <strong>on Windows:</strong>
+            <code>set BMXPATH=C:\BlitzMax</code><br />
+            <strong>on Linux:</strong>
+            <code>export BMXPATH=~/BlitzMax</code><br />
+            <em>The path in the example should be wherever you've got
+            BlitzMax installed!</em>
+        </li>
+    </ol>
+
+    <h3>Command Examples</h3>
+    <ul>
+        <li>Display all commands:
+            <code>maximus</code><br />
+            Or: <code>maximus help</code>
+        </li>
+        <li>Display help for any command:
+            <code>maximus help [command]</code><br />
+            <em>Replace [command] with any available command, e.g. install</em>
+        </li>
+        <li>Update sources:
+            <code>maximus update</code><br />
+            <em>This is being done automatically by the client, but can be
+            invoked manually as well</em>
+        </li>
+        <li>List available modules:
+            <code>maximus list</code>
+        </li>
+        <li>List available modules in a modscope:
+            <code>maximus list htbaapub</code>
+        </li>
+        <li>Install latest version of a module:
+            <code>maximus install htbaapub.rest</code>
+        </li>
+        <li>Install specific version of a module:
+            <code>maximus install htbaapub.rest/1.06</code>
+        </li>
+        <li>Install development version of a module:
+            <code>maximus install htbaapub.rest/dev</code>
+        </li>
+    </ul>
 </div>

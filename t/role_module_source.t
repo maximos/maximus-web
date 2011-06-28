@@ -67,6 +67,12 @@ is( $filename,
     'Archive filename check'
 );
 
+$source->version('999');
+eval { $source->validate($mod) };
+ok(my $e = Maximus::Exception::Module::Source->caught(), 'Exception thrown');
+isa_ok($e, 'Maximus::Exception::Module::Source');
+like($e->user_msg, qr/version mismatch/, 'Version mismatch');
+
 my $zip             = new_ok('Archive::Zip' => [$fh->filename]);
 my @gotMembers      = sort($zip->memberNames());
 my @expectedMembers = sort('mod1.mod/', 'mod1.mod/mod1.bmx',

@@ -4,8 +4,8 @@
 
     <dl id="faqlist">
         <dt>What is [% c.config.name %]?</dt>
-        <dd>[% c.config.name %] is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>.
-        [% c.config.name %] is made of 2 parts . The first is this website, a place to host your
+        <dd>[% c.config.name %] is a module manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>. 
+        [% c.config.name %] is made out of 2 parts. The first is this website, a place to host your
         BlitzMax modules. The website is responsible for supplying module packages
         to the <a href="[% c.uri_for('/client') %]">[% c.config.name %] client</a>.
         The client is used to install and manage installed modules on your
@@ -42,17 +42,15 @@
         <dt>What features does the client have?</dt>
         <dd>Please visit our <a href="[% c.uri_for('/client') %]">client page</a>
         for more information about the client.</dd>
-
-        <dt>When is [% c.config.name %] expected to be ready?</dt>
-        <dd>We don't know. It'll be ready when it's ready. It much depends on
-        the available time we have to work on it.</dd>
         
         <dt>Who is <em>we</em>?</dt>
-        <dd>Us, Plash (a.k.a. <a href="http://www.komiga.com/" target="_blank">Komiga</a>)
-        and <a href="http://www.htbaa.com" target="_blank">Htbaa</a>.</dd>
+        <dd>The [% c.config.name %] team. Founded by Plash (a.k.a. <a href="http://www.komiga.com/" target="_blank">Komiga</a>)
+        and <a href="http://www.htbaa.com" target="_blank">Htbaa</a>. Plash
+        however is no longer doing any active development. He did however write
+        the biggest part of the client and his contributions are very much appreciated.</dd>
         
         <dt>Who designed this website?</dt>
-        <dd>The website was kindly designed by sk3n[ac].</dd>
+        <dd>The website was kindly designed by <a href="http://www.skn3.com/" target="_blank">skn3</a>.</dd>
         
         <dt>Is there also a official Wiki?</dt>
         <dd>Certainly! We have a <a href="https://github.com/maximos/maximus-web/wiki" target="_blank">Wiki</a> hosted at GitHub.</dd>
@@ -77,20 +75,19 @@
         are hosted on GitHub. You are welcome to contribute.</dd>
 
         <dt>How can I contact the developers or contribute to the project?</dt>
-        <dd>We hang out at IRC; <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a>.
-        If we're not there there's a good chance one of us is in #blitzbasic on
-        the same server.</dd>
+        <dd>Drop by on IRC: <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a>.
+        By the way, #blitzbasic is also on the very same server!</dd>
         <dd>If you want to contribute you are free to fork the projects
         on GitHub. Please do so if you notice small errors. If you want to add new
         features please do discuss this with the development team first. Take
         a look at our <a href="https://github.com/maximos/maximus-web/wiki/Get-involved" target="_blank">Get Involved</a>
-        page as well</dd>
+        page as well.</dd>
         <dd>[% c.config.name %] is also listed on <a href="http://openhatch.org/+projects/Maximus" target="_blank">OpenHatch</a>.</dd>
 
-        <dt>What's up with asking for donations? Do you guys tend to get rich of this?</dt>
-        <dd>Nope, we're not in it for the money. Every penny that comes in will be used
-        to pay the bills for running this service. You can find more information about the
-        campaign on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
+        <dt>What's up with asking for donations? Is someone planning to get rich of this?</dt>
+        <dd>Nope, every penny that comes in will be used to pay the bills for
+        running this service. You can find more information about the campaign
+        on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
         website.</dd>
         <dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: [% c.config.name %] and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
     </dl>

@@ -11,6 +11,7 @@
     [% IF announcements.as_list.size > 0 %]
         <p>These are the latest [% announcements.size %] announcements.</p>
         [% USE String %]
+        [% USE date(format='%a %d-%b-%Y %H:%M', locale='US') %]
         [% FOR announcement IN announcements %]
             [% "<ul>" IF loop.first %]
             [% message = String.new(announcement.0.message) %]
@@ -22,7 +23,7 @@
                                        .append('</a>') %]
                 [% message = message.replace(announcement.1.highlight, replacement) %]
             [% END %]
-            <li><em>[% announcement.0.date %]</em> [% message %]</li>
+            <li><em>[% date.format(announcement.0.date.epoch) %]</em> [% message %]</li>
             [% "</ul>" IF loop.last %]
         [% END %]
     [% ELSE %]

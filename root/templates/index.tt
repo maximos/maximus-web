@@ -1,13 +1,11 @@
 <h1>Welcome to [% c.config.name %]</h1>
 <div class="jsRoundedBox">
-    <p>Maximus is the <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a> Module Manager. This project is currently under development.
-    Please discuss the project <a href="http://www.blitzmax.com/Community/posts.php?topic=89208">here</a>.
-    If you'd like to collaborate you can do so by contributing code to <a href="http://github.com/maximos/maximus" target="_blank">maximus</a> and/or
-    <a href="http://github.com/maximos/maximus-web" target="_blank">maximus-web</a> on <a href="http://www.github.com/maximos" target="_blank">GitHub</a>.</p>
-    <p>To stay up to date with [% c.config.name %] you can follow the project on <a href="http://twitter.com/maximusweb" target="_blank">Twitter</a> or
-    you can join us on IRC at <a href="irc://irc.blitzed.org/maximus">irc.blitzed.org/maximus</a></p>
+    <p>[% c.config.name %] is a Module Manager for <a href="http://www.blitzmax.com" target="_blank">BlitzMax</a>.
+    With [% c.config.name %] it's possible to easily install and update BlitzMax
+    modules which are provided by 3rd party module developers. We only host 
+    BlitzMax modules that are available under an OpenSource license.</p>
     
-    <p>For more information please take a look at our <a href="[% c.uri_for('/faq') %]">F.A.Q.</a></p> 
+    <p>For more information please take a look at our <a href="[% c.uri_for('/faq') %]">F.A.Q.</a>.</p> 
         
     <div class="jsRoundedBox">
         <div class="jsSuccessBox"><h2>We need your help!</h2></div>

@@ -1,7 +1,7 @@
 <h1>Welcome [% c.user.username %]!</h1>
 <div class="jsRoundedBox">
     <p>Currently [% c.config.name %] is development. Please report any bugs
-    you find to use. If you have any questions don't hesitate to contact us.
+    you find to us. If you have any questions don't hesitate to contact us.
     But before doing so please take a look at our <a href="[% c.uri_for('/faq') %]">F.A.Q.</a></p>
 
     <p>You can start by adding your <a href="[% c.uri_for('/scm') %]">SCM</a> configurations or manually
