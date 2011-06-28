@@ -6,7 +6,6 @@
     	<li>Select which SCM profile to use</li>
     	<li>Change module specific SCM settings</li>
     	<li>Change its description</li>
-    	<li><strike>Delete specific versions</strike> (<em>but please only do so in case of non-working releases, or for legal reasons</em>)</li>
     </ul> 
     <p>You can also <a href="[% c.uri_for( c.controller('Module::Manage').action_for('add') ) %]">add a module</a> without uploading it. Be sure to have the SCM configuration stored so you can assign it to your module.</p>
     <p><em>Tip: use <a href="[% c.uri_for( c.controller('SCM').action_for('index') ) %]">SCM management</a> with auto-discovery if you're hosting your modules inside a SCM repository!</em></p>
