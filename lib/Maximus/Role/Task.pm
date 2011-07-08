@@ -3,7 +3,7 @@ use Moose::Role;
 use Config::Any;
 use Gearman::Client;
 use Maximus::Schema;
-use Storable qw(freeze);
+use Storable qw(nfreeze);
 use 5.10.0;
 
 with 'Maximus::Role::Schema';
@@ -39,7 +39,7 @@ around 'run' => sub {
     my ($orig, $self, @params) = @_;
     if ($self->queue) {
         return $self->gearman->dispatch_background(
-            ref($self) => freeze(\@params));
+            ref($self) => nfreeze(\@params));
     }
     else {
         return $self->$orig(@params);
