@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+1.000001  2011-07-08
     - Now using nfreeze to store data for Gearman jobs so they can be read on
       by workers on servers with a different architecture
 
