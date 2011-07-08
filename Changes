@@ -1,5 +1,9 @@
 Revision history for Maximus.
 
+1.000001  2011-07-08
+    - Now using nfreeze to store data for Gearman jobs so they can be read on
+      by workers on servers with a different architecture
+
 1.000000  2011-06-28
     - Added robots.txt to prevent bots from downloading archives
     - When adding modules through SCM auto-discovery, skipped modules that
