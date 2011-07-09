@@ -44,7 +44,7 @@
             <a href="https://github.com/maximos/maximus/zipball/0.9.0">[% c.config.name %] v[% current_version %] source</a>
         </li>
     </ul>
-    <p>If you want to work with the latest development version of the
+    <p>If you want to work with the latest development version of the 
     [% c.config.name %] client you can clone the <a href="https://github.com/maximos/maximus" target="_blank">Git repository</a>.</p>
 </div>
 <p>&nbsp;</p>
