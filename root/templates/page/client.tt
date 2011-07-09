@@ -26,15 +26,25 @@
     If you want to try the client on Mac OSX or Linux you can download the
     source code and compile the client yourself. If you're able to provide
     binaries for a missing OS please contact us.</p>
+    <h3>Binaries</h3>
     <ul>
         <li>
-            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a>
+        	<a href="https://github.com/downloads/maximos/maximus/Maximus-0.9.0.exe">[% c.config.name %] v[% current_version %] Installer for Windows</a> <em>(recommended)</em>
         </li>
+        <li>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a> <em>(zip)</em>
+        </li>
+        <li>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-linux.tar.gz">[% c.config.name %] v[% current_version %] for Linux</a> <em>(tar.gz)</em>
+        </li>
+    </ul>
+    <h3>Source</h3>
+    <ul>
         <li>
             <a href="https://github.com/maximos/maximus/zipball/0.9.0">[% c.config.name %] v[% current_version %] source</a>
         </li>
     </ul>
-    <p>If you want to work with the latest development version of the
+    <p>If you want to work with the latest development version of the 
     [% c.config.name %] client you can clone the <a href="https://github.com/maximos/maximus" target="_blank">Git repository</a>.</p>
 </div>
 <p>&nbsp;</p>
