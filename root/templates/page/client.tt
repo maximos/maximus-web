@@ -1,9 +1,7 @@
-[% current_version="0.9.0" %]
+[% current_version="1.0.0" %]
 <h1>The [% c.config.name %] Client</h1>
 <div class="jsRoundedBox">
-    <p>The current version of the [% c.config.name %] Client is <strong>[% current_version %]</strong>.
-    The client is currently under beta, but you can already try it out by
-    downloading the most current version.</p>
+    <p>The current version of the [% c.config.name %] Client is <strong>[% current_version %]</strong>.</p>
     <p>The client allows you to install BlitzMax modules that are available
     from this website. When you attempt to install a module the client will
     scan your module directory to see which modules are already installed and
@@ -14,34 +12,34 @@
     it will simply tell you which modules it skipped. Missing dependencies will
     still be installed.</p>
     <p>
-        <em>Be warned though, use [% c.config.name %] at your own risk! We are
-        not responsible for any damage caused to your data caused by
+        <em>Be warned though, use [% c.config.name %] at your own risk! We are 
+        not responsible for any damage caused to your data inflicted by 
         [% c.config.name %].</em>
     </p>
 </div>
 <p>&nbsp;</p>
 <div class="jsRoundedBox">
     <h2>Download</h2>
-    <p>Currently we only have a binary available for Windows (XP/Vista/7).
-    If you want to try the client on Mac OSX or Linux you can download the
-    source code and compile the client yourself. If you're able to provide
-    binaries for a missing OS please contact us.</p>
+    <p>Currently we only have a binary available for Windows (XP/Vista/7) and
+    Linux. If you want to try the client on Mac OSX you can download the source
+    code and compile the client yourself. If you're able to provide binaries
+    for a missing OS please contact us.</p>
     <h3>Binaries</h3>
     <ul>
         <li>
-        	<a href="https://github.com/downloads/maximos/maximus/Maximus-0.9.0.exe">[% c.config.name %] v[% current_version %] Installer for Windows</a> <em>(recommended)</em>
+        	<a href="https://github.com/downloads/maximos/maximus/Maximus-[% current_version %].exe">[% c.config.name %] v[% current_version %] Installer for Windows</a> <em>(recommended)</em>
         </li>
         <li>
-            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a> <em>(zip)</em>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-[% current_version %]-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a> <em>(zip)</em>
         </li>
         <li>
-            <a href="https://github.com/downloads/maximos/maximus/maximus-0.9.0-linux.tar.gz">[% c.config.name %] v[% current_version %] for Linux</a> <em>(tar.gz)</em>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-[% current_version %]-linux.tar.gz">[% c.config.name %] v[% current_version %] for Linux</a> <em>(tar.gz)</em>
         </li>
     </ul>
     <h3>Source</h3>
     <ul>
         <li>
-            <a href="https://github.com/maximos/maximus/zipball/0.9.0">[% c.config.name %] v[% current_version %] source</a>
+            <a href="https://github.com/maximos/maximus/zipball/[% current_version %]">[% c.config.name %] v[% current_version %] source</a>
         </li>
     </ul>
     <p>If you want to work with the latest development version of the 
