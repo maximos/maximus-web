@@ -1,5 +1,11 @@
 Revision history for Maximus.
 
+1.000004  2011-08-01
+    - Added client_version to the configuration file which is being used by the
+      client page. This allows for updating the latest client release on the
+      website without having to go through modifying templates and skipping the
+      need for tagging a new release when only the client has been updated
+
 1.000003  2011-07-17
     - Updated client page for client 1.0.0 release
 
