@@ -1,7 +1,6 @@
-[% current_version="1.0.0" %]
 <h1>The [% c.config.name %] Client</h1>
 <div class="jsRoundedBox">
-    <p>The current version of the [% c.config.name %] Client is <strong>[% current_version %]</strong>.</p>
+    <p>The current version of the [% c.config.name %] Client is <strong>[% c.config.client_version %]</strong>.</p>
     <p>The client allows you to install BlitzMax modules that are available
     from this website. When you attempt to install a module the client will
     scan your module directory to see which modules are already installed and
@@ -27,19 +26,19 @@
     <h3>Binaries</h3>
     <ul>
         <li>
-        	<a href="https://github.com/downloads/maximos/maximus/Maximus-[% current_version %].exe">[% c.config.name %] v[% current_version %] Installer for Windows</a> <em>(recommended)</em>
+        	<a href="https://github.com/downloads/maximos/maximus/Maximus-[% c.config.client_version %].exe">[% c.config.name %] v[% c.config.client_version %] Installer for Windows</a> <em>(recommended)</em>
         </li>
         <li>
-            <a href="https://github.com/downloads/maximos/maximus/maximus-[% current_version %]-win32.zip">[% c.config.name %] v[% current_version %] for Windows</a> <em>(zip)</em>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-[% c.config.client_version %]-win32.zip">[% c.config.name %] v[% c.config.client_version %] for Windows</a> <em>(zip)</em>
         </li>
         <li>
-            <a href="https://github.com/downloads/maximos/maximus/maximus-[% current_version %]-linux.tar.gz">[% c.config.name %] v[% current_version %] for Linux</a> <em>(tar.gz)</em>
+            <a href="https://github.com/downloads/maximos/maximus/maximus-[% c.config.client_version %]-linux.tar.gz">[% c.config.name %] v[% c.config.client_version %] for Linux</a> <em>(tar.gz)</em>
         </li>
     </ul>
     <h3>Source</h3>
     <ul>
         <li>
-            <a href="https://github.com/maximos/maximus/zipball/[% current_version %]">[% c.config.name %] v[% current_version %] source</a>
+            <a href="https://github.com/maximos/maximus/zipball/[% c.config.client_version %]">[% c.config.name %] v[% c.config.client_version %] source</a>
         </li>
     </ul>
     <p>If you want to work with the latest development version of the 
