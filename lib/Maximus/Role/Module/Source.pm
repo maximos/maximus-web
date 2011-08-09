@@ -160,7 +160,7 @@ sub archive {
     # Remove files that are the result of a compilation
     foreach (
         $zip->membersMatching(
-            '(\.(o|s|a|i|exe|gitignore|bmx\/)|meta\.maximus)$')
+            '((\.(s|a|i|exe|gitignore)|meta\.maximus)$|\.bmx\/)')
       )
     {
         $zip->removeMember($_);
