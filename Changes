@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+1.000005  2011-08-09
+    - .o files are no longer excluded when generating archives
+
 1.000004  2011-08-01
     - Added client_version to the configuration file which is being used by the
       client page. This allows for updating the latest client release on the
