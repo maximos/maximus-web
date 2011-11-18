@@ -87,8 +87,8 @@ __PACKAGE__->log(
     Catalyst::Log::Log4perl->new(Maximus->path_to('/') . '/log.conf'));
 
 # Add as_list VMethod to Template
-$Template::Stash::LIST_OPS->{ as_list } = sub {
-   return ref( $_[0] ) eq 'ARRAY' ? shift : [shift];
+$Template::Stash::LIST_OPS->{as_list} = sub {
+    return ref($_[0]) eq 'ARRAY' ? shift : [shift];
 };
 
 # Start the application

@@ -42,11 +42,11 @@ sub index : Path : Args(0) {
                         file => $file->tempname,);
 
                     my $module = Maximus::Class::Module->new(
-                        modscope => $form->field('scope')->value,
-                        mod      => $form->field('name')->value,
-                        desc     => $form->field('desc')->value,
-                        source   => $source,
-                        schema   => $c->model('DB')->schema,
+                        modscope  => $form->field('scope')->value,
+                        mod       => $form->field('name')->value,
+                        desc      => $form->field('desc')->value,
+                        source    => $source,
+                        schema    => $c->model('DB')->schema,
                         announcer => $c->model('Announcer'),
                     );
                     $module->save($c->user->obj);
