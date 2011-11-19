@@ -5,9 +5,6 @@ use lib './lib';
 use Maximus;
 use Plack::Builder;
 use Plack::Middleware::ReverseProxy;
-Maximus->setup_engine('PSGI');
 
-my $app = sub {
-    Maximus->run(@_);
-};
+my $app = Maximus->psgi_app(@_);
 $app = Plack::Middleware::ReverseProxy->wrap($app);
