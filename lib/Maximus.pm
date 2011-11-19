@@ -41,9 +41,7 @@ __PACKAGE__->config(
     default_view => 'TT',
     salt         => 'default-salt',
     timestamp    => time(),
-    email        => {
-        from => 'Maximus localhost@root',
-    },
+    email        => {from => 'Maximus localhost@root',},
 
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
