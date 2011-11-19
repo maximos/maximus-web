@@ -19,7 +19,7 @@ use Catalyst qw/
   Session::State::Cookie
   StackTrace
   /;
-use Catalyst::Log::Log4perl;
+use Log::Log4perl::Catalyst;
 use Template::Stash;
 
 extends 'Catalyst';
@@ -84,7 +84,7 @@ __PACKAGE__->config(
 
 # Setup logger
 __PACKAGE__->log(
-    Catalyst::Log::Log4perl->new(Maximus->path_to('/') . '/log.conf'));
+    Log::Log4perl::Catalyst->new(Maximus->path_to('/') . '/log.conf'));
 
 # Add as_list VMethod to Template
 $Template::Stash::LIST_OPS->{as_list} = sub {
