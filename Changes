@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Upgraded to Catalyst 5.9
     - Switched Catalyst::Log::Log4perl for Log::Log4perl::Catalyst (gh-106)
 
 1.000005  2011-08-09
