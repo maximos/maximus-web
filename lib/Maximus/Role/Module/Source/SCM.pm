@@ -56,6 +56,7 @@ sub auto_discover {
         },
         $dir
     );
+    @mods = sort { $a->[0] . $a->[1] cmp $b->[0] . $b->[1] } @mods;
     return @mods;
 }
 
