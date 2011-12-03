@@ -7,12 +7,14 @@ has 'cfg' => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
+        my $suffix = $ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX};
+        my $file = sprintf('maximus%s.conf', $suffix ? '_' . $suffix : undef);
         Config::Any->load_files(
-            {   files           => ['maximus.conf'],
+            {   files           => [$file],
                 use_ext         => 1,
                 flatten_to_hash => 1,
             }
-        )->{'maximus.conf'};
+        )->{$file};
     },
 );
 
@@ -35,7 +37,10 @@ This role gives access to the Maximus configuration
 
 =head2 cfg
 
-A HashRef with the configuration
+A HashRef with the configurat
+
+It's environment aware. Use MAXIMUS_CONFIG_LOCAL_SUFFIX to load the correct
+config file
 
 =head1 AUTHOR
 
