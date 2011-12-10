@@ -63,5 +63,7 @@ $scm->update({auto_discover_response => []});
 $autodiscover->();
 $ua1->content_contains('No BlitzMax modules were discovered');
 
+$ua1->get_ok('/scm/' . $scm->id . '/forceupdate');
+$ua1->content_contains('forced update for SCM');
 
 done_testing();

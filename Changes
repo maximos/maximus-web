@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added ability to do a forced updated for a SCM configuration (gh-85)
     - Cache::FileCache namespace set to Maximus 
     - Now showing statistics about modules (gh-87)
     - Updated MooTools-Core to 1.4.2

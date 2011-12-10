@@ -22,6 +22,7 @@
             <li><strong>[% scm.software | ucfirst | html %]</strong> <em title="Last known revision [% scm.revision %]">[% scm.repo_url | html %]</em>
                 <a href="[% c.uri_for( c.controller('SCM').action_for('edit'), [scm.id]) %]">[edit]</a>
                 <a href="[% c.uri_for( c.controller('SCM').action_for('autodiscover'), [scm.id]) %]">[auto-discover]</a>
+                <a href="[% c.uri_for( c.controller('SCM').action_for('forceupdate'), [scm.id]) %]" title="force updating all dev and unadded module versions, regardless of latest checked out revision">[force-update]</a>
                 <a href="[% c.uri_for( c.controller('SCM').action_for('delete'), [scm.id]) %]">[delete]</a></li>
             [% "</ul>" IF loop.last %]
         [% END %]

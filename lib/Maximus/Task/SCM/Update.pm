@@ -9,7 +9,8 @@ with 'Maximus::Role::Task';
 with 'Maximus::Role::Task::SCM';
 
 sub run {
-    my ($self, $scm_id) = @_;
+    my ($self, $scm_id, $ignore_latest_rev) = @_;
+    $ignore_latest_rev ||= 0;
     my $search;
     if (defined($scm_id)
         && (ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1
@@ -27,7 +28,10 @@ sub run {
         $source->apply_scm_settings($scm->settings) if ($scm->settings);
 
         my $latest_rev = $source->get_latest_revision;
-        if (!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev)
+        if (   !$scm->revision
+            || !$latest_rev
+            || $scm->revision ne $latest_rev
+            || $ignore_latest_rev)
         {
             foreach my $module ($scm->modules) {
 
