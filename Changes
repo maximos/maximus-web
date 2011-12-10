@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Now showing statistics about modules (gh-87)
     - Updated MooTools-Core to 1.4.2
     - Updated MooTools-More to 1.4.0.1
     - Upgraded to Catalyst 5.9

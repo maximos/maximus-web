@@ -67,6 +67,7 @@ requires 'SQL::Translator'                              => '0.11006';
 requires 'Storable'                                     => '2.21';
 requires 'Template'                                     => '2.22';
 requires 'Template::Plugin::Digest::SHA1'               => '0.03';
+requires 'Template::Plugin::Cache'                      => '0.13';
 requires 'version'                                      => '0.82';
 requires 'YAML'                                         => '0.71';
 requires 'XML::Simple'                                  => '2.18';

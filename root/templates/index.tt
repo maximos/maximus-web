@@ -11,7 +11,10 @@
         <div class="jsSuccessBox"><h2>We need your help!</h2></div>
         <p><a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img title="Click here to lend your support to: Maximus and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=chrome" width="149" height="37" alt="[Please donate to support us]" border="0" style="float:right;margin-left:10px;" /></a> If you make use of [% c.config.name %] please consider a small donation to keep this service running. Details can be found at our Pledgie page.</p>
     </div>
-    
+
+    [% USE cache = Cache %]
+    [% cache.inc('template' => 'stats.tt', 'ttl' => 3600) %]
+
     <h2>Sources</h2>
     <p><a href="[% c.uri_for('/module/sources/json') %]">JSON</a>, <a href="[% c.uri_for('/module/sources/xml') %]">XML</a></p>
 </div>
