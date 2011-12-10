@@ -53,6 +53,7 @@ __PACKAGE__->config(
     'Plugin::Cache' => {
         backend => {
             class              => 'Cache::FileCache',
+            namespace          => 'Maximus',
             default_expires_in => 3600,
         },
     },
