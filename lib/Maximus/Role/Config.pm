@@ -8,7 +8,7 @@ has 'cfg' => (
     lazy    => 1,
     default => sub {
         my $suffix = $ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX};
-        my $file = sprintf('maximus%s.conf', $suffix ? '_' . $suffix : undef);
+        my $file = sprintf('maximus%s.conf', $suffix ? '_' . $suffix : '');
         Config::Any->load_files(
             {   files           => [$file],
                 use_ext         => 1,
