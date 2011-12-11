@@ -20,7 +20,7 @@ sub run {
         elsif (!ref($args) && $args > 0) {
             $scm_id = $args;
         }
-        $search = {id => $args} if defined($scm_id);
+        $search = {id => $scm_id} if defined($scm_id);
     }
 
     my $announcer = Maximus->model('announcer');
