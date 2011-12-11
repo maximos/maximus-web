@@ -33,7 +33,7 @@ sub tokens {
                 qr/\bModuleInfo[\s\t]+"History: .+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"History: (.+)"/;
+                    $value =~ /"History: (.+)"/i;
                     [$label, $1];
                   }
             ],
