@@ -21,6 +21,14 @@ sub tokens {
                     [$label, $1];
                   }
             ],
+            [   'MODULEDESCRIPTION',
+                qr/\bModuleInfo[\s\t]+"Desc(ription)?: .+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"Desc(ription)?: (.+)"/;
+                    [$label, $2];
+                  }
+            ],
             [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/,
                 \&_text
             ],
