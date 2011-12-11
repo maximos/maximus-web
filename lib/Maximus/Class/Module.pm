@@ -17,7 +17,7 @@ has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
 has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
-has 'desc' => (is => 'rw', isa => 'Str', required => 1);
+has 'desc' => (is => 'rw', isa => 'Maybe[Str]', required => 0);
 
 has 'source' => (
     is   => 'rw',
