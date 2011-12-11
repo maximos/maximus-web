@@ -17,7 +17,7 @@ sub tokens {
                 qr/\bModuleInfo[\s\t]+"Version: .+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"Version: (.+)"/;
+                    $value =~ /"Version: (.+)"/i;
                     [$label, $1];
                   }
             ],
@@ -25,15 +25,15 @@ sub tokens {
                 qr/\bModuleInfo[\s\t]+"Desc(ription)?: .+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"Desc(ription)?: (.+)"/;
+                    $value =~ /"Desc(ription)?: (.+)"/i;
                     [$label, $2];
                   }
             ],
-            [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/,
+            [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/i,
                 \&_text
             ],
             [   'INCLUDE_FILE',
-                qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/,
+                qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/i,
                 sub {
                     my ($label, $value) = @_;
                     $value =~ /"(.+)"/;
