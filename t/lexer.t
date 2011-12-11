@@ -20,13 +20,14 @@ close($fh);
 
 my @foundTokens    = $lexer->tokens($contents);
 my @expectedTokens = (
-    ['MODULENAME',    'test.mod1'],
-    ['MODULEVERSION', '1.1.15'],
-    ['DEPENDENCY',    'brl.basic'],
-    ['DEPENDENCY',    'htbaapub.rest'],
-    ['DEPENDENCY',    'brl.retro'],
-    ['INCLUDE_FILE',  'inc/more_imports.bmx'],
-    ['INCLUDE_FILE',  'inc/other_imports.bmx'],
+    ['MODULENAME',        'test.mod1'],
+    ['MODULEDESCRIPTION', 'some description'],
+    ['MODULEVERSION',     '1.1.15'],
+    ['DEPENDENCY',        'brl.basic'],
+    ['DEPENDENCY',        'htbaapub.rest'],
+    ['DEPENDENCY',        'brl.retro'],
+    ['INCLUDE_FILE',      'inc/more_imports.bmx'],
+    ['INCLUDE_FILE',      'inc/other_imports.bmx'],
 );
 
 # Helpful debug line

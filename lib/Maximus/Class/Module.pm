@@ -17,7 +17,7 @@ has 'modscope' => (is => 'rw', isa => 'ModScope', required => 1);
 
 has 'mod' => (is => 'rw', isa => 'Str', required => 1);
 
-has 'desc' => (is => 'rw', isa => 'Str', required => 1);
+has 'desc' => (is => 'rw', isa => 'Maybe[Str]', required => 0);
 
 has 'source' => (
     is   => 'rw',
@@ -78,6 +78,10 @@ sub save {
 
     $self->source->prepare($self);
     $self->source->validate($self) unless $self->source->validated;
+
+    # Source validate might change module description if not provided
+    # so we must update it when it changes
+    $mod->update({desc => $self->desc});
 
     my @deps = $self->source->findDependencies($self);
 
