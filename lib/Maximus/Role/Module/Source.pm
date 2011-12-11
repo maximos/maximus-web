@@ -73,6 +73,11 @@ sub validate {
 
             $mod->source->version(version->parse($_->[1])->stringify);
         }
+
+        # set description from source file if not supplied
+        elsif ($_->[0] eq 'MODULEDESCRIPTION' && length($mod->desc) == 0) {
+            $mod->desc($_->[1]);
+        }
     }
 
     Maximus::Exception::Module::Source->throw(

@@ -79,6 +79,10 @@ sub save {
     $self->source->prepare($self);
     $self->source->validate($self) unless $self->source->validated;
 
+    # Source validate might change module description if not provided
+    # so we must update it when it changes
+    $mod->update({desc => $self->desc});
+
     my @deps = $self->source->findDependencies($self);
 
     my $fh = IO::File->new_tmpfile;
