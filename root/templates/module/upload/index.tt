@@ -11,6 +11,7 @@
         The modscopes brl, maxgui and pub are reserved.</li>
         <li>A <i>ModuleInfo "Version: 1.03"</i> statement must exist. Maximus requires it to extract the version number.
         Valid versions number are 1, 1.00, 1.0.0, 0.1, 0.1.0, 0.0.1 etc.</li>
+        <li>If a Rem block exists above your <i>ModuleInfo</i> declaration Maximus will use the text after the <i>bbdoc:</i> part as its description if left blank in the form.</li>
     </ul>
     [% IF error_msg %]
         <div class="jsRoundedBox">
