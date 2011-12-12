@@ -187,10 +187,12 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
               ->search({'modscope.name' => $_->[0], 'me.name' => $_->[1]},
                 {join => [qw/modscope/]});
 
+            my $desc = $module_rs->first ? $module_rs->first->desc : undef;
+            $desc = $_->[2] unless $desc;
             push @modules,
               { modscope => $_->[0],
                 mod      => $_->[1],
-                desc => $module_rs->first ? $module_rs->first->desc : undef
+                desc     => $desc,
               };
         }
         $init_object = {modules => \@modules};

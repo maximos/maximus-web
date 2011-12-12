@@ -1,7 +1,8 @@
 Revision history for Maximus.
 
     - Module description no longer required. If omitted it'll try to detect the
-      description from the module source file
+      description from the module source file. This is both the case for manual
+      archive uploads, auto-discovery and through SCM updating
     - Fixed link to module management from SCM management page
     - Added ability to do a forced updated for a SCM configuration (gh-85)
     - Cache::FileCache namespace set to Maximus 
