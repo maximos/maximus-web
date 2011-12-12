@@ -6,7 +6,7 @@ targeted at 10.04 the steps are probably not much different for older versions.
 First, make sure all required software is installed
 
     $ sudo apt-get install build-essential libmodule-install-perl mysql-server\
-        git-core
+        git-core subversion
 
 This step is not required perse, but it helps you to install the required Perl
 modules in a local directory. Doing so makes sure modules aren't installed in

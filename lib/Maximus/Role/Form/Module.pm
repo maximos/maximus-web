@@ -20,13 +20,12 @@ has_field 'name' => (
 );
 
 has_field 'desc' => (
-    type             => 'Text',
-    label            => 'Description',
-    required         => 1,
-    required_message => 'You must enter a description',
-    minLength        => 5,
-    maxlength        => 255,
-    css_class        => 'required minLength:5 maxLength:255',
+    type         => 'Text',
+    label        => 'Description',
+    not_nullable => 1,
+    minLength    => 0,
+    maxlength    => 255,
+    css_class    => 'minLength:0 maxLength:255',
 );
 
 no HTML::FormHandler::Moose::Role;

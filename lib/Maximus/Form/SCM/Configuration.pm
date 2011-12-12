@@ -29,22 +29,22 @@ has_field 'modules' => (
 );
 
 has_field 'git_tags_filter' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Tags filter (regular expression)',
 );
 
 has_field 'svn_trunk' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Path to Trunk (leave empty for default: /trunk)',
 );
 
 has_field 'svn_tags' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Path to Tags (leave empty for default: /tags)',
 );
 
 has_field 'svn_tags_filter' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Tags filter (regular expression)',
 );
 

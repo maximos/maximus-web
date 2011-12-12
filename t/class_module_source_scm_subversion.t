@@ -70,7 +70,8 @@ foreach (qw/0.01 0.02 0.03 dev/) {
 
 # Auto discover modules.
 my @got_auto_discover = $scm->auto_discover();
-my @expected_auto_discover = (['test', 'mod2'], ['test', 'mod3']);
+my @expected_auto_discover =
+  (['test', 'mod2', undef], ['test', 'mod3', undef]);
 is_deeply(\@got_auto_discover, \@expected_auto_discover,
     'Automatic discovery OK');
 

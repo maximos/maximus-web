@@ -19,12 +19,12 @@ use Catalyst qw/
   Session::State::Cookie
   StackTrace
   /;
-use Catalyst::Log::Log4perl;
+use Log::Log4perl::Catalyst;
 use Template::Stash;
 
 extends 'Catalyst';
 
-our $VERSION = '1.000005';
+our $VERSION = '1.001000';
 $VERSION = eval $VERSION;
 
 # Configure the application.
@@ -41,6 +41,7 @@ __PACKAGE__->config(
     default_view => 'TT',
     salt         => 'default-salt',
     timestamp    => time(),
+    email        => {from => 'Maximus localhost@root',},
 
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
@@ -52,6 +53,7 @@ __PACKAGE__->config(
     'Plugin::Cache' => {
         backend => {
             class              => 'Cache::FileCache',
+            namespace          => 'Maximus',
             default_expires_in => 3600,
         },
     },
@@ -84,11 +86,11 @@ __PACKAGE__->config(
 
 # Setup logger
 __PACKAGE__->log(
-    Catalyst::Log::Log4perl->new(Maximus->path_to('/') . '/log.conf'));
+    Log::Log4perl::Catalyst->new(Maximus->path_to('/') . '/log.conf'));
 
 # Add as_list VMethod to Template
-$Template::Stash::LIST_OPS->{ as_list } = sub {
-   return ref( $_[0] ) eq 'ARRAY' ? shift : [shift];
+$Template::Stash::LIST_OPS->{as_list} = sub {
+    return ref($_[0]) eq 'ARRAY' ? shift : [shift];
 };
 
 # Start the application

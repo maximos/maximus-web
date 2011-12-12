@@ -59,6 +59,11 @@ is($source->validated, 1, 'Module validated');
 isnt($source->version, '1.00', 'Version string check');
 is($source->version, '1.1.15', 'Version string check');
 
+isnt($mod->desc, 'some description', 'Description was changed');
+$mod->desc('');
+$source->validate($mod);
+is($mod->desc, 'some description', 'Description was changed');
+
 my $fh = new_ok('File::Temp');
 my $filename = $source->archive($mod, $fh);
 

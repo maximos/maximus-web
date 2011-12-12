@@ -9,14 +9,18 @@ with 'Maximus::Role::Task';
 with 'Maximus::Role::Task::SCM';
 
 sub run {
-    my ($self, $scm_id) = @_;
-    my $search;
-    if (defined($scm_id)
-        && (ref($scm_id) eq 'ARRAY' && @{$scm_id} == 1
-            or !ref($scm_id) && $scm_id > 0)
-      )
-    {
-        $search = {id => $scm_id};
+    my ($self, $args) = @_;
+    my ($scm_id, $ignore_latest_rev, $search);
+
+    if (defined($args)) {
+        if (ref($args) eq 'ARRAY') {
+            ($scm_id, $ignore_latest_rev) = @{$args};
+            $ignore_latest_rev ||= 0;
+        }
+        elsif (!ref($args) && $args > 0) {
+            $scm_id = $args;
+        }
+        $search = {id => $scm_id} if defined($scm_id);
     }
 
     my $announcer = Maximus->model('announcer');
@@ -27,7 +31,10 @@ sub run {
         $source->apply_scm_settings($scm->settings) if ($scm->settings);
 
         my $latest_rev = $source->get_latest_revision;
-        if (!$scm->revision || !$latest_rev || $scm->revision ne $latest_rev)
+        if (   !$scm->revision
+            || !$latest_rev
+            || $scm->revision ne $latest_rev
+            || $ignore_latest_rev)
         {
             foreach my $module ($scm->modules) {
 

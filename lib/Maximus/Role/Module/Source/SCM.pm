@@ -29,10 +29,10 @@ sub auto_discover {
                     my $path = Path::Class::Dir->new($File::Find::name);
                     if ($path->parent =~ m/([a-z0-9_]+)\.mod$/i) {
                         my $scope = $1;
-                        push @mods, [$scope, $mod];
+                        push @mods, [$scope, $mod, undef];
                     }
                     else {
-                        my $scope;
+                        my ($scope, $desc);
                         my $file_path =
                           Path::Class::File->new($File::Find::name,
                             $mod . '.bmx');
@@ -45,17 +45,21 @@ sub auto_discover {
                             foreach my $token (@tokens) {
                                 if ($token->[0] eq 'MODULENAME') {
                                     $scope = lc((split /\./, $token->[1])[0]);
-                                    last;
                                 }
+                                elsif ($token->[0] eq 'MODULEDESCRIPTION') {
+                                    $desc = $token->[1] . "";
+                                }
+                                last if ($scope && $desc);
                             }
                         }
-                        push @mods, [$scope, $mod];
+                        push @mods, [$scope, $mod, $desc];
                     }
                 }
             }
         },
         $dir
     );
+    @mods = sort { $a->[0] . $a->[1] cmp $b->[0] . $b->[1] } @mods;
     return @mods;
 }
 

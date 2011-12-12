@@ -7,9 +7,19 @@ sub tokens {
     my ($self, $input_iterator) = @_;
     my $lexer = string_lexer(
         $input_iterator,
-        (   ['COMMENT', qr/'.*?\n/, sub { () }],
+        (   ['COMMENT', qr/'.*?\R/, sub { () }],
+            [   'MODULEDESCRIPTION',
+
+                qr/[ \t]*\bRem\R(?:\R|.)*?\bEnd[ \t]*Rem\R\bModule[\s\t]\w+\.\w+/i,
+                sub {
+                    my ($label, $value) = @_;
+                    my ($desc) = ($value =~ /\bbbdoc: (.+)/i);
+                    my ($name) = ($value =~ /\bModule (\w+\.\w+)/i);
+                    [$label, $desc, 'MODULENAME', $name];
+                  }
+            ],
             [   'COMMENT',
-                qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i,
+                qr/[ \t]*\bRem\R(?:\R|.)*?\s*\bEnd[ \t]*Rem/i,
                 sub { () }
             ],
             ['MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
@@ -17,15 +27,23 @@ sub tokens {
                 qr/\bModuleInfo[\s\t]+"Version: .+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"Version: (.+)"/;
+                    $value =~ /"Version: (.+)"/i;
                     [$label, $1];
                   }
             ],
-            [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/,
+            [   'MODULEDESCRIPTION',
+                qr/\bModuleInfo[\s\t]+"Desc(ription)?: .+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"Desc(ription)?: (.+)"/i;
+                    [$label, $2];
+                  }
+            ],
+            [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/i,
                 \&_text
             ],
             [   'INCLUDE_FILE',
-                qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/,
+                qr/\b(?i:Import|Include)[\s\t]+".+\.bmx"/i,
                 sub {
                     my ($label, $value) = @_;
                     $value =~ /"(.+)"/;
@@ -38,7 +56,16 @@ sub tokens {
     my @tokens;
     while (my $token = $lexer->()) {
         next unless ref($token) eq 'ARRAY';
-        push @tokens, $token;
+
+        # in case of MODULEDESCRIPTION it's possible that the module name has
+        # been detected as well, so its length will be 4
+        if (@{$token} == 4) {
+            push @tokens, [@{$token}[0, 1]];
+            push @tokens, [@{$token}[2, 3]];
+        }
+        else {
+            push @tokens, $token;
+        }
     }
     return @tokens;
 }

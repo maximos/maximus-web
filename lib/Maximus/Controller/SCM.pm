@@ -4,6 +4,7 @@ use namespace::autoclean;
 use Maximus::Form::SCM::Configuration;
 use Maximus::Form::SCM::AutoDiscover;
 use Maximus::Task::SCM::AutoDiscover;
+use Maximus::Task::SCM::Update;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -129,6 +130,28 @@ sub delete : Chained('get_scm') : PathPart('delete') : Args(0) {
     $c->response->redirect($c->uri_for_action('/scm/index'));
 }
 
+sub forceupdate : Chained('get_scm') : PathPart('forceupdate') : Args(0) {
+    my ($self, $c) = @_;
+
+    my $scm     = $c->stash->{scm};
+    my $task    = Maximus::Task::SCM::Update->new(queue => 1);
+    my $task_id = $task->run($scm->id, 1);
+    if ($task_id) {
+        $c->flash(message => 'Forced update for SCM requested');
+        $c->log->info('SCM Forced Update task fired with ID: ' . $task_id);
+    }
+    else {
+        $c->flash(
+            message => 'Failed to request forced update for SCM',
+            status  => 'Error',
+        );
+        $c->log->error(
+            'Failed to fire task ' . ref($task) . ' for SCM ' . $scm->id);
+    }
+
+    return $c->response->redirect($c->uri_for($self->action_for('index')));
+}
+
 sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
     my ($self, $c) = @_;
 
@@ -164,10 +187,12 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
               ->search({'modscope.name' => $_->[0], 'me.name' => $_->[1]},
                 {join => [qw/modscope/]});
 
+            my $desc = $module_rs->first ? $module_rs->first->desc : undef;
+            $desc = $_->[2] unless $desc;
             push @modules,
               { modscope => $_->[0],
                 mod      => $_->[1],
-                desc => $module_rs->first ? $module_rs->first->desc : undef
+                desc     => $desc,
               };
         }
         $init_object = {modules => \@modules};
@@ -272,6 +297,11 @@ Edit a SCM configuration
 =head2 delete
 
 Delete a SCM configuration
+
+=head2 forceupdate
+
+Force update a SCM configuration. This will checkout the latest revision of the
+repository, regardless the stored revision number in the database.
 
 =head2 autodiscover
 

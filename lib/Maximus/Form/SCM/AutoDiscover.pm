@@ -21,9 +21,9 @@ has_field 'modules.mod' => (
 );
 
 has_field 'modules.desc' => (
-    type             => 'Text',
-    label            => 'Description',
-    maxlength        => 255,
+    type      => 'Text',
+    label     => 'Description',
+    maxlength => 255,
 );
 
 =head1 NAME

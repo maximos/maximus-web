@@ -3,6 +3,7 @@ SuperStrict
 'Module test.mod2
 Module test.mod1
 ModuleInfo "Name: test.mod1"
+ModuleInfo "Description: some description"
 ModuleInfo "Version: 1.1.15"
 ModuleInfo "License: MIT"
 ModuleInfo "Author: Christiaan Kras"
