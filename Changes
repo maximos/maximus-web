@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+1.001000  2011-12-12
     - Module description no longer required. If omitted it'll try to detect the
       description from the module source file. This is both the case for manual
       archive uploads, auto-discovery and through SCM updating
