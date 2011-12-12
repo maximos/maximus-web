@@ -14,7 +14,7 @@ sub tokens {
                 sub {
                     my ($label, $value) = @_;
                     my ($desc) = ($value =~ /\bbbdoc: (.+)/i);
-                    my ($name) = ($value =~ /\bModule (.+)/i);
+                    my ($name) = ($value =~ /\bModule (\w+\.\w+)/i);
                     [$label, $desc, 'MODULENAME', $name];
                   }
             ],
