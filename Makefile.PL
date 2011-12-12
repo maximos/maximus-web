@@ -10,7 +10,6 @@ requires 'Catalyst::Runtime'                            => '5.90006';
 requires 'Catalyst::Model::DBIC::Schema'                => '0.43';
 requires 'Catalyst::Action::RenderView'                 => '0.14';
 requires 'Catalyst::Authentication::Store::DBIx::Class' => '0.1300';
-requires 'Catalyst::Engine::PSGI'                       => '0.10';
 requires 'Catalyst::Model::Adaptor'                     => '0.08';
 requires 'Catalyst::Plugin::Assets'                     => '0.036';
 requires 'Catalyst::Plugin::Authentication'             => '0.10018';
