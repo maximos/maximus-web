@@ -7,10 +7,10 @@ sub tokens {
     my ($self, $input_iterator) = @_;
     my $lexer = string_lexer(
         $input_iterator,
-        (   ['COMMENT', qr/'.*?\n/, sub { () }],
+        (   ['COMMENT', qr/'.*?\R/, sub { () }],
             [   'MODULEDESCRIPTION',
 
-                qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem\n\bModule[\s\t]\w+\.\w+/i,
+                qr/[ \t]*\bRem\R(?:\R|.)*?\bEnd[ \t]*Rem\R\bModule[\s\t]\w+\.\w+/i,
                 sub {
                     my ($label, $value) = @_;
                     my ($desc) = ($value =~ /\bbbdoc: (.+)/i);
@@ -19,7 +19,7 @@ sub tokens {
                   }
             ],
             [   'COMMENT',
-                qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i,
+                qr/[ \t]*\bRem\R(?:\R|.)*?\s*\bEnd[ \t]*Rem/i,
                 sub { () }
             ],
             ['MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
