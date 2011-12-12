@@ -8,6 +8,16 @@ sub tokens {
     my $lexer = string_lexer(
         $input_iterator,
         (   ['COMMENT', qr/'.*?\n/, sub { () }],
+            [   'MODULEDESCRIPTION',
+
+                qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem\n\bModule[\s\t]\w+\.\w+/i,
+                sub {
+                    my ($label, $value) = @_;
+                    my ($desc) = ($value =~ /\bbbdoc: (.+)/i);
+                    my ($name) = ($value =~ /\bModule (.+)/i);
+                    [$label, $desc, 'MODULENAME', $name];
+                  }
+            ],
             [   'COMMENT',
                 qr/[ \t]*\bRem\n(?:\n|.)*?\s*\bEnd[ \t]*Rem/i,
                 sub { () }
@@ -46,7 +56,16 @@ sub tokens {
     my @tokens;
     while (my $token = $lexer->()) {
         next unless ref($token) eq 'ARRAY';
-        push @tokens, $token;
+
+        # in case of MODULEDESCRIPTION it's possible that the module name has
+        # been detected as well, so its length will be 4
+        if (@{$token} == 4) {
+            push @tokens, [@{$token}[0, 1]];
+            push @tokens, [@{$token}[2, 3]];
+        }
+        else {
+            push @tokens, $token;
+        }
     }
     return @tokens;
 }
