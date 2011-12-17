@@ -29,10 +29,10 @@ Maximus::Class::Broadcast::Driver::Database - Database driver
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Driver::Database;
-	my $driver = Maximus::Class::Broadcast::Driver::Database->new;
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
-	$driver->say($msg);
+    use Maximus::Class::Broadcast::Driver::Database;
+    my $driver = Maximus::Class::Broadcast::Driver::Database->new;
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    $driver->say($msg);
 
 =head1 DESCRIPTION
 

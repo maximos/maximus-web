@@ -31,7 +31,7 @@ Maximus::Script::SQL::Upgrade - Update database to latest version
 
 =head1 SYNOPSIS
 
-	maximus_sql_upgrade.pl
+    maximus_sql_upgrade.pl
 
 =head1 DESCRIPTION
 

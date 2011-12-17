@@ -15,7 +15,7 @@ Maximus::Exceptions - All Exceptions in Maximus
 
 =head1 SYNOPSIS
 
-	use Maximus::Exceptions;
+    use Maximus::Exceptions;
 
 =head1 DESCRIPTION
 

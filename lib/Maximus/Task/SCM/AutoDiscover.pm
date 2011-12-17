@@ -34,9 +34,9 @@ Maximus::Task::SCM::AutoDiscover - Auto Discover modules from a SCM
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::SCM::AutoDiscover;
-	$task->run($scm_id); # SCM ID number
-	$task->run($scm); # Maximus::Schema::Result::Scm
+    use Maximus::Task::SCM::AutoDiscover;
+    $task->run($scm_id); # SCM ID number
+    $task->run($scm); # Maximus::Schema::Result::Scm
 
 =head1 DESCRIPTION
 
@@ -44,7 +44,9 @@ Update module database.
 
 =head1 METHODS
 
-=head2 run
+=head2 run(L<Maximus::Schema::Result::Scm> $scm)
+
+=head2 run($scm_id)
 
 Run task
 

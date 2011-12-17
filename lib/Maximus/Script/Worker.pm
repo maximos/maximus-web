@@ -86,7 +86,7 @@ Maximus::Script::Worker - Maximus Gearman worker
 
 =head1 SYNOPSIS
 
-	maximus_worker.pl [options]
+    maximus_worker.pl [options]
 
 =head1 DESCRIPTION
 

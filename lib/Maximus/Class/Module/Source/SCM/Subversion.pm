@@ -154,8 +154,8 @@ a Subversion repository
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module::Source::SCM::Subversion;
-	my $source = Maximus::Class::Module::Source::SCM::Subversion->new;
+    use Maximus::Class::Module::Source::SCM::Subversion;
+    my $source = Maximus::Class::Module::Source::SCM::Subversion->new;
 
 =head1 DESCRIPTION
 

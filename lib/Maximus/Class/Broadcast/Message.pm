@@ -39,8 +39,8 @@ Maximus::Class::Broadcast::Message - Message
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Message;
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    use Maximus::Class::Broadcast::Message;
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
 
 =head1 DESCRIPTION
 

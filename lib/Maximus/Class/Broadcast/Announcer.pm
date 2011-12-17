@@ -53,17 +53,19 @@ Maximus::Class::Broadcast::Announcer - Announcer for updates
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Announcer;
-	my $ann = Maximus::Class::Broadcast::Announcer->new;
-	my $listener = Maximus::Class::Announcer::Driver::Null->new;
-	$listener->init();
-	$ann->addListener($listener);
-	my $count = $ann->countListeners;
-	my @listeners = $ann->getListeners;
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
-	$ann->say($msg);
-	$ann->say('Hello world!');
-	$ann->say(text => 'Hello world!');
+    use Maximus::Class::Broadcast::Announcer;
+    my $ann = Maximus::Class::Broadcast::Announcer->new;
+    my $listener = Maximus::Class::Announcer::Driver::Null->new;
+    $listener->init();
+    $ann->addListener($listener);
+
+    my $count = $ann->countListeners;
+    my @listeners = $ann->getListeners;
+
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    $ann->say($msg);
+    $ann->say('Hello world!');
+    $ann->say(text => 'Hello world!');
 
 =head1 DESCRIPTION
 
@@ -92,7 +94,9 @@ Return listener count
 
 
 =head2 say(string $msg)
+
 =head2 say(text => $msg)
+
 =head2 say(L<Maximus::Class::Broadcast::Message>)
 
 Announce a message to all listeners, returns the message.

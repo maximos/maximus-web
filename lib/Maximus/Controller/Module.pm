@@ -248,11 +248,11 @@ Display information about a module
 
 Retrieve sources file
 
-=head2 /module/sources/json
+=head2 sources_json
 
 Sources file in JSON
 
-=head2 /module/sources/xml
+=head2 sources_xml
 
 Sources file in XML
 

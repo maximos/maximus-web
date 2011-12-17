@@ -149,8 +149,8 @@ Maximus::Class::Module - Represents a module
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module;
-	my $module = Maximus::Class::Module->new;
+    use Maximus::Class::Module;
+    my $module = Maximus::Class::Module->new;
 
 =head1 DESCRIPTION
 

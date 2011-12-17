@@ -227,10 +227,10 @@ Maximus::Role::Module::Source - Interface for module source handlers
 
 =head1 SYNOPSIS
 
-	package Maximus::Class::Module::Source::SCM::Foo;
-	use Moose;
+    package Maximus::Class::Module::Source::SCM::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Module::Source';
+    with 'Maximus::Role::Module::Source';
 
 =head1 DESCRIPTION
 

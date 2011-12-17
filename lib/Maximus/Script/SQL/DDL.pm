@@ -44,7 +44,7 @@ Maximus::Script::SQL::DDL - Generate SQL upgrade files
 
 =head1 SYNOPSIS
 
-	maximus_sql_ddl.pl [options]
+    maximus_sql_ddl.pl [options]
 
 =head1 DESCRIPTION
 

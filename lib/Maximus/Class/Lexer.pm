@@ -84,9 +84,9 @@ Maximus::Class::Lexer - BlitzMax Lexer
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Lexer;
-	my $lexer = Maximus::Class::Lexer->new;
-	my @tokens = $lexer->tokens('string');
+    use Maximus::Class::Lexer;
+    my $lexer = Maximus::Class::Lexer->new;
+    my @tokens = $lexer->tokens('string');
 
 =head1 DESCRIPTION
 

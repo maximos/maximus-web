@@ -22,7 +22,7 @@ Maximus::View::TTEmail - TT View for Maximus
 
 =head1 DESCRIPTION
 
-TT View for Maximus::View::Email::Template.
+TT View for L<Maximus::View::Email::Template>.
 
 =head1 SEE ALSO
 

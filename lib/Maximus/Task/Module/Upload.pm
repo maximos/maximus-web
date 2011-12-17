@@ -50,9 +50,9 @@ Maximus::Task::Module::Upload - Upload module archive for persistent storage
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::Module::Upload;
-	$task->run($module_version_id); # Module Version ID number
-	$task->run($module_version); # Maximus::Schema::Result::ModuleVersion
+    use Maximus::Task::Module::Upload;
+    $task->run($module_version_id); # Module Version ID number
+    $task->run($module_version); # Maximus::Schema::Result::ModuleVersion
 
 =head1 DESCRIPTION
 

@@ -20,8 +20,8 @@ Maximus::Task::Other::SessionExpire - Delete expired sessions from the database
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::Other::SessionExpire;
-	$task->run();
+    use Maximus::Task::Other::SessionExpire;
+    $task->run();
 
 =head1 DESCRIPTION
 

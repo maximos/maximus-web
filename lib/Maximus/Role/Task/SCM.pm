@@ -62,7 +62,7 @@ Role for SCM tasks.
 
 =head2
 
-Retrieve a C<Maximus::Class::Module::Source::SCM> type object
+Retrieve a L<Maximus::Class::Module::Source::SCM> type object
 
 =head1 AUTHOR
 

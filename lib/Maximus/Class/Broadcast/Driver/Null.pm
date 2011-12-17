@@ -22,10 +22,10 @@ Maximus::Class::Broadcast::Driver::Null - Test driver
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Driver::Null;
-	my $driver = Maximus::Class::Broadcast::Driver::Null->new;
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
-	$driver->say($msg);
+    use Maximus::Class::Broadcast::Driver::Null;
+    my $driver = Maximus::Class::Broadcast::Driver::Null->new;
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    $driver->say($msg);
 
 =head1 DESCRIPTION
 

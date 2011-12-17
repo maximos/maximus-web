@@ -35,8 +35,8 @@ archives
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module::Source::Archive;
-	my $source = Maximus::Class::Module::Source::Archive->new;
+    use Maximus::Class::Module::Source::Archive;
+    my $source = Maximus::Class::Module::Source::Archive->new;
 
 =head1 DESCRIPTION
 

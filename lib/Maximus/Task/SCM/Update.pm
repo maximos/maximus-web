@@ -103,8 +103,8 @@ Maximus::Task::SCM::Update - Update SCM configurations and modules
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::SCM::Update;
-	$task->run();
+    use Maximus::Task::SCM::Update;
+    $task->run();
 
 =head1 DESCRIPTION
 
@@ -114,7 +114,11 @@ Update module database.
 
 =head2 run
 
-Run task
+=head2 run($scm_id)
+
+=head2 run($scm_id, $ignore_latest_rev)
+
+Run task. Both 
 
 =head1 AUTHOR
 

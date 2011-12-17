@@ -52,10 +52,10 @@ Maximus::Role::Task - Interface for tasks
 
 =head1 SYNOPSIS
 
-	package Maximus::Task::Foo;
-	use Moose;
+    package Maximus::Task::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Task';
+    with 'Maximus::Role::Task';
 
 =head1 DESCRIPTION
 

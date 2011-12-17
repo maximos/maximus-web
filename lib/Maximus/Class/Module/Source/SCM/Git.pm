@@ -149,8 +149,8 @@ repository
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module::Source::SCM::Git;
-	my $source = Maximus::Class::Module::Source::SCM::Git->new;
+    use Maximus::Class::Module::Source::SCM::Git;
+    my $source = Maximus::Class::Module::Source::SCM::Git->new;
 
 =head1 DESCRIPTION
 

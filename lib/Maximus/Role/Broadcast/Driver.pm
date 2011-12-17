@@ -9,10 +9,10 @@ Maximus::Role::Broadcast::Driver - Base driver for Announcer
 
 =head1 SYNOPSIS
 
-	package Maximus::Class::Broadcast::Driver::Twitter;
-	use Moose;
+    package Maximus::Class::Broadcast::Driver::Twitter;
+    use Moose;
 
-	with 'Maximus::Role::Broadcast::Driver';
+    with 'Maximus::Role::Broadcast::Driver';
 
 =head1 DESCRIPTION
 

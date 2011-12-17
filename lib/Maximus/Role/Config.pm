@@ -24,10 +24,10 @@ Maximus::Role::Config - Role to access Maximus configuration
 
 =head1 SYNOPSIS
 
-	package Maximus::Script::Foo;
-	use Moose;
+    package Maximus::Script::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Config';
+    with 'Maximus::Role::Config';
 
 =head1 DESCRIPTION
 
@@ -37,9 +37,9 @@ This role gives access to the Maximus configuration
 
 =head2 cfg
 
-A HashRef with the configurat
+A HashRef with the configuration
 
-It's environment aware. Use MAXIMUS_CONFIG_LOCAL_SUFFIX to load the correct
+It's environment aware. Use I<MAXIMUS_CONFIG_LOCAL_SUFFIX> to load the correct
 config file
 
 =head1 AUTHOR
