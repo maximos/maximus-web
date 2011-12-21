@@ -8,6 +8,7 @@ use Maximus::Form::Account::Login;
 use Maximus::Form::Account::Signup;
 
 BEGIN { extends 'Catalyst::Controller'; }
+with 'Catalyst::TraitFor::Controller::reCAPTCHA';
 
 sub index : Path : Args(0) {
     my ($self, $c) = @_;
@@ -70,7 +71,12 @@ sub signup : Local {
     $form->process($c->req->parameters);
     $c->stash(form => $form);
 
-    if ($form->validated) {
+    # Only verify CAPTCHA if configured
+    $c->forward('captcha_check') if defined($c->config->{recaptcha});
+    my $recaptcha_ok =
+      defined($c->config->{recaptcha}) ? $c->stash->{recaptcha_ok} : 1;
+
+    if ($form->validated && $recaptcha_ok) {
         my $user =
           $c->find_user({username => $form->field('username')->value},
             'website');
@@ -112,6 +118,9 @@ sub signup : Local {
 
         $c->detach('/account/login');
     }
+
+    # Only verify CAPTCHA if configured
+    $c->forward('captcha_get') if defined($c->config->{recaptcha});
 }
 
 sub forgot_password : Local {

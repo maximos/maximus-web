@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added reCaptcha at signup form to prevent bot signups (gh-110)
     - Replaced Head JS with LABjs (gh-112)
 
 1.001000  2011-12-12
