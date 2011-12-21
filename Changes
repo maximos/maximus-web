@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Replaced Head JS with LABjs (gh-112)
+
 1.001000  2011-12-12
     - Module description no longer required. If omitted it'll try to detect the
       description from the module source file. This is both the case for manual

@@ -10,18 +10,16 @@
     <meta name="Website" content="Copyright 2010-[% date.format(date.now, '%Y') %] Christiaan Kras" />
     <link rel="alternate" type="application/rss+xml" title="[% c.config.name %] Timeline RSS Feed" href="[% c.uri_for('/timeline/rss') %]" /> 
     <link rel="alternate" type="application/atom+xml" title="[% c.config.name %] Timeline Atom Feed" href="[% c.uri_for('/timeline/atom') %]" /> 
-    [%- CALL c.assets.include('js/head.load.js', -1) -%]
+    [%- CALL c.assets.include('js/LAB.js', -1) -%]
     [%- CALL c.assets.include('css/reset-min.css', -6) -%]
     [%- CALL c.assets.include('css/styles.css', -5) -%]
     [%- CALL c.assets.include('css/styles-other.css', -4) -%]
     [% c.assets.export %]
     
     <script type="text/javascript">
-        head.js(
-            '/static/js/mootools-core-1.4.2.js',
-            '/static/js/mootools-more-1.4.0.1.js',
-            '/static/js/template.js?[% c.config.timestamp %]'
-        );
+        $LAB.script('/static/js/mootools-core-1.4.2.js').wait()
+            .script('/static/js/mootools-more-1.4.0.1.js').wait()
+            .script('/static/js/template.js?[% c.config.timestamp %]');
     </script>
     <!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
 </head>
