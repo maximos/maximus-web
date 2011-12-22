@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added tests for Form roles (gh-72)
     - maximus_worker.pl and maximus_task.pl now have an assigned process name,
       set by $0 (gh-109)
     - Added reCaptcha at signup form to prevent bot signups (gh-110)
