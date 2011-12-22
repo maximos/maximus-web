@@ -34,6 +34,7 @@ has 'verbose' => (
 
 sub run {
     my $self = shift;
+
     # Set process name
     $0 = "Maximus Worker";
     $self->_run_application;

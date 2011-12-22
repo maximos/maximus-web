@@ -32,6 +32,7 @@ has 'dump_response' => (
 
 sub run {
     my $self = shift;
+
     # Set process name
     $0 = "Maximus Task";
     $self->_run_application;
