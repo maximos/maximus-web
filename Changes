@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - maximus_worker.pl and maximus_task.pl now have an assigned process name,
+      set by $0 (gh-109)
     - Added reCaptcha at signup form to prevent bot signups (gh-110)
     - Replaced Head JS with LABjs (gh-112)
 
