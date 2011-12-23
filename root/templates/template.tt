@@ -64,13 +64,13 @@
 [% IF c.config.google_analytics_id.length == 12 %]
     <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    head.js(gaJsHost + 'google-analytics.com/ga.js');
-    head.ready(function() {
-        try {
-        var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
-        pageTracker._trackPageview();
-        } catch(err) {}
-    });
+    $LAB.script(gaJsHost + 'google-analytics.com/ga.js')
+        .wait(function() {
+            try {
+            var pageTracker = _gat._getTracker("[% c.config.google_analytics_id %]");
+            pageTracker._trackPageview();
+            } catch(err) {}
+        });
     </script>
 [% END %]
 </body>
