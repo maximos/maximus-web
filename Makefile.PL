@@ -31,6 +31,7 @@ requires 'Catalyst::View::XML::Feed'                    => '0.03';
 requires 'Cache::Cache'                                 => '1.06';
 requires 'Config::General'                              => '2.49';
 requires 'CSS::Minifier::XS'                            => '0.05';
+requires 'Data::SearchEngine'                           => '0.32';
 requires 'DateTime'                                     => '0.61';
 requires 'DateTime::Format::MySQL'                      => '0.04';
 requires 'DBD::mysql'                                   => '4.016';
