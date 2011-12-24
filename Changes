@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - When using MySQL please take over the extra settings from the default
+      config file: on_connect_call and on_connect_do
     - Added tests for Form roles (gh-72)
     - maximus_worker.pl and maximus_task.pl now have an assigned process name,
       set by $0 (gh-109)
