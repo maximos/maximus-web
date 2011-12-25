@@ -36,7 +36,7 @@ sub search : Local {
       if $c->request->method eq 'POST'
           && $form->validated;
 
-    if (length($params->{query}) > 0) {
+    if (defined($params->{query}) && length($params->{query}) > 0) {
         my $se =
           Maximus::SearchEngine::Module->new(
             schema => $c->model('DB')->schema);
