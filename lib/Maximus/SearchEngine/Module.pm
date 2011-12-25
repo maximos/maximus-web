@@ -13,18 +13,21 @@ sub search {
     my ($self, $query) = @_;
 
     # search for matching modules
-    my $rs   = $self->schema->resultset('Module');
-    my %like = (like => '%' . $query->query . '%');
+    my $rs     = $self->schema->resultset('Module');
+    my %like   = (like => '%' . $query->query . '%');
+    my $search = {
+        -or => [
+            'me.name'       => \%like,
+            'me.desc'       => \%like,
+            'modscope.name' => \%like,
+            \[  "(modscope.name || '.' || me.name) = ?",
+                [val => $query->query]
+            ]
+        ],
+    };
+    my $total_hits = $rs->search($search, {join => 'modscope'})->count;
     my @hits = $rs->search(
-        {   -or => [
-                'me.name'       => \%like,
-                'me.desc'       => \%like,
-                'modscope.name' => \%like,
-                \[  "(modscope.name || '.' || me.name) = ?",
-                    [val => $query->query]
-                ]
-            ],
-        },
+        $search,
         {   join     => 'modscope',
             prefetch => 'modscope',
             rows     => $query->count,
@@ -37,7 +40,7 @@ sub search {
         pager => Data::SearchEngine::Paginator->new(
             current_page     => $query->page,
             entries_per_page => $query->count,
-            total_entries    => scalar @hits,
+            total_entries    => $total_hits,
         )
     );
 
