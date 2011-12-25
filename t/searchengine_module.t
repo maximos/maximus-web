@@ -12,7 +12,7 @@ my $se = new_ok('Maximus::SearchEngine::Module' => [(schema => $schema)]);
 
 can_ok($se, qw( search find_by_id));
 
-my ($scope, $mod, $desc) = ('search', 'engine', 'search engine test');
+my ($scope, $mod, $desc) = ('search', 'engine', 'search engine az');
 
 # Save a new module for querying
 my $module = Maximus::Class::Module->new(
@@ -30,7 +30,7 @@ my $user = $schema->resultset('User')->create(
 $module->save($user);
 
 # Try several keywords
-foreach (qw(search engine search.engine test)) {
+foreach (qw(search engine search.engine az)) {
     my $query =
       Data::SearchEngine::Query->new(count => 10, page => 1, query => $_);
     ok(my $results = $se->search($query), 'Search for ' . $_);
