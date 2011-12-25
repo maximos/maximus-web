@@ -44,7 +44,7 @@ sub search : Local {
             page  => int($page),
             query => $params->{query},
         );
-        $c->stash->{search_results} = $se->search($query)->items;
+        $c->stash->{search_results} = $se->search($query);
     }
 
     if (ref($c->engine) =~ /SubRequest/) {
