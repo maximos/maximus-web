@@ -1,4 +1,4 @@
-<h2>Search for modules</h2>
+<h1>Search for modules</h1>
 <form method="post" action="[% c.uri_for('/module/search') %]" class="jsForm">
     <dl class="skinFieldGroup">
         [% INCLUDE form/input.tt field='query' input_type='text' %]
