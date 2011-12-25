@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added basic module search functionality (gh-33)
     - When using MySQL please take over the extra settings from the default
       config file: on_connect_call and on_connect_do
     - Added tests for Form roles (gh-72)
