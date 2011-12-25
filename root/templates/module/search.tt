@@ -20,7 +20,7 @@
         <p>
         [% IF page.previous_page %]
             <a href="[% c.uri_for('/module/search', form.field('query').fif, page.previous_page) %]">Previous</a>
-        [% ELSE %]
+        [% ELSIF page.last_page != page.current_page %]
             <span>Previous</span>
         [% END %]
             [Page <strong>[% page.current_page %]</strong> of <strong>[% page.last_page %]</strong>]
