@@ -1,34 +1,32 @@
-package Maximus::View::TT;
+package Maximus::Form::Module::Search;
+use HTML::FormHandler::Moose;
+extends 'HTML::FormHandler';
 
-use strict;
-use warnings;
-use Moose;
-
-extends 'Catalyst::View::TT';
-with 'Catalyst::View::Component::SubInclude';
-
-__PACKAGE__->config(
-    TEMPLATE_EXTENSION => '.tt',
-    render_die         => 1,
-    PRE_CHOMP          => 1,
-    CATALYST_VAR       => 'c',
-    INCLUDE_PATH       => [Maximus->path_to('root', 'templates')],
-    WRAPPER            => 'template.tt',
-    COMPILE_EXT        => '.ttc',
-    COMPILE_DIR        => Maximus->path_to('root', 'templates_compiled'),
+has_field 'query' => (
+    type             => 'Text',
+    label            => 'Keyword',
+    minLength        => 2,
+    maxlength        => 25,
+    required         => 1,
+    required_message => 'You must enter a search query',
+    css_class        => 'required minLength:2 maxLength:25',
 );
+
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Maximus::View::TT - TT View for Maximus
+Maximus::Form::Module::Search - Module search form
 
 =head1 DESCRIPTION
 
-TT View for Maximus.
+Module search form
 
-=head1 SEE ALSO
+=head1 Attributes
 
-L<Maximus>
+=head2 query
+
+The search query to execute
 
 =head1 AUTHOR
 

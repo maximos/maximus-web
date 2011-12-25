@@ -1,8 +1,11 @@
 package Maximus::Controller::Module;
+use Data::SearchEngine::Query;
 use Digest::MD5 qw(md5_hex);
 use IO::File;
 use JSON::Any;
+use Maximus::Form::Module::Search;
 use Maximus::Task::Module::Upload;
+use Maximus::SearchEngine::Module;
 use version;
 use XML::Simple;
 use Moose;
@@ -14,6 +17,39 @@ sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
     $c->response->redirect($c->uri_for('modscopes'));
+}
+
+sub search : Local {
+    my ($self, $c, $query_str, $page) = @_;
+
+    $page ||= 1;
+
+    my $form   = Maximus::Form::Module::Search->new;
+    my $params = $c->req->parameters;
+    $params->{query} ||= $query_str;
+    $form->process($params) if length($params->{query}) > 0;
+    $c->stash(form => $form);
+
+    $c->response->redirect($c->uri_for('search', $params->{query}, $page))
+      && $c->detach
+      if $c->request->method eq 'POST'
+          && $form->validated;
+
+    if (length($params->{query}) > 0) {
+        my $se =
+          Maximus::SearchEngine::Module->new(
+            schema => $c->model('DB')->schema);
+        my $query = Data::SearchEngine::Query->new(
+            count => 15,
+            page  => int($page),
+            query => $params->{query},
+        );
+        $c->stash->{search_results} = $se->search($query);
+    }
+
+    if (ref($c->engine) =~ /SubRequest/) {
+        $c->stash(subreq => 1);
+    }
 }
 
 sub modscopes : Local {
@@ -231,6 +267,10 @@ Catalyst Controller for Modules;
 =head1 METHODS
 
 =head2 index
+
+=head2 search
+
+Search for modules. Can be SubRequested.
 
 =head2 modscopes
 

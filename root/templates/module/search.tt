@@ -1,0 +1,37 @@
+<h1>Search for modules</h1>
+<form method="post" action="[% c.uri_for('/module/search') %]" class="jsForm">
+    <dl class="skinFieldGroup">
+        [% INCLUDE form/input.tt field='query' input_type='text' %]
+        <dd><input type="submit" name="submit" value="Search" /></dd>
+    </dl>
+</form>
+
+[% IF form.field('query').fif.length > 0 %]
+    <h2>Search Results</h2>
+    [% IF search_results.as_list.size > 0 %]
+        <div class="jsRoundedBox">
+        [% FOR result IN search_results.items.as_list %]
+            [% "<ol id=\"modlist\">" IF loop.first %]
+            <li><a href="[% c.uri_for('/module', result.get_value('scope'), result.get_value('mod')) %]">[% result.get_value('scope') | html %].[% result.get_value('mod') | html %]</a> [% result.get_value('desc') | html %]</li>
+            [% "</ol>" IF loop.last %]
+        [% END %]
+
+        [% page = search_results.pager %]
+        <p>
+        [% IF page.previous_page %]
+            <a href="[% c.uri_for('/module/search', form.field('query').fif, page.previous_page) %]">Previous</a>
+        [% ELSIF page.last_page != page.current_page %]
+            <span>Previous</span>
+        [% END %]
+            [Page <strong>[% page.current_page %]</strong> of <strong>[% page.last_page %]</strong>]
+        [% IF page.next_page %]
+            <a href="[% c.uri_for('/module/search', form.field('query').fif, page.next_page) %]">Next</a>
+        [% END %]
+        </p>
+        </div>
+    [% ELSE %]
+        <div class="jsRoundedBox">
+            <div class="jsErrorBox">No matching modules found</div>
+        </div>
+    [% END %]
+[% END %]
