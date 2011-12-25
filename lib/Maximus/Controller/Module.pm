@@ -268,6 +268,10 @@ Catalyst Controller for Modules;
 
 =head2 index
 
+=head2 search
+
+Search for modules. Can be SubRequested.
+
 =head2 modscopes
 
 Display all modscopes
