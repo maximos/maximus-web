@@ -3,11 +3,13 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
 
 has_field 'query' => (
-    type      => 'Text',
-    label     => 'Keyword',
-    minLength => 2,
-    maxlength => 25,
-    required  => 1,
+    type             => 'Text',
+    label            => 'Keyword',
+    minLength        => 2,
+    maxlength        => 25,
+    required         => 1,
+    required_message => 'You must enter a search query',
+    css_class        => 'required minLength:2 maxLength:25',
 );
 
 __PACKAGE__->meta->make_immutable;
