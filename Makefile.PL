@@ -25,6 +25,7 @@ requires 'Catalyst::Plugin::StackTrace'                 => '0.11';
 requires 'Catalyst::Plugin::Static::Simple'             => '0.29';
 requires 'Catalyst::Plugin::RequireSSL'                 => '0.06';
 requires 'Catalyst::TraitFor::Controller::reCAPTCHA'    => '1.112960';
+requires 'Catalyst::View::Component::SubInclude'        => '0.10';
 requires 'Catalyst::View::Email'                        => '0.30';
 requires 'Catalyst::View::TT'                           => '0.34';
 requires 'Catalyst::View::XML::Feed'                    => '0.03';

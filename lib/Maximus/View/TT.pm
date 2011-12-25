@@ -2,8 +2,10 @@ package Maximus::View::TT;
 
 use strict;
 use warnings;
+use Moose;
 
-use base 'Catalyst::View::TT';
+extends 'Catalyst::View::TT';
+with 'Catalyst::View::Component::SubInclude';
 
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
