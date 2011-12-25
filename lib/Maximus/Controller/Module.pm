@@ -40,7 +40,7 @@ sub search : Local {
           Maximus::SearchEngine::Module->new(
             schema => $c->model('DB')->schema);
         my $query = Data::SearchEngine::Query->new(
-            count => 10,
+            count => 15,
             page  => int($page),
             query => $params->{query},
         );
