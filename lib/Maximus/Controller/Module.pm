@@ -46,6 +46,10 @@ sub search : Local {
         );
         $c->stash->{search_results} = $se->search($query)->items;
     }
+
+    if (ref($c->engine) =~ /SubRequest/) {
+        $c->stash(subreq => 1);
+    }
 }
 
 sub modscopes : Local {

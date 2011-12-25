@@ -1,3 +1,5 @@
+[% subinclude('/module/search') %]
+
 <h1>Modscope</h1>
 <div class="jsRoundedBox">
     [% FOR modscope IN modscopes %]
