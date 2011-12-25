@@ -27,7 +27,8 @@ sub search : Local {
     my $form   = Maximus::Form::Module::Search->new;
     my $params = $c->req->parameters;
     $params->{query} ||= $query_str;
-    $form->process($params) if length($params->{query}) > 0;
+    $form->process($params)
+      if defined($params->{query}) && length($params->{query}) > 0;
     $c->stash(form => $form);
 
     $c->response->redirect($c->uri_for('search', $params->{query}, $page))
