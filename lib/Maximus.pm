@@ -3,7 +3,7 @@ use 5.10.1;
 use Moose;
 use namespace::autoclean;
 
-use Catalyst::Runtime 5.80;
+use Catalyst::Runtime 5.90;
 use Catalyst qw/
   ConfigLoader
   Compress::Gzip
