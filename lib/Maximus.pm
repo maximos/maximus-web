@@ -3,7 +3,7 @@ use 5.10.1;
 use Moose;
 use namespace::autoclean;
 
-use Catalyst::Runtime 5.80;
+use Catalyst::Runtime 5.90;
 use Catalyst qw/
   ConfigLoader
   Compress::Gzip
@@ -25,7 +25,7 @@ use Template::Stash;
 
 extends 'Catalyst';
 
-our $VERSION = '1.001000';
+our $VERSION = '1.002000';
 $VERSION = eval $VERSION;
 
 # Configure the application.
