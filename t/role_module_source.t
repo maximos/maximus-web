@@ -81,10 +81,10 @@ like($e->user_msg, qr/version mismatch/, 'Version mismatch');
 my $zip             = new_ok('Archive::Zip' => [$fh->filename]);
 my @gotMembers      = sort($zip->memberNames());
 my @expectedMembers = sort('mod1.mod/', 'mod1.mod/mod1.bmx',
-    'mod1.mod/dummy.o',   'mod1.mod/doc/',
-    'mod1.mod/examples/', 'mod1.mod/examples/example.bmx',
-    'mod1.mod/inc/',      'mod1.mod/inc/more_imports.bmx',
-    'mod1.mod/inc/other_imports.bmx',);
+    'mod1.mod/dummy.o',               'mod1.mod/doc/',
+    'mod1.mod/examples/',             'mod1.mod/examples/example.bmx',
+    'mod1.mod/inc/',                  'mod1.mod/inc/more_imports.bmx',
+    'mod1.mod/inc/other_imports.bmx', 'mod1.mod/inc/include.bmx');
 is_deeply(\@gotMembers, \@expectedMembers,
     'Archive contains expected content');
 
@@ -100,6 +100,7 @@ eval {
 
 if (my $e = Maximus::Exception::Module::Source->caught()) {
     fail('Dependency check');
+    diag $e;
 }
 
 done_testing();
