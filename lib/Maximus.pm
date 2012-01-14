@@ -3,7 +3,7 @@ use 5.10.1;
 use Moose;
 use namespace::autoclean;
 
-use Catalyst::Runtime 5.80;
+use Catalyst::Runtime 5.90;
 use Catalyst qw/
   ConfigLoader
   Compress::Gzip
@@ -18,13 +18,14 @@ use Catalyst qw/
   Session::Store::DBIC
   Session::State::Cookie
   StackTrace
+  SubRequest
   /;
 use Log::Log4perl::Catalyst;
 use Template::Stash;
 
 extends 'Catalyst';
 
-our $VERSION = '1.001000';
+our $VERSION = '1.002000';
 $VERSION = eval $VERSION;
 
 # Configure the application.
@@ -119,7 +120,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -149,8 +149,8 @@ repository
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Module::Source::SCM::Git;
-	my $source = Maximus::Class::Module::Source::SCM::Git->new;
+    use Maximus::Class::Module::Source::SCM::Git;
+    my $source = Maximus::Class::Module::Source::SCM::Git->new;
 
 =head1 DESCRIPTION
 
@@ -204,7 +204,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

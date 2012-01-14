@@ -8,6 +8,7 @@ use File::Slurp;
 use File::Temp;
 use Maximus::Exceptions;
 use Maximus::Class::Lexer;
+use Path::Class;
 use version;
 
 has 'version' => (is => 'rw', isa => 'Str', default => '');
@@ -127,7 +128,9 @@ sub _findDependencies {
             push @deps, [split /\./, lc($_->[1])];
         }
         elsif ($_->[0] eq 'INCLUDE_FILE') {
-            my $path = $self->processDir . '/' . $_->[1];
+            my $path =
+              Path::Class::File->new($filename)->dir->absolute . '/'
+              . $_->[1];
             @deps = (@deps, $self->_findDependencies($mod, $path));
         }
     }
@@ -227,10 +230,10 @@ Maximus::Role::Module::Source - Interface for module source handlers
 
 =head1 SYNOPSIS
 
-	package Maximus::Class::Module::Source::SCM::Foo;
-	use Moose;
+    package Maximus::Class::Module::Source::SCM::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Module::Source';
+    with 'Maximus::Role::Module::Source';
 
 =head1 DESCRIPTION
 
@@ -298,7 +301,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

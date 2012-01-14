@@ -1,8 +1,23 @@
-This is the web front- and backend for Maximus.
+|  \/  |  __ _ __  __(_) _ __ ___   _   _  ___
+| |\/| | / _` |\ \/ /| || '_ ` _ \ | | | |/ __|
+| |  | || (_| | >  < | || | | | | || |_| |\__ \
+|_|  |_| \__,_|/_/\_\|_||_| |_| |_| \__,_||___/
+
+This is the web front- and backend for Maximus. Maximus is a BlitzMax module
+manager.
 
 maximus-web is responsible for keeping an up to date BlitzMax module repository.
 Its main tasks consists of fetching modules and packing them to a useable archive
 format for maximus, the commandline application.
 
+GETTING STARTED
+
+At http://maximus.htbaa.com you can find a running version of maximus-web. But
+if you want to host your own, perhaps private, version of maximus-web you should
+start with the INSTALL file.
+
 Run script/maximus_server.pl to test the application.
 
+LICENSE
+
+This software is licensed under the MIT license. Please see the COPYING file.

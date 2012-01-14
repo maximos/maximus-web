@@ -103,8 +103,8 @@ Maximus::Task::SCM::Update - Update SCM configurations and modules
 
 =head1 SYNOPSIS
 
-	use Maximus::Task::SCM::Update;
-	$task->run();
+    use Maximus::Task::SCM::Update;
+    $task->run();
 
 =head1 DESCRIPTION
 
@@ -114,7 +114,11 @@ Update module database.
 
 =head2 run
 
-Run task
+=head2 run($scm_id)
+
+=head2 run($scm_id, $ignore_latest_rev)
+
+Run task. Both 
 
 =head1 AUTHOR
 
@@ -122,7 +126,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

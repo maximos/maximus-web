@@ -1,5 +1,17 @@
 Revision history for Maximus.
 
+1.002000  2012-01-14
+    - Fixed a bug in the algorithm that searches for module dependencies. When
+      subdirectories included files the algorithm would fail (gh-115)
+    - Added basic module search functionality (gh-33)
+    - When using MySQL please take over the extra settings from the default
+      config file: on_connect_call and on_connect_do
+    - Added tests for Form roles (gh-72)
+    - maximus_worker.pl and maximus_task.pl now have an assigned process name,
+      set by $0 (gh-109)
+    - Added reCaptcha at signup form to prevent bot signups (gh-110)
+    - Replaced Head JS with LABjs (gh-112)
+
 1.001000  2011-12-12
     - Module description no longer required. If omitted it'll try to detect the
       description from the module source file. This is both the case for manual

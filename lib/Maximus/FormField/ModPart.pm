@@ -17,7 +17,7 @@ Maximus::FormField::ModPart - Module part field
 
 =head1 DESCRIPTION
 
-This module provides a Moudle part field to a L<HTML::FormHandler> form.
+This module provides a Module part field to a L<HTML::FormHandler> form.
 
 =head1 AUTHOR
 
@@ -25,7 +25,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

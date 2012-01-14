@@ -15,7 +15,7 @@ Maximus::Exceptions - All Exceptions in Maximus
 
 =head1 SYNOPSIS
 
-	use Maximus::Exceptions;
+    use Maximus::Exceptions;
 
 =head1 DESCRIPTION
 
@@ -49,7 +49,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

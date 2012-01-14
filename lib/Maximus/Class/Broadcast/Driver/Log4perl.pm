@@ -23,12 +23,12 @@ Maximus::Class::Broadcast::Driver::Log4perl - Log4perl driver
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Driver::Log4perl;
-	my $driver = Maximus::Class::Broadcast::Driver::Log4perl->new(
-		logger => Log::Log4perl->get_logger(),
-	);
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
-	$driver->say($msg);
+    use Maximus::Class::Broadcast::Driver::Log4perl;
+    my $driver = Maximus::Class::Broadcast::Driver::Log4perl->new(
+        logger => Log::Log4perl->get_logger(),
+    );
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    $driver->say($msg);
 
 =head1 DESCRIPTION
 
@@ -53,7 +53,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

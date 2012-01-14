@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    head.js('/static/js/scm/configuration.js?[% c.config.timestamp %]');
+    $LAB.script('/static/js/scm/configuration.js?[% c.config.timestamp %]');
 </script>
 <h1>SCM Configuration</h1>
 

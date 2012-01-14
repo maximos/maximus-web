@@ -29,10 +29,10 @@ Maximus::Class::Broadcast::Driver::Database - Database driver
 
 =head1 SYNOPSIS
 
-	use Maximus::Class::Broadcast::Driver::Database;
-	my $driver = Maximus::Class::Broadcast::Driver::Database->new;
-	my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
-	$driver->say($msg);
+    use Maximus::Class::Broadcast::Driver::Database;
+    my $driver = Maximus::Class::Broadcast::Driver::Database->new;
+    my $msg = Maximus::Class::Broadcast::Message->new(text => 'Hello world!');
+    $driver->say($msg);
 
 =head1 DESCRIPTION
 
@@ -58,7 +58,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -62,7 +62,7 @@ Role for SCM tasks.
 
 =head2
 
-Retrieve a C<Maximus::Class::Module::Source::SCM> type object
+Retrieve a L<Maximus::Class::Module::Source::SCM> type object
 
 =head1 AUTHOR
 
@@ -70,7 +70,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

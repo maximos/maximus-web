@@ -2,8 +2,10 @@ package Maximus::View::TT;
 
 use strict;
 use warnings;
+use Moose;
 
-use base 'Catalyst::View::TT';
+extends 'Catalyst::View::TT';
+with 'Catalyst::View::Component::SubInclude';
 
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
@@ -34,7 +36,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

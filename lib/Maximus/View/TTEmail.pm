@@ -22,7 +22,7 @@ Maximus::View::TTEmail - TT View for Maximus
 
 =head1 DESCRIPTION
 
-TT View for Maximus::View::Email::Template.
+TT View for L<Maximus::View::Email::Template>.
 
 =head1 SEE ALSO
 
@@ -34,7 +34,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

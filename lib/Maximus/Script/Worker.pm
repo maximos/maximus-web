@@ -34,6 +34,9 @@ has 'verbose' => (
 
 sub run {
     my $self = shift;
+
+    # Set process name
+    $0 = "Maximus Worker";
     $self->_run_application;
 }
 
@@ -86,7 +89,7 @@ Maximus::Script::Worker - Maximus Gearman worker
 
 =head1 SYNOPSIS
 
-	maximus_worker.pl [options]
+    maximus_worker.pl [options]
 
 =head1 DESCRIPTION
 
@@ -114,7 +117,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

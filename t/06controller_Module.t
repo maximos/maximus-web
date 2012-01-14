@@ -32,4 +32,10 @@ $version->update({remote_location => 'http://www.google.com'});
 $req = request('/module/download/test/mod1/1.1.15');
 ok($req->is_redirect, 'Request has been redirected');
 
+like(get('/module/search'), qr/search for modules/i);
+my $content = get('/module/search/test/1');
+like($content, qr/test\.mod1/i);
+like($content, qr/my test module/i);
+like(get('/module/search/abcdefg/1'), qr/no matching modules found/i);
+
 done_testing();

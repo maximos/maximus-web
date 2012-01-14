@@ -52,10 +52,10 @@ Maximus::Role::Task - Interface for tasks
 
 =head1 SYNOPSIS
 
-	package Maximus::Task::Foo;
-	use Moose;
+    package Maximus::Task::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Task';
+    with 'Maximus::Role::Task';
 
 =head1 DESCRIPTION
 
@@ -97,7 +97,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

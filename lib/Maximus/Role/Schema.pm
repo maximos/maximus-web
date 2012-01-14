@@ -20,14 +20,14 @@ Maximus::Role::Schema - Role to access Maximus::Schema
 
 =head1 SYNOPSIS
 
-	package Maximus::Script::Foo;
-	use Moose;
+    package Maximus::Script::Foo;
+    use Moose;
 
-	with 'Maximus::Role::Schema';
+    with 'Maximus::Role::Schema';
 
 =head1 DESCRIPTION
 
-This role gives access to a configured L<Maximus::Schema>> object
+This role gives access to a configured L<Maximus::Schema> object
 
 =head1 ATTRIBUTES
 
@@ -41,7 +41,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

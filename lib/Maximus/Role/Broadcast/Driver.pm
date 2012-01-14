@@ -9,10 +9,10 @@ Maximus::Role::Broadcast::Driver - Base driver for Announcer
 
 =head1 SYNOPSIS
 
-	package Maximus::Class::Broadcast::Driver::Twitter;
-	use Moose;
+    package Maximus::Class::Broadcast::Driver::Twitter;
+    use Moose;
 
-	with 'Maximus::Role::Broadcast::Driver';
+    with 'Maximus::Role::Broadcast::Driver';
 
 =head1 DESCRIPTION
 
@@ -31,7 +31,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

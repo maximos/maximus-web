@@ -32,6 +32,9 @@ has 'dump_response' => (
 
 sub run {
     my $self = shift;
+
+    # Set process name
+    $0 = "Maximus Task";
     $self->_run_application;
 }
 
@@ -54,7 +57,7 @@ Maximus::Script::Task - Maximus taskrunner
 
 =head1 SYNOPSIS
 
-	maximus_task.pl [options]
+    maximus_task.pl --queue --dump_response --task Other::SessionExpire
 
 =head1 DESCRIPTION
 
@@ -64,7 +67,7 @@ Runs a task for Maximus
 
 =head2 task
 
-Name of task to execute, e.g. C<Module::Update>
+Name of task to execute, e.g. C<SCM::Update> for L<Maximus::Task::SCM::Update>
 
 =head2 queue
 
@@ -86,7 +89,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2011 Christiaan Kras
+Copyright (c) 2010-2012 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
