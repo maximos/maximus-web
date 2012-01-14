@@ -8,6 +8,7 @@ use File::Slurp;
 use File::Temp;
 use Maximus::Exceptions;
 use Maximus::Class::Lexer;
+use Path::Class;
 use version;
 
 has 'version' => (is => 'rw', isa => 'Str', default => '');
@@ -127,7 +128,9 @@ sub _findDependencies {
             push @deps, [split /\./, lc($_->[1])];
         }
         elsif ($_->[0] eq 'INCLUDE_FILE') {
-            my $path = $self->processDir . '/' . $_->[1];
+            my $path =
+              Path::Class::File->new($filename)->dir->absolute . '/'
+              . $_->[1];
             @deps = (@deps, $self->_findDependencies($mod, $path));
         }
     }
