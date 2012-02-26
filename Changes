@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Updated MooTools-Core to 1.4.4
+
 1.002000  2012-01-14
     - Fixed a bug in the algorithm that searches for module dependencies. When
       subdirectories included files the algorithm would fail (gh-115)
