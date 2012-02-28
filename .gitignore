@@ -1,5 +1,6 @@
 .*
 !.gitignore
+!.travis.yml
 Makefile*
 !Makefile.PL
 META.yml
