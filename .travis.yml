@@ -5,6 +5,6 @@ perl:
 env:
     - MAXIMUS_CONFIG_LOCAL_SUFFIX=testing
 before_install:
-    - apt-get install subversion git-core
+    - sudo apt-get install subversion git-core
     - cpanm -n Module::Install
     - cpanm -n Catalyst::Devel
