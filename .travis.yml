@@ -4,3 +4,7 @@ perl:
     - "5.12"
 env:
     - MAXIMUS_CONFIG_LOCAL_SUFFIX=testing
+before_install:
+	- apt-get subversion git-core
+	- cpanm -n Module::Install
+	- cpanm -n Catalyst::Devel
