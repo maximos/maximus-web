@@ -111,3 +111,8 @@
     and configure the client.</p>
     <iframe width="640" height="480" src="http://www.youtube.com/embed/FBEVIfRRwlQ" frameborder="0" allowfullscreen></iframe>
 </div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>We need your help!</h2>
+    [% PROCESS pledgie.tt %]
+</div>
