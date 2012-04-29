@@ -55,7 +55,6 @@ requires 'JSON::Any'                                    => '1.22';
 requires 'local::lib'                                   => '1.006005';
 requires 'Log::Dispatch'                                => '2.26';
 requires 'Log::Log4perl'                                => '1.28';
-requires 'Log::Log4perl::Catalyst'                      => '1.34';
 requires 'File::Type'                                   => '0.22';
 requires 'Moose'                                        => '2.0007';
 requires 'MooseX::NonMoose'                             => '0.20';

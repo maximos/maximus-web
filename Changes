@@ -1,5 +1,9 @@
 Revision history for Maximus.
 
+1.002002  2012-04-29
+    - Forgot to update link to MooTools-Core 1.4.5
+    - Removed Log::Log4perl::Catalyst dependency, it's provided by Log::Log4perl
+
 1.002001  2012-04-29
     - Added Pledgie button to the Client page
     - Added screencast to the Client page
