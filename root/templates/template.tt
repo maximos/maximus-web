@@ -18,7 +18,7 @@
     [% c.assets.export %]
     
     <script type="text/javascript">
-        $LAB.script('/static/js/mootools-core-1.4.4.js').wait()
+        $LAB.script('/static/js/mootools-core-1.4.5.js').wait()
             .script('/static/js/mootools-more-1.4.0.1.js').wait()
             .script('/static/js/template.js?[% c.config.timestamp %]');
     </script>
