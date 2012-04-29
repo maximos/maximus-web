@@ -1,0 +1,9 @@
+language: perl
+perl:
+    - "5.14"
+    - "5.12"
+env:
+    - MAXIMUS_CONFIG_LOCAL_SUFFIX=testing
+before_install:
+    - cpanm -n Module::Install
+    - cpanm -n Catalyst::Devel

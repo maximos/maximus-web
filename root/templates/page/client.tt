@@ -93,3 +93,26 @@
         </li>
     </ul>
 </div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>Screenshots</h2>
+    <h3>[% c.config.name %] GUI</h3>
+    <p>For those who don't like the CLI we also provide a Graphical User Interface.
+    The GUI has been available since version 1.1.0.</p>
+    <p><img src="/static/images/client/gui.png" width="682" height="505" alt="gui" title="[% c.config.name %] GUI" /></p>
+    <h3>[% c.config.name %] CLI</h3>
+    <p>If you don't like using a Graphical User Interface then there's also the Command Line Interface.</p>
+    <p><img src="/static/images/client/cli.png" width="677" height="252" alt="cli" title="[% c.config.name %] Command Line Interface" /></p>
+</div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>Screencast</h2>
+    <p>Here's a screencast that's based on [% c.config.name %] 0.9.0. It explains how to install
+    and configure the client.</p>
+    <iframe width="640" height="480" src="http://www.youtube.com/embed/FBEVIfRRwlQ" frameborder="0" allowfullscreen></iframe>
+</div>
+<p>&nbsp;</p>
+<div class="jsRoundedBox">
+    <h2>We need your help!</h2>
+    [% PROCESS pledgie.tt %]
+</div>
