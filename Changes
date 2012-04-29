@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added screencast to the Client page
     - Updated Catalyst::Plugin::RequireSSL to 0.07 (gh-116)
     - Updated MooTools-Core to 1.4.5
 
