@@ -11,7 +11,7 @@ use Path::Class;
 
 our $GIT =
   $^O eq 'MSWin32'
-  ? '"C:\Program Files\Git\cmd\git.cmd"'
+  ? 'git'
   : '/usr/bin/env git';
 
 has 'repository' => (is => 'ro', isa => 'Str', required => 1);

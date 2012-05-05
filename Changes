@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+    - When using Windows it's now expected that git is accessible from the
+      command line and has been set in PATH
+
 1.002002  2012-04-29
     - Forgot to update link to MooTools-Core 1.4.5
     - Removed Log::Log4perl::Catalyst dependency, it's provided by Log::Log4perl
