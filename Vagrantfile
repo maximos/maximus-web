@@ -18,6 +18,8 @@ Vagrant::Config.run do |config|
     config.vm.forward_port 3000, 3000
     config.vm.forward_port 22, 2222
 
+    config.vm.customize ["modifyvm", :id, "--memory", 512]
+
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "puppet/manifests"
         puppet.module_path = "puppet/modules"
