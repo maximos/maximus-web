@@ -1,7 +1,46 @@
+VAGRANT
+
+Instead of using this installation guide it's recommended to download Vagrant
+(http://vagrantup.com) and Virtual Box (http://virtualbox.org). Maximus-web now
+comes with a Vagrantfile which means that you can let Vagrant setup a virtual
+machine which has all the required software and libraries installed. It'll also
+setup a default configuration file and prepare the database. This is the
+recommened way to go if you plan to start doing development on maximus-web.
+
+Just go the the maximus-web project directory and fire up Vagrant, like this:
+
+    $ vagrant up
+
+Vagrant will now create the virtual machine and prepares it to be used with
+Maximus. It has been set to display a GUI with a terminal. Once Puppet
+provisioning has completed go to the terminal, login with username 'vagrant' and
+password 'vagrant' and execute these commands:
+
+    $ cd /vagrant
+    $ perl script/maximus_server.pl -r -d &
+    $ perl script/maximus_worker.pl &
+
+This will fire up the webservice and a worker. Because they'll both be running
+in the background the terminal will get a bit messed up with log messages. Once
+both fired up direct your browser to http://localhost:3000 and you should see
+the Maximus website.
+
+Whenever you update your local clone of maximus-web and it has had database
+changes you need to upgrade your database. Execute this from the terminal:
+
+    $ perl script/maximus_sql-upgrade.pl
+
+Or simply destroy the virtual machine and let Vagrant setup a new one:
+
+    $ vagrant destroy
+    $ vagrant up
+
 INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 
 This guide is intended to help you install maximus-web on Ubuntu 10.04. Although
 targeted at 10.04 the steps are probably not much different for older versions.
+You should follow this guide if you plan to run maximus-web on a production
+server. Usage of Vagrant is only recommended for development.
 
 First, make sure all required software is installed
 
