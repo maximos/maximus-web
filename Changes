@@ -1,6 +1,6 @@
 Revision history for Maximus.
 
-    - When using Windows it's now expected that git is accessible from the
+    - When using Windows it's now expected that Git is accessible from the
       command line and has been set in PATH
 
 1.002002  2012-04-29

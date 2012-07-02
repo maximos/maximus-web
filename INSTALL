@@ -116,7 +116,7 @@ Plack has plackup which works on Windows as well
 
 Or use the build in dev server
 
-    $ perl script/maximus_server -k -p 5000
+    $ perl script/maximus_server.pl -k -p 5000
     
 CONFIGURING APACHE2 FOR REVERSE PROXY
 
