@@ -83,7 +83,7 @@ recommends 'Plack'                                      => '0.9978';
 recommends 'Plack::Middleware::ReverseProxy'            => '0.09';
 recommends 'Starman'                                    => '0.2010';
 catalyst;
-perl_version '5.010001';
+perl_version '5.012001';
 license 'MIT';
 
 requires_external_bin 'svn';
