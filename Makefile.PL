@@ -6,7 +6,7 @@ all_from 'lib/Maximus.pm';
 
 requires 'Archive::Extract'                             => '0.38';
 requires 'Archive::Zip'                                 => '1.30';
-requires 'Catalyst::Runtime'                            => '5.90006';
+requires 'Catalyst::Runtime'                            => '5.90015';
 requires 'Catalyst::Model::DBIC::Schema'                => '0.43';
 requires 'Catalyst::Action::RenderView'                 => '0.14';
 requires 'Catalyst::Authentication::Store::DBIx::Class' => '0.1300';
