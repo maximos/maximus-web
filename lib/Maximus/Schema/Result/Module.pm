@@ -124,7 +124,7 @@ __PACKAGE__->belongs_to(
   "scm",
   "Maximus::Schema::Result::Scm",
   { id => "scm_id" },
-  { join_type => "LEFT" },
+  { join_type => "LEFT", on_update => 'SET NULL', on_delete => 'SET NULL' },
 );
 
 =head2 module_versions
