@@ -1,0 +1,64 @@
+# Application name
+name Maximus
+
+# Google Analytics tracking id, e.g. UA-0000000-0
+google_analytics_id ""
+
+# Salt for encryption
+salt secret_key
+
+# Client information
+client_version 1.1.1
+
+# Database connection settings
+<Model::DB>
+    <connect_info>
+        # maximus is the database name
+        dsn dbi:mysql:<%= scope.lookupvar('params::dbname') %>
+        # MySQL user
+        user <%= scope.lookupvar('params::dbuser') %>
+        # Password for given user
+        password <%= scope.lookupvar('params::dbpass') %>
+        # Quote field names
+        quote_names 1
+        # Force strict mode (which includes ANSI)
+        on_connect_call set_strict_mode
+        # Enable PIPES_AS_CONCAT to use || instead of CONCAT()
+        on_connect_do SET sql_mode = CONCAT('PIPES_AS_CONCAT,', @@sql_mode)
+    </connect_info>
+</Model::DB>
+
+# Settings for Jobserver
+<Gearman>
+    # Add another job_servers <ip> line to add more Gearman servers
+    job_servers 127.0.0.1:4730
+</Gearman>
+
+# Settings for sending emails
+<View::Email::Template>
+    <sender>
+        mailer SMTP
+        <mailer_args>
+            host localhost
+            port 25
+            timeout 10
+        </mailer_args>
+    </sender>
+</View::Email::Template>
+
+<email>
+    from Maximus <no-reply@maximus>
+</email>
+
+# Announcer settings
+<Model::Announcer>
+    <drivers>
+        <Database>
+            model DB::Announcement
+        </Database>
+    </drivers>
+</Model::Announcer>
+
+<require_ssl>
+    disabled 1
+</require_ssl>

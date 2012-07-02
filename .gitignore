@@ -8,7 +8,7 @@ blib
 build
 /inc
 pm_to_blib
-MANIFEST*
+#MANIFEST*
 !MANIFEST.SKIP
 maximus.conf
 *.ttc
@@ -19,4 +19,5 @@ maximus.log
 !.perltidyrc
 *~
 *.sqlite
+!/puppet/*
 

@@ -1,6 +1,8 @@
 Revision history for Maximus.
 
-    - When using Windows it's now expected that Git is accessible from the
+    - Added Vagrant support for quickly setting up a development environment
+      that's close to the actual deployment situation
+    - When using Windows it's now expected that git is accessible from the
       command line and has been set in PATH
 
 1.002002  2012-04-29
