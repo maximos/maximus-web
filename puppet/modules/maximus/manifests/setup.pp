@@ -39,6 +39,11 @@ class maximus::setup {
         unless => "which cpanm",
     }
 
+    exec { "perltidy":
+        command => "cpanm -n Perl::Tidy",
+        unless => "which perltidy",
+    }
+
     exec { "catalyst_devel":
         command => "cpanm -n Catalyst::Devel",
         require => Exec['cpanm'],
