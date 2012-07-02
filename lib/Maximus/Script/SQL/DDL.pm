@@ -30,7 +30,7 @@ sub run {
 
 sub _run_application {
     my $self    = shift;
-    my $version = $self->schema->schema_version();
+    my $version = $Maximus::Schema::VERSION;
 
     $self->schema->create_ddl_dir(['MySQL', 'SQLite'],
         $version, $self->sql_dir, $self->preversion);
