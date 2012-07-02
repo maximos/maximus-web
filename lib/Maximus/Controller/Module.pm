@@ -47,14 +47,11 @@ sub search : Local {
         );
         $c->stash->{search_results} = $se->search($query);
     }
-
-    if (ref($c->engine) =~ /SubRequest/) {
-        $c->stash(subreq => 1);
-    }
 }
 
 sub modscopes : Local {
     my ($self, $c) = @_;
+    $c->forward('search');
     my @modscopes =
       $c->model('DB::Modscope')->search(undef, {order_by => 'name',});
     $c->stash->{modscopes} = \@modscopes;
@@ -271,7 +268,7 @@ Catalyst Controller for Modules;
 
 =head2 search
 
-Search for modules. Can be SubRequested.
+Search for modules.
 
 =head2 modscopes
 

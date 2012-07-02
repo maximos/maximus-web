@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+    - Module search include now works properly by using forward() instead of the
+      Catalust::View::Component::SubInclude plugin (gh-123)
+    - Menu item 'modules' is highlighted again (gh-120)
     - Updated Catalyst::Runtime to 5.90015
     - Fixed maximus_testing.conf and maximus.default.conf since empty elements
       are no longer allowed
