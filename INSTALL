@@ -13,27 +13,41 @@ Just go the the maximus-web project directory and fire up Vagrant, like this:
 
 Vagrant will now create the virtual machine and prepares it to be used with
 Maximus. It has been set to display a GUI with a terminal. Once Puppet
-provisioning has completed go to the terminal, login with username 'vagrant' and
-password 'vagrant' and execute these commands:
+provisioning has completed you can login to the terminal, login with username
+'vagrant' and password 'vagrant'.
+
+The project directory can be found at /vagrant:
 
     $ cd /vagrant
-    $ perl script/maximus_server.pl -r -d &
-    $ perl script/maximus_worker.pl &
 
-This will fire up the webservice and a worker. Because they'll both be running
-in the background the terminal will get a bit messed up with log messages. Once
-both fired up direct your browser to http://localhost:3000 and you should see
-the Maximus website.
+Both the webservice and worker will be automatically started. Once both have
+been fired up direct your browser to http://localhost:3000 and you should see
+the Maximus website. If required you can check out the logfiles of both services
+at /vagrant/maximus-server.log and /vagrant/maximus-worker.log.
 
-Whenever you update your local clone of maximus-web and it has had database
-changes you need to upgrade your database. Execute this from the terminal:
-
-    $ perl script/maximus_sql-upgrade.pl
-
-Or simply destroy the virtual machine and let Vagrant setup a new one:
+To refresh your virtual machine after you've updated your Git clone you can
+destroy and recreate it:
 
     $ vagrant destroy
     $ vagrant up
+
+Or provision it again, which is faster (but be sure to recreate if you run into
+issues):
+
+    $ vagrant provision
+
+If you require to restart the worker process (e.g. when you've made changes to
+it) you can restart it the following way:
+
+    $ perl script/init.d/maximus_worker.pl restart
+
+The same goes for the webservice:
+
+    $ perl script/init.d/maximus_server.pl restart
+
+Do note that the webservice is started with the -r flag so it'll reload whenever
+you make any changes to one of the maximus-web source files. Unless you really
+mess it up it shouldn't be required to manually restart the webservice.
 
 INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 

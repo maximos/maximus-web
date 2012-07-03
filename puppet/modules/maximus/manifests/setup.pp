@@ -51,6 +51,12 @@ class maximus::setup {
         unless => "which catalyst.pl"
     }
 
+    exec { "daemon_control":
+        command => "cpanm -n Daemon::Control",
+        require => Exec['cpanm'],
+        timeout => 0,
+    }
+
     exec { "maximus_dependencies":
         command => "cpanm -n --installdeps .",
         timeout => 0,
@@ -58,7 +64,43 @@ class maximus::setup {
         require => Exec['catalyst_devel'],
     }
 
+    exec { "maximus_server":
+        command => "perl script/init.d/maximus_server.pl start",
+        cwd => "/vagrant",
+        require => [
+                Exec['maximus_dependencies', 'maximus-sql'],
+                File['maximus_server.pl'],
+            ]
+    }
+
+    exec { "maximus_worker":
+        command => "perl script/init.d/maximus_worker.pl start",
+        cwd => "/vagrant",
+        require => [
+                Exec['maximus_dependencies', 'maximus-sql'],
+                File['maximus_worker.pl'],
+            ]
+    }
+
     file { "/vagrant/maximus.conf":
         content => template("maximus/maximus.conf.erb"),
+    }
+
+    file { "maximus_server.pl":
+        path => "/vagrant/script/init.d/maximus_server.pl",
+        source => "${params::filepath}/maximus/files/maximus_server.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "maximus_worker.pl":
+        path => "/vagrant/script/init.d/maximus_worker.pl",
+        source => "${params::filepath}/maximus/files/maximus_worker.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "/vagrant/script/init.d":
+        ensure => "directory",
     }
 }

@@ -17,7 +17,8 @@ if you want to host your own, perhaps private, version of maximus-web you should
 start with the INSTALL file.
 
 You can also use Vagrant (http://vagrantup.com) to quickly setup a virtual
-machine that will install all required software and configure Maximus.
+machine that will install all required software and configure Maximus. Once
+ready just visit http://localhost:3000 to use the Maximus website.
 
 Run script/maximus_server.pl to test the application.
 

@@ -12,7 +12,8 @@ Revision history for Maximus.
     - Fixed maximus_testing.conf and maximus.default.conf since empty elements
       are no longer allowed
     - Added Vagrant support for quickly setting up a development environment
-      that's close to the actual deployment situation
+      that's close to the actual deployment situation. Once booted simply direct
+      your browser to http://localhost:3000 to visit the Maximus website
     - When using Windows it's now expected that Git is accessible from the
       command line and has been set in PATH
 
