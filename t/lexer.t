@@ -44,6 +44,7 @@ $contents .= $_ while (<DATA>);
     ['MODULEVERSION',     '1.00'],
     ['MODULEDESCRIPTION', 'MaxGUI/Localization'],
     ['MODULENAME',        'MaxGUI.Localization'],
+    ['MODULEVERSION',     '1.00'],
 );
 is_deeply(\@foundTokens, \@expectedTokens, 'Lexer found expected tokens');
 
@@ -62,6 +63,7 @@ ModuleInfo "Name: some.test"
 ModuleInfo "Version: 1.00"
 
 Rem
-bbdoc: MaxGUI/Localization
+bbdoc:MaxGUI/Localization
 End Rem
 Module MaxGUI.Localization
+ModuleInfo "Version:1.00"
