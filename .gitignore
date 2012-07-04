@@ -12,7 +12,7 @@ pm_to_blib
 !MANIFEST.SKIP
 maximus.conf
 *.ttc
-maximus.log
+*.log
 /root/static/assets
 /root/static/archives
 *.bak
@@ -20,4 +20,5 @@ maximus.log
 *~
 *.sqlite
 !/puppet/*
+/script/init.d/*
 
