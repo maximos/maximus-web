@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Fixed assigning modules when adding a SCM configuration (gh-125)
     - Deleting a SCM configuration no longer deletes all linked modules (gh-124)
     - Generating new DDL has been made easier by simply looking at the Schema
       module version

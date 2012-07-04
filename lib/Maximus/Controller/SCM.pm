@@ -65,14 +65,14 @@ sub form : Private {
                     if ($scm) {
                         $scm->update(\%data);
                         $scm->modules->update({scm_id => undef});
-                        $c->model('DB::Module')
-                          ->search(
-                            {id => [@{$form->field('modules')->value}]})
-                          ->update({scm_id => $scm->id});
                     }
                     else {
                         $scm = $c->model('DB::SCM')->create(\%data);
                     }
+
+                    $c->model('DB::Module')
+                      ->search({id => [@{$form->field('modules')->value}]})
+                      ->update({scm_id => $scm->id});
 
                     $c->user->obj->find_or_create_related('user_roles',
                         {role_id => $scm->get_role('mutable')->id});
