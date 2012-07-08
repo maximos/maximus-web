@@ -87,7 +87,7 @@ sub module : Path : Args(2) {
     my @module_versions = $module->search_related(
         'module_versions',
         undef,
-        {   columns  => [qw/id version/],
+        {   columns  => [qw/id version meta_data/],
             prefetch => 'module_dependencies',
         }
     );
@@ -104,6 +104,7 @@ sub module : Path : Args(2) {
         $versions{$v} = {
             deps => \@deps,
             url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
+            meta_data => $version->meta_data,
         };
     }
 

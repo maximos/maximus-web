@@ -1,13 +1,22 @@
 <h1><a href="[% c.uri_for('/module/modscopes') %]">Modscope</a>: <a href="[% c.uri_for('/module', module.modscope.name) %]">[% module.modscope.name | html %]</a>.[% module.name | html %]</h1>
 <div class="jsRoundedBox">
-    <p><em>Author: [% authors.sort.join(', ') %]</em></p>
+    <p><em>Managed by: [% authors.sort.join(', ') %]</em></p>
     <p>[% module.desc | html %]</p>
+</div>
+<p>&nbsp;</p>
     [% FOR version IN sortedVersions %]
-        [% "<h3>Available versions</h3><ol id=\"modversionlist\">" IF loop.first %]
+        [% "<div class=\"jsRoundedBox\"><h2>Available versions</h2><ol id=\"modversionlist\">" IF loop.first %]
         [% FILTER collapse %]
-        <li><a href="[% versions.${version}.url | html %]" rel="nofollow">[% version | html -%]</a>
+        <li><strong><a href="[% versions.${version}.url | html %]" rel="nofollow">[% version | html -%]</a></strong>
+            <ul>
+            [% IF versions.${version}.meta_data.authors.size > 0 %]
+                <li>Author(s): [% versions.${version}.meta_data.authors.sort.join(', ') %]</li>
+            [% END %]
+            [% IF versions.${version}.meta_data.license %]
+                <li>License: [% versions.${version}.meta_data.license %]</li>
+            [% END %]
             [%- FOR dependency IN versions.${version}.deps.sort %]
-                [%- ": depends on " IF loop.first -%]
+                [%- "<li>Depends on: " IF loop.first -%]
                 [% m = dependency.split('\\.') %]
                 [% IF m.0 == 'brl' OR m.0 == 'pub' %]
                     [% dependency | html %]
@@ -15,9 +24,10 @@
                     <a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
                 [%- END -%]
                 [%- ", " IF NOT loop.last %]
+                [%- "</li>" IF loop.last %]
             [% END %]
+            </ul>
         </li>
         [% END %]
-        [% "</ol>" IF loop.last %]
+        [% "</ol></div>" IF loop.last %]
     [% END %]
-</div>
