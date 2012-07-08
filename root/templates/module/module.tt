@@ -32,11 +32,11 @@
     [% "</ol></div>" IF loop.last %]
 [% END %]
 
-[% IF versions.dev.meta_data.history.size > 0 %]
+[% IF versions.${sortedVersions.0}.meta_data.history.size > 0 %]
 <p>&nbsp;</p>
 <div class="jsRoundedBox">
     <h2>History</h2>
-    [% FOR history IN versions.dev.meta_data.history %]
+    [% FOR history IN versions.${sortedVersions.0}.meta_data.history %]
         <p>[% history | html %]</p>
     [% END %]
 </div>
