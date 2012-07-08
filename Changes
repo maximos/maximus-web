@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Now also storing module history and displaying it on the module page if
+      it's available (gh-89, gh-111)
     - Revamped module page to show the module license and author(s) if
       applicable (gh-111)
     - Improved lexer to also retrieve module license and author(s). This data

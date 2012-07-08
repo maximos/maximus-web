@@ -58,7 +58,7 @@ sub validate {
     my $contents  = read_file($mainFile);
     my $lexer     = Maximus::Class::Lexer->new;
     my @tokens    = $lexer->tokens($contents);
-    my $meta_data = {authors => []};
+    my $meta_data = {authors => [], history => []};
     my $modNameOK = 0;
     foreach (@tokens) {
         if ($_->[0] eq 'MODULENAME' && lc($_->[1]) eq lc($modName)) {
@@ -96,6 +96,11 @@ sub validate {
         # meta data: License
         elsif ($_->[0] eq 'MODULELICENSE') {
             $meta_data->{license} = $_->[1];
+        }
+
+        # meta data: History
+        elsif ($_->[0] eq 'HISTORY') {
+            push $meta_data->{history}, $_->[1];
         }
     }
 
