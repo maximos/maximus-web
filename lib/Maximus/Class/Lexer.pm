@@ -55,6 +55,14 @@ sub tokens {
                     [$label, $1];
                   }
             ],
+            [ 'HISTORY',
+                qr/\bModuleInfo[\s\t]+"History: .+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"History: (.+)"/i;
+                    [$label, $1];
+                  }
+            ],
             [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/i,
                 \&_text
             ],
