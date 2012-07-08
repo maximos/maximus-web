@@ -4,30 +4,30 @@
     <p>[% module.desc | html %]</p>
 </div>
 <p>&nbsp;</p>
-    [% FOR version IN sortedVersions %]
-        [% "<div class=\"jsRoundedBox\"><h2>Available versions</h2><ol id=\"modversionlist\">" IF loop.first %]
-        [% FILTER collapse %]
-        <li><strong><a href="[% versions.${version}.url | html %]" rel="nofollow">[% version | html -%]</a></strong>
-            <ul>
-            [% IF versions.${version}.meta_data.authors.size > 0 %]
-                <li>Author(s): [% versions.${version}.meta_data.authors.sort.join(', ') %]</li>
-            [% END %]
-            [% IF versions.${version}.meta_data.license %]
-                <li>License: [% versions.${version}.meta_data.license %]</li>
-            [% END %]
-            [%- FOR dependency IN versions.${version}.deps.sort %]
-                [%- "<li>Depends on: " IF loop.first -%]
-                [% m = dependency.split('\\.') %]
-                [% IF m.0 == 'brl' OR m.0 == 'pub' %]
-                    [% dependency | html %]
-                [%- ELSE -%]
-                    <a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
-                [%- END -%]
-                [%- ", " IF NOT loop.last %]
-                [%- "</li>" IF loop.last %]
-            [% END %]
-            </ul>
-        </li>
+[% FOR version IN sortedVersions %]
+    [% "<div class=\"jsRoundedBox\"><h2>Available versions</h2><ol id=\"modversionlist\">" IF loop.first %]
+    [% FILTER collapse %]
+    <li><strong><a href="[% versions.${version}.url | html %]" rel="nofollow">[% version | html -%]</a></strong>
+        <ul>
+        [% IF versions.${version}.meta_data.authors.size > 0 %]
+            <li>Author(s): [% versions.${version}.meta_data.authors.sort.join(', ') %]</li>
         [% END %]
-        [% "</ol></div>" IF loop.last %]
+        [% IF versions.${version}.meta_data.license %]
+            <li>License: [% versions.${version}.meta_data.license %]</li>
+        [% END %]
+        [%- FOR dependency IN versions.${version}.deps.sort %]
+            [%- "<li>Depends on: " IF loop.first -%]
+            [% m = dependency.split('\\.') %]
+            [% IF m.0 == 'brl' OR m.0 == 'pub' %]
+                [% dependency | html %]
+            [%- ELSE -%]
+                <a href="[% c.uri_for('/module', m.0, m.1) %]">[% dependency | html %]</a>
+            [%- END -%]
+            [%- ", " IF NOT loop.last %]
+            [%- "</li>" IF loop.last %]
+        [% END %]
+        </ul>
+    </li>
     [% END %]
+    [% "</ol></div>" IF loop.last %]
+[% END %]
