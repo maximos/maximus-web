@@ -56,10 +56,10 @@ sub tokens {
                   }
             ],
             [ 'HISTORY',
-                qr/\bModuleInfo[\s\t]+"History: .+"/i,
+                qr/\bModuleInfo[\s\t]+"History:\s?.+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"History: (.+)"/i;
+                    $value =~ /"History:\s?(.+)"/i;
                     [$label, $1];
                   }
             ],
