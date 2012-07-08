@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Mon Jul  2 21:08:22 2012
+-- Created on Sun Jul  8 20:51:48 2012
 -- 
 
 BEGIN TRANSACTION;
@@ -144,6 +144,7 @@ CREATE TABLE module_version (
   version varchar(10) NOT NULL,
   remote_location varchar(255),
   archive longblob,
+  meta_data text,
   FOREIGN KEY (module_id) REFERENCES module(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

@@ -100,6 +100,7 @@ sub save {
               $self->schema->resultset('ModuleVersion')->update_or_create(
                 {   module_id       => $mod->id,
                     version         => $self->source->version,
+                    meta_data       => $self->source->meta_data,
                     archive         => $archive,
                     remote_location => undef,
                 }

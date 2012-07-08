@@ -1,6 +1,7 @@
 Revision history for Maximus.
 
-    - Improved lexer to also retrieve module license and author(s) (gh-111)
+    - Improved lexer to also retrieve module license and author(s). This data
+      is now being stored in the module version database table (gh-111)
     - Fixed detection of module version and description (gh-126)
     - Fixed assigning modules when adding a SCM configuration (gh-125)
     - Deleting a SCM configuration no longer deletes all linked modules (gh-124)
