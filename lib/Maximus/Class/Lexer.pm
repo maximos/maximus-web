@@ -39,6 +39,22 @@ sub tokens {
                     [$label, $2];
                   }
             ],
+            [   'MODULEAUTHOR',
+                qr/\bModuleInfo[\s\t]+"Author:\s?.+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"Author:\s?(.+)"/i;
+                    [$label, $1];
+                  }
+            ],
+            [   'MODULELICENSE',
+                qr/\bModuleInfo[\s\t]+"License:\s?.+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"License:\s?(.+)"/i;
+                    [$label, $1];
+                  }
+            ],
             [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/i,
                 \&_text
             ],

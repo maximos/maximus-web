@@ -23,6 +23,8 @@ my @expectedTokens = (
     ['MODULENAME',        'test.mod1'],
     ['MODULEDESCRIPTION', 'some description'],
     ['MODULEVERSION',     '1.1.15'],
+    ['MODULELICENSE',     'MIT'],
+    ['MODULEAUTHOR',      'Christiaan Kras'],
     ['DEPENDENCY',        'brl.basic'],
     ['DEPENDENCY',        'htbaapub.rest'],
     ['DEPENDENCY',        'brl.retro'],
@@ -42,6 +44,9 @@ $contents .= $_ while (<DATA>);
     ['MODULEDESCRIPTION', 'my description'],
     ['MODULENAME',        'some.test'],
     ['MODULEVERSION',     '1.00'],
+    ['MODULEAUTHOR',      'Foo Bar'],
+    ['MODULEAUTHOR',      'Bar Baz'],
+    ['MODULELICENSE',     'MIT'],
     ['MODULEDESCRIPTION', 'MaxGUI/Localization'],
     ['MODULENAME',        'MaxGUI.Localization'],
     ['MODULEVERSION',     '1.00'],
@@ -61,6 +66,9 @@ End Rem
 Module some.test
 ModuleInfo "Name: some.test"
 ModuleInfo "Version: 1.00"
+ModuleInfo "Author: Foo Bar"
+ModuleInfo "Author: Bar Baz"
+ModuleInfo "License: MIT"
 
 Rem
 bbdoc:MaxGUI/Localization
