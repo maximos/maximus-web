@@ -15,6 +15,11 @@ has_field 'git_tags_filter' => (
     label => 'Tags filter (regular expression, leave empty for default)',
 );
 
+has_field 'hg_tags_filter' => (
+    type  => 'Text',
+    label => 'Tags filter (regular expression, leave empty for default)',
+);
+
 has_field 'svn_trunk' => (
     type  => 'Text',
     label => 'Path to Trunk (leave empty for default)',
@@ -79,6 +84,8 @@ Module description
 User object
 
 =head2 git_tags_filter
+
+=head2 hg_tags_filter
 
 =head2 svn_trunk
 

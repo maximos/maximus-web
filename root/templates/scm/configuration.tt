@@ -24,6 +24,9 @@
             [% INCLUDE form/input.tt field='svn_tags' %]
             [% INCLUDE form/input.tt field='svn_tags_filter' %]
         </div>
+        <div id="scm_hg" class="scm_tab">
+            [% INCLUDE form/input.tt field='hg_tags_filter' %]
+        </div>
         [% IF form.field('modules').options.as_list.size > 0 %]
             [% INCLUDE form/select_multiple.tt field='modules' %]
         [% END %]

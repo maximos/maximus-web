@@ -8,6 +8,7 @@ has_field 'software' => (
     options => [
         {value => 'git', label => 'Git'},
         {value => 'svn', label => 'Subversion'},
+        {value => 'hg',  label => 'Mercurial'},
     ],
     required         => 1,
     required_message => 'You must enter a SCM',
@@ -29,6 +30,11 @@ has_field 'modules' => (
 );
 
 has_field 'git_tags_filter' => (
+    type  => 'Text',
+    label => 'Tags filter (regular expression)',
+);
+
+has_field 'hg_tags_filter' => (
     type  => 'Text',
     label => 'Tags filter (regular expression)',
 );
@@ -94,6 +100,8 @@ SCM Configuration form
 =head2 user
 
 =head2 git_tags_filter
+
+=head2 hg_tags_filter
 
 =head2 svn_trunk
 
