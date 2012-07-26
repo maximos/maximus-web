@@ -7,8 +7,8 @@ has_field 'software' => (
     label   => 'SCM Software',
     options => [
         {value => 'git', label => 'Git'},
-        {value => 'svn', label => 'Subversion'},
         {value => 'hg',  label => 'Mercurial'},
+        {value => 'svn', label => 'Subversion'},
     ],
     required         => 1,
     required_message => 'You must enter a SCM',
