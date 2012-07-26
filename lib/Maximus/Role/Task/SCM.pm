@@ -5,6 +5,7 @@ use File::Spec;
 use File::Path qw(make_path);
 use Path::Class;
 use Maximus::Class::Module::Source::SCM::Git;
+use Maximus::Class::Module::Source::SCM::Mercurial;
 use Maximus::Class::Module::Source::SCM::Subversion;
 use namespace::autoclean;
 
@@ -20,6 +21,17 @@ sub get_source {
     my $settings = $scm->settings;
     if ($scm->software eq 'git') {
         $source = Maximus::Class::Module::Source::SCM::Git->new(
+            repository       => $scm->repo_url,
+            local_repository => $local_repo->absolute->stringify,
+        );
+
+        # Default settings from SCM table
+        if (exists $settings->{tags_filter}) {
+            $source->tags_filter($settings->{tags_filter});
+        }
+    }
+    elsif ($scm->software eq 'hg') {
+        $source = Maximus::Class::Module::Source::SCM::Mercurial->new(
             repository       => $scm->repo_url,
             local_repository => $local_repo->absolute->stringify,
         );
