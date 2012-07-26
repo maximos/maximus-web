@@ -55,7 +55,7 @@ sub tokens {
                     [$label, $1];
                   }
             ],
-            [ 'HISTORY',
+            [   'HISTORY',
                 qr/\bModuleInfo[\s\t]+"History:\s?.+"/i,
                 sub {
                     my ($label, $value) = @_;
