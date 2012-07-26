@@ -37,6 +37,10 @@ sub init_repo {
     else {
         push @cmd, sprintf('%s update', $HG);
     }
+
+    push @cmd,
+      sprintf('%s archive -t files -X ".hg*" %s', $HG, $self->tmpDir);
+
     system $_ for @cmd;
     chdir $cwd;
 }
@@ -44,8 +48,6 @@ sub init_repo {
 sub prepare {
     my ($self, $mod) = @_;
     $self->init_repo;
-    my $path = Path::Class::Dir->new($self->local_repository);
-    dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
     $self->findAndMoveRootDir($mod);
     $self->validate($mod);
 }
@@ -65,7 +67,7 @@ sub get_latest_revision {
 around 'auto_discover' => sub {
     my ($orig, $self) = @_;
     $self->init_repo;
-    return $self->$orig(@_, $self->local_repository);
+    return $self->$orig(@_, $self->tmpDir);
 };
 
 sub apply_scm_settings {
