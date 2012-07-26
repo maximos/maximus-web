@@ -88,6 +88,7 @@ license 'MIT';
 
 requires_external_bin 'svn';
 requires_external_bin 'git';
+requires_external_bin 'hg';
 
 install_script glob('script/*.pl');
 auto_install;

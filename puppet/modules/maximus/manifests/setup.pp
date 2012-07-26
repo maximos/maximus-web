@@ -3,6 +3,7 @@ class maximus::setup {
     package { ["build-essential",
             "gearman-job-server",
             "git-core",
+            "mercurial",
             "subversion",
             "libmodule-install-perl",
             "libcrypt-ssleay-perl",
