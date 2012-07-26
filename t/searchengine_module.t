@@ -40,5 +40,10 @@ foreach (qw(search engine search.engine az)) {
     is($results->items->[0]->get_value('desc'),  $desc,  'Description match');
 }
 
+my $query =
+  Data::SearchEngine::Query->new(count => 10, page => 1, query => "nothing");
+ok(my $results = $se->search($query), 'Search for nothing');
+is(@{$results->items}, 0, 'Found 0 items');
+
 done_testing();
 
