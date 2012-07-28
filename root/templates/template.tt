@@ -54,9 +54,7 @@
                 </div>
             </div>
             <div id="skinRow2" class="skinWidth">
-                <!--[if lte IE 6]><div id="skinRow2fix"><![endif]-->
-                    <div class="skinContent">[% content %]</div>
-                <!--[if lte IE 6]></div><![endif]-->
+                <div class="skinContent">[% content %]</div>
             </div>
             <div id="skinRow3" class="skinWidth"></div>
         </div>
