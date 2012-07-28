@@ -22,7 +22,6 @@
             .script('/static/js/mootools-more-1.4.0.1.js').wait()
             .script('/static/js/template.js?[% c.config.timestamp %]');
     </script>
-    <!--[if lte IE 6]><link rel="styleSheet" type="text/css" href="/static/css/styles-ie6.css" /><![endif]-->
 </head>
 <body>
     <div id="skinBackground">
