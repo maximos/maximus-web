@@ -7,4 +7,4 @@ env:
 before_install:
     - cpanm -n Module::Install
     - cpanm -n Catalyst::Devel
-    - cpanm -n libdb-dev
+    - apt-get install libdb-dev
