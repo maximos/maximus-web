@@ -20,7 +20,7 @@ ok($req->is_success, 'Request should succeed');
 my $content = $req->content;
 like($content, qr/Author\(s\): Christiaan Kras/i);
 like($content, qr/License: MIT/i);
-like($content, qr/History:/i);
+like($content, qr/History/i);
 like($content, qr/1\.1\.15:/i);
 like($content, qr/foo bar:/i);
 like($content, qr/1\.1\.14:/i);
