@@ -6,7 +6,7 @@ Vagrant::Config.run do |config|
     config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
     # Boot with a GUI so you can see the screen. (Default is headless)
-    config.vm.boot_mode = :gui
+    # config.vm.boot_mode = :gui
 
     # Assign this VM to a bridged network, allowing you to connect directly to a
     # network using the host's network device. This makes the VM appear as another
