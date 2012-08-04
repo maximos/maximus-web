@@ -51,6 +51,12 @@ class maximus::setup {
         unless => "which catalyst.pl"
     }
 
+    exec { "mojolicious":
+        command => "cpanm -n Mojolicious",
+        require => Exec['cpanm'],
+        unless => "which mojo"
+    }
+
     exec { "daemon_control":
         command => "cpanm -n Daemon::Control",
         require => Exec['cpanm'],
@@ -82,6 +88,14 @@ class maximus::setup {
             ]
     }
 
+    exec { "maximus_mojo":
+        command => "perl script/init.d/maximus_mojo.pl start",
+        cwd => "/vagrant",
+        require => [
+                Exec['maximus_dependencies', 'maximus-sql'],
+            ]
+    }
+
     file { "/vagrant/maximus.conf":
         content => template("maximus/maximus.conf.erb"),
     }
@@ -96,6 +110,13 @@ class maximus::setup {
     file { "maximus_worker.pl":
         path => "/vagrant/script/init.d/maximus_worker.pl",
         source => "${params::filepath}/maximus/files/maximus_worker.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "maximus_mojo.pl":
+        path => "/vagrant/script/init.d/maximus_mojo.pl",
+        source => "${params::filepath}/maximus/files/maximus_mojo.pl",
         ensure => present,
         require => File['/vagrant/script/init.d'],
     }

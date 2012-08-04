@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Added a Mojolicious::Lite script (script/maximus_mojo.pl) that can be
+      used for only serving module archives
     - Removed compatibility for Internet Explorer 6 (gh-97)
     - Now also storing module history and displaying it on the module page if
       it's available (gh-89, gh-111)

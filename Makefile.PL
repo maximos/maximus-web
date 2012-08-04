@@ -82,6 +82,7 @@ recommends 'FCGI::ProcManager'                          => '0.19';
 recommends 'Plack'                                      => '0.9978';
 recommends 'Plack::Middleware::ReverseProxy'            => '0.09';
 recommends 'Starman'                                    => '0.2010';
+recommends 'Mojolicious'                                => '3.20';
 catalyst;
 perl_version '5.012001';
 license 'MIT';
