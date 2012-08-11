@@ -4,7 +4,7 @@ use local::lib;
 use Mojolicious::Lite;
 use Config::Any;
 use Maximus::Schema;
-use Digest::MD5 qw(md5_hex);
+use Mojo::Util 'md5_sum';
 
 # Helper for loading the config file
 helper 'cfg' => sub {
@@ -61,24 +61,12 @@ get '/module/download/:scope/:module/:version' => sub {
     # Fetch archive data
     $version_row = $version_row->get_from_storage({columns => [qw/archive/]});
 
-    # Copy to Asset
-    my $asset = Mojo::Asset::Memory->new;
-    $asset->add_chunk($version_row->archive);
-
     my $filename = sprintf('%s-%s-%s.zip', $modscope, $module, $version);
-
-    # Prepare headers
-    my $headers = Mojo::Headers->new;
+    my $headers = $self->res->headers;
     $headers->add('Content-Disposition',
         qq[attachment; filename="$filename"]);
-    $headers->add('Content-Type',   'application/x-zip');
-    $headers->add('ETag',           md5_hex($version_row->archive));
-    $headers->add('Content-Length', $asset->size);
-
-    # Generate response
-    $self->res->content->headers($headers);
-    $self->res->content->asset($asset);
-    $self->rendered(200);
+    $headers->add('ETag', md5_sum($version_row->archive));
+    $self->render_data($version_row->archive, format => 'zip');
 };
 
 app->start;
