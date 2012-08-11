@@ -29,7 +29,6 @@ helper 'db' => sub {
 
 # Serve module file from database or remote_location
 # Route matches that of the Catalyst application
-# TODO: Optimize by using DBI directly instead of DBIx::Class?
 get '/module/download/:scope/:module/#version' => sub {
     my $self     = shift;
     my $modscope = $self->stash('scope');
