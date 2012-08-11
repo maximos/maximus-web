@@ -6,6 +6,9 @@ use Config::Any;
 use Maximus::Schema;
 use Mojo::Util 'md5_sum';
 
+# Set process name
+$0 = "Maximus Mojo";
+
 # Helper for loading the config file
 helper 'cfg' => sub {
     my $suffix = $ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX};
