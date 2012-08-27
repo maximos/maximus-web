@@ -42,12 +42,12 @@ __PACKAGE__->table("session");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  { data_type => "char", is_nullable => 0, size => 72 },
-  "session_data",
-  { data_type => "text", is_nullable => 1 },
-  "expires",
-  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
+    "id",
+    {data_type => "char", is_nullable => 0, size => 72},
+    "session_data",
+    {data_type => "text", is_nullable => 1},
+    "expires",
+    {data_type => "integer", extra => {unsigned => 1}, is_nullable => 1},
 );
 __PACKAGE__->set_primary_key("id");
 

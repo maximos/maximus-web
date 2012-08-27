@@ -51,27 +51,26 @@ __PACKAGE__->table("module_dependency");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "module_version_id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "modscope",
-  { data_type => "varchar", is_nullable => 0, size => 45 },
-  "modname",
-  { data_type => "varchar", is_nullable => 0, size => 45 },
+    "id",
+    {   data_type         => "integer",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "module_version_id",
+    {   data_type      => "integer",
+        extra          => {unsigned => 1},
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "modscope",
+    {data_type => "varchar", is_nullable => 0, size => 45},
+    "modname",
+    {data_type => "varchar", is_nullable => 0, size => 45},
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("Index_3", ["module_version_id", "modscope", "modname"]);
+__PACKAGE__->add_unique_constraint("Index_3",
+    ["module_version_id", "modscope", "modname"]);
 
 =head1 RELATIONS
 
@@ -84,10 +83,9 @@ Related object: L<Maximus::Schema::Result::ModuleVersion>
 =cut
 
 __PACKAGE__->belongs_to(
-  "module_version",
-  "Maximus::Schema::Result::ModuleVersion",
-  { id => "module_version_id" },
-  {},
+    "module_version",
+    "Maximus::Schema::Result::ModuleVersion",
+    {id => "module_version_id"}, {},
 );
 
 

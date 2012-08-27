@@ -66,29 +66,27 @@ __PACKAGE__->table("scm");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "software",
-  { data_type => "varchar", is_nullable => 0, size => 15 },
-  "repo_url",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
-  "settings",
-  { data_type => "text", is_nullable => 0 },
-  "revision",
-  { data_type => "varchar", is_nullable => 1, size => 45 },
-  "auto_discover_request",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "auto_discover_response",
-  { data_type => "text", is_nullable => 1 },
+    "id",
+    {   data_type         => "integer",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "software",
+    {data_type => "varchar", is_nullable => 0, size => 15},
+    "repo_url",
+    {data_type => "varchar", is_nullable => 0, size => 255},
+    "settings",
+    {data_type => "text", is_nullable => 0},
+    "revision",
+    {data_type => "varchar", is_nullable => 1, size => 45},
+    "auto_discover_request",
+    {   data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "auto_discover_response",
+    {data_type => "text", is_nullable => 1},
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -103,10 +101,9 @@ Related object: L<Maximus::Schema::Result::Module>
 =cut
 
 __PACKAGE__->has_many(
-  "modules",
-  "Maximus::Schema::Result::Module",
-  { "foreign.scm_id" => "self.id" },
-  {},
+    "modules",
+    "Maximus::Schema::Result::Module",
+    {"foreign.scm_id" => "self.id"}, {},
 );
 
 

@@ -37,10 +37,8 @@ __PACKAGE__->table("dbix_class_schema_versions");
 =cut
 
 __PACKAGE__->add_columns(
-  "version",
-  { data_type => "varchar", is_nullable => 0, size => 10 },
-  "installed",
-  { data_type => "varchar", is_nullable => 0, size => 20 },
+    "version",   {data_type => "varchar", is_nullable => 0, size => 10},
+    "installed", {data_type => "varchar", is_nullable => 0, size => 20},
 );
 __PACKAGE__->set_primary_key("version");
 

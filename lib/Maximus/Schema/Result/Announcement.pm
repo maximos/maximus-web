@@ -54,25 +54,23 @@ __PACKAGE__->table("announcement");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "date",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 0,
-  },
-  "message",
-  { data_type => "text", is_nullable => 0 },
-  "message_type",
-  { data_type => "varchar", is_nullable => 0, size => 45 },
-  "meta_data",
-  { data_type => "text", is_nullable => 1 },
+    "id",
+    {   data_type         => "integer",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "date",
+    {   data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 0,
+    },
+    "message",
+    {data_type => "text", is_nullable => 0},
+    "message_type",
+    {data_type => "varchar", is_nullable => 0, size => 45},
+    "meta_data",
+    {data_type => "text", is_nullable => 1},
 );
 __PACKAGE__->set_primary_key("id");
 

@@ -34,7 +34,7 @@ sub search : Local {
     $c->response->redirect($c->uri_for('search', $params->{query}, $page))
       && $c->detach
       if $c->request->method eq 'POST'
-          && $form->validated;
+      && $form->validated;
 
     if (defined($params->{query}) && length($params->{query}) > 0) {
         my $se =
@@ -245,7 +245,7 @@ sub download : Local : Args(3) {
   # Persistently store module. Which will be processed later by the job server
     $c->log->warn('Unable to queue Maximus::Task::Module::Upload')
       unless Maximus::Task::Module::Upload->new(queue => 1)
-          ->run($version_row->id);
+      ->run($version_row->id);
 
     my $fh = IO::File->new_tmpfile;
     $fh->print($version_row->archive) or die($!);
