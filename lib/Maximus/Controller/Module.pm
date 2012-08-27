@@ -87,7 +87,7 @@ sub module : Path : Args(2) {
     my @module_versions = $module->search_related(
         'module_versions',
         undef,
-        {   columns  => [qw/id version meta_data/],
+        {   columns  => [qw/id version meta_data remote_location/],
             prefetch => 'module_dependencies',
         }
     );
@@ -103,7 +103,8 @@ sub module : Path : Args(2) {
         my $v = $version->version;
         $versions{$v} = {
             deps => \@deps,
-            url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
+            url  => $version->remote_location
+              || $c->uri_for('download', ($scope, $modname, $v))->as_string,
             meta_data => $version->meta_data,
         };
     }
@@ -149,7 +150,7 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                 my @module_versions = $module->search_related(
                     'module_versions',
                     undef,
-                    {   columns  => [qw/id module_id version/],
+                    {   columns => [qw/id module_id version remote_location/],
                         prefetch => 'module_dependencies',
                     }
                 );
@@ -166,9 +167,15 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                     }
 
                     my $v = $version->version;
+                    my $location =
+                      $c->uri_for($version->remote_location)->as_string
+                      if ($version->remote_location);
+
+                    $c->log->warn($location);
                     $sources->{$scope}->{$modname}->{versions}->{$v} = {
                         deps => \@deps,
-                        url => $c->uri_for('download', ($scope, $modname, $v))
+                        url  => $location
+                          || $c->uri_for('download', ($scope, $modname, $v))
                           ->as_string,
                     };
                 }

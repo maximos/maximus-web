@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Module download links now point to remote_location if available. This
+      goes for both the module page and sources file (gh-122)
     - Added a Mojolicious::Lite script (script/maximus_mojo.pl) that can be
       used for only serving module archives
     - Removed compatibility for Internet Explorer 6 (gh-97)
