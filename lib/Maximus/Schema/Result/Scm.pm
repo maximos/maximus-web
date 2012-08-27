@@ -1,7 +1,6 @@
 package Maximus::Schema::Result::Scm;
 
 # Created by DBIx::Class::Schema::Loader
-# DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 use strict;
 use warnings;
@@ -112,7 +111,6 @@ __PACKAGE__->has_many(
 
 
 # Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-14 11:37:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XqhMxHZmDKBbnbFulAgYPg
 
 
 use JSON::Any;

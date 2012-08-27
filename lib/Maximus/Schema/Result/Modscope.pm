@@ -1,7 +1,6 @@
 package Maximus::Schema::Result::Modscope;
 
 # Created by DBIx::Class::Schema::Loader
-# DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 use strict;
 use warnings;
@@ -71,7 +70,6 @@ __PACKAGE__->has_many(
 
 
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:39:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cWOg5osbMP6hslyeYeCjlQ
 
 
 =head1 METHODS
