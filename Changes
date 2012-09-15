@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+1.003000  2012-09-15
     - Added Flattr button and added extra support buttons on client page
     - Module download links now point to remote_location if available. This
       goes for both the module page and sources file (gh-122)
