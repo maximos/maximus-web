@@ -13,7 +13,7 @@ sub tokens {
                 qr/[ \t]*\bRem\R(?:\R|.)*?\bEnd[ \t]*Rem\R\bModule[\s\t]\w+\.\w+/i,
                 sub {
                     my ($label, $value) = @_;
-                    my ($desc) = ($value =~ /\bbbdoc: (.+)/i);
+                    my ($desc) = ($value =~ /\bbbdoc:\s?(.+)/i);
                     my ($name) = ($value =~ /\bModule (\w+\.\w+)/i);
                     [$label, $desc, 'MODULENAME', $name];
                   }
@@ -24,19 +24,43 @@ sub tokens {
             ],
             ['MODULENAME', qr/\bModule[\s\t]+\w+\.\w+/i, \&_text],
             [   'MODULEVERSION',
-                qr/\bModuleInfo[\s\t]+"Version: .+"/i,
+                qr/\bModuleInfo[\s\t]+"Version:\s?.+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"Version: (.+)"/i;
+                    $value =~ /"Version:\s?(.+)"/i;
                     [$label, $1];
                   }
             ],
             [   'MODULEDESCRIPTION',
-                qr/\bModuleInfo[\s\t]+"Desc(ription)?: .+"/i,
+                qr/\bModuleInfo[\s\t]+"Desc(ription)?:\s?.+"/i,
                 sub {
                     my ($label, $value) = @_;
-                    $value =~ /"Desc(ription)?: (.+)"/i;
+                    $value =~ /"Desc(ription)?:\s?(.+)"/i;
                     [$label, $2];
+                  }
+            ],
+            [   'MODULEAUTHOR',
+                qr/\bModuleInfo[\s\t]+"Author:\s?.+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"Author:\s?(.+)"/i;
+                    [$label, $1];
+                  }
+            ],
+            [   'MODULELICENSE',
+                qr/\bModuleInfo[\s\t]+"License:\s?.+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"License:\s?(.+)"/i;
+                    [$label, $1];
+                  }
+            ],
+            [   'HISTORY',
+                qr/\bModuleInfo[\s\t]+"History:\s?.+"/i,
+                sub {
+                    my ($label, $value) = @_;
+                    $value =~ /"History:\s?(.+)"/i;
+                    [$label, $1];
                   }
             ],
             [   'DEPENDENCY', qr/\b(?i:Import|Framework)[\s\t]+\w+\.\w+/i,

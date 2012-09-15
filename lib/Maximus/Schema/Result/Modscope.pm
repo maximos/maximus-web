@@ -1,7 +1,6 @@
 package Maximus::Schema::Result::Modscope;
 
 # Created by DBIx::Class::Schema::Loader
-# DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 use strict;
 use warnings;
@@ -39,15 +38,14 @@ __PACKAGE__->table("modscope");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "name",
-  { data_type => "varchar", is_nullable => 0, size => 45 },
+    "id",
+    {   data_type         => "integer",
+        extra             => {unsigned => 1},
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "name",
+    {data_type => "varchar", is_nullable => 0, size => 45},
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("uniq_name", ["name"]);
@@ -63,15 +61,13 @@ Related object: L<Maximus::Schema::Result::Module>
 =cut
 
 __PACKAGE__->has_many(
-  "modules",
-  "Maximus::Schema::Result::Module",
-  { "foreign.modscope_id" => "self.id" },
-  {},
+    "modules",
+    "Maximus::Schema::Result::Module",
+    {"foreign.modscope_id" => "self.id"}, {},
 );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-01-30 21:39:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cWOg5osbMP6hslyeYeCjlQ
 
 
 =head1 METHODS

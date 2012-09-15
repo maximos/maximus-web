@@ -6,7 +6,7 @@ all_from 'lib/Maximus.pm';
 
 requires 'Archive::Extract'                             => '0.38';
 requires 'Archive::Zip'                                 => '1.30';
-requires 'Catalyst::Runtime'                            => '5.90006';
+requires 'Catalyst::Runtime'                            => '5.90015';
 requires 'Catalyst::Model::DBIC::Schema'                => '0.43';
 requires 'Catalyst::Action::RenderView'                 => '0.14';
 requires 'Catalyst::Authentication::Store::DBIx::Class' => '0.1300';
@@ -25,12 +25,11 @@ requires 'Catalyst::Plugin::StackTrace'                 => '0.11';
 requires 'Catalyst::Plugin::Static::Simple'             => '0.29';
 requires 'Catalyst::Plugin::RequireSSL'                 => '0.07';
 requires 'Catalyst::TraitFor::Controller::reCAPTCHA'    => '1.112960';
-requires 'Catalyst::View::Component::SubInclude'        => '0.10';
 requires 'Catalyst::View::Email'                        => '0.30';
 requires 'Catalyst::View::TT'                           => '0.34';
 requires 'Catalyst::View::XML::Feed'                    => '0.03';
 requires 'Cache::Cache'                                 => '1.06';
-requires 'Config::General'                              => '2.49';
+requires 'Config::General'                              => '2.50';
 requires 'CSS::Minifier::XS'                            => '0.05';
 requires 'Data::SearchEngine'                           => '0.32';
 requires 'DateTime'                                     => '0.61';
@@ -83,18 +82,13 @@ recommends 'FCGI::ProcManager'                          => '0.19';
 recommends 'Plack'                                      => '0.9978';
 recommends 'Plack::Middleware::ReverseProxy'            => '0.09';
 recommends 'Starman'                                    => '0.2010';
+recommends 'Mojolicious'                                => '3.20';
 catalyst;
-perl_version '5.010001';
+perl_version '5.012001';
 license 'MIT';
 
 requires_external_bin 'svn';
-if ($^O eq 'MSWin32') {
-    die('Please install msysgit')
-      unless -f 'C:\Program Files\Git\cmd\git.cmd';
-}
-else {
-    requires_external_bin 'git';
-}
+requires_external_bin 'git';
 
 install_script glob('script/*.pl');
 auto_install;

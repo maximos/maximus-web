@@ -23,6 +23,13 @@ my @expectedTokens = (
     ['MODULENAME',        'test.mod1'],
     ['MODULEDESCRIPTION', 'some description'],
     ['MODULEVERSION',     '1.1.15'],
+    ['MODULELICENSE',     'MIT'],
+    ['MODULEAUTHOR',      'Christiaan Kras'],
+    ['HISTORY',           '1.1.15'],
+    ['HISTORY',           'foo bar'],
+    ['HISTORY',           '1.1.14'],
+    ['HISTORY',           'baz'],
+    ['HISTORY',           'foo bar baz'],
     ['DEPENDENCY',        'brl.basic'],
     ['DEPENDENCY',        'htbaapub.rest'],
     ['DEPENDENCY',        'brl.retro'],
@@ -42,8 +49,12 @@ $contents .= $_ while (<DATA>);
     ['MODULEDESCRIPTION', 'my description'],
     ['MODULENAME',        'some.test'],
     ['MODULEVERSION',     '1.00'],
+    ['MODULEAUTHOR',      'Foo Bar'],
+    ['MODULEAUTHOR',      'Bar Baz'],
+    ['MODULELICENSE',     'MIT'],
     ['MODULEDESCRIPTION', 'MaxGUI/Localization'],
     ['MODULENAME',        'MaxGUI.Localization'],
+    ['MODULEVERSION',     '1.00'],
 );
 is_deeply(\@foundTokens, \@expectedTokens, 'Lexer found expected tokens');
 
@@ -60,8 +71,12 @@ End Rem
 Module some.test
 ModuleInfo "Name: some.test"
 ModuleInfo "Version: 1.00"
+ModuleInfo "Author: Foo Bar"
+ModuleInfo "Author: Bar Baz"
+ModuleInfo "License: MIT"
 
 Rem
-bbdoc: MaxGUI/Localization
+bbdoc:MaxGUI/Localization
 End Rem
 Module MaxGUI.Localization
+ModuleInfo "Version:1.00"

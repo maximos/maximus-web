@@ -16,8 +16,10 @@
         [% INCLUDE form/input.tt field='username' %]
         [% INCLUDE form/input.tt field='password' input_type='password' %]
         [% INCLUDE form/input.tt field='confirm_password' input_type='password' %]
-        <dt class="skinFieldName">Please verify the security code</dt>
-        <dd>[% recaptcha %]</dd>
+        [% IF c.config.recaptcha.pub_key.length > 0 %]
+            <dt class="skinFieldName">Please verify the security code</dt>
+            <dd>[% recaptcha %]</dd>
+        [% END %]
         <dd><input type="submit" name="submit" value="Sign-Up" /></dd>
     </dl>
 </form>

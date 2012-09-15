@@ -4,19 +4,23 @@
 Makefile*
 !Makefile.PL
 META.yml
+MYMETA.*
 blib
 build
 /inc
 pm_to_blib
-MANIFEST*
+#MANIFEST*
 !MANIFEST.SKIP
 maximus.conf
 *.ttc
-maximus.log
+*.log
 /root/static/assets
 /root/static/archives
 *.bak
 !.perltidyrc
 *~
 *.sqlite
+*.orig
+!/puppet/*
+/script/init.d/*
 

@@ -59,20 +59,20 @@ sub form : Private {
                                 my $software =
                                   $form->field('software')->value;
                                 $_->name =~ m/^$software/;
-                              } $form->fields
+                            } $form->fields
                         },
                     );
                     if ($scm) {
                         $scm->update(\%data);
                         $scm->modules->update({scm_id => undef});
-                        $c->model('DB::Module')
-                          ->search(
-                            {id => [@{$form->field('modules')->value}]})
-                          ->update({scm_id => $scm->id});
                     }
                     else {
                         $scm = $c->model('DB::SCM')->create(\%data);
                     }
+
+                    $c->model('DB::Module')
+                      ->search({id => [@{$form->field('modules')->value}]})
+                      ->update({scm_id => $scm->id});
 
                     $c->user->obj->find_or_create_related('user_roles',
                         {role_id => $scm->get_role('mutable')->id});
@@ -102,9 +102,8 @@ sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     $c->detach('/error_404') unless $scm;
     $c->detach('/error_403')
       unless $c->user_exists
-          && $c->check_any_user_role(
-              ('is_superuser', 'scm-' . $scm->id . '-mutable')
-          );
+      && $c->check_any_user_role(
+        ('is_superuser', 'scm-' . $scm->id . '-mutable'));
     $c->stash('scm' => $scm);
 }
 

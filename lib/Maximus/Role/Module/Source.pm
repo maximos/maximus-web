@@ -13,6 +13,12 @@ use version;
 
 has 'version' => (is => 'rw', isa => 'Str', default => '');
 
+has 'meta_data' => (
+    is      => 'rw',
+    isa     => 'HashRef',
+    default => sub { {} },
+);
+
 has 'validated' => (is => 'rw', isa => 'Bool');
 
 has 'tmpDir' => (
@@ -52,6 +58,7 @@ sub validate {
     my $contents  = read_file($mainFile);
     my $lexer     = Maximus::Class::Lexer->new;
     my @tokens    = $lexer->tokens($contents);
+    my $meta_data = {authors => [], history => []};
     my $modNameOK = 0;
     foreach (@tokens) {
         if ($_->[0] eq 'MODULENAME' && lc($_->[1]) eq lc($modName)) {
@@ -78,8 +85,26 @@ sub validate {
         # set description from source file if not supplied
         elsif ($_->[0] eq 'MODULEDESCRIPTION' && length($mod->desc) == 0) {
             $mod->desc($_->[1]);
+            $meta_data->{description} = $_->[1];
+        }
+
+        # meta data: Author
+        elsif ($_->[0] eq 'MODULEAUTHOR') {
+            push $meta_data->{authors}, $_->[1];
+        }
+
+        # meta data: License
+        elsif ($_->[0] eq 'MODULELICENSE') {
+            $meta_data->{license} = $_->[1];
+        }
+
+        # meta data: History
+        elsif ($_->[0] eq 'HISTORY') {
+            push $meta_data->{history}, $_->[1];
         }
     }
+
+    $mod->source->meta_data($meta_data);
 
     Maximus::Exception::Module::Source->throw(
         user_msg => 'Module name doesn\'t match')
@@ -244,6 +269,10 @@ This is the interface for all Maximus::Class::Module::Source classes
 =head2 version
 
 Version of module this source represents
+
+=head2 meta_data
+
+Module meta_data, such as its license and author(s)
 
 =head2 validated
 

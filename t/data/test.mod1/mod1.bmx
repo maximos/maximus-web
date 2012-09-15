@@ -7,6 +7,11 @@ ModuleInfo "Description: some description"
 ModuleInfo "Version: 1.1.15"
 ModuleInfo "License: MIT"
 ModuleInfo "Author: Christiaan Kras"
+ModuleInfo "History: 1.1.15"
+ModuleInfo "History: foo bar"
+ModuleInfo "History: 1.1.14"
+ModuleInfo "History: baz"
+ModuleInfo "History: foo bar baz"
 
 Framework brl.basic
 Import htbaapub.rest

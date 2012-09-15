@@ -1,7 +1,60 @@
+VAGRANT
+
+Instead of using this installation guide it's recommended to download Vagrant
+(http://vagrantup.com) and Virtual Box (http://virtualbox.org). Maximus-web now
+comes with a Vagrantfile which means that you can let Vagrant setup a virtual
+machine which has all the required software and libraries installed. It'll also
+setup a default configuration file and prepare the database. This is the
+recommened way to go if you plan to start doing development on maximus-web.
+
+Just go the the maximus-web project directory and fire up Vagrant, like this:
+
+    $ vagrant up
+
+Vagrant will now create the virtual machine and prepares it to be used with
+Maximus. It has been set to display a GUI with a terminal. Once Puppet
+provisioning has completed you can login to the terminal, login with username
+'vagrant' and password 'vagrant'.
+
+The project directory can be found at /vagrant:
+
+    $ cd /vagrant
+
+Both the webservice and worker will be automatically started. Once both have
+been fired up direct your browser to http://localhost:3000 and you should see
+the Maximus website. If required you can check out the logfiles of both services
+at /vagrant/maximus-server.log and /vagrant/maximus-worker.log.
+
+To refresh your virtual machine after you've updated your Git clone you can
+destroy and recreate it:
+
+    $ vagrant destroy
+    $ vagrant up
+
+Or provision it again, which is faster (but be sure to recreate if you run into
+issues):
+
+    $ vagrant provision
+
+If you require to restart the worker process (e.g. when you've made changes to
+it) you can restart it the following way:
+
+    $ perl script/init.d/maximus_worker.pl restart
+
+The same goes for the webservice:
+
+    $ perl script/init.d/maximus_server.pl restart
+
+Do note that the webservice is started with the -r flag so it'll reload whenever
+you make any changes to one of the maximus-web source files. Unless you really
+mess it up it shouldn't be required to manually restart the webservice.
+
 INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 
 This guide is intended to help you install maximus-web on Ubuntu 10.04. Although
 targeted at 10.04 the steps are probably not much different for older versions.
+You should follow this guide if you plan to run maximus-web on a production
+server. Usage of Vagrant is only recommended for development.
 
 First, make sure all required software is installed
 
@@ -116,7 +169,7 @@ Plack has plackup which works on Windows as well
 
 Or use the build in dev server
 
-    $ perl script/maximus_server -k -p 5000
+    $ perl script/maximus_server.pl -k -p 5000
     
 CONFIGURING APACHE2 FOR REVERSE PROXY
 

@@ -1,4 +1,4 @@
-[% subinclude('/module/search') %]
+[% PROCESS module/search.tt %]
 
 <h1>Modscope</h1>
 <div class="jsRoundedBox">

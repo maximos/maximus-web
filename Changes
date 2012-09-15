@@ -1,5 +1,37 @@
 Revision history for Maximus.
 
+1.003000  2012-09-15
+    - Added Flattr button and added extra support buttons on client page
+    - Module download links now point to remote_location if available. This
+      goes for both the module page and sources file (gh-122)
+    - Added a Mojolicious::Lite script (script/maximus_mojo.pl) that can be
+      used for only serving module archives
+    - Removed compatibility for Internet Explorer 6 (gh-97)
+    - Now also storing module history and displaying it on the module page if
+      it's available (gh-89, gh-111)
+    - Revamped module page to show the module license and author(s) if
+      applicable (gh-111)
+    - Improved lexer to also retrieve module license and author(s). This data
+      is now being stored in the module version database table (gh-111)
+    - Fixed detection of module version and description (gh-126)
+    - Fixed assigning modules when adding a SCM configuration (gh-125)
+    - Deleting a SCM configuration no longer deletes all linked modules (gh-124)
+    - Generating new DDL has been made easier by simply looking at the Schema
+      module version
+    - Only show ReCAPTCHA when a public key is present
+    - Upped minimal required version of Perl from 5.10.1 to 5.12.1
+    - Module search include now works properly by using forward() instead of the
+      Catalyst::View::Component::SubInclude plugin (gh-123)
+    - Menu item 'modules' is highlighted again (gh-120)
+    - Updated Catalyst::Runtime to 5.90015
+    - Fixed maximus_testing.conf and maximus.default.conf since empty elements
+      are no longer allowed
+    - Added Vagrant support for quickly setting up a development environment
+      that's close to the actual deployment situation. Once booted simply direct
+      your browser to http://localhost:3000 to visit the Maximus website
+    - When using Windows it's now expected that Git is accessible from the
+      command line and has been set in PATH
+
 1.002002  2012-04-29
     - Forgot to update link to MooTools-Core 1.4.5
     - Removed Log::Log4perl::Catalyst dependency, it's provided by Log::Log4perl

@@ -63,16 +63,10 @@ var template = {
                     
                     if (Browser.ie) {
                         //internet explorer
-                        if (Browser.version <= 4) {
-                            //ie6
+                        element.setStyle('overflow','hidden');
+                        fx.start('height', '0').chain(function() {
                             element.destroy();
-                        } else {
-                            //newer
-                            element.setStyle('overflow','hidden');
-                            fx.start('height', '0').chain(function() {
-                                element.destroy();
-                            });
-                        }
+                        });
                     } else {
                         //others (good browsers)
                         fx.start('opacity', '0').chain(function() {
