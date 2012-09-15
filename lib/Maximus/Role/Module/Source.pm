@@ -90,7 +90,7 @@ sub validate {
 
         # meta data: Author
         elsif ($_->[0] eq 'MODULEAUTHOR') {
-            push $meta_data->{authors}, $_->[1];
+            push @{$meta_data->{authors}}, $_->[1];
         }
 
         # meta data: License
@@ -100,7 +100,7 @@ sub validate {
 
         # meta data: History
         elsif ($_->[0] eq 'HISTORY') {
-            push $meta_data->{history}, $_->[1];
+            push @{$meta_data->{history}}, $_->[1];
         }
     }
 
