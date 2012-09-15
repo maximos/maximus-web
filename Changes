@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+1.003001  2012-09-15
+    - Typefix
+
 1.003000  2012-09-15
     - Added Flattr button and added extra support buttons on client page
     - Module download links now point to remote_location if available. This
