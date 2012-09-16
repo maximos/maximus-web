@@ -61,7 +61,7 @@ template =
                   ,new Element('div', class: 'skin'+type+'Top')
         
         row2 = new Element 'div', class: 'skin'+type+'Row2'
-        row2.adopt new Element('div', class: 'skin'+type+'Content').adopt(element.childNodes)
+        row2.adopt new Element('div', class: 'skin'+type+'Content').adopt element.childNodes
         
         row3 = new Element 'div', class: 'skin'+type+'Row3'
         row3.adopt new Element('div', class: 'skin'+type+'BottomLeft')
