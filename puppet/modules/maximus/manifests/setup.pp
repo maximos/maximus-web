@@ -10,6 +10,7 @@ class maximus::setup {
             "libmysqlclient-dev",
             "libxml2-dev",
             "libexpat1-dev",
+            "coffeescript",
             ]:
         ensure => present,
         require => Exec['apt_update'],
