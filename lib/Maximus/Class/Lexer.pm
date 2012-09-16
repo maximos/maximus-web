@@ -7,7 +7,7 @@ sub tokens {
     my ($self, $input_iterator) = @_;
     my $lexer = string_lexer(
         $input_iterator,
-        (   ['COMMENT', qr/'.*?\R/, sub { () }],
+        (   ['COMMENT', qr/^'.*?\R/m, sub { () }],
             [   'MODULEDESCRIPTION',
 
                 qr/[ \t]*\bRem\R(?:\R|.)*?\bEnd[ \t]*Rem\R\bModule[\s\t]\w+\.\w+/i,

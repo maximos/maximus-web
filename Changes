@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Fixed bug in BlitzMax lexer (gh-133)
+
 1.003001  2012-09-15
     - Typefix
 
