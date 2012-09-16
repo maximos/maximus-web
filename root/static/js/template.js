@@ -1,5 +1,5 @@
 (function() {
-  var template;
+  var s, template, _i, _len, _ref;
 
   template = {
     doForms: function() {
@@ -105,11 +105,11 @@
     }
   };
 
-  template.doRoundedBoxes('rounded');
-
-  template.doRoundedBoxes('error');
-
-  template.doRoundedBoxes('success');
+  _ref = ['rounded', 'error', 'success'];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    s = _ref[_i];
+    template.doRoundedBoxes(s);
+  }
 
   template.doCloseableBoxes();
 

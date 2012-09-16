@@ -71,9 +71,7 @@ template =
         element.empty().addClass('skin'+type+'Box').adopt row1, row2, row3
 
 # setup rounded rectangles
-template.doRoundedBoxes('rounded')
-template.doRoundedBoxes('error')
-template.doRoundedBoxes('success')
+template.doRoundedBoxes s for s in ['rounded','error','success']
 
 # setup closable boxes
 template.doCloseableBoxes()
