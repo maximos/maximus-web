@@ -1,4 +1,10 @@
 (function() {
-    location.href = location.href;
-}).delay(30000);
+  var refresh;
 
+  refresh = function() {
+    return location.href = location.href;
+  };
+
+  refresh.delay(30000);
+
+}).call(this);

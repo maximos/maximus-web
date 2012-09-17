@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Converted JavaScript to CoffeeScript
+
 1.003002  2012-09-17
     - Fixed bug in BlitzMax lexer (gh-133)
 
