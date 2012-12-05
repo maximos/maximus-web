@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Authors are now listed on the /authors page (gh-90)
     - Converted JavaScript to CoffeeScript
 
 1.003002  2012-09-17
