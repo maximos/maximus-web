@@ -17,6 +17,7 @@ Vagrant::Config.run do |config|
     # computers to access the VM, whereas host only networking does not.
     config.vm.forward_port 3000, 3000 # For maximus_server.pl
     config.vm.forward_port 3001, 3001 # For maximus_mojo.pl
+    config.vm.forward_port 15672, 15672 # For rabbitmq web ui
     config.vm.forward_port 22, 2222
 
     config.vm.customize ["modifyvm", :id, "--memory", 512]

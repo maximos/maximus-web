@@ -10,6 +10,7 @@ class maximus::setup {
             "libmysqlclient-dev",
             "libxml2-dev",
             "libexpat1-dev",
+            "rabbitmq-server",
             ]:
         ensure => present,
         require => Exec['apt_update'],
@@ -30,8 +31,21 @@ class maximus::setup {
         require => Package['gearman-job-server'],
     }
 
+    service { "rabbitmq-server":
+        ensure => running,
+        hasrestart => true,
+        hasstatus => true,
+        require => [Package['rabbitmq-server'], Exec['rabbitmq-ui']],
+    }
+
+    exec { "rabbitmq-ui":
+        command => "rabbitmq-plugins enable rabbitmq_management",
+        require => Package['rabbitmq-server'],
+    }
+
     exec { "apt_update":
         command => "apt-get update",
+        require => File['/etc/apt/sources.list.d/rabbitmq.list'],
     }
 
     exec { "cpanm":
@@ -98,6 +112,10 @@ class maximus::setup {
 
     file { "/vagrant/maximus.conf":
         content => template("maximus/maximus.conf.erb"),
+    }
+
+    file { "/etc/apt/sources.list.d/rabbitmq.list":
+        content => "deb http://www.rabbitmq.com/debian/ testing main",
     }
 
     file { "maximus_server.pl":

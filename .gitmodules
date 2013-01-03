@@ -4,3 +4,6 @@
 [submodule "puppet/modules/puppi"]
 	path = puppet/modules/puppi
 	url = git://github.com/example42/puppi.git
+[submodule "puppet\\modules\\rabbitmq"]
+	path = puppet\\modules\\rabbitmq
+	url = git://github.com/puppetlabs/puppetlabs-rabbitmq.git

@@ -1,0 +1,3 @@
+class maximus::rabbitmq {
+	include
+}
