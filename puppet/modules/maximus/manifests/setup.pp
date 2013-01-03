@@ -11,6 +11,8 @@ class maximus::setup {
             "libxml2-dev",
             "libexpat1-dev",
             "coffeescript",
+            "vim",
+            "tmux",
             ]:
         ensure => present,
         require => Exec['apt_update'],
