@@ -72,7 +72,7 @@ class maximus::setup {
     }
 
     exec { "maximus_server":
-        command => "perl script/init.d/maximus_server.pl start",
+        command => "perl script/init.d/maximus_server.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
@@ -81,7 +81,7 @@ class maximus::setup {
     }
 
     exec { "maximus_worker":
-        command => "perl script/init.d/maximus_worker.pl start",
+        command => "perl script/init.d/maximus_worker.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
@@ -90,7 +90,7 @@ class maximus::setup {
     }
 
     exec { "maximus_mojo":
-        command => "perl script/init.d/maximus_mojo.pl start",
+        command => "perl script/init.d/maximus_mojo.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
