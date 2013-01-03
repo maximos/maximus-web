@@ -5,5 +5,6 @@ class params {
 
     $filepath = '/vagrant/puppet/modules'
 
-    $upload_transport = 'filesystem' # change to 'ftp' to test ftp
+    $upload_transport = 'ftp'
+    #$upload_transport = 'filesystem'
 }
