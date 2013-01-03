@@ -1,12 +1,16 @@
 package Maximus::Task::Module::Upload;
 use Moose;
-use FindBin qw($Bin);
-use IO::File;
-use File::Path qw(make_path);
-use Path::Class;
+use File::Temp;
 use namespace::autoclean;
 
 with 'Maximus::Role::Task';
+
+has 'transporter' => (
+    is         => 'ro',
+    does       => 'Maximus::Role::Transport',
+    builder    => '_transport_builder',
+    lazy_build => 1,
+);
 
 sub run {
     my ($self, $module_version) = @_;
@@ -19,27 +23,41 @@ sub run {
 
     return 1 if ($module_version->remote_location);
 
-    my $filename = sprintf('%s-%s-%s.zip',
-        $module_version->module->modscope->name,
-        $module_version->module->name,
-        $module_version->version);
-    my $path = Path::Class::File->new($FindBin::Bin, '../', 'root', 'static',
-        'archives', $filename);
-
-    make_path($path->dir->stringify);
-
-    open my $fh, '>', $path->stringify
-      or die('Failed to create new file: ' . $path->stringify);
+    my $tmp_file = File::Temp->new();
+    open my $fh, '>', $tmp_file or die('Failed to open tmp file');
     binmode $fh;
     print $fh $module_version->get_column('archive');
     close $fh;
 
+    my $filename = sprintf('%s-%s-%s.zip',
+        $module_version->module->modscope->name,
+        $module_version->module->name,
+        $module_version->version);
+
     my $remote_location =
-      Path::Class::File->new('/', 'static', 'archives', $filename)
-      ->as_foreign('Unix')->stringify;
+      $self->transporter->transport($tmp_file->filename, $filename);
+    unlink $tmp_file;
+
     $module_version->update({remote_location => $remote_location,});
     $self->response($remote_location);
     1;
+}
+
+sub _transport_builder {
+    my $self   = shift;
+    my $driver = $self->cfg->{Transport}->{driver};
+    my %args   = %{$self->cfg->{Transport}->{options}};
+
+    my $module = 'Maximus::Class::Transport::' . $driver;
+    eval {
+        my $module = $module;
+        $module =~ s/::/\//g;
+        require $module . '.pm';
+    };
+    die($@) if ($@);
+
+    my $transporter = $module->new(\%args);
+    return $transporter;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -58,6 +76,12 @@ Maximus::Task::Module::Upload - Upload module archive for persistent storage
 
 Upload module archive for persistent storage.
 
+=head1 ATTRIBUTES
+
+=head2 transporter
+
+Transport driver
+
 =head1 METHODS
 
 =head2 run
@@ -70,7 +94,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
