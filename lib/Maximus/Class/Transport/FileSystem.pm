@@ -37,6 +37,10 @@ Maximus::Class::Transport::FileSystem - FileSystem transport driver
     );
     $transporter->transport($local_file, $remote_filename);
 
+=head1 DESCRIPTION
+
+This transport driver stores files locally.
+
 =head1 ATTRIBUTES
 
 =head2 base_url
@@ -47,16 +51,12 @@ The remote base url of the storage location
 
 Path where files will be stored.
 
-=head1 DESCRIPTION
-
-This is the interface for transport drivers
-
 =head1 METHODS
 
 =head2 transport
 
-Method that transports the given file. It should return the remote location
-of the uploaded file when done.
+Method that transports the given file. It returns the remote location of the
+file if it succeeded, otherwise throws an exception.
 
 =head1 AUTHOR
 

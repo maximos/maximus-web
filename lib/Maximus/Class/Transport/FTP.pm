@@ -96,14 +96,30 @@ The remote base url of the storage location
 
 =head2 destination
 
-Path where files will be stored.
+Location on FTP server where files will be stored.
+
+=head2 hostname
+
+FTP hostname.
+
+=head2 port
+
+FTP port, defaults to 21.
+
+=head2 username
+
+FTP username, defaults to anonymous.
+
+=head2 password
+
+FTP password.
 
 =head1 METHODS
 
 =head2 transport
 
-Method that transports the given file. It should return the remote location
-of the uploaded file when done.
+Method that transports the given file. It returns the remote location of the
+file if it succeeded, otherwise throws an exception.
 
 =head1 AUTHOR
 
