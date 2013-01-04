@@ -10,3 +10,8 @@ before_install:
     - cpanm -n Catalyst::Devel
     - sudo apt-get install libdb-dev
     - yes | cpanm --verbose local::lib
+notifications:
+    irc:
+        channels:
+            - "irc.blitzed.org#maximus"
+        use_notice: true
