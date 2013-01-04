@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added FTP and FileSystem transport (gh-135)
     - Authors are now listed on the /authors page (gh-90)
     - Converted JavaScript to CoffeeScript
 
