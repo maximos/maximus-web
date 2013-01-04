@@ -11,7 +11,4 @@ before_install:
     - sudo apt-get install libdb-dev
     - yes | cpanm --verbose local::lib
 notifications:
-    irc:
-        channels:
-            - "irc.blitzed.org#maximus"
-        use_notice: true
+    irc: "irc.blitzed.org#maximus"
