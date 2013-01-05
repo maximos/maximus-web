@@ -28,6 +28,11 @@ has_field 'modules' => (
     size          => 10,
 );
 
+has_field 'git_main_branch' => (
+    type  => 'Text',
+    label => 'Main branch (master)',
+);
+
 has_field 'git_tags_filter' => (
     type  => 'Text',
     label => 'Tags filter (regular expression)',
@@ -92,6 +97,8 @@ SCM Configuration form
 =head2 modules
 
 =head2 user
+
+=head2 git_main_branch
 
 =head2 git_tags_filter
 

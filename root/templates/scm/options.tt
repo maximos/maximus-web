@@ -1,0 +1,9 @@
+<div id="scm_git" class="scm_tab">
+    [% INCLUDE form/input.tt field='git_main_branch' %]
+    [% INCLUDE form/input.tt field='git_tags_filter' %]
+</div>
+<div id="scm_svn" class="scm_tab">
+    [% INCLUDE form/input.tt field='svn_trunk' %]
+    [% INCLUDE form/input.tt field='svn_tags' %]
+    [% INCLUDE form/input.tt field='svn_tags_filter' %]
+</div>

@@ -24,6 +24,7 @@ my $scm        = new_ok(
         (   local_repository => $localrepo->stringify,
             repository       => $gitrepodir->stringify,
             tags_filter      => 'v?(.+)',
+            main_branch      => 'master',
         )
     ]
 );
@@ -34,6 +35,7 @@ can_ok(
       get_versions
       repository
       local_repository
+      main_branch
       tags_filter
       prepare
       auto_discover
@@ -62,6 +64,7 @@ foreach (qw/2.0.1 2.0.2 2.0.3 dev/) {
         repository       => $gitrepodir->stringify,
         tags_filter      => 'v?(.+)',
         version          => $_,
+        main_branch      => 'master',
     );
 
     my $mod = Maximus::Class::Module->new(
@@ -91,6 +94,7 @@ $scm        = new_ok(
         (   local_repository => $localrepo->stringify,
             repository       => $gitrepodir->stringify,
             version          => 'dev',
+            main_branch      => 'master',
         )
     ]
 );

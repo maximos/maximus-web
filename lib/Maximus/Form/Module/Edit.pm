@@ -10,6 +10,11 @@ has_field 'scm_id' => (
     label         => 'SCM Configuration',
 );
 
+has_field 'git_main_branch' => (
+    type  => 'Text',
+    label => 'Main branch (master)',
+);
+
 has_field 'git_tags_filter' => (
     type  => 'Text',
     label => 'Tags filter (regular expression, leave empty for default)',
@@ -77,6 +82,8 @@ Module description
 =head2 user
 
 User object
+
+=head2 git_main_branch
 
 =head2 git_tags_filter
 
