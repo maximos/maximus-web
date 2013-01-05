@@ -1,0 +1,8 @@
+<h1>Authors</h1>
+<div class="jsRoundedBox">
+[% FOR user IN c.model('DB::User').search({},{order_by => 'username'}) %]
+    [% "<ul>" IF loop.first %]
+        <li>[% user.username | html %]</li>
+    [% "</ul>" IF loop.last %]
+[% END %]
+</div>

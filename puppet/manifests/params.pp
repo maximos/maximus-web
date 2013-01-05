@@ -4,4 +4,7 @@ class params {
     $dbpass = 'demo'
 
     $filepath = '/vagrant/puppet/modules'
+
+    $upload_transport = 'ftp'
+    #$upload_transport = 'filesystem'
 }

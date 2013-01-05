@@ -59,7 +59,7 @@ sub form : Private {
                                 my $software =
                                   $form->field('software')->value;
                                 $_->name =~ m/^$software/;
-                              } $form->fields
+                            } $form->fields
                         },
                     );
                     if ($scm) {
@@ -102,9 +102,8 @@ sub get_scm : Chained('base') : PathPart('') : CaptureArgs(1) {
     $c->detach('/error_404') unless $scm;
     $c->detach('/error_403')
       unless $c->user_exists
-          && $c->check_any_user_role(
-              ('is_superuser', 'scm-' . $scm->id . '-mutable')
-          );
+      && $c->check_any_user_role(
+        ('is_superuser', 'scm-' . $scm->id . '-mutable'));
     $c->stash('scm' => $scm);
 }
 
@@ -316,7 +315,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

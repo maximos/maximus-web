@@ -34,7 +34,7 @@ sub search : Local {
     $c->response->redirect($c->uri_for('search', $params->{query}, $page))
       && $c->detach
       if $c->request->method eq 'POST'
-          && $form->validated;
+      && $form->validated;
 
     if (defined($params->{query}) && length($params->{query}) > 0) {
         my $se =
@@ -87,7 +87,7 @@ sub module : Path : Args(2) {
     my @module_versions = $module->search_related(
         'module_versions',
         undef,
-        {   columns  => [qw/id version meta_data/],
+        {   columns  => [qw/id version meta_data remote_location/],
             prefetch => 'module_dependencies',
         }
     );
@@ -103,7 +103,8 @@ sub module : Path : Args(2) {
         my $v = $version->version;
         $versions{$v} = {
             deps => \@deps,
-            url => $c->uri_for('download', ($scope, $modname, $v))->as_string,
+            url  => $version->remote_location
+              || $c->uri_for('download', ($scope, $modname, $v))->as_string,
             meta_data => $version->meta_data,
         };
     }
@@ -149,7 +150,7 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                 my @module_versions = $module->search_related(
                     'module_versions',
                     undef,
-                    {   columns  => [qw/id module_id version/],
+                    {   columns => [qw/id module_id version remote_location/],
                         prefetch => 'module_dependencies',
                     }
                 );
@@ -166,9 +167,15 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                     }
 
                     my $v = $version->version;
+                    my $location =
+                      $c->uri_for($version->remote_location)->as_string
+                      if ($version->remote_location);
+
+                    $c->log->warn($location);
                     $sources->{$scope}->{$modname}->{versions}->{$v} = {
                         deps => \@deps,
-                        url => $c->uri_for('download', ($scope, $modname, $v))
+                        url  => $location
+                          || $c->uri_for('download', ($scope, $modname, $v))
                           ->as_string,
                     };
                 }
@@ -238,7 +245,7 @@ sub download : Local : Args(3) {
   # Persistently store module. Which will be processed later by the job server
     $c->log->warn('Unable to queue Maximus::Task::Module::Upload')
       unless Maximus::Task::Module::Upload->new(queue => 1)
-          ->run($version_row->id);
+      ->run($version_row->id);
 
     my $fh = IO::File->new_tmpfile;
     $fh->print($version_row->archive) or die($!);
@@ -305,7 +312,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

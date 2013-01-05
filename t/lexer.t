@@ -51,6 +51,7 @@ $contents .= $_ while (<DATA>);
     ['MODULEVERSION',     '1.00'],
     ['MODULEAUTHOR',      'Foo Bar'],
     ['MODULEAUTHOR',      'Bar Baz'],
+    ['MODULEAUTHOR',      "Foo 'Bar' Baz"],
     ['MODULELICENSE',     'MIT'],
     ['MODULEDESCRIPTION', 'MaxGUI/Localization'],
     ['MODULENAME',        'MaxGUI.Localization'],
@@ -73,6 +74,7 @@ ModuleInfo "Name: some.test"
 ModuleInfo "Version: 1.00"
 ModuleInfo "Author: Foo Bar"
 ModuleInfo "Author: Bar Baz"
+ModuleInfo "Author: Foo 'Bar' Baz"
 ModuleInfo "License: MIT"
 
 Rem

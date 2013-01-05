@@ -90,7 +90,7 @@ sub validate {
 
         # meta data: Author
         elsif ($_->[0] eq 'MODULEAUTHOR') {
-            push $meta_data->{authors}, $_->[1];
+            push @{$meta_data->{authors}}, $_->[1];
         }
 
         # meta data: License
@@ -100,7 +100,7 @@ sub validate {
 
         # meta data: History
         elsif ($_->[0] eq 'HISTORY') {
-            push $meta_data->{history}, $_->[1];
+            push @{$meta_data->{history}}, $_->[1];
         }
     }
 
@@ -330,7 +330,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

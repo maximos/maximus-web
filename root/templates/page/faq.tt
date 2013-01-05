@@ -90,5 +90,6 @@
         on the <a href="http://www.pledgie.com/campaigns/10699" target="_blank">Pledgie</a>
         website.</dd>
         <dd>Current status of the campaign: <a href="http://www.pledgie.com/campaigns/10699" target="_blank"><img alt="Click here to lend your support to: [% c.config.name %] and make a donation at www.pledgie.com !" src="http://pledgie.com/campaigns/10699.png?skin_name=eight_bit" width="88" height="30" border="0" style="vertical-align:middle;" /></a></dd>
+        <dd>Aside from Pledgie it's also possible to use Flattr [% PROCESS flattr.tt %]</dd>
     </dl>
 </div>

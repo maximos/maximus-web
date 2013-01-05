@@ -4,6 +4,7 @@
 Makefile*
 !Makefile.PL
 META.yml
+MYMETA.*
 blib
 build
 /inc
@@ -19,6 +20,7 @@ maximus.conf
 !.perltidyrc
 *~
 *.sqlite
+*.orig
 !/puppet/*
 /script/init.d/*
 

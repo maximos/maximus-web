@@ -15,6 +15,7 @@
         not responsible for any damage caused to your data inflicted by 
         [% c.config.name %].</em>
     </p>
+    [% PROCESS pledgie.tt %]
 </div>
 <p>&nbsp;</p>
 <div class="jsRoundedBox">

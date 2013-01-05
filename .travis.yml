@@ -1,5 +1,6 @@
 language: perl
 perl:
+    - "5.16"
     - "5.14"
     - "5.12"
 env:
@@ -7,3 +8,7 @@ env:
 before_install:
     - cpanm -n Module::Install
     - cpanm -n Catalyst::Devel
+    - sudo apt-get install libdb-dev
+    - yes | cpanm --verbose local::lib
+notifications:
+    irc: "irc.blitzed.org#maximus"

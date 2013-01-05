@@ -11,6 +11,9 @@ class maximus::setup {
             "libmysqlclient-dev",
             "libxml2-dev",
             "libexpat1-dev",
+            "coffeescript",
+            "vim",
+            "tmux",
             ]:
         ensure => present,
         require => Exec['apt_update'],
@@ -52,6 +55,12 @@ class maximus::setup {
         unless => "which catalyst.pl"
     }
 
+    exec { "mojolicious":
+        command => "cpanm -n Mojolicious",
+        require => Exec['cpanm'],
+        unless => "which mojo"
+    }
+
     exec { "daemon_control":
         command => "cpanm -n Daemon::Control",
         require => Exec['cpanm'],
@@ -66,7 +75,7 @@ class maximus::setup {
     }
 
     exec { "maximus_server":
-        command => "perl script/init.d/maximus_server.pl start",
+        command => "perl script/init.d/maximus_server.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
@@ -75,11 +84,19 @@ class maximus::setup {
     }
 
     exec { "maximus_worker":
-        command => "perl script/init.d/maximus_worker.pl start",
+        command => "perl script/init.d/maximus_worker.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
                 File['maximus_worker.pl'],
+            ]
+    }
+
+    exec { "maximus_mojo":
+        command => "perl script/init.d/maximus_mojo.pl restart",
+        cwd => "/vagrant",
+        require => [
+                Exec['maximus_dependencies', 'maximus-sql'],
             ]
     }
 
@@ -97,6 +114,13 @@ class maximus::setup {
     file { "maximus_worker.pl":
         path => "/vagrant/script/init.d/maximus_worker.pl",
         source => "${params::filepath}/maximus/files/maximus_worker.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "maximus_mojo.pl":
+        path => "/vagrant/script/init.d/maximus_mojo.pl",
+        source => "${params::filepath}/maximus/files/maximus_mojo.pl",
         ensure => present,
         require => File['/vagrant/script/init.d'],
     }

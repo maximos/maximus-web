@@ -4,3 +4,6 @@
 [submodule "puppet/modules/puppi"]
 	path = puppet/modules/puppi
 	url = git://github.com/example42/puppi.git
+[submodule "puppet/modules/proftpd"]
+	path = puppet/modules/proftpd
+	url = git://github.com/example42/puppet-proftpd.git

@@ -49,6 +49,13 @@ Do note that the webservice is started with the -r flag so it'll reload whenever
 you make any changes to one of the maximus-web source files. Unless you really
 mess it up it shouldn't be required to manually restart the webservice.
 
+If you want you can change some settings by adjusting the parameters in
+puppet/manifests/params.pp. One such setting is the $upload_transport option.
+Change its value to 'ftp' to use the FTP transport, or 'filesystem' for the
+FileSystem transport. Always run vagrant provision after changing this file.
+Both the FTP and FileSystem transport drivers are supported by the Virtual
+Machine.
+
 INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 
 This guide is intended to help you install maximus-web on Ubuntu 10.04. Although

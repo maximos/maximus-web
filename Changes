@@ -1,5 +1,22 @@
 Revision history for Maximus.
 
+    - Added FTP and FileSystem transport (gh-135)
+    - Authors are now listed on the /authors page (gh-90)
+    - Converted JavaScript to CoffeeScript
+
+1.003002  2012-09-17
+    - Fixed bug in BlitzMax lexer (gh-133)
+
+1.003001  2012-09-15
+    - Typefix
+
+1.003000  2012-09-15
+    - Added Flattr button and added extra support buttons on client page
+    - Module download links now point to remote_location if available. This
+      goes for both the module page and sources file (gh-122)
+    - Added a Mojolicious::Lite script (script/maximus_mojo.pl) that can be
+      used for only serving module archives
+    - Removed compatibility for Internet Explorer 6 (gh-97)
     - Now also storing module history and displaying it on the module page if
       it's available (gh-89, gh-111)
     - Revamped module page to show the module license and author(s) if
@@ -14,7 +31,7 @@ Revision history for Maximus.
     - Only show ReCAPTCHA when a public key is present
     - Upped minimal required version of Perl from 5.10.1 to 5.12.1
     - Module search include now works properly by using forward() instead of the
-      Catalust::View::Component::SubInclude plugin (gh-123)
+      Catalyst::View::Component::SubInclude plugin (gh-123)
     - Menu item 'modules' is highlighted again (gh-120)
     - Updated Catalyst::Runtime to 5.90015
     - Fixed maximus_testing.conf and maximus.default.conf since empty elements
