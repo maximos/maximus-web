@@ -2,8 +2,8 @@ package Maximus::Role::Transport;
 use Moose::Role;
 
 has 'base_url' => (
-    is => 'ro',
-    isa => 'Str',
+    is       => 'ro',
+    isa      => 'Str',
     required => 1,
 );
 
