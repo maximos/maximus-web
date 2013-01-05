@@ -7,4 +7,6 @@ class params {
 
     $upload_transport = 'ftp'
     #$upload_transport = 'filesystem'
+
+    $recaptcha = false
 }
