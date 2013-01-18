@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Loading PageCache plugin last as advised
     - SCM settings for Git can now have their main branch specified (gh-118)
     - Added FTP and FileSystem transport (gh-135)
     - Authors are now listed on the /authors page (gh-90)

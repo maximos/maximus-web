@@ -11,13 +11,13 @@ use Catalyst qw/
   Authorization::Roles
   Assets
   Cache
-  PageCache
   RequireSSL
   Static::Simple
   Session
   Session::Store::DBIC
   Session::State::Cookie
   StackTrace
+  PageCache
   /;
 use Log::Log4perl::Catalyst;
 use Template::Stash;
