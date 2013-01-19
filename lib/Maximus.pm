@@ -57,8 +57,13 @@ __PACKAGE__->config(
             default_expires_in => 3600,
         },
     },
-    'Plugin::PageCache' => {disable_index => 0,},
-    'Plugin::Session'   => {
+    'Plugin::PageCache' => {
+        disable_index    => 0,
+        set_http_headers => 1,
+        expires          => 3600,
+        auto_cache       => ['/module/sources/.+', '/timeline/(atom|rss)'],
+    },
+    'Plugin::Session' => {
         dbic_class => 'DB::Session',
         expires    => 3600,
     },
