@@ -27,9 +27,9 @@ $ua1->get_ok('/module/new', 'Request add module page');
 $ua1->content_contains('<h1>Edit Module</h1>', 'Title check');
 $ua1->submit_form(
     fields => {
-        scope  => 'foo',
-        name   => 'bar',
-        desc   => 'test description',
+        scope => 'foo',
+        name  => 'bar',
+        desc  => 'test description',
     }
 );
 $ua1->content_contains('Your Module configuration has been stored',
@@ -43,8 +43,7 @@ $ua1->content_contains('<em>test description</em>',
 
 $ua1->get_ok('/module/foo/bar/edit', 'Request edit module page');
 $ua1->content_contains('<h1>Edit Module</h1>', 'Title check');
-$ua1->submit_form(
-    fields => {desc => 'modified test description'});
+$ua1->submit_form(fields => {desc => 'modified test description'});
 $ua1->content_contains('Your Module configuration has been stored',
     'Module saved');
 $ua1->content_contains('<em>modified test description</em>',
