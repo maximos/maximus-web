@@ -7,3 +7,6 @@
 [submodule "puppet/modules/proftpd"]
 	path = puppet/modules/proftpd
 	url = git://github.com/example42/puppet-proftpd.git
+[submodule "docs"]
+	path = docs
+	url = https://github.com/maximos/maximus-web.git
