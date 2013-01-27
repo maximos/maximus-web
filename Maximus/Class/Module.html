@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Class::Module</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a>
+    <ul>
+      <li><a href="#modscope">modscope</a></li>
+      <li><a href="#mod">mod</a></li>
+      <li><a href="#desc">desc</a></li>
+      <li><a href="#source">source</a></li>
+      <li><a href="#scm_settings">scm_settings</a></li>
+      <li><a href="#schema">schema</a></li>
+      <li><a href="#announcer">announcer</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#save-user-">save($user)</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Class::Module - Represents a module</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>use Maximus::Class::Module;
+my $module = Maximus::Class::Module-&gt;new;</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This class represents a module</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<h2 id="modscope">modscope</h2>
+
+<p>Modscope (namespace) of module, e.g. <b>brl</b>.example</p>
+
+<h2 id="mod">mod</h2>
+
+<p>Name of module, e.g. brl.<b>example</b></p>
+
+<h2 id="desc">desc</h2>
+
+<p>Description of module</p>
+
+<h2 id="source">source</h2>
+
+<p>Source location. Needs to be a class which does <a rel="section" href="/Maximus/Role/Module/Source.html" name="Maximus::Role::Module::Source">Maximus::Role::Module::Source</a></p>
+
+<h2 id="scm_settings">scm_settings</h2>
+
+<p>SCM specific settings</p>
+
+<h2 id="schema">schema</h2>
+
+<p><a rel="subsection" href="#DBIx::Class-schema" name="Maximus::Class::Module">&quot;DBIx::Class schema&quot;</a></p>
+
+<h2 id="announcer">announcer</h2>
+
+<p>A <a href="http://search.cpan.org/perldoc?Maximus::Broadcast::Announcer">Maximus::Broadcast::Announcer</a> object. If available will broadcast a module update when saved.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="save-user-">save(<i>$user</i>)</h2>
+
+<p>Save module in database. <i>$user</i> should be a <a href="http://search.cpan.org/perldoc?DBIx::Class::Row">DBIx::Class::Row</a> from <a rel="section" href="/Maximus/Schema/Result/User.html" name="Maximus::Schema::Result::User">Maximus::Schema::Result::User</a>.</p>
+
+<p>When no <i>source</i> has been given when constructing the object this method returns the <a href="http://search.cpan.org/perldoc?DBIx::Class::Row">DBIx::Class::Row</a> that contains the record of the module.</p>
+
+<p>If a <i>announcer</i> object has been given it will broadcast the module release to the different drivers, but only if it&#39;s not a dev release and <i>source</i> has been given as well.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christiaan Kras</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>Copyright (c) 2010-2013 Christiaan Kras</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+</body>
+</html>
+

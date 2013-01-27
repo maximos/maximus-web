@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Class::Module::Source::SCM::Subversion</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a>
+    <ul>
+      <li><a href="#repository">repository</a></li>
+      <li><a href="#local_repository">local_repository</a></li>
+      <li><a href="#trunk">trunk</a></li>
+      <li><a href="#tags">tags</a></li>
+      <li><a href="#tags_filter">tags_filter</a></li>
+      <li><a href="#apply_scm_settings">apply_scm_settings</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#init_repo">init_repo</a></li>
+      <li><a href="#prepare">prepare</a></li>
+      <li><a href="#get_versions">get_versions</a></li>
+      <li><a href="#get_latest_revision">get_latest_revision</a></li>
+      <li><a href="#auto_discover">auto_discover</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Class::Module::Source::SCM::Subversion - Handles module sources inside a Subversion repository</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>use Maximus::Class::Module::Source::SCM::Subversion;
+my $source = Maximus::Class::Module::Source::SCM::Subversion-&gt;new;</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Subversion support for retrieving the modules sources.</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<h2 id="repository">repository</h2>
+
+<p>Location of remote Subversion repository. Must be publicly readable</p>
+
+<h2 id="local_repository">local_repository</h2>
+
+<p>Location of the local copy of the Subversion repository</p>
+
+<h2 id="trunk">trunk</h2>
+
+<p>Path to trunk. If the repository hosts more modules then set it to the module path, e.g. trunk/my.mod</p>
+
+<h2 id="tags">tags</h2>
+
+<p>Path to tags. If the repository hosts more modules then set <i>tags_filter</i> to filter the listing.</p>
+
+<h2 id="tags_filter">tags_filter</h2>
+
+<p>If the repository hosts more modules then set this to filter the listing. e.g.: <code>^my\.mod-(.+)</code> if this module uses tags in the style of <i>my.mod-0.01</i> or <i>my.mod-0.3.0</i>. You MUST add a capture so the version string can be fetched.</p>
+
+<h2 id="apply_scm_settings">apply_scm_settings</h2>
+
+<p>Apply SCM specific settings</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="init_repo">init_repo</h2>
+
+<p>Initialize repository. Either clones or pulls to update</p>
+
+<h2 id="prepare">prepare</h2>
+
+<p>Fetch files for <i>version</i> and sort them inside the temporary directory</p>
+
+<h2 id="get_versions">get_versions</h2>
+
+<p>Returns all versions</p>
+
+<h2 id="get_latest_revision">get_latest_revision</h2>
+
+<p>Retrieve latest revision of trunk</p>
+
+<h2 id="auto_discover">auto_discover</h2>
+
+<p>Discover available modules from the repository</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christiaan Kras</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>Copyright (c) 2010-2013 Christiaan Kras</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+</body>
+</html>
+

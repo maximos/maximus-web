@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>maximus_create</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>maximus_create.pl - Create a new Catalyst Component</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>maximus_create.pl [options] model|view|controller name [helper] [options]</p>
+
+<pre><code>Options:
+  --force        don&#39;t create a .new file where a file to be created exists
+  --mechanize    use Test::WWW::Mechanize::Catalyst for tests if available
+  --help         display this help and exits
+
+Examples:
+  maximus_create.pl controller My::Controller
+  maximus_create.pl -mechanize controller My::Controller
+  maximus_create.pl view My::View
+  maximus_create.pl view MyView TT
+  maximus_create.pl view TT TT
+  maximus_create.pl model My::Model
+  maximus_create.pl model SomeDB DBIC::Schema MyApp::Schema create=dynamic\
+  dbi:SQLite:/tmp/my.db
+  maximus_create.pl model AnotherDB DBIC::Schema MyApp::Schema create=static\
+  dbi:Pg:dbname=foo root 4321
+
+See also:
+  perldoc Catalyst::Manual
+  perldoc Catalyst::Manual::Intro</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Create a new Catalyst Component.</p>
+
+<p>Existing component files are not overwritten. If any of the component files to be created already exist the file will be written with a &#39;.new&#39; suffix. This behavior can be suppressed with the <code>-force</code> option.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Catalyst Contributors, see Catalyst.pm</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>This library is free software. You can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+</body>
+</html>
+

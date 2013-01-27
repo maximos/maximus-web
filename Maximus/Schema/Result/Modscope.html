@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Schema::Result::Modscope</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#ACCESSORS">ACCESSORS</a>
+    <ul>
+      <li><a href="#id">id</a></li>
+      <li><a href="#name">name</a></li>
+    </ul>
+  </li>
+  <li><a href="#RELATIONS">RELATIONS</a>
+    <ul>
+      <li><a href="#modules">modules</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#insert">insert</a></li>
+      <li><a href="#delete">delete</a></li>
+      <li><a href="#get_role">get_role</a></li>
+      <li><a href="#get_authors">get_authors</a></li>
+      <li><a href="#sqlt_deploy_hook">sqlt_deploy_hook</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Schema::Result::Modscope</p>
+
+<h1 id="ACCESSORS">ACCESSORS</h1>
+
+<h2 id="id">id</h2>
+
+<pre><code>data_type: &#39;integer&#39;
+extra: {unsigned =&gt; 1}
+is_auto_increment: 1
+is_nullable: 0</code></pre>
+
+<h2 id="name">name</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 45</code></pre>
+
+<h1 id="RELATIONS">RELATIONS</h1>
+
+<h2 id="modules">modules</h2>
+
+<p>Type: has_many</p>
+
+<p>Related object: <a rel="section" href="/Maximus/Schema/Result/Module.html" name="Maximus::Schema::Result::Module">Maximus::Schema::Result::Module</a></p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="insert">insert</h2>
+
+<p>Inserting a modscope record will also insert a role with a value of <i>modscope-id-mutable</i> and <i>modscope-id-readable</i>.</p>
+
+<h2 id="delete">delete</h2>
+
+<p>Deleting a scm record will also remove any related roles</p>
+
+<h2 id="get_role">get_role</h2>
+
+<p>Retrieve role</p>
+
+<h2 id="get_authors">get_authors</h2>
+
+<p>Retrieve the authors who&#39;re allowed to use this modscope</p>
+
+<h2 id="sqlt_deploy_hook">sqlt_deploy_hook</h2>
+
+<p>Force MySQL to use InnoDB and UTF-8</p>
+
+</body>
+</html>
+

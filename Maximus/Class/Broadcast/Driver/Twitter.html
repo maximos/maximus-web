@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Class::Broadcast::Driver::Twitter</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a>
+    <ul>
+      <li><a href="#nt">nt</a></li>
+      <li><a href="#consumer_key">consumer_key</a></li>
+      <li><a href="#consumer_key1">consumer_key</a></li>
+      <li><a href="#access_token">access_token</a></li>
+      <li><a href="#access_token_secret">access_token_secret</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#say-Maximus::Class::Broadcast::Message-msg-">say(Maximus::Class::Broadcast::Message $msg)</a></li>
+      <li><a href="#BUILD">BUILD</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>use Maximus::Class::Broadcast::Driver::Twitter;
+my $driver = Maximus::Class::Broadcast::Driver::Twitter-&gt;new(
+    consumer_key =&gt; &#39;maximus&#39;,
+    consumer_secret =&gt; &#39;secret&#39;,
+    access_token =&gt; &#39;token&#39;,
+    access_token_secret =&gt; &#39;secret&#39;,
+);
+
+# -or-
+
+use Net::Twitter;
+my $nt = Net::Twitter-&gt;new(
+    traits =&gt; [&#39;OAuth&#39;, &#39;API::REST&#39;],
+    consumer_key =&gt; &#39;maximus&#39;,
+    consumer_secret =&gt; &#39;secret&#39;,
+    access_token =&gt; &#39;token&#39;,
+    access_token_secret =&gt; &#39;secret&#39;,
+);
+
+$driver = Maximus::Class::Broadcast::Driver::Twitter-&gt;new( nt =&gt; $nt);
+
+# Finally...
+my $msg = Maximus::Class::Broadcast::Message-&gt;new(text =&gt; &#39;Hello world!&#39;);
+$driver-&gt;say($msg);</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Broadcast messages to Twitter.</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<h2 id="nt">nt</h2>
+
+<p>Net::Twitter object</p>
+
+<h2 id="consumer_key">consumer_key</h2>
+
+<p>Read-Only, used for creating a Net::Twitter object</p>
+
+<h2 id="consumer_key1">consumer_key</h2>
+
+<p>Read-Only, used for creating a Net::Twitter object</p>
+
+<h2 id="access_token">access_token</h2>
+
+<p>Read-Only, used for creating a Net::Twitter object</p>
+
+<h2 id="access_token_secret">access_token_secret</h2>
+
+<p>Read-Only, used for creating a Net::Twitter object</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="say-Maximus::Class::Broadcast::Message-msg-">say(<a rel="section" href="/Maximus/Class/Broadcast/Message.html" name="Maximus::Class::Broadcast::Message">Maximus::Class::Broadcast::Message</a> $msg)</h2>
+
+<p>Tweet the message</p>
+
+<h2 id="BUILD">BUILD</h2>
+
+<p>Allow the constructor to create a Net::Twitter object when none is passed</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christiaan Kras</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>Copyright (c) 2010-2013 Christiaan Kras</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+</body>
+</html>
+

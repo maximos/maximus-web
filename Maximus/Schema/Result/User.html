@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Schema::Result::User</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#ACCESSORS">ACCESSORS</a>
+    <ul>
+      <li><a href="#id">id</a></li>
+      <li><a href="#username">username</a></li>
+      <li><a href="#password">password</a></li>
+      <li><a href="#email">email</a></li>
+    </ul>
+  </li>
+  <li><a href="#RELATIONS">RELATIONS</a>
+    <ul>
+      <li><a href="#user_roles">user_roles</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#insert">insert</a></li>
+      <li><a href="#search_role_objects-pattern-">search_role_objects($pattern)</a></li>
+      <li><a href="#get_scms">get_scms</a></li>
+      <li><a href="#get_modscopes">get_modscopes</a></li>
+      <li><a href="#get_modscopes-role-">get_modscopes ($role)</a></li>
+      <li><a href="#is_superuser">is_superuser</a></li>
+      <li><a href="#sqlt_deploy_hook">sqlt_deploy_hook</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Schema::Result::User</p>
+
+<h1 id="ACCESSORS">ACCESSORS</h1>
+
+<h2 id="id">id</h2>
+
+<pre><code>data_type: &#39;integer&#39;
+extra: {unsigned =&gt; 1}
+is_auto_increment: 1
+is_nullable: 0</code></pre>
+
+<h2 id="username">username</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 45</code></pre>
+
+<h2 id="password">password</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 40</code></pre>
+
+<h2 id="email">email</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 45</code></pre>
+
+<h1 id="RELATIONS">RELATIONS</h1>
+
+<h2 id="user_roles">user_roles</h2>
+
+<p>Type: has_many</p>
+
+<p>Related object: <a rel="section" href="/Maximus/Schema/Result/UserRole.html" name="Maximus::Schema::Result::UserRole">Maximus::Schema::Result::UserRole</a></p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="insert">insert</h2>
+
+<p>Inserting a user record will also insert a role with a value of <i>user-id-mutable</i>.</p>
+
+<h2 id="search_role_objects-pattern-">search_role_objects($pattern)</h2>
+
+<p>Search for object id&#39;s in user roles.</p>
+
+<p><code>$pattern</code> can be either a Regexp or a string. When using a string only supply the prefix, e.g. <i>scm</i> for <i>^scm-\d+</i></p>
+
+<h2 id="get_scms">get_scms</h2>
+
+<p>Retrieve all SCM&#39;s this user has access to</p>
+
+<h2 id="get_modscopes">get_modscopes</h2>
+
+<h2 id="get_modscopes-role-">get_modscopes (<i>$role</i>)</h2>
+
+<p>Retrieve all modscopes this user has access to. Defaults to role <i>readable</i>.</p>
+
+<h2 id="is_superuser">is_superuser</h2>
+
+<p>See if the user has the <i>is_superuser</i> role</p>
+
+<h2 id="sqlt_deploy_hook">sqlt_deploy_hook</h2>
+
+<p>Force MySQL to use InnoDB and UTF-8</p>
+
+</body>
+</html>
+

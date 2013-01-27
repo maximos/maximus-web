@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>maximus_fastcgi</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>maximus_fastcgi.pl - Catalyst FastCGI</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>maximus_fastcgi.pl [options]</p>
+
+<pre><code>Options:
+  -? -help      display this help and exits
+  -l --listen   Socket path to listen on
+                (defaults to standard input)
+                can be HOST:PORT, :PORT or a
+                filesystem path
+  -n --nproc    specify number of processes to keep
+                to serve requests (defaults to 1,
+                requires -listen)
+  -p --pidfile  specify filename for pid file
+                (requires -listen)
+  -d --daemon   daemonize (requires -listen)
+  -M --manager  specify alternate process manager
+                (FCGI::ProcManager sub-class)
+                or empty string to disable
+  -e --keeperr  send error messages to STDOUT, not
+                to the webserver</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Run a Catalyst application as fastcgi.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Catalyst Contributors, see Catalyst.pm</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>This library is free software. You can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+</body>
+</html>
+

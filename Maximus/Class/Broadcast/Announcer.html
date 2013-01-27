@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Class::Broadcast::Announcer</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a>
+    <ul>
+      <li><a href="#logger">logger</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#getListeners">getListeners</a></li>
+      <li><a href="#addListener">addListener</a></li>
+      <li><a href="#countListeners">countListeners</a></li>
+      <li><a href="#say-string-msg-">say(string $msg)</a></li>
+      <li><a href="#say-text-msg-">say(text =&gt; $msg)</a></li>
+      <li><a href="#say-Maximus::Class::Broadcast::Message-">say(Maximus::Class::Broadcast::Message)</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Class::Broadcast::Announcer - Announcer for updates</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>use Maximus::Class::Broadcast::Announcer;
+my $ann = Maximus::Class::Broadcast::Announcer-&gt;new;
+my $listener = Maximus::Class::Announcer::Driver::Null-&gt;new;
+$listener-&gt;init();
+$ann-&gt;addListener($listener);
+
+my $count = $ann-&gt;countListeners;
+my @listeners = $ann-&gt;getListeners;
+
+my $msg = Maximus::Class::Broadcast::Message-&gt;new(text =&gt; &#39;Hello world!&#39;);
+$ann-&gt;say($msg);
+$ann-&gt;say(&#39;Hello world!&#39;);
+$ann-&gt;say(text =&gt; &#39;Hello world!&#39;);</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Provides a generic interface to make announcements about updates, such as newly upload modules and such.</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<h2 id="logger">logger</h2>
+
+<p>A <a href="http://search.cpan.org/perldoc?Log::Log4perl::Logger">Log::Log4perl::Logger</a> object</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="getListeners">getListeners</h2>
+
+<p>Retrieve array with all listeners</p>
+
+<h2 id="addListener">addListener</h2>
+
+<p>Add listener</p>
+
+<h2 id="countListeners">countListeners</h2>
+
+<p>Return listener count</p>
+
+<h2 id="say-string-msg-">say(string $msg)</h2>
+
+<h2 id="say-text-msg-">say(text =&gt; $msg)</h2>
+
+<h2 id="say-Maximus::Class::Broadcast::Message-">say(<a rel="section" href="/Maximus/Class/Broadcast/Message.html" name="Maximus::Class::Broadcast::Message">Maximus::Class::Broadcast::Message</a>)</h2>
+
+<p>Announce a message to all listeners, returns the message.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christiaan Kras</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>Copyright (c) 2010-2013 Christiaan Kras</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+</body>
+</html>
+

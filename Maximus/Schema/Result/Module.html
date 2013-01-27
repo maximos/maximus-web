@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Schema::Result::Module</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#ACCESSORS">ACCESSORS</a>
+    <ul>
+      <li><a href="#id">id</a></li>
+      <li><a href="#scm_id">scm_id</a></li>
+      <li><a href="#modscope_id">modscope_id</a></li>
+      <li><a href="#name">name</a></li>
+      <li><a href="#desc">desc</a></li>
+      <li><a href="#scm_settings">scm_settings</a></li>
+    </ul>
+  </li>
+  <li><a href="#RELATIONS">RELATIONS</a>
+    <ul>
+      <li><a href="#modscope">modscope</a></li>
+      <li><a href="#scm">scm</a></li>
+      <li><a href="#module_versions">module_versions</a></li>
+      <li><a href="#sqlt_deploy_hook">sqlt_deploy_hook</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Schema::Result::Module</p>
+
+<h1 id="ACCESSORS">ACCESSORS</h1>
+
+<h2 id="id">id</h2>
+
+<pre><code>data_type: &#39;integer&#39;
+extra: {unsigned =&gt; 1}
+is_auto_increment: 1
+is_nullable: 0</code></pre>
+
+<h2 id="scm_id">scm_id</h2>
+
+<pre><code>data_type: &#39;integer&#39;
+extra: {unsigned =&gt; 1}
+is_foreign_key: 1
+is_nullable: 1</code></pre>
+
+<h2 id="modscope_id">modscope_id</h2>
+
+<pre><code>data_type: &#39;integer&#39;
+extra: {unsigned =&gt; 1}
+is_foreign_key: 1
+is_nullable: 0</code></pre>
+
+<h2 id="name">name</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 45</code></pre>
+
+<h2 id="desc">desc</h2>
+
+<pre><code>data_type: &#39;varchar&#39;
+is_nullable: 0
+size: 255</code></pre>
+
+<h2 id="scm_settings">scm_settings</h2>
+
+<pre><code>data_type: &#39;text&#39;
+is_nullable: 0</code></pre>
+
+<h1 id="RELATIONS">RELATIONS</h1>
+
+<h2 id="modscope">modscope</h2>
+
+<p>Type: belongs_to</p>
+
+<p>Related object: <a rel="section" href="/Maximus/Schema/Result/Modscope.html" name="Maximus::Schema::Result::Modscope">Maximus::Schema::Result::Modscope</a></p>
+
+<h2 id="scm">scm</h2>
+
+<p>Type: belongs_to</p>
+
+<p>Related object: <a rel="section" href="/Maximus/Schema/Result/Scm.html" name="Maximus::Schema::Result::Scm">Maximus::Schema::Result::Scm</a></p>
+
+<h2 id="module_versions">module_versions</h2>
+
+<p>Type: has_many</p>
+
+<p>Related object: <a rel="section" href="/Maximus/Schema/Result/ModuleVersion.html" name="Maximus::Schema::Result::ModuleVersion">Maximus::Schema::Result::ModuleVersion</a></p>
+
+<h2 id="sqlt_deploy_hook">sqlt_deploy_hook</h2>
+
+<p>Force MySQL to use InnoDB and UTF-8</p>
+
+</body>
+</html>
+

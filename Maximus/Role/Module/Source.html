@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>Maximus::Role::Module::Source</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a>
+    <ul>
+      <li><a href="#version">version</a></li>
+      <li><a href="#meta_data">meta_data</a></li>
+      <li><a href="#validated">validated</a></li>
+      <li><a href="#tmpDir">tmpDir</a></li>
+      <li><a href="#processDir">processDir</a></li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#prepare">prepare</a></li>
+      <li><a href="#validate-module-">validate($module)</a></li>
+      <li><a href="#findDependencies-module-">findDependencies($module)</a></li>
+      <li><a href="#archive-module-fh-">archive($module, $fh)</a></li>
+      <li><a href="#findAndMoveRootDir-module-">findAndMoveRootDir($module)</a></li>
+      <li><a href="#DEMOLISH">DEMOLISH</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Maximus::Role::Module::Source - Interface for module source handlers</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>package Maximus::Class::Module::Source::SCM::Foo;
+use Moose;
+
+with &#39;Maximus::Role::Module::Source&#39;;</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This is the interface for all Maximus::Class::Module::Source classes</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<h2 id="version">version</h2>
+
+<p>Version of module this source represents</p>
+
+<h2 id="meta_data">meta_data</h2>
+
+<p>Module meta_data, such as its license and author(s)</p>
+
+<h2 id="validated">validated</h2>
+
+<p>Returns true if <code>validate</code> succeeded.</p>
+
+<h2 id="tmpDir">tmpDir</h2>
+
+<p>Retrieve path to temporary directory for file storage. This directory wil be automatically cleaned up.</p>
+
+<h2 id="processDir">processDir</h2>
+
+<p>Another temporary directory to which the module files will be copied. This will allow for module uploads that contain a full modscope. Either through SCM or a ZIP Archive. This is done to make sure we&#39;ll only archive the intended module.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="prepare">prepare</h2>
+
+<p>Prepare contents of temporarily directory to validate against the <i>validate</i> method of <a href="http://search.cpan.org/perldoc?Maximus::Class::Module::Source::Base">Maximus::Class::Module::Source::Base</a></p>
+
+<h2 id="validate-module-">validate(<i>$module</i>)</h2>
+
+<p>Validate directory structure and its contents to see if it can be archived. <i>$module</i> ISA Maximus::Class::Module</p>
+
+<h2 id="findDependencies-module-">findDependencies(<i>$module</i>)</h2>
+
+<p>Analyze BlitzMax source code to find dependent modules. Returns an array with at each index an array of which the first value is the modscope, and the second the modname. <i>$module</i> ISA Maximus::Class::Module</p>
+
+<h2 id="archive-module-fh-">archive(<i>$module</i>, <i>$fh</i>)</h2>
+
+<p>Create an archive out of the contents of the temporarily directory <i>$fh</i> should be a <code>IO::Handle</code> or any other derived handle. Returns the name of the archive on success.</p>
+
+<h2 id="findAndMoveRootDir-module-">findAndMoveRootDir(<i>$module</i>)</h2>
+
+<p>Find the location of the mainfile and move the contents of this directory to the root of the temporary directory. After that it cleans out SCM specific directories.</p>
+
+<h2 id="DEMOLISH">DEMOLISH</h2>
+
+<p>Moose deconstructor. Makes sure the temporary directories are cleaned up.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christiaan Kras</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>Copyright (c) 2010-2013 Christiaan Kras</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+</body>
+</html>
+

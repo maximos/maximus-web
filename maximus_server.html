@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Pod::Site 0.53" />
+    <title>maximus_server</title>
+  </head>
+  <body class="pod">
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>maximus_server.pl - Catalyst Test Server</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>maximus_server.pl [options]</p>
+
+<pre><code>-d --debug           force debug mode
+-f --fork            handle each request in a new process
+                     (defaults to false)
+-? --help            display this help and exits
+-h --host            host (defaults to all)
+-p --port            port (defaults to 3000)
+-k --keepalive       enable keep-alive connections
+-r --restart         restart when files get modified
+                     (defaults to false)
+-rd --restart_delay  delay between file checks
+                     (ignored if you have Linux::Inotify2 installed)
+-rr --restart_regex  regex match files that trigger
+                     a restart when modified
+                     (defaults to &#39;\.yml$|\.yaml$|\.conf|\.pm$&#39;)
+--restart_directory  the directory to search for
+                     modified files, can be set mulitple times
+                     (defaults to &#39;[SCRIPT_DIR]/..&#39;)
+--follow_symlinks    follow symlinks in search directories
+                     (defaults to false. this is a no-op on Win32)
+--background         run the process in the background
+--pidfile            specify filename for pid file
+
+ See also:
+perldoc Catalyst::Manual
+perldoc Catalyst::Manual::Intro</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Run a Catalyst Testserver for this application.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Catalyst Contributors, see Catalyst.pm</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>This library is free software. You can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+</body>
+</html>
+
