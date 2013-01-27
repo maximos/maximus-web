@@ -23,4 +23,4 @@ maximus.conf
 *.orig
 !/puppet/*
 /script/init.d/*
-/html/*
+/docs/*
