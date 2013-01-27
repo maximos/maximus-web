@@ -79,6 +79,7 @@ test_requires 'Test::More'                              => '0.88';
 test_requires 'Test::Exception'                         => '0.31';
 test_requires 'Test::WWW::Mechanize::Catalyst'          => '0.56';
 test_requires 'Net::FTP::Mock'                          => '0.103300';
+recommends 'App::HTTPThis'                              => '0.002';
 recommends 'FCGI'                                       => '0.71';
 recommends 'FCGI::ProcManager'                          => '0.19';
 recommends 'Plack'                                      => '0.9978';

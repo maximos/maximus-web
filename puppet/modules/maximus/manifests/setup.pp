@@ -99,6 +99,30 @@ class maximus::setup {
             ]
     }
 
+    exec { "http_this":
+        command => "cpanm -n App::HTTPThis",
+        require => Exec['cpanm'],
+    }
+
+    exec { "podsite":
+        command => "cpanm -n Pod::Site",
+        require => Exec['cpanm'],
+    }
+
+    exec { "generate_podsite":
+        command => "podsite --name Maximus -m Maximus -t --doc-root=docs --base-uri=/ lib script",
+        cwd => "/vagrant",
+        require => Exec['podsite'],
+    }
+
+    exec { "maximus_docs":
+        command => "perl script/init.d/maximus_docs.pl restart",
+        cwd => "/vagrant",
+        require => [
+                Exec['generate_podsite', 'http_this'],
+            ]
+    }
+
     file { "/vagrant/maximus.conf":
         content => template("maximus/maximus.conf.erb"),
     }
@@ -120,6 +144,13 @@ class maximus::setup {
     file { "maximus_mojo.pl":
         path => "/vagrant/script/init.d/maximus_mojo.pl",
         source => "${params::filepath}/maximus/files/maximus_mojo.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "maximus_docs.pl":
+        path => "/vagrant/script/init.d/maximus_docs.pl",
+        source => "${params::filepath}/maximus/files/maximus_docs.pl",
         ensure => present,
         require => File['/vagrant/script/init.d'],
     }

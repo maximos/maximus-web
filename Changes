@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+    - Added a doc/pod browser for Vagrant users, connect at
+      http://localhost:3002. Documentation is regenerated every time vagrant
+      provision has run
     - Now setting HTTP cache headers for sources file and timeline feeds
     - Loading PageCache plugin last as advised
     - SCM settings for Git can now have their main branch specified (gh-118)
