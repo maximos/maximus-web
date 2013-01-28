@@ -12,7 +12,7 @@ BEGIN { use_ok 'Maximus' }
 
 plan skip_all => 'Set MAXIMUS_CONFIG_LOCAL_SUFFIX to \'testing\'!'
   unless defined($ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX})
-      && $ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX} eq 'testing';
+  && $ENV{MAXIMUS_CONFIG_LOCAL_SUFFIX} eq 'testing';
 
 my $schema = Maximus->model('DB')->schema;
 ok(!$schema->get_db_version(), 'Database not versioned');

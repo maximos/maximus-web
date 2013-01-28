@@ -11,6 +11,9 @@ class maximus::setup {
             "libxml2-dev",
             "libexpat1-dev",
             "rabbitmq-server",
+            "coffeescript",
+            "vim",
+            "tmux",
             ]:
         ensure => present,
         require => Exec['apt_update'],
@@ -85,7 +88,7 @@ class maximus::setup {
     }
 
     exec { "maximus_server":
-        command => "perl script/init.d/maximus_server.pl start",
+        command => "perl script/init.d/maximus_server.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
@@ -94,7 +97,7 @@ class maximus::setup {
     }
 
     exec { "maximus_worker":
-        command => "perl script/init.d/maximus_worker.pl start",
+        command => "perl script/init.d/maximus_worker.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
@@ -103,10 +106,34 @@ class maximus::setup {
     }
 
     exec { "maximus_mojo":
-        command => "perl script/init.d/maximus_mojo.pl start",
+        command => "perl script/init.d/maximus_mojo.pl restart",
         cwd => "/vagrant",
         require => [
                 Exec['maximus_dependencies', 'maximus-sql'],
+            ]
+    }
+
+    exec { "http_this":
+        command => "cpanm -n App::HTTPThis",
+        require => Exec['cpanm'],
+    }
+
+    exec { "podsite":
+        command => "cpanm -n Pod::Site",
+        require => Exec['cpanm'],
+    }
+
+    exec { "generate_podsite":
+        command => "podsite --name Maximus -m Maximus -t --doc-root=docs --base-uri=/ lib script",
+        cwd => "/vagrant",
+        require => Exec['podsite'],
+    }
+
+    exec { "maximus_docs":
+        command => "perl script/init.d/maximus_docs.pl restart",
+        cwd => "/vagrant",
+        require => [
+                Exec['generate_podsite', 'http_this'],
             ]
     }
 
@@ -135,6 +162,13 @@ class maximus::setup {
     file { "maximus_mojo.pl":
         path => "/vagrant/script/init.d/maximus_mojo.pl",
         source => "${params::filepath}/maximus/files/maximus_mojo.pl",
+        ensure => present,
+        require => File['/vagrant/script/init.d'],
+    }
+
+    file { "maximus_docs.pl":
+        path => "/vagrant/script/init.d/maximus_docs.pl",
+        source => "${params::filepath}/maximus/files/maximus_docs.pl",
         ensure => present,
         require => File['/vagrant/script/init.d'],
     }

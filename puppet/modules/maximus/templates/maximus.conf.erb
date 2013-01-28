@@ -63,11 +63,35 @@ client_version 1.1.1
     disabled 1
 </require_ssl>
 
+<% if scope.lookupvar('params::recaptcha') %>
 # These keys are for testing purposes only (works on localhost only)
-#<recaptcha>
-#   pub_key     6LcsbAAAAAAAAPDSlBaVGXjMo1kJHwUiHzO2TDze
-#   priv_key    6LcsbAAAAAAAANQQGqwsnkrTd7QTGRBKQQZwBH-L
-#   <options>
-#       theme white
-#   </options>
-#</recaptcha>
+<recaptcha>
+   pub_key     6LcsbAAAAAAAAPDSlBaVGXjMo1kJHwUiHzO2TDze
+   priv_key    6LcsbAAAAAAAANQQGqwsnkrTd7QTGRBKQQZwBH-L
+   <options>
+       theme white
+   </options>
+</recaptcha>
+<% end %>
+
+<% if scope.lookupvar('params::upload_transport') == 'filesystem' %>
+<Transport>
+    driver FileSystem
+    <options>
+        base_url http://localhost:3000/static/archives
+        destination /vagrant/root/static/archives
+    </options>
+</Transport>
+<% elsif scope.lookupvar('params::upload_transport') == 'ftp' %>
+<Transport>
+    driver FTP
+    <options>
+        base_url http://localhost:3000/static/archives
+        destination /vagrant/root/static/archives
+        hostname localhost
+        port 21
+        username vagrant
+        password vagrant
+    </options>
+</Transport>
+<% end %>

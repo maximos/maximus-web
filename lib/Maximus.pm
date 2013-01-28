@@ -11,13 +11,13 @@ use Catalyst qw/
   Authorization::Roles
   Assets
   Cache
-  PageCache
   RequireSSL
   Static::Simple
   Session
   Session::Store::DBIC
   Session::State::Cookie
   StackTrace
+  PageCache
   /;
 use Log::Log4perl::Catalyst;
 use Template::Stash;
@@ -57,8 +57,13 @@ __PACKAGE__->config(
             default_expires_in => 3600,
         },
     },
-    'Plugin::PageCache' => {disable_index => 0,},
-    'Plugin::Session'   => {
+    'Plugin::PageCache' => {
+        disable_index    => 0,
+        set_http_headers => 1,
+        expires          => 3600,
+        auto_cache       => ['/module/sources/.+', '/timeline/(atom|rss)'],
+    },
+    'Plugin::Session' => {
         dbic_class => 'DB::Session',
         expires    => 3600,
     },
@@ -119,7 +124,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

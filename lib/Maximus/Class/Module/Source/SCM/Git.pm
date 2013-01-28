@@ -20,6 +20,8 @@ has 'local_repository' => (is => 'ro', isa => 'Str', required => 1);
 
 has 'tags_filter' => (is => 'rw', isa => 'Str', default => '');
 
+has 'main_branch' => (is => 'rw', isa => 'Str', default => sub {'master'});
+
 sub init_repo {
     my $self = shift;
     use autodie;
@@ -31,12 +33,14 @@ sub init_repo {
     my $localrepo = Path::Class::Dir->new($self->local_repository, '.git');
     unless (-d $localrepo->absolute) {
         push @cmd,
-          sprintf('%s clone --recursive %s %s',
-            $GIT, $self->repository, $self->local_repository);
+          sprintf('%s clone --recursive --branch %s %s %s',
+            $GIT, $self->main_branch, $self->repository,
+            $self->local_repository);
     }
     else {
-        push @cmd, sprintf('%s pull origin master', $GIT);
-        push @cmd, sprintf('git submodule update',  $GIT);
+        push @cmd, sprintf('%s checkout %s',    $GIT, $self->main_branch);
+        push @cmd, sprintf('%s pull origin %s', $GIT, $self->main_branch);
+        push @cmd, sprintf('git submodule update', $GIT);
     }
     system $_ for @cmd;
     chdir $cwd;
@@ -74,8 +78,8 @@ sub prepare {
     dircopy($path->absolute->stringify, $self->tmpDir) or confess($!);
 
     my @cleanup = (
-        sprintf('%s checkout master', $GIT),
-        sprintf('%s branch -d %s', $GIT, $branch),
+        sprintf('%s checkout %s',  $GIT, $self->main_branch),
+        sprintf('%s branch -D %s', $GIT, $branch),
         sprintf('%s gc',           $GIT),
     );
     foreach (@cleanup) {
@@ -123,7 +127,7 @@ sub get_latest_revision {
         my ($sha1, $noise, $ref) = unpack('A40 A A*', $_);
         $heads{$ref} = $sha1;
     }
-    return $heads{'refs/heads/master'};
+    return $heads{'refs/heads/' . $self->main_branch};
 }
 
 around 'auto_discover' => sub {
@@ -135,8 +139,11 @@ around 'auto_discover' => sub {
 sub apply_scm_settings {
     my ($self, $scm_settings) = @_;
 
-    if (defined $scm_settings->{git_tags_filter}) {
-        $self->tags_filter($scm_settings->{git_tags_filter});
+    for (qw/git_main_branch git_tags_filter/) {
+        if (defined $scm_settings->{$_} && length $scm_settings->{$_} > 0) {
+            my $method = ($_ =~ /^git_(.+)$/)[0];
+            $self->$method($scm_settings->{$_});
+        }
     }
 }
 
@@ -172,6 +179,10 @@ If the repository hosts more modules then set this to filter the listing.
 e.g.: C<^v(.+)> if this module uses tags in the style of I<v0.01> or I<v0.3.0>.
 You MUST add a capture so the version string can be fetched.
 
+=head2 main_branch
+
+Defaults to master, change it to use a different branch.
+
 =head1 METHODS
 
 =head2 init_repo
@@ -188,7 +199,7 @@ Returns all versions
 
 =head2 get_latest_revision
 
-Retrieve latest revision of master
+Retrieve latest revision of C<main_branch>
 
 =head2 auto_discover
 
@@ -204,7 +215,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

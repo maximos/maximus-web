@@ -4,6 +4,6 @@
     <li>containing [% c.model('DB::Module').search_rs.count %] modules</li>
     <li>with a combined total of [% c.model('DB::ModuleVersion').search_rs.count %] versions</li>
     <li>with a combined total of [% c.model('DB::ModuleDependency').search_rs.count %] dependencies</li>
-    <li>provided by [% c.model('DB::User').search_rs.count %] module authors</li>
+    <li>provided by [% c.model('DB::User').search_rs.count %] module <a href="[% c.uri_for('/authors') %]">authors</a></li>
 </ul>
 

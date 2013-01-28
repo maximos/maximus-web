@@ -1,5 +1,15 @@
 Revision history for Maximus.
 
+    - Added a doc/pod browser for Vagrant users, connect at
+      http://localhost:3002. Documentation is regenerated every time vagrant
+      provision has run
+    - Now setting HTTP cache headers for sources file and timeline feeds
+    - Loading PageCache plugin last as advised
+    - SCM settings for Git can now have their main branch specified (gh-118)
+    - Added FTP and FileSystem transport (gh-135)
+    - Authors are now listed on the /authors page (gh-90)
+    - Converted JavaScript to CoffeeScript
+
 1.003002  2012-09-17
     - Fixed bug in BlitzMax lexer (gh-133)
 
