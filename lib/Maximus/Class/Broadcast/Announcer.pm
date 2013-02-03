@@ -92,7 +92,6 @@ Add listener
 
 Return listener count
 
-
 =head2 say(string $msg)
 
 =head2 say(text => $msg)
@@ -100,7 +99,6 @@ Return listener count
 =head2 say(L<Maximus::Class::Broadcast::Message>)
 
 Announce a message to all listeners, returns the message.
-
 
 =head1 AUTHOR
 
