@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Updated My Account page as the "under development" message was heavily
+      outdated
     - Improved documentation
     - Minimal required Perl is now 5.12
 
