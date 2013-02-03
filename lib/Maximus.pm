@@ -1,5 +1,5 @@
 package Maximus;
-use 5.10.1;
+use 5.12.0;
 use Moose;
 use namespace::autoclean;
 
