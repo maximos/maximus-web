@@ -16,14 +16,7 @@
         [% INCLUDE form/input.tt field='name' %]
         [% INCLUDE form/input.tt field='desc' %]
         [% INCLUDE form/select_single.tt field='scm_id' %]
-        <div id="scm_git" class="scm_tab">
-            [% INCLUDE form/input.tt field='git_tags_filter' %]
-        </div>
-        <div id="scm_svn" class="scm_tab">
-            [% INCLUDE form/input.tt field='svn_trunk' %]
-            [% INCLUDE form/input.tt field='svn_tags' %]
-            [% INCLUDE form/input.tt field='svn_tags_filter' %]
-        </div>
+        [% INCLUDE scm/options.tt %]
         <dd><input type="submit" name="submit" value="Save" /></dd>
     </dl>
 </form>

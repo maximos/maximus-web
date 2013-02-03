@@ -3,7 +3,7 @@ class maximus::sql {
 
     exec { 'create-db':
         unless => "/usr/bin/mysql -u${params::dbuser} -p${params::dbpass} ${params::dbname}",
-        command => "/usr/bin/mysql -e \"CREATE DATABASE ${params::dbname}; GRANT ALL ON ${params::dbname}.* TO ${params::dbuser}@localhost IDENTIFIED BY '${params::dbpass}';\"",
+        command => "/usr/bin/mysql -e \"CREATE DATABASE ${params::dbname}; GRANT ALL ON ${params::dbname}.* TO ${params::dbuser}@'%' IDENTIFIED BY '${params::dbpass}';\"",
         require => Service["mysql"],
     }
 

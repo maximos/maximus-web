@@ -10,6 +10,11 @@ has_field 'scm_id' => (
     label         => 'SCM Configuration',
 );
 
+has_field 'git_main_branch' => (
+    type  => 'Text',
+    label => 'Main branch (master)',
+);
+
 has_field 'git_tags_filter' => (
     type  => 'Text',
     label => 'Tags filter (regular expression, leave empty for default)',
@@ -78,6 +83,8 @@ Module description
 
 User object
 
+=head2 git_main_branch
+
 =head2 git_tags_filter
 
 =head2 svn_trunk
@@ -96,7 +103,7 @@ Christiaan Kras
 
 =head1 LICENSE
 
-Copyright (c) 2010-2012 Christiaan Kras
+Copyright (c) 2010-2013 Christiaan Kras
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
