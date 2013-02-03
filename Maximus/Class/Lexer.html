@@ -12,6 +12,7 @@
   <li><a href="#NAME">NAME</a></li>
   <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
   <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#TOKENS">TOKENS</a></li>
   <li><a href="#METHODS">METHODS</a>
     <ul>
       <li><a href="#tokens-input_iterator-">tokens(<i>$input_iterator</i>)</a></li>
@@ -35,6 +36,66 @@ my @tokens = $lexer-&gt;tokens(&#39;string&#39;);</code></pre>
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
 <p>Provides a minimal BlitzMax lexer to retrieve information about dependant modules and which files the module depends on.</p>
+
+<h1 id="TOKENS">TOKENS</h1>
+
+<dl>
+
+<dt>COMMENT</dt>
+<dd>
+
+<p>BlitzMax comments start with <code>&#39;</code> for single lines or multiple lines between <code>Rem</code> and <code>End Rem</code> keywords.</p>
+
+</dd>
+<dt>MODULEDESCRIPTION</dt>
+<dd>
+
+<p>The module description from the <code>bbdoc:</code> part above the <code>Module</code> declaration.</p>
+
+</dd>
+<dt>MODULENAME</dt>
+<dd>
+
+<p>The module nam from the <code>bbdoc:</code> part above the <code>Module</code> declaration.</p>
+
+</dd>
+<dt>MODULEVERSION</dt>
+<dd>
+
+<p>The module version number from a <code>ModuleInfo</code> line.</p>
+
+</dd>
+<dt>MODULEAUTHOR</dt>
+<dd>
+
+<p>The module author(s) from a <code>ModuleInfo</code> line.</p>
+
+</dd>
+<dt>MODULELICENSE</dt>
+<dd>
+
+<p>The module license from a <code>ModuleInfo</code> line.</p>
+
+</dd>
+<dt>HISTORY</dt>
+<dd>
+
+<p>The module history from a <code>ModuleInfo</code> line.</p>
+
+</dd>
+<dt>DEPENDENCY</dt>
+<dd>
+
+<p>Dependencies are found with <code>Import</code> and <code>Framework</code> keywords.</p>
+
+</dd>
+<dt>INCLUDE_FILE</dt>
+<dd>
+
+<p>Included files are found with the <code>Include</code> and <code>Import</code> keywords when the included or imported file ends with <code>.bmx</code>.</p>
+
+</dd>
+</dl>
 
 <h1 id="METHODS">METHODS</h1>
 

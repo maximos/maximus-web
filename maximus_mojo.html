@@ -4,13 +4,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="generator" content="Pod::Site 0.53" />
-    <title>Maximus::View::Feed</title>
+    <title>maximus_mojo</title>
   </head>
   <body class="pod">
 
 <ul id="index">
   <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
   <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#HELPERS">HELPERS</a>
+    <ul>
+      <li><a href="#cfg">cfg</a></li>
+      <li><a href="#db">db</a></li>
+    </ul>
+  </li>
+  <li><a href="#ROUTES">ROUTES</a>
+    <ul>
+      <li><a href="#module-download-:scope-:modules-version">/module/download/:scope/:modules/#version</a></li>
+    </ul>
+  </li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
   <li><a href="#SEE-ALSO">SEE ALSO</a></li>
   <li><a href="#AUTHOR">AUTHOR</a></li>
   <li><a href="#LICENSE">LICENSE</a></li>
@@ -18,15 +31,39 @@
 
 <h1 id="NAME">NAME</h1>
 
-<p>Maximus::View::Feed - XML::Feed View for Maximus</p>
+<p>maximus_mojo.pl - Mojolicious::Lite app</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>maximus_mojo.pl [options]</p>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p><a href="http://search.cpan.org/perldoc?XML::Feed">XML::Feed</a> view for Maximus.</p>
+<p>This <a href="http://search.cpan.org/perldoc?Mojolicious::Lite">Mojolicious::Lite</a> app can be used to run a lightweight service for serving module packages from the database.</p>
+
+<h1 id="HELPERS">HELPERS</h1>
+
+<h2 id="cfg">cfg</h2>
+
+<p>Loads the <code>maximus.conf</code> file using <a href="http://search.cpan.org/perldoc?Config::Any">Config::Any</a>. Which file to load can be modified by setting the <code>MAXIMUS_CONFIG_LOCAL_SUFFIX</code> environment variable.</p>
+
+<h2 id="db">db</h2>
+
+<p>Helper for setting up the database connection. Returns a <a href="http://search.cpan.org/perldoc?Maximus::Schema">Maximus::Schema</a> object.</p>
+
+<h1 id="ROUTES">ROUTES</h1>
+
+<h2 id="module-download-:scope-:modules-version">/module/download/:scope/:modules/#version</h2>
+
+<p>Serve module file from database or remote_location if it has been set. Route matches that of the Catalyst application.</p>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<p>Set <code>MAXIMUS_CONFIG_LOCAL_SUFFIX</code> to specify which config file to be additonally loaded. Set it to <code>testing</code> to load <code>maximus_testing.conf</code>.</p>
 
 <h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<p><a rel="section" href="/Maximus.html" name="Maximus">Maximus</a>, <a href="http://search.cpan.org/perldoc?XML::Feed">XML::Feed</a></p>
+<p><a href="http://search.cpan.org/perldoc?Mojolicious">Mojolicious</a>, <a href="http://search.cpan.org/perldoc?Mojolicious::Lite">Mojolicious::Lite</a></p>
 
 <h1 id="AUTHOR">AUTHOR</h1>
 
