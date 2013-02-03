@@ -54,7 +54,7 @@ The actual message
 
 =head2 date
 
-The publication date and time
+The publication date and time, expects a L<DateTime> object.
 
 =head2 type
 
@@ -72,7 +72,7 @@ This message type indicates it's a module announcement.
 
 =item MSG_TYPE_AUTHOR
 
-This message type indicates it's a author announcement.
+This message type indicates it's an author announcement.
 
 =back
 

@@ -155,33 +155,34 @@ Maximus::Class::Module - Represents a module
 
 =head1 DESCRIPTION
 
-This class represents a module
+This class represents a module.
 
 =head1 ATTRIBUTES
 
 =head2 modscope
 
-Modscope (namespace) of module, e.g. B<brl>.example
+Modscope (namespace) of module, e.g. B<brl>.example.
 
 =head2 mod
 
-Name of module, e.g. brl.B<example>
+Name of module, e.g. brl.B<example>.
 
 =head2 desc
 
-Description of module
+Description of module.
 
 =head2 source
 
-Source location. Needs to be a class which does L<Maximus::Role::Module::Source>
+Source location. Needs to be a class which does
+L<Maximus::Role::Module::Source>.
 
 =head2 scm_settings
 
-SCM specific settings
+SCM specific settings.
 
 =head2 schema
 
-L<DBIx::Class schema>
+A L<DBIx::Class::Schema> object.
 
 =head2 announcer
 

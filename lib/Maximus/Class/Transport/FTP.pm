@@ -92,7 +92,7 @@ This transport drivers uses FTP to store files remotely.
 
 =head2 base_url
 
-The remote base url of the storage location
+The remote base url of the storage location.
 
 =head2 destination
 
@@ -104,11 +104,11 @@ FTP hostname.
 
 =head2 port
 
-FTP port, defaults to 21.
+FTP port, defaults to C<21>.
 
 =head2 username
 
-FTP username, defaults to anonymous.
+FTP username, defaults to C<anonymous>.
 
 =head2 password
 

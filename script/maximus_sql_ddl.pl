@@ -19,6 +19,10 @@ maximus_sql_ddl.pl [options]
 
 Generate SQL update files.
 
+=head1 SEE ALSO
+
+L<maximus_sql_upgrade.pl>
+
 =head1 AUTHORS
 
 Christiaan Kras

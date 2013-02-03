@@ -16,6 +16,10 @@ maximus_sql_upgrade.pl
 
 Upgrade database to latest version
 
+=head1 SEE ALSO
+
+L<maximus_sql_ddl.pl>
+
 =head1 AUTHORS
 
 Christiaan Kras

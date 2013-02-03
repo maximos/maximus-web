@@ -18,6 +18,10 @@ maximus_worker.pl [options]
 
 Run a Gearman worker for Maximus tasks from the command line.
 
+=head1 SEE ALSO
+
+L<maximus_task>
+
 =head1 AUTHORS
 
 Christiaan Kras

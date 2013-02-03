@@ -117,8 +117,51 @@ Maximus::Class::Lexer - BlitzMax Lexer
 Provides a minimal BlitzMax lexer to retrieve information about dependant
 modules and which files the module depends on.
 
-=head1 METHODS
+=head1 TOKENS
 
+=over 4
+
+=item COMMENT
+
+BlitzMax comments start with C<'> for single lines or multiple lines between
+C<Rem> and C<End Rem> keywords.
+
+=item MODULEDESCRIPTION
+
+The module description from the C<bbdoc:> part above the C<Module> declaration.
+
+=item MODULENAME
+
+The module nam from the C<bbdoc:> part above the C<Module> declaration.
+
+=item MODULEVERSION
+
+The module version number from a C<ModuleInfo> line.
+
+=item MODULEAUTHOR
+
+The module author(s) from a C<ModuleInfo> line.
+
+=item MODULELICENSE
+
+The module license from a C<ModuleInfo> line.
+
+=item HISTORY
+
+The module history from a C<ModuleInfo> line.
+
+=item DEPENDENCY
+
+Dependencies are found with C<Import> and C<Framework> keywords.
+
+=item INCLUDE_FILE
+
+Included files are found with the C<Include> and C<Import> keywords when the
+included or imported file ends with C<.bmx>.
+
+=back
+
+=head1 METHODS
 
 =head2 tokens(I<$input_iterator>)
 

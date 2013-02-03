@@ -20,6 +20,10 @@ maximus_task.pl [options]
 
 Run a Maximus task from the command line.
 
+=head1 SEE ALSO
+
+L<maximus_worker>
+
 =head1 AUTHORS
 
 Christiaan Kras

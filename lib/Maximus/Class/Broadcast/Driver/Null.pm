@@ -44,7 +44,6 @@ Contains the number of times C<say> has been called.
 
 Ignores the message but adds 1 to the C<counter> attribute.
 
-
 =head1 AUTHOR
 
 Christiaan Kras

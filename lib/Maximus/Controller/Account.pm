@@ -286,13 +286,25 @@ Catalyst Controller to manage accounts
 
 =head2 index
 
+My Account page, only visible when logged in. Redirects to C<login> when not
+logged in.
+
 =head2 login
+
+Login to get access to My Account.
 
 =head2 logout
 
+Logout a logged in account.
+
 =head2 signup
 
+Signing up a new account. If C<recaptcha> is configured it'll use the reCAPTCHA
+service to prevent bots from signing up.
+
 =head2 forgot_password
+
+Allows a user to reset an account's password.
 
 =head2 reset_password
 

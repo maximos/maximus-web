@@ -46,6 +46,13 @@ inside L<Catalyst> action.
 
 =head2 COMPONENT
 
+Loads configured drivers and composes the
+L<Maximus::Class::Broadcast::Announcer> object.
+
+=head1 SEE ALSO
+
+L<Maximus::Class::Broadcast::Announcer>
+
 =head1 AUTHOR
 
 Christiaan Kras

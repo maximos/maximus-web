@@ -13,7 +13,7 @@ L<XML::Feed> view for Maximus.
 
 =head1 SEE ALSO
 
-L<Maximus>
+L<Maximus>, L<XML::Feed>
 
 =head1 AUTHOR
 

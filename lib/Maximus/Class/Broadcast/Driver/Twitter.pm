@@ -91,33 +91,27 @@ Maximus::Class::Broadcast::Driver::Twitter - Tweet broadcasts
 
 Broadcast messages to Twitter.
 
-
 =head1 ATTRIBUTES
 
 =head2 nt
 
-Net::Twitter object
-
-
-=head2 consumer_key
-
-Read-Only, used for creating a Net::Twitter object
-
+A L<Net::Twitter> object
 
 =head2 consumer_key
 
 Read-Only, used for creating a Net::Twitter object
 
+=head2 consumer_key
+
+Read-Only, used for creating a Net::Twitter object
 
 =head2 access_token
 
 Read-Only, used for creating a Net::Twitter object
 
-
 =head2 access_token_secret
 
 Read-Only, used for creating a Net::Twitter object
-
 
 =head1 METHODS
 
@@ -125,11 +119,9 @@ Read-Only, used for creating a Net::Twitter object
 
 Tweet the message
 
-
 =head2 BUILD
 
-Allow the constructor to create a Net::Twitter object when none is passed
-
+Allow the constructor to create a L<Net::Twitter> object when none is passed
 
 =head1 AUTHOR
 

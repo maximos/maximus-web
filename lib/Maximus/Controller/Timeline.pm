@@ -94,11 +94,24 @@ website.
 
 =head2 base
 
+Collects all announcements and stores them in the stash as C<announcements>.
+This is use by C<index>, C<atom> and C<rss>.
+
 =head2 index
+
+Normal HTML view of the timeline.
 
 =head2 atom
 
+Generates an Atom feed.
+
 =head2 rss
+
+Generates a RSS feed.
+
+=head1 SEEO ALSO
+
+L<Maximus::View::Feed>
 
 =head1 AUTHOR
 
