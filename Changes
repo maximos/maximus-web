@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Script::SQL::DDL now also generates a schema file for PostgreSQL
     - Updated My Account page as the "under development" message was heavily
       outdated
     - Improved documentation
