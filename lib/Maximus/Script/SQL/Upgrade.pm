@@ -43,6 +43,10 @@ Upgrade database to latest version
 
 =head2 _run_application
 
+=head1 SEE ALSO
+
+L<maximus_sql_upgrade.pl>
+
 =head1 AUTHOR
 
 Christiaan Kras

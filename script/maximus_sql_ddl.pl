@@ -21,7 +21,7 @@ Generate SQL update files.
 
 =head1 SEE ALSO
 
-L<maximus_sql_upgrade.pl>
+L<maximus_sql_upgrade.pl>, L<Maximus::Script::SQL::DDL>
 
 =head1 AUTHORS
 

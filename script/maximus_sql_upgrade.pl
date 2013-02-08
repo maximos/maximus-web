@@ -18,7 +18,7 @@ Upgrade database to latest version
 
 =head1 SEE ALSO
 
-L<maximus_sql_ddl.pl>
+L<maximus_sql_ddl.pl>, L<Maximus::Script::SQL::Upgrade>
 
 =head1 AUTHORS
 

@@ -62,6 +62,10 @@ The version of the database to create an upgrade file for
 
 =head2 _run_application
 
+=head1 SEE ALSO
+
+L<maximus_sql_ddl.pl>
+
 =head1 AUTHOR
 
 Christiaan Kras
