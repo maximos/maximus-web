@@ -87,6 +87,8 @@ recommends 'Plack::Middleware::ReverseProxy'            => '0.09';
 recommends 'Starman'                                    => '0.2010';
 recommends 'Mojolicious'                                => '3.20';
 recommends 'Pod::Site'                                  => '0.53';
+recommends 'DBD::Pg'                                    => '2.19.3';
+recommends 'DateTime::Format::Pg'                       => '0.16008';
 catalyst;
 perl_version '5.012001';
 license 'MIT';
