@@ -89,7 +89,7 @@ __PACKAGE__->add_columns(
     {data_type => "text", is_nullable => 0},
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("Index_3", ["modscope_id", "name"]);
+__PACKAGE__->add_unique_constraint("idx_module_1", ["modscope_id", "name"]);
 
 =head1 RELATIONS
 

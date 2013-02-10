@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Sun Jul  8 20:51:44 2012
+-- Created on Sun Feb 10 10:34:22 2013
 -- 
 SET foreign_key_checks=0;
 
@@ -50,7 +50,7 @@ CREATE TABLE `role` (
   `id` integer unsigned NOT NULL auto_increment,
   `role` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE `Index_2` (`role`)
+  UNIQUE `idx_role_1` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
 DROP TABLE IF EXISTS `scm`;
@@ -92,7 +92,7 @@ CREATE TABLE `user` (
   `password` varchar(40) NOT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE `Index_2` (`username`)
+  UNIQUE `idx_user_1` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
 DROP TABLE IF EXISTS `module`;
@@ -110,7 +110,7 @@ CREATE TABLE `module` (
   INDEX `module_idx_modscope_id` (`modscope_id`),
   INDEX `module_idx_scm_id` (`scm_id`),
   PRIMARY KEY (`id`),
-  UNIQUE `Index_3` (`modscope_id`, `name`),
+  UNIQUE `idx_module_1` (`modscope_id`, `name`),
   CONSTRAINT `module_fk_modscope_id` FOREIGN KEY (`modscope_id`) REFERENCES `modscope` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `module_fk_scm_id` FOREIGN KEY (`scm_id`) REFERENCES `scm` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
@@ -144,7 +144,7 @@ CREATE TABLE `module_version` (
   `meta_data` text,
   INDEX `module_version_idx_module_id` (`module_id`),
   PRIMARY KEY (`id`),
-  UNIQUE `Index_3` (`module_id`, `version`),
+  UNIQUE `idx_module_version_1` (`module_id`, `version`),
   CONSTRAINT `module_version_fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
@@ -160,7 +160,7 @@ CREATE TABLE `module_dependency` (
   `modname` varchar(45) NOT NULL,
   INDEX `module_dependency_idx_module_version_id` (`module_version_id`),
   PRIMARY KEY (`id`),
-  UNIQUE `Index_3` (`module_version_id`, `modscope`, `modname`),
+  UNIQUE `idx_module_dependency_1` (`module_version_id`, `modscope`, `modname`),
   CONSTRAINT `module_dependency_fk_module_version_id` FOREIGN KEY (`module_version_id`) REFERENCES `module_version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 

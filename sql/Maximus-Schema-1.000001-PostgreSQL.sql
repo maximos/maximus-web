@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::PostgreSQL
--- Created on Fri Feb  8 17:42:13 2013
+-- Created on Sun Feb 10 10:34:22 2013
 -- 
 --
 -- Table: announcement
@@ -44,7 +44,7 @@ CREATE TABLE "role" (
   "id" serial NOT NULL,
   "role" character varying(25) NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "Index_2" UNIQUE ("role")
+  CONSTRAINT "idx_role_1" UNIQUE ("role")
 );
 
 --
@@ -83,7 +83,7 @@ CREATE TABLE "user" (
   "password" character varying(40) NOT NULL,
   "email" character varying(45) NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "Index_2" UNIQUE ("username")
+  CONSTRAINT "idx_user_1" UNIQUE ("username")
 );
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE "module" (
   "desc" character varying(255) NOT NULL,
   "scm_settings" text NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "Index_3" UNIQUE ("modscope_id", "name")
+  CONSTRAINT "idx_module_1" UNIQUE ("modscope_id", "name")
 );
 CREATE INDEX "module_idx_modscope_id" on "module" ("modscope_id");
 CREATE INDEX "module_idx_scm_id" on "module" ("scm_id");
@@ -127,7 +127,7 @@ CREATE TABLE "module_version" (
   "archive" bytea,
   "meta_data" text,
   PRIMARY KEY ("id"),
-  CONSTRAINT "Index_3" UNIQUE ("module_id", "version")
+  CONSTRAINT "idx_module_version_1" UNIQUE ("module_id", "version")
 );
 CREATE INDEX "module_version_idx_module_id" on "module_version" ("module_id");
 
@@ -141,7 +141,7 @@ CREATE TABLE "module_dependency" (
   "modscope" character varying(45) NOT NULL,
   "modname" character varying(45) NOT NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "Index_3" UNIQUE ("module_version_id", "modscope", "modname")
+  CONSTRAINT "idx_module_dependency_1" UNIQUE ("module_version_id", "modscope", "modname")
 );
 CREATE INDEX "module_dependency_idx_module_version_id" on "module_dependency" ("module_version_id");
 

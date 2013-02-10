@@ -48,7 +48,7 @@ __PACKAGE__->add_columns(
     {data_type => "varchar", is_nullable => 0, size => 25},
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("Index_2", ["role"]);
+__PACKAGE__->add_unique_constraint("idx_role_1", ["role"]);
 
 =head1 RELATIONS
 

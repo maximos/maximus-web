@@ -83,7 +83,8 @@ __PACKAGE__->add_columns(
     {data_type => "text", is_nullable => 1},
 );
 __PACKAGE__->set_primary_key("id");
-__PACKAGE__->add_unique_constraint("Index_3", ["module_id", "version"]);
+__PACKAGE__->add_unique_constraint("idx_module_version_1",
+    ["module_id", "version"]);
 
 =head1 RELATIONS
 

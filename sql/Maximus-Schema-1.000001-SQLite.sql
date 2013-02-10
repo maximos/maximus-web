@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Jul  8 20:51:48 2012
+-- Created on Sun Feb 10 10:34:22 2013
 -- 
 
 BEGIN TRANSACTION;
@@ -51,7 +51,7 @@ CREATE TABLE role (
   role varchar(25) NOT NULL
 );
 
-CREATE UNIQUE INDEX Index_2 ON role (role);
+CREATE UNIQUE INDEX idx_role_1 ON role (role);
 
 --
 -- Table: scm
@@ -92,7 +92,7 @@ CREATE TABLE user (
   email varchar(45) NOT NULL
 );
 
-CREATE UNIQUE INDEX Index_202 ON user (username);
+CREATE UNIQUE INDEX idx_user_1 ON user (username);
 
 --
 -- Table: module
@@ -114,7 +114,7 @@ CREATE INDEX module_idx_modscope_id ON module (modscope_id);
 
 CREATE INDEX module_idx_scm_id ON module (scm_id);
 
-CREATE UNIQUE INDEX Index_3 ON module (modscope_id, name);
+CREATE UNIQUE INDEX idx_module_1 ON module (modscope_id, name);
 
 --
 -- Table: user_role
@@ -150,7 +150,7 @@ CREATE TABLE module_version (
 
 CREATE INDEX module_version_idx_module_id ON module_version (module_id);
 
-CREATE UNIQUE INDEX Index_302 ON module_version (module_id, version);
+CREATE UNIQUE INDEX idx_module_version_1 ON module_version (module_id, version);
 
 --
 -- Table: module_dependency
@@ -167,6 +167,6 @@ CREATE TABLE module_dependency (
 
 CREATE INDEX module_dependency_idx_module_version_id ON module_dependency (module_version_id);
 
-CREATE UNIQUE INDEX Index_303 ON module_dependency (module_version_id, modscope, modname);
+CREATE UNIQUE INDEX idx_module_dependency_1 ON module_dependency (module_version_id, modscope, modname);
 
 COMMIT;
