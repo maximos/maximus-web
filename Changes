@@ -1,5 +1,7 @@
 Revision history for Maximus.
 
+    - Moved some search queries into the ResultSet namespace to clean up the
+      controllers
     - Fixed table index names since PostgreSQL doesn't allow duplicates
     - Script::SQL::DDL now also generates a schema file for PostgreSQL
     - Updated My Account page as the "under development" message was heavily

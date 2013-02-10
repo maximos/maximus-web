@@ -110,14 +110,8 @@ sub add : Chained('base') : PathPart('new') : Args(0) {
 sub get_module : Chained('base') : PathPart('') : CaptureArgs(2) {
     my ($self, $c, $scope, $modname) = @_;
 
-    my $rs = $c->model('DB::Module')->search(
-        {   'modscope.name' => $scope,
-            'me.name'       => $modname,
-        },
-        {   join     => 'modscope',
-            prefetch => 'modscope',
-        }
-    );
+    my $rs =
+      $c->model('DB::Module')->search_by_modscope_and_name($scope, $modname);
 
     $c->detach('/error_404') unless $rs->count == 1;
 

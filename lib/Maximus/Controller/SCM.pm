@@ -183,9 +183,7 @@ sub autodiscover : Chained('get_scm') : PathPart('autodiscover') : Args(0) {
             # Search if module exists so we can use its existing description
             my $module_rs =
               $c->model('DB::Module')
-              ->search({'modscope.name' => $_->[0], 'me.name' => $_->[1]},
-                {join => [qw/modscope/]});
-
+              ->search_by_modscope_and_name($_->[0], $_->[1]);
             my $desc = $module_rs->first ? $module_rs->first->desc : undef;
             $desc = $_->[2] unless $desc;
             push @modules,

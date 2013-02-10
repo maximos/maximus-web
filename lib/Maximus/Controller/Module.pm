@@ -71,27 +71,14 @@ sub modscope : Path : Args(1) {
 sub module : Path : Args(2) {
     my ($self, $c, $scope, $modname) = @_;
 
-    my $rs = $c->model('DB::Module')->search(
-        {   'modscope.name' => $scope,
-            'me.name'       => $modname,
-        },
-        {   join     => 'modscope',
-            prefetch => 'modscope',
-        }
-    );
+    my $rs =
+      $c->model('DB::Module')->search_by_modscope_and_name($scope, $modname);
 
     $c->detach('/default') unless $rs->count == 1;
 
     my $module = $rs->first;
     my %versions;
-    my @module_versions = $module->search_related(
-        'module_versions',
-        undef,
-        {   columns  => [qw/id version meta_data remote_location/],
-            prefetch => 'module_dependencies',
-        }
-    );
-
+    my @module_versions = $module->module_versions_without_archive;
     foreach my $version (@module_versions) {
         my @deps;
         foreach my $dependantVersion ($version->module_dependencies) {
@@ -131,12 +118,9 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
     unless (($sources = $c->cache->get('sources_list'))
         && ($c->stash->{sortedVersions} = $c->cache->get('sources_list_sv')))
     {
-        my @modscope_rs = $c->model('DB::Modscope')->search(
-            undef,
-            {   order_by => {-desc => 'me.name',},
-                prefetch => 'modules',
-            }
-        );
+        my @modscope_rs =
+          $c->model('DB::Modscope')
+          ->search_prefetch_modules_order_by_name_desc;
 
         foreach my $modscope (@modscope_rs) {
             my $scope = $modscope->name;
@@ -145,15 +129,8 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                 my $modname = $module->name;
                 $sources->{$scope}->{$modname}->{desc} = $module->desc;
 
-              # Don't fetch `archive` because it contains the raw archive data
-              # and is expected to be a big resultset
-                my @module_versions = $module->search_related(
-                    'module_versions',
-                    undef,
-                    {   columns => [qw/id module_id version remote_location/],
-                        prefetch => 'module_dependencies',
-                    }
-                );
+                my @module_versions =
+                  $module->module_versions_without_archive;
 
                 foreach my $version (@module_versions) {
                     my @deps;
@@ -216,23 +193,14 @@ sub sources_xml : Chained('sources') : PathPart('xml') : Args(0) {
 sub download : Local : Args(3) {
     my ($self, $c, $modscope, $module, $version) = @_;
 
-    my @search = (
-        {   'modscope.name'           => $modscope,
-            'me.name'                 => $module,
-            'module_versions.version' => $version,
-        },
-        {join => [qw /modscope module_versions/],}
-    );
-
-    my $rs  = $c->model('DB::Module')->search(@search);
+    my $rs =
+      $c->model('DB::Module')
+      ->search_by_modscope_and_name_and_version($modscope, $module, $version);
     my $row = $rs->first;
     $c->detach('/error_404') unless $row;
 
-    my $version_rs = $row->search_related(
-        'module_versions',
-        {version => $version},
-        {columns => [qw/id remote_location/]}
-    );
+    my $version_rs =
+      $row->module_versions_only_id_and_remote_location($version);
     my $version_row = $version_rs->first();
     $c->detach('/error_404') unless $version_row;
     $c->res->redirect($version_row->remote_location) and $c->detach

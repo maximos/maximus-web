@@ -161,5 +161,24 @@ sub sqlt_deploy_hook {
     );
 }
 
+sub module_versions_without_archive {
+    return shift->search_related(
+        'module_versions',
+        undef,
+        {   columns  => [qw/id version meta_data remote_location/],
+            prefetch => 'module_dependencies',
+        }
+    );
+}
+
+sub module_versions_only_id_and_remote_location {
+    my ($self, $version) = @_;
+    return $self->search_related(
+        'module_versions',
+        {version => $version},
+        {columns => [qw/id remote_location/]}
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
