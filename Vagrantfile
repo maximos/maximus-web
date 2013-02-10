@@ -20,6 +20,7 @@ Vagrant::Config.run do |config|
     config.vm.forward_port 3002, 3002 # For maximus_docs.pl
     config.vm.forward_port 3306, 33060 # For MySQL, change bind-address in
                                        # /etc/mysql/my.cnf to 0.0.0.0 to use it
+    config.vm.forward_port 5432, 54320 # For PostgreSQL
     config.vm.forward_port 22, 2222
 
     config.vm.customize ["modifyvm", :id, "--memory", 512]
