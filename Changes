@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added examples for using SQLite or PostgreSQL in maximus.default.conf
     - Moved some search queries into the ResultSet namespace to clean up the
       controllers
     - Fixed table index names since PostgreSQL doesn't allow duplicates
