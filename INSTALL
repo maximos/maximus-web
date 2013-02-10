@@ -59,7 +59,7 @@ Machine.
 INSTALLING MAXIMUS-WEB ON UBUNTU 10.04
 
 This guide is intended to help you install maximus-web on Ubuntu 10.04. Although
-targeted at 10.04 the steps are probably not much different for older versions.
+targeted at 10.04 the steps are probably not much different for other versions.
 You should follow this guide if you plan to run maximus-web on a production
 server. Usage of Vagrant is only recommended for development.
 
@@ -112,9 +112,7 @@ Create user called maximus. By default we expect the password to be 'demo'.
 
     $ mysql -umaximus -p --database maximus < sql/Maximus-Schema-0.001-MySQL.sql
     
-In case of an upgrade run the following command. For now, if the password is
-something other than 'demo' please alter the maximus_sql-upgrade.sql script
-before running it.
+In case of an upgrade run the following command.
 
     $ perl script/maximus_sql-upgrade.pl
 
@@ -245,7 +243,7 @@ Then add host to /etc/lighttpd/lighttpd.conf like this:
 This will make lighttpd serve the static files and passes application requests
 to the Maximus application.
 
-SELF SIGNED CERTIFICATE
+SELF SIGNED CERTIFICATE - SSL FOR APACHE
 
 Create a private key
 
@@ -268,3 +266,5 @@ Now self sign the certificate
 To use the certificate for to virtual host in Apache set SSLCertificateFile to
 server.crt and SSLCertificateKeyFile to server.key.
 
+By default maximus.conf disables require_ssl. Remove the require_ssl part to
+re-enable forced usage of HTTPS.
