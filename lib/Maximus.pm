@@ -61,7 +61,8 @@ __PACKAGE__->config(
         disable_index    => 0,
         set_http_headers => 1,
         expires          => 3600,
-        auto_cache       => ['/module/sources/.+', '/timeline/(atom|rss)'],
+        auto_cache =>
+          ['/module/sources/.+', '/timeline/(atom|rss)', '/sitemap/xml'],
     },
     'Plugin::Session' => {
         dbic_class => 'DB::Session',

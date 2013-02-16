@@ -66,6 +66,7 @@ requires 'Net::FTP::AutoReconnect'                      => '0.03';
 requires 'Path::Class'                                  => '0.19';
 requires 'SQL::Translator'                              => '0.11006';
 requires 'Storable'                                     => '2.21';
+requires 'Search::Sitemap'                              => '2.13';
 requires 'Template'                                     => '2.22';
 requires 'Template::Plugin::Digest::SHA1'               => '0.03';
 requires 'Template::Plugin::Cache'                      => '0.13';

@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added a XML Sitemap (gh-137)
     - Updated INSTALL
     - Added examples for using SQLite or PostgreSQL in maximus.default.conf
     - Moved some search queries into the ResultSet namespace to clean up the

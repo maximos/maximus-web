@@ -15,6 +15,63 @@ sub index : Path('/') {
     $c->stash(template => Path::Class::File->new(@args)->stringify);
 }
 
+sub xml_sitemap : Path('/sitemap.xml') : Args(0) {
+    my ($self, $c) = @_;
+
+    my @locations = (
+        {   loc        => $c->uri_for('/'),
+            priority   => 1.0,
+            changefreq => 'monthly',
+        },
+        {   loc        => $c->uri_for('/client'),
+            priority   => 1.0,
+            changefreq => 'monthly',
+        },
+        {   loc        => $c->uri_for('/timeline'),
+            priority   => 0.5,
+            changefreq => 'weekly',
+        },
+        {   loc        => $c->uri_for('/faq'),
+            priority   => 0.5,
+            changefreq => 'monthly',
+        },
+        {   loc        => $c->uri_for('/authors'),
+            priority   => 0.5,
+            changefreq => 'monthly',
+        },
+        {   loc      => $c->uri_for('/account/signup'),
+            priority => 0.5,
+        },
+        {   loc      => $c->uri_for('/account/login'),
+            priority => 0.5,
+        },
+        {   loc      => $c->uri_for('/account/forgot_password'),
+            priority => 0.1,
+        },
+        {   loc      => $c->uri_for('/module/modscopes'),
+            priority => 0.7,
+        },
+    );
+
+    foreach my $modscope (
+        $c->model('DB::Modscope')->search(undef, {prefetch => 'modules'}))
+    {
+        push @locations,
+          { loc      => $c->uri_for('/module', $modscope->name),
+            priority => 0.5,
+          };
+        foreach my $module ($modscope->modules) {
+            push @locations,
+              { loc => $c->uri_for('/module', $modscope->name, $module->name),
+                priority => 0.5,
+              };
+        }
+    }
+
+    $c->stash(sitemap => \@locations);
+    $c->forward('View::Sitemap');
+}
+
 __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
@@ -31,6 +88,10 @@ This controller is responsible for serving a number of static pages.
 
 Display template from I</static/templates/page/> directory. Redirects to a 404
 error page when not found.
+
+=head2 xml_sitemap
+
+Generates a XML Sitemap.
 
 =head1 AUTHOR
 
