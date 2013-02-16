@@ -4,40 +4,55 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="generator" content="Pod::Site 0.53" />
-    <title>Maximus::Controller::Page</title>
+    <title>Maximus::View::Sitemap</title>
   </head>
   <body class="pod">
 
 <ul id="index">
   <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
   <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
   <li><a href="#METHODS">METHODS</a>
     <ul>
-      <li><a href="#index">index</a></li>
-      <li><a href="#xml_sitemap">xml_sitemap</a></li>
+      <li><a href="#process">process</a></li>
     </ul>
   </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
   <li><a href="#AUTHOR">AUTHOR</a></li>
   <li><a href="#LICENSE">LICENSE</a></li>
 </ul>
 
 <h1 id="NAME">NAME</h1>
 
-<p>Maximus::Controller::Page - Static Page Controller</p>
+<p>Maximus::View::Sitemap - Catalyst View</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>$c-&gt;stash(
+    sitemap =&gt; [
+        {   loc        =&gt; &#39;/&#39;,
+            priority   =&gt; 1.0,
+            changefreq =&gt; &#39;monthly&#39;,
+        },
+        {   loc      =&gt; &#39;/client&#39;,
+            priority =&gt; 1.0,
+        },
+    ]
+);</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
-<p>This controller is responsible for serving a number of static pages.</p>
+<p>Catalyst View for rendering a XML Sitemap.</p>
 
 <h1 id="METHODS">METHODS</h1>
 
-<h2 id="index">index</h2>
+<h2 id="process">process</h2>
 
-<p>Display template from <i>/static/templates/page/</i> directory. Redirects to a 404 error page when not found.</p>
+<p>Process view.</p>
 
-<h2 id="xml_sitemap">xml_sitemap</h2>
+<h1 id="SEE-ALSO">SEE ALSO</h1>
 
-<p>Generates a XML Sitemap.</p>
+<p><a href="http://search.cpan.org/perldoc?Search::Sitemap">Search::Sitemap</a></p>
 
 <h1 id="AUTHOR">AUTHOR</h1>
 
