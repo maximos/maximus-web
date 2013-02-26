@@ -78,6 +78,7 @@ test_requires 'DateTime::Format::SQLite'                => '0.11';
 test_requires 'DBD::SQLite'                             => '1.29';
 test_requires 'Test::More'                              => '0.88';
 test_requires 'Test::Exception'                         => '0.31';
+test_requires 'Test::MockObject'                        => '1.20120301';
 test_requires 'Test::WWW::Mechanize::Catalyst'          => '0.56';
 test_requires 'Net::FTP::Mock'                          => '0.103300';
 recommends 'App::HTTPThis'                              => '0.002';
