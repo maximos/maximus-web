@@ -1,7 +1,5 @@
 package Maximus::Controller::Module;
 use Data::SearchEngine::Query;
-use Digest::MD5 qw(md5_hex);
-use IO::File;
 use JSON::Any;
 use Maximus::Form::Module::Search;
 use Maximus::Task::Module::Upload;
@@ -214,17 +212,12 @@ sub download : Local : Args(3) {
       unless Maximus::Task::Module::Upload->new(queue => 1)
       ->run($version_row->id);
 
-    my $fh = IO::File->new_tmpfile;
-    $fh->print($version_row->archive) or die($!);
-    $fh->seek(0, 0);
-
     my $filename = sprintf('%s-%s-%s.zip', $modscope, $module, $version);
     $c->res->header('Content-Disposition',
         qq[attachment; filename="$filename"]);
-    $c->res->header('ETag',           md5_hex($version_row->archive));
     $c->res->header('Content-Length', length($version_row->archive));
     $c->res->content_type('application/x-zip');
-    $c->res->body($fh);
+    $c->res->body($version_row->archive);
 }
 
 __PACKAGE__->meta->make_immutable;
