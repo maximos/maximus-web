@@ -1,5 +1,8 @@
 Revision history for Maximus.
 
+1.004001  2013-04-20
+    - Now assuming that the remote_location of an archive is a full url (gh-144)
+
 1.004000  2013-02-03
     - Added a doc/pod browser for Vagrant users, connect at
       http://localhost:3002. Documentation is regenerated every time vagrant
