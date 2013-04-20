@@ -167,8 +167,7 @@ sub sources : Chained('/') : PathPart('module/sources') : CaptureArgs(0) {
                     }
 
                     my $v = $version->version;
-                    my $location =
-                      $c->uri_for($version->remote_location)->as_string
+                    my $location = $version->remote_location
                       if ($version->remote_location);
 
                     $c->log->warn($location);
