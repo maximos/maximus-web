@@ -1,6 +1,5 @@
 Revision history for Maximus.
 
-    - Now assuming that the remote_location of an archive is a full url (gh-144)
     - Test for Twitter Broadcast driver now mocks Net::Twitter (gh-53)
     - Improved performance for processing download requests
     - Added a XML Sitemap (gh-137)
@@ -14,6 +13,9 @@ Revision history for Maximus.
       outdated
     - Improved documentation
     - Minimal required Perl is now 5.12
+
+1.004001  2013-04-20
+    - Now assuming that the remote_location of an archive is a full url (gh-144)
 
 1.004000  2013-02-03
     - Added a doc/pod browser for Vagrant users, connect at

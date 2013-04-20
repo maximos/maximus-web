@@ -24,7 +24,7 @@ use Template::Stash;
 
 extends 'Catalyst';
 
-our $VERSION = '1.004000';
+our $VERSION = '1.004001';
 $VERSION = eval $VERSION;
 
 # Configure the application.
