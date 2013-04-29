@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added the module description to the meta data of the announcement message
     - Test for Twitter Broadcast driver now mocks Net::Twitter (gh-53)
     - Improved performance for processing download requests
     - Added a XML Sitemap (gh-137)

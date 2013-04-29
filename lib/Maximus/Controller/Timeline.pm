@@ -49,6 +49,7 @@ sub build_feed : Chained('base') : PathPart('') : CaptureArgs(0) {
             title    => $announcement->[0]->message,
             modified => $announcement->[0]->date,
             link     => $announcement->[1]->{link},
+            summary  => $announcement->[0]->meta_data->{desc},
           };
     }
 

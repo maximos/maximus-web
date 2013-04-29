@@ -133,6 +133,7 @@ sub save {
                     scope   => $self->modscope,
                     name    => $self->mod,
                     version => $self->source->version,
+                    desc    => $self->desc,
                     author  => $user->username,
                 },
             }
