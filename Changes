@@ -1,5 +1,6 @@
 Revision history for Maximus.
 
+    - Added tmuxgo.sh script for quickly setting up a tmux session
     - Updated Vagrantfile for Vagrant 1.1
     - Added the module description to the meta data of the announcement message
     - Test for Twitter Broadcast driver now mocks Net::Twitter (gh-53)
