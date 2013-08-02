@@ -116,7 +116,7 @@ Maximus is the webinterface and module manager backend for BlitzMax.
 
 =head1 SEE ALSO
 
-L<Maximus::Controller::Root>, L<maximus_serverl>, L<maximus_create>,
+L<Maximus::Controller::Root>, L<maximus_server>, L<maximus_create>,
 L<maximus_fastcgi>, L<maximus_mojo>, L<maximus_sql_ddl>,
 L<maximus_sql_upgrade>, L<maximus_task>, L<maximus_test>, L<maximus_worker>,
 L<Catalyst>
